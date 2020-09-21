@@ -1,0 +1,19 @@
+---
+title: BLABLA
+author: ''
+date: '2020-09-18'
+slug: blabla
+categories:
+  - R
+tags:
+  - code
+type: ''
+subtitle: ''
+image: ''
+---
+
+```{r}
+data(iris)
+plot(iris$Sepal.Length)
+```
+

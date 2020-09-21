@@ -1,0 +1,403 @@
+---
+title: "Can Data Science make me a better angler? Part 2"
+author: ''
+date: '2020-09-18'
+slug: blog-article-2
+categories: []
+tags:
+  - map
+type: ''
+subtitle:  "Exploratory analysis on my fishing data"
+image: ''
+---
+
+      
+
+```{r setup, include=FALSE}
+
+ # md_document:
+ #    variant: markdown_github
+
+
+#knitr:: opts_knit$set(root.dir = normalizePath(".."))
+knitr:: opts_chunk$set(warning = FALSE, message = FALSE)
+library(tidyverse)
+library(skimr)
+library(magrittr)
+```
+
+## How did I create my fishing data ? 
+
+As a passionate R user and angler, I decided to create a shiny application to store data about my fishing session and my catches. In the previous blog article, I described in details the way I built it (link).
+Whenever I use my shiny application for fishing, it completes two csv files. The first one contains variables related to the fishing conditions at the beginning and at the end of the session : 
+
++ Time 
++ Longitude and Latitude
++ Meteorological conditions (9 in total : Air temperature, Atm. pressure, Wind speed and direction ...)
++ Tide conditions (Current water level, Tide status and Time since the tide peak)
+  + Specific comments
+
+The second one contains information about my catches : 
+
++ Time when caught 
++ Time since the beginning of the session 
++ Species 
++ Length of the fish 
++ Fishing lure used
++ Colour of the fishing lure 
++ Length of the lure
+
+
+## Importing and cleaning my fishing data 
+
+The first step of this analysis is to import both csv files. 
+
+```{r message=FALSE, warning=FALSE}
+session_data <- read_csv("/home/aurelien/Dropbox/FIshing_app/raw_data/session.csv")[-c(1:2),]
+
+session_data %<>% 
+  mutate_at(vars(Weather, Tide_status), as.factor)
+
+session_data %>% 
+  skim_without_charts() %>% 
+  select(-c(n_missing, complete_rate))
+```
+
+```{r}
+catch_data <- read_csv("/home/aurelien/Dropbox/FIshing_app/raw_data/catch.csv")
+
+catch_data %<>% 
+  mutate_at(vars(species, lure, colour, length_lure), as.factor)
+
+catch_data %>% 
+  skim_without_charts() %>% 
+  select(-c(n_missing, complete_rate))
+```
+
+
+Let's work on the session data before combining both files :
+
+```{r}
+
+# Compute mean conditions (between beg and end session) 
+
+mean_weather_cond <- session_data %>% 
+  group_by(Session) %>% 
+  select(-c(Long, Lat, Water_level, Tide_time)) %>% 
+  summarise_if(is.numeric, mean) 
+
+
+# Extract fixed conditions and comments + join with mean cond 
+
+fixed_cond_com <- session_data %>% 
+  group_by(Session) %>% 
+  select(Session, Comments, Long, Lat, Weather) %>% 
+  mutate(Comments_parsed = paste(na.omit(Comments), collapse = "")) %>% 
+  select(-Comments) %>% 
+  slice(1) %>% 
+  inner_join(mean_weather_cond, by = "Session")
+
+
+
+
+# Create end and beg variables for WL, Time , Tide_time, Tide_status
+
+beg_end_vars <- session_data %>% 
+  select(Session, Status, Water_level, Time, Tide_time, Tide_status) %>% 
+  pivot_wider(names_from = Status,
+              values_from = c(Time, Water_level,  Tide_time, Tide_status))
+
+
+# Assemble both file and calculate duration
+
+dat_ses <-  inner_join(beg_end_vars,
+                       fixed_cond_com,
+                       by = "Session")
+
+dat_ses %<>% 
+  mutate(duration = round(difftime(Time_end,  Time_beg,  units = "hours"),
+                          digits = 1))
+```
+
+
+Let's combine both files by nesting the catch data :
+
+```{r}
+catch_cond <- full_join(dat_ses,
+          catch_data, by = c( "Session" = "n_ses" )) %>% 
+  mutate(Session = factor(Session, levels = 1:length(dat_ses$Session)))
+
+
+catch_cond %<>%
+  mutate(Tide_status_ses = paste0(Tide_status_beg, "_", Tide_status_end))
+  
+catch_cond$Tide_status_ses <- sapply(catch_cond$Tide_status_ses , function(x){switch(x, 
+      "Up_Dead" = "Up",
+      "Up_Up" = "Up",
+      "Up_Down" = "Dead",
+      "Down_Dead" = "Down",
+      "Down_Up" = "Dead",
+      "Down_Down"  = "Down",
+      "Dead_Dead" = "Dead",
+      "Dead_Up" = "Up",
+      "Dead_Down" = "Down"
+)}, USE.NAMES = F)
+
+```
+
+
+## Graphical exploration
+
+### Map of the results 
+
+Once we have imported and cleaned the data we can first visualize the location I fished the most by using the *leaflet* package: 
+
+```{r}
+fish_number <-  catch_cond  %>% na.omit() %>% group_by(Session) %>%  summarise(nb = length(Session))
+
+map_data <- catch_cond %>% 
+  group_by(Session) %>%
+  select(Session, Time_beg, Time_end, Long,
+         Lat, Water_level_beg, Tide_status_beg, Tide_time_beg, duration) 
+
+map_data <- full_join(map_data, fish_number)
+
+map_data$nb[is.na(map_data$nb)] <- 0
+
+library(leaflet)
+
+leaflet(map_data) %>% addTiles() %>%
+  addPopups(lng = ~Long, lat = ~Lat, 
+            with(map_data, sprintf("<b>Session %.0f : %.1f h</b> <br/> %s <br/> %.0f  fish <br/> Water level: %.0f m, %s, %.0f min since last peak",                                         Session, duration,  Time_beg, nb, Water_level_beg, Tide_status_beg, Tide_time_beg)), 
+            options = popupOptions(maxWidth = 100, minWidth = 50))
+```
+
+
+### Some graphs to understand when to fish and with what lures 
+
+## When it is best to fish ? 
+
+The first thing to look at is the number of fishing caught depending on the time of the year : 
+```{r}
+catch_cond %>% 
+  group_by(Session, Time_beg, .drop = F) %>% 
+    na.omit() %>% 
+  summarise(n_catch = n()) %>% 
+   right_join(unique(catch_cond[, c("Session", "Time_beg")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>%
+ ggplot(aes(y = n_catch, x =Time_beg)) +
+  geom_point() + 
+  theme_minimal() + labs(x = "Date", y = "Number of catch") + scale_x_datetime(date_labels = "%d/%m/%y", date_breaks = "3 months")
+
+```
+
+I didn't go fishing during the autumn of 2019, I was too busy. Sadly, autumn is known to ne a great period for sea bass fishing. During winter, fishing is really complicated because the large majority of sea bass are returned to the ocean.
+
+This graph shows the number of fish I catch depending on the hour of the day :
+
+```{r}
+catch_cond %>% 
+  group_by(Session, Time_beg, .drop = F) %>% 
+    na.omit() %>% 
+  summarise(n_catch = n()) %>% 
+   right_join(unique(catch_cond[, c("Session", "Time_beg")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch ), 
+         hour = format(Time_beg, "%H")) %>%
+ ggplot(aes(y = n_catch, x =hour)) +
+  geom_point()  + labs(x = "Hour", y = "Number of catch")+
+  theme_minimal()
+
+```
+
+I mostly fish after work or during evenings. To draw relevant conclusions, I have to go fishing at different hours of the day (in the morning for example). 
+
+
+The tide is an important parameter for fising in estuaries. Let's see the effect of the tide current on my catches: 
+
+
+```{r}
+catch_cond %>% 
+  group_by(Session, Tide_status_ses, .drop = F)  %>%  
+  drop_na() %>% 
+  summarise(n_catch = n()) %>% 
+  right_join(unique(catch_cond[, c("Session", "Tide_status_ses")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>%
+ ggplot(aes(y = n_catch, x = Tide_status_ses, fill = Tide_status_ses)) +
+  geom_boxplot() + theme(legend.position = "none")+
+  theme_minimal()
+
+```
+
+
+```{r}
+catch_cond %>% 
+  na.omit() %>% 
+  ggplot(aes(x = length, fill = Tide_status_ses)) +
+  geom_boxplot()+
+  theme_minimal()
+
+```
+
+It seems that the status of the tide current does not influence the number of my catch but influences the length of the fish. I tend to catch bigger fish when the current is going down. 
+
+
+A widespread belief among fishermen is that the moon influence greatly the behaviour of the fish. Information about the moon phase were available thanks to the weather API, I decided to record this variable to investigate if the belief was true. 
+
+
+```{r}
+catch_cond %>% 
+  group_by(Session, Moon, .drop = F) %>%  
+  na.omit() %>% 
+  summarise(n_catch = n()) %>% 
+  right_join(unique(catch_cond[, c("Session", "Moon")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>% 
+  ggplot(aes(y = n_catch, x = Moon)) +
+  geom_point() +
+  labs(x = "Moon phase", y = "Number of catch")+
+  theme_minimal()
+```
+
+```{r}
+catch_cond %>% 
+  ggplot(aes(y = length, x = Moon)) +
+  geom_point() +
+  geom_smooth(method="lm", se=T) + 
+  labs(x = "Moon phase", y = "Number of catch")+
+  theme_minimal()
+```
+
+It does not seem to influence the number of fish I catch during a session but I tend to catch bigger fish. To confirm this observation, I need to keep going fishing to get more data ! 
+
+
+Investigation about the weather : 
+
+```{r}
+# precipitation probability 
+
+catch_cond %>% 
+  group_by(Session, Preci_prob, .drop = F) %>%  
+  na.omit() %>% 
+  summarise(n_catch = n()) %>% 
+  right_join(unique(catch_cond[, c("Session", "Preci_prob")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>% 
+  ggplot(aes(y = n_catch, x = Preci_prob)) +
+  geom_point()+
+  theme_minimal()
+
+# Atm pressure 
+
+catch_cond %>% 
+  group_by(Session, Atm_pres, .drop = F) %>%  
+  na.omit() %>% 
+  summarise(n_catch = n()) %>% 
+  right_join(unique(catch_cond[, c("Session", "Atm_pres")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>% 
+  ggplot(aes(y = n_catch, x = Atm_pres)) +
+  geom_point() +
+  theme_minimal()
+
+#Air temp
+
+catch_cond %>% 
+  group_by(Session, Air_temp, .drop = F) %>%  
+  na.omit() %>% 
+  summarise(n_catch = n()) %>% 
+  right_join(unique(catch_cond[, c("Session", "Air_temp")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>% 
+  ggplot(aes(y = n_catch, x = Air_temp)) +
+  geom_point() +
+  theme_minimal()
+
+
+#Cloud cover
+
+catch_cond %>% 
+  group_by(Session, Cloud_cover, .drop = F) %>%  
+  na.omit() %>% 
+  summarise(n_catch = n()) %>% 
+  right_join(unique(catch_cond[, c("Session", "Cloud_cover")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>% 
+  ggplot(aes(y = n_catch, x = Cloud_cover)) +
+  geom_point() +
+  theme_minimal()
+
+
+```
+
+
+
+Investigation about the lures : 
+
+```{r}
+catch_cond %>% 
+  na.omit() %>% 
+  ggplot( aes(x=lure)) +
+  geom_bar(stat="count", width=0.7, fill="steelblue")+
+  theme_minimal()
+
+catch_cond %>% 
+  na.omit() %>% 
+  ggplot( aes(x=colour)) +
+  geom_bar(stat="count", width=0.7, fill="steelblue")+
+  theme_minimal()
+
+catch_cond %>% 
+  na.omit() %>%
+  ggplot( aes(x=length_lure)) +
+  geom_bar(stat="count", width=0.7, fill="steelblue")+
+  theme_minimal()
+
+```
+ 
+
+
+```{r}
+catch_cond %>% 
+  na.omit() %>% 
+  ggplot(aes(y = length, x = lure)) +
+  geom_boxplot()+
+  theme_minimal()
+
+catch_cond %>% 
+  na.omit() %>%
+  ggplot(aes(y = length, x = colour)) +
+  geom_boxplot()+
+  theme_minimal()
+
+catch_cond %>% 
+  na.omit() %>%
+  ggplot(aes(y = length, x = length_lure)) +
+  geom_boxplot()+
+  theme_minimal()
+
+```
+ 
+```{r}
+
+learning_data <- dat_ses %>% 
+  mutate_at(vars(Session), as.factor) %>% 
+  left_join(fish_number) %>% 
+  mutate(nb = ifelse(is.na(nb), 0, nb ),
+         catch = ifelse(nb !=0, 1, 0 ))
+
+
+corr <- learning_data %>% 
+  select_if(is.numeric) %>%
+  select(-c(Long, Lat, Tide_time_beg,Tide_time_end,
+            Water_level_beg, Water_level_end, catch)) %>% 
+  cor() %>% round(1)
+
+library(ggcorrplot)
+
+ggcorrplot(corr, hc.order = TRUE, 
+           type = "lower", 
+           lab = TRUE, 
+           lab_size = 3, 
+           method="circle", 
+           colors = c("tomato2", "white", "springgreen3"), 
+           title="Correlogram of mtcars", 
+           ggtheme=theme_bw)
+```
+
+  
+

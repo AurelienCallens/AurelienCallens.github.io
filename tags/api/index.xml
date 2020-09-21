@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>API on Aurélien Callens</title>
+    <link>/tags/api/</link>
+    <description>Recent content in API on Aurélien Callens</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>aurelien.callens@gmail.com (Aurelien Callens)</managingEditor>
+    <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster>
+    <lastBuildDate>Tue, 08 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/api/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Can Data Science make me a better angler? Part 1</title>
+      <link>/post/ds_fishing_part_1/</link>
+      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>/post/ds_fishing_part_1/</guid>
+      <description>My favourite hobby, in addition to R of course, is fishing. Most of the time, I am fishing european sea bass (Dicentrarchus labrax) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artficial lures that imitate a specific prey.</description>
+    </item>
+    
+  </channel>
+</rss>

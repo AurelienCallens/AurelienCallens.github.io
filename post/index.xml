@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Aurélien Callens</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on Aurélien Callens</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>aurelien.callens@gmail.com (Aurelien Callens)</managingEditor>
+    <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster>
+    <lastBuildDate>Sat, 19 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Can Data Science make me a better angler? Part 2</title>
+      <link>/post/ds_fishing_part_2/</link>
+      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>/post/ds_fishing_part_2/</guid>
+      <description>In the previous blog article, I described in details how I built a shiny application that stores data about my fishing sessions. In this post, I will explore the data I have collected for the last year.
+To sum up, my application store the data in two csv files. The first one contains variables related to the fishing conditions at the beginning and at the end of the session :</description>
+    </item>
+    
+    <item>
+      <title>Can Data Science make me a better angler? Part 1</title>
+      <link>/post/ds_fishing_part_1/</link>
+      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>/post/ds_fishing_part_1/</guid>
+      <description>My favourite hobby, in addition to R of course, is fishing. Most of the time, I am fishing european sea bass (Dicentrarchus labrax) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artficial lures that imitate a specific prey.</description>
+    </item>
+    
+    <item>
+      <title>What do I do here ?</title>
+      <link>/post/2015-01-04-first-post/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>/post/2015-01-04-first-post/</guid>
+      <description>Here, I will present my projects and write articles on different subjects such as :
+ Statistcal analysis Data visualisation Shiny applications Web scrapping etc &amp;hellip;  All these articles will include R code and examples. Python users won&#39;t be left aside as I am currently learning this language !</description>
+    </item>
+    
+  </channel>
+</rss>

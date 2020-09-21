@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>map on Aurélien Callens</title>
+    <link>/tags/map/</link>
+    <description>Recent content in map on Aurélien Callens</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>aurelien.callens@gmail.com (Aurelien Callens)</managingEditor>
+    <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster>
+    <lastBuildDate>Fri, 18 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/map/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Can Data Science make me a better angler? Part 2</title>
+      <link>/post/blog-article-2/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>/post/blog-article-2/</guid>
+      <description>How did I create my fishing data ? As a passionate R user and angler, I decided to create a shiny application to store data about my fishing session and my catches. In the previous blog article, I described in details the way I built it (link). Whenever I use my shiny application for fishing, it completes two csv files. The first one contains variables related to the fishing conditions at the beginning and at the end of the session :</description>
+    </item>
+    
+  </channel>
+</rss>

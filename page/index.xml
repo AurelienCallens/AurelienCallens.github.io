@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pages on Aurélien Callens</title>
+    <link>/page/</link>
+    <description>Recent content in Pages on Aurélien Callens</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>aurelien.callens@gmail.com (Aurelien Callens)</managingEditor>
+    <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster>
+    
+	<atom:link href="/page/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Research</title>
+      <link>/page/research/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>/page/research/</guid>
+      <description>My publications   Callens, A., Morichon, D., Abadie, S., Delpey, M., Liquet, B. (2020). Using Random forest and Gradient boosting trees to improve wave forecast at a specific location. Applied Ocean Research, 104. https://doi.org/10.1016/j.apor.2020.102339
+  Morichon, D., de Santiago, I., Delpey, M., Somdecoste, T., Callens, A., Liquet, B., &amp;hellip; &amp;amp; Arnould, P. (2018). Assessment of flooding hazards at an engineered beach during extreme events: Biarritz, SW France.</description>
+    </item>
+    
+    <item>
+      <title>Who am I ?</title>
+      <link>/page/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>/page/about/</guid>
+      <description>My name is Aurélien Callens and I am a PhD Student in the Laboratory of Mathematics and its Applications of the University of Pau and Pays de l’Adour (South west of France). I am working to improve predictions of coastal hazards by doing statistical modelling.
+Education  PhD. Statistics, University of Pau and Pays de l’Adour, 2018-Now. Master of Science in Aquatic ecosystem dynamics, University of Pau and Pays de l’Adour, 2016-2018.</description>
+    </item>
+    
+  </channel>
+</rss>
