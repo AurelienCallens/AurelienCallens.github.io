@@ -1,4 +1,8 @@
-Aurélien Callens' personal webiste.
+## Description 
+
+This is the repository for Aurélien Callens' personal webiste accessible [here](https://aureliencallens.github.io/).
+
+
 
 ## About
 
