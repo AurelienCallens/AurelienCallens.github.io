@@ -22,6 +22,7 @@ body {
 }
 }
 
+
 p {
   line-height: 1.5;
   margin: 6px 0;
@@ -823,7 +824,7 @@ h4.see-also {
 .code-folding-btn { 
     margin-bottom: 4px; 
 }
-.row { 
+.row_button { 
     display: flex;
     border-bottom: solid 1px #d7d7d7;
 }
