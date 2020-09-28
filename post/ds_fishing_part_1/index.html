@@ -59,7 +59,7 @@
   "headline": "Can Data Science make me a better angler? Part 1",
   "description" : "My favourite hobby, in addition to R of course, is fishing. Most of the time, I am fishing european sea bass (Dicentrarchus labrax) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artficial lures that imitate a specific prey.",
   "inLanguage" : "en",
-  "wordCount":  2007 ,
+  "wordCount":  2028 ,
   "datePublished" : "2020-09-08T00:00:00",
   "dateModified" : "2020-09-08T00:00:00",
   "image" : "\/img\/avatar-icon.jpg",
@@ -507,7 +507,7 @@ weather &lt;- function(x, API_key){
 <div id="the-shiny-application" class="section level2">
 <h2>The shiny application</h2>
 <p>The main problem I encountered while developping this application was data storage without paying. Shinyapps
-host freely your shiny application but you can’t store and modify csv files on their server.
+host freely your shiny application but there were some problem when I used the shiny application to modify the csv files.
 The solution I found was to store the data in my dropbox account, you can find <a href="https://shiny.rstudio.com/articles/persistent-data-storage.html">here</a> more details on the subject and alternatives solutions. I used the package <em>rdrop2</em> to access and modify the data with the shiny application.</p>
 <p>Here are the main steps of this application :</p>
 <ol style="list-style-type: decimal">
@@ -752,6 +752,7 @@ observeEvent is provided in the script as commentary.</p>
 </div>
 <div id="conclusion-and-future-improvments" class="section level2">
 <h2>Conclusion and future improvments</h2>
+<p>You can find a dummy example of this application (not linked to the dropbox account) <a href="https://aureliencallens.shinyapps.io/Dummy_angler_app/">here</a>.</p>
 <p>I have been using this application for 1 year without any problems! The data I collected will be presented in the next post.</p>
 <p>In the coming months, I will improve this application on two points: the weather API and the tide function. I must find a new free API to replace the actual one. Indeed, the weather API I am using has been bought by Apple and the free requests will be stopped in the following year. For the tide function, the french website is now furnishing a data stream. Using the datastream instead of webscraping the tide levels should reduce the computation time of the function.</p>
 </div>

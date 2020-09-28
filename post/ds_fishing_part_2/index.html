@@ -59,7 +59,7 @@
   "headline": "Can Data Science make me a better angler? Part 2",
   "description" : "In the previous blog article, I described in details how I built a shiny application that stores data about my fishing sessions. In this post, I will explore the data I have collected for the last year.\nTo sum up, my application store the data in two csv files. The first one contains variables related to the fishing conditions at the beginning and at the end of the session :",
   "inLanguage" : "en",
-  "wordCount":  2987 ,
+  "wordCount":  3196 ,
   "datePublished" : "2020-09-19T00:00:00",
   "dateModified" : "2020-09-19T00:00:00",
   "image" : "\/img\/avatar-icon.jpg",
@@ -259,7 +259,7 @@ if (!doNotTrack) {
   <i class="fas fa-calendar"></i>&nbsp;Posted on September 19, 2020
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;15&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;16&nbsp;minutes
   
   
   
@@ -297,7 +297,7 @@ if (!doNotTrack) {
   <i class="fas fa-calendar"></i>&nbsp;Posted on September 19, 2020
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;15&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;16&nbsp;minutes
   
   
   
@@ -320,6 +320,8 @@ if (!doNotTrack) {
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
 <script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
 <link href="/rmarkdown-libs/leaflet/leaflet.css" rel="stylesheet" />
@@ -353,441 +355,578 @@ if (!doNotTrack) {
 <div id="importing-and-cleaning-my-fishing-data" class="section level2">
 <h2>Importing and cleaning my fishing data</h2>
 <p>The first step of this analysis is to import both csv files.</p>
-<pre class="r"><code>session_data %&lt;&gt;% 
-mutate_at(vars(Weather, Tide_status), as.factor)
-
-session_data %&gt;% 
-skim_without_charts() %&gt;% 
-select(-c(n_missing, complete_rate))</code></pre>
-<table>
-<caption><span id="tab:unnamed-chunk-1">Table 1: </span>Data summary</caption>
-<tbody>
-<tr class="odd">
-<td align="left">Name</td>
-<td align="left">Piped data</td>
-</tr>
-<tr class="even">
-<td align="left">Number of rows</td>
-<td align="left">76</td>
-</tr>
-<tr class="odd">
-<td align="left">Number of columns</td>
-<td align="left">18</td>
-</tr>
-<tr class="even">
-<td align="left">_______________________</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td align="left">Column type frequency:</td>
-<td align="left"></td>
-</tr>
-<tr class="even">
-<td align="left">character</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">factor</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">numeric</td>
-<td align="left">13</td>
-</tr>
-<tr class="odd">
-<td align="left">POSIXct</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">________________________</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td align="left">Group variables</td>
-<td align="left">None</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: character</strong></p>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table>
 <thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">min</th>
-<th align="right">max</th>
-<th align="right">empty</th>
-<th align="right">n_unique</th>
-<th align="right">whitespace</th>
+<tr>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+No
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Variable
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Stats / Values
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Freqs (% of Valid)
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Graph
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Status</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Session<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 19.5 (11)<br />
+min &lt; med &lt; max:<br />
+1 &lt; 19.5 &lt; 38<br />
+IQR (CV) : 19 (0.6)
+</td>
+<td style="text-align:left;">
+38 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAAAx0lEQVR42u3cwQmEMBBA0WRJeRawW6EWYH96nT0MiArin/9uEgx+iacE+9Zq+Dz9AIYaes6IF/MrP9hvz0biwPgfmpJb1htH7pyrtfXg6yizdA2lMZTGUBpDaQylMZTGUBpDaQylMZTGUBpDaQylKRM6rk/xtCXdA/yF7TRA6LF9tjJL11AaQ2kMpTGUxlAaQ2kMpTGUxlAaQ2kMpTGUxlAaQ2kMpTGUxlAaQ2kMpTGUxlCaHk8MvvMXIrl46LHD2lJllq6hNDtpzxGsqecnMwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMC0wOS0yOFQxNToyMDo1OSswMjowMNrNnD8AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDktMjhUMTU6MjA6NTkrMDI6MDCrkCSDAAAAAElFTkSuQmCC">
+</td>
 </tr>
-<tr class="even">
-<td align="left">Comments</td>
-<td align="right">9</td>
-<td align="right">149</td>
-<td align="right">0</td>
-<td align="right">11</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Time<br />
+[POSIXct, POSIXt]
+</td>
+<td style="text-align:left;">
+min : 2019-04-09 19:23:09<br />
+med : 2019-06-21 08:13:07<br />
+max : 2020-09-13 22:12:40<br />
+range : 1y 5m 4d 2H 49M 31S
+</td>
+<td style="text-align:left;">
+76 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAABB0lEQVR42u2bUQ6CMBAFreF4HkBPKAfwfvpbpQRsmrDMzvxB+Ogkbzdts5T3JQfXoxegqKJ9TPVDq17nlSK+l6OXvk29xGn781vj3etoh79JE11FaShKQ1EaitJQlIaiNBSloSgNRWkoSkNRGorSUJSGojQUpaEoDUVpKEojjeiO8ZtY9M49nU60d+4pTXQVpdFdo62mEHkQslt02RJiD0Kmia6iNBSloSiNNKKhTy/zwP/JQouO3H+lia6iNL5qdGTxR+OnGZ3t8LWfNNFVlEbwDcN+Wo30Ud1hYUS32mia6CpKY2iNRr7UHioaeV+VJrqK0ih1/3jCjmn1zqjA3FZJE11FaXwAiZEbDgWm9YwAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMDktMjhUMTU6MjA6NTkrMDI6MDDazZw/AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTA5LTI4VDE1OjIwOjU5KzAyOjAwq5AkgwAAAABJRU5ErkJggg==">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+Long<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : -1.5 (0)<br />
+min &lt; med &lt; max:<br />
+-1.5 &lt; -1.5 &lt; -1.5<br />
+IQR (CV) : 0 (0)
+</td>
+<td style="text-align:left;">
+69 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAABAElEQVR42u3cQQ6CMBQAUWs4HgfQE8oBvJ9uq0AwhP+L05kdLqgvlsaQQnld+uja+gsIFbqvoT6IvV6nhdPfSuSI9cmH3WfZ0fh1/Ewcu5upK5SWUFpCaQmlJZSWUFpCaQmlJZSWUFpCaXUDTb2BPS/v7n1j6Dj7JOrufTdTVygtobSE0hJKSygtobSE0hJKSygtobSE0hJKSygtobSE0hJKSyitbqCNN2v80jE7V/4Aesxzp31O3fyHkxtB2z6cnAo9qin9PRZLI96r2Ri2GOVtflsb8XO8E666MbPhhNCYdWITSlmJN6H511pMpf7BHrB3/tSrboHZVuvmL6BQWm+eSx4OoRmkewAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMC0wOS0yOFQxNToyMDo1OSswMjowMNrNnD8AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDktMjhUMTU6MjA6NTkrMDI6MDCrkCSDAAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+Lat<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 43.5 (0)<br />
+min &lt; med &lt; max:<br />
+43.5 &lt; 43.5 &lt; 43.5<br />
+IQR (CV) : 0 (0)
+</td>
+<td style="text-align:left;">
+70 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAAA00lEQVR42u3bQQqDMBBA0aZ4PA+gJ7QH6P3sdlzIqJTG/vl/JwbxQQy4mLY+avTs/QJChV5riBf3+V5fB15latmKuGDIFvdqTO6/Tz6vzNYVSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNIqA73tyFZePr82h+G0P4aem14rs3WF0hJKq8upe2SwGQH9/mBzXpmtK5SWUFqbU7fHsf+rWrQtMGj8TWsw225lvlGhtD4CaxEAG5fnLAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMC0wOS0yOFQxNToyMDo1OSswMjowMNrNnD8AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDktMjhUMTU6MjA6NTkrMDI6MDCrkCSDAAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+Air_temp<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 19.1 (4.7)<br />
+min &lt; med &lt; max:<br />
+10.6 &lt; 18.3 &lt; 30.7<br />
+IQR (CV) : 6.4 (0.2)
+</td>
+<td style="text-align:left;">
+73 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAABJ0lEQVR42u2bYQ6CMAxGmeF4HEBPKAfwfvp3uqmjGZR9fe8fBAgvaZuug/ScYnDxfgFEEbUx5wfWfF0rN16Tt9o05a8wm5/yxvJx/PB2LAgTuoiqgagaiKoRRtTQMKxNDdTZuiVTZ9TSBy3FGd9uKUzoIqoGomogqgaiaiCqBqJqIKoGomogqgaiaiCqRqcdbxv1Ufg+Y25X0SPH3GFCF1E1/uRo285ZK32f1lW0b7nw/BopTOgiqgaiaiCqBqJqIKoGomo4j1JqlIu5HlOkE4rus5gLE7qIqnHCHC1pKU+1edQtu2oI0bby9PuqMKGLqBpD5GjJ9lH4oKLbx+phQhdRNd5y1HO361DREf6+txImdBFVI+X15y5WjPJlWhJz+0qY0EVUjRcLzyYHLyBQOgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMC0wOS0yOFQxNToyMDo1OSswMjowMNrNnD8AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDktMjhUMTU6MjA6NTkrMDI6MDCrkCSDAAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+Weather<br />
+[factor]
+</td>
+<td style="text-align:left;">
+1. Clear<br />
+2. Drizzle<br />
+3. Humid<br />
+4. Humid and Mostly Cloudy<br />
+5. Humid and Partly Cloudy<br />
+6. Mostly Cloudy<br />
+7. Overcast<br />
+8. Partly Cloudy<br />
+9. Possible Light Rain<br />
+10. Windy and Mostly Cloudy
+</td>
+<td style="text-align:left;">
+\25 (32.9%)<br />
+ 1 ( 1.3%)<br />
+ 1 ( 1.3%)<br />
+ 2 ( 2.6%)<br />
+ 1 ( 1.3%)<br />
+\18 (23.7%)<br />
+ 8 (10.5%)<br />
+\17 (22.4%)<br />
+ 2 ( 2.6%)<br />
+ 1 ( 1.3%)
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAADEAAAC9CAQAAACw5100AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAABAUlEQVR42u3cQQ6CMBAFUGq8oDs9oew4oq5M0IiMLTVkfH/HhhdTwmeaxnIbeufQXUhCHOcX180W5lIWiGE4bQJMT1c51gKBQCCq8/Kmneru8jFlXhHb9fisLn6+FuNt7PBBkuOJQiAQiD8nErbeDwjFikAgEIiF5CjWp7n70XnnUnOrpbz8itNG26gfiB5BIBCIPRM2UYMx6yEQCAQikoSt1ydvx8nvsjZ8Np/JWf8syrEWCAQCUR3jZDDB1mvZVg21XtsK5XhoEQgEojpaL5jmWW+9Dxtnvcja5XhoEQgEojpaLxhncuqIHkEgEIg9E4o1GGdyEAgEAhFJ8Vc8uyHuiMY4G2PYZ8EAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMDktMjhUMTU6MjA6NTkrMDI6MDDazZw/AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTA5LTI4VDE1OjIwOjU5KzAyOjAwq5AkgwAAAABJRU5ErkJggg==">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+Atm_pres<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 1017.7 (6.2)<br />
+min &lt; med &lt; max:<br />
+996.8 &lt; 1017.3 &lt; 1028.6<br />
+IQR (CV) : 7.2 (0)
+</td>
+<td style="text-align:left;">
+70 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAAA9klEQVR42u3cQQ7CIBQAUTE9ngfQE+oBvJ9ucVEISAqdP7MzxtaXfJLWEtPnEqPr7C8gVGhfW/5iznp9VU57T71Hzj+49R5kZLfCe+9B5wgzukJpCaUllJZQWkJpCaUllJZQWkJpCaUllJZQWkJpCaUllJZQWkJpCaUVBnrI9pvaTiIM9JidROXCjK5QWkJpCaW1xH7d3moXIo9sZ/KpoS0XImFGNwz0BKM75pbgBND9ddhyOxBmdIXSEkpLKC2htITSEkpLKK0w0J8b7/4/CljhwWAD9J/He/MfDJYLM7phoClfXM/lV1pb+S/1CWbbLczoCqX1BadgF60c8h74AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTA5LTI4VDE1OjIwOjU5KzAyOjAw2s2cPwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0wOS0yOFQxNToyMDo1OSswMjowMKuQJIMAAAAASUVORK5CYII=">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+Wind_str<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 10.4 (6.2)<br />
+min &lt; med &lt; max:<br />
+3.1 &lt; 8.8 &lt; 45.9<br />
+IQR (CV) : 5.7 (0.6)
+</td>
+<td style="text-align:left;">
+73 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAAA/UlEQVR42u3bXRLBMBRAYTFdngWwQl2A/fEa3E6o/sS557wxHvKRptVMy/2Qo+PeAxAqdF5D/SI6XseJg/hc9h56u3qIQ/vjp+C9296Gr0szdYXSEkpLKC2htITSEkpLKC2htITSEkpLKC2htITSEkpLKK000A82guOinfCed8FnQ9/3wfveBU8zdYXSEkpLKC2htITSEkpLKC2htITSEkpLKK2n+7oj+BnLlxvY/3Zbejb0t3replgU2vN8SLMYCaUllFYa6KKnl6j4amv7s+vq0F4ehU8zddNAV5+62xSvBJdqJYBA29fZpf4qrrD/o/UvWmC2ydIsRkJpPQAdFhhjzb9tqwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMC0wOS0yOFQxNToyMDo1OSswMjowMNrNnD8AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDktMjhUMTU6MjA6NTkrMDI6MDCrkCSDAAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+Wind_dir<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 204.2 (107.2)<br />
+min &lt; med &lt; max:<br />
+6 &lt; 233.5 &lt; 358<br />
+IQR (CV) : 200.8 (0.5)
+</td>
+<td style="text-align:left;">
+65 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAABAUlEQVR42u2bUQrCMBAFjfR4HkBPaA/g/fQ3CCuhWreZnflrQ2kGXiC8pu15qsE5ewKKKrqNpb847npdP0zt2qKRfmA5TcIluP8YfL5MdBWloSgNRWkoSkNRGorSUJSGojRSGoa4GIlrkSlFo2JktBbZQpnoKkpDURqK0lCUhqI0FKWhKA1FaQw2DNtOhRyJ4Srl21Mh2dSM7pp+omq/GbxFNzug+72/THQVpaEoDUVpKEqjjOgPPgTn75D/JBrvT7N3zj1loqsoDUVpKEpDURqK0lCUhqI0yohO89d+TNxw3LpP1ADRsR6jTHTLiLY+4Pcp+rxx+jXaYG4hZaKrKI0XjNobsZG3ZGgAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMDktMjhUMTU6MjA6NTkrMDI6MDDazZw/AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTA5LTI4VDE1OjIwOjU5KzAyOjAwq5AkgwAAAABJRU5ErkJggg==">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+Cloud_cover<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 0.4 (0.3)<br />
+min &lt; med &lt; max:<br />
+0 &lt; 0.4 &lt; 1<br />
+IQR (CV) : 0.7 (0.8)
+</td>
+<td style="text-align:left;">
+43 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAABAUlEQVR42u2bXQ7CIBAGxfR4PYCesD2A99NXjNUaoCKzM2/9oWGSb7OkgXQ/xeDcewKKKlrGlF8smwV7Sb0nWUo+8en50fzy8q33bBsRJrqK0lCUhqI0FKWhKA1FaShKQ1EaitJQlIaiNBSloSgNRWkoSkNRGorSUJSGojQUpaEojan+E59Yq7ZR1o3+qWjtNsp2mzDDRDeMaMPorlXnEI4Yfc2quWmN9qzHvdFhohtG9Ivotuxmfy06b9wb70iB0T2SHo2oi2hdMZSNDhNdRWkoSiOMaHF7qeuFA4mOdtI0THQVpaEoDUVpKEoj5Su5ZbBl3R75n/oEc3tLmOgqSuMBPIUh/40ha8oAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMDktMjhUMTU6MjA6NTkrMDI6MDDazZw/AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTA5LTI4VDE1OjIwOjU5KzAyOjAwq5AkgwAAAABJRU5ErkJggg==">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+Preci_prob<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 0 (0.1)<br />
+min &lt; med &lt; max:<br />
+0 &lt; 0 &lt; 0.5<br />
+IQR (CV) : 0 (2.2)
+</td>
+<td style="text-align:left;">
+17 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAAA3UlEQVR42u3cQQrCMBQAUSM5Xg+gJ6wH6P10G/EXQyrEzp/ZWVPIgzR0k5bnJUfX2RMQKnSs2v5Ywwf2VmZPcrR24vX9r+Vj8DZ7tj8qzdIVSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksorTTQ+n3IA3GqtAO6BNfOd6o0zdIVSisNtGMziov24n/eiYehZzvfn2bppoEOL92++t+qjr1/xXffm7tLO2KFffNnF0ouzTMqlNYLg5QUsprLY38AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMDktMjhUMTU6MjA6NTkrMDI6MDDazZw/AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTA5LTI4VDE1OjIwOjU5KzAyOjAwq5AkgwAAAABJRU5ErkJggg==">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+Preci_int<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 0 (0.1)<br />
+min &lt; med &lt; max:<br />
+0 &lt; 0 &lt; 0.7<br />
+IQR (CV) : 0 (2.7)
+</td>
+<td style="text-align:left;">
+29 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAAAxUlEQVR42u3cQQ5AMBQAUZUezwE4IQdwP7a1oCmhMZ23E5V0Gix/2Lo29LU3YKih98T0Ys58sGOovd0y6Xbj8dZw8dhae9+PNPPqGkpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNLFk8fLSBJkvBlkUhZ6Po1gzoyreGWSRO/gpOcCQrs2NEPmb01CyZn5GhtLs5B0PrLfICcEAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMDktMjhUMTU6MjA6NTkrMDI6MDDazZw/AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTA5LTI4VDE1OjIwOjU5KzAyOjAwq5AkgwAAAABJRU5ErkJggg==">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+Moon<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 0.6 (0.3)<br />
+min &lt; med &lt; max:<br />
+0 &lt; 0.6 &lt; 1<br />
+IQR (CV) : 0.5 (0.5)
+</td>
+<td style="text-align:left;">
+32 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAABEklEQVR42u2b2w2DMAwAScV4HaCdsAzQ/drfIKDhkfI43/0RKZJPMpHtQPo0MbgdHYCiiq6jzR+u8L52E0E+0nAtX2qby3EfWXsXd4VJXUVpKEpDURqK0lCUhqI0FKWhKI0wosVRypIZzZGMxfnMYpwxM1o3o9mbYZT9GMOkrqI0FKWhKA1FaShKQ1EaB9x4dwu+IKjXDB5ytT/e+JUarW2ESV1FaShKQ1EaYUR7BcOSmmXItt27ipbHwL8Z2/3femc+YVJXURqK0lCURhjRk/8lUa/aOrlovboqTOoqSkNRGorSUJSGojQUpbG6ezn3uLqi6FkG03MJk7qK0kj5mfK62AFTIv8dJMHcJgmTuorS+AJeER9YTQ4cYgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMC0wOS0yOFQxNToyMDo1OSswMjowMNrNnD8AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDktMjhUMTU6MjA6NTkrMDI6MDCrkCSDAAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:left;">
+Water_level<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 2.8 (1)<br />
+min &lt; med &lt; max:<br />
+1.1 &lt; 2.8 &lt; 4.3<br />
+IQR (CV) : 1.9 (0.4)
+</td>
+<td style="text-align:left;">
+65 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAAA/ElEQVR42u3aQQ6CMBBAUWo4ngfQE8oBvJ9u64KJFaTlz/87Q2J4yQChpbymHF16n4BQob811z9GvF6X8KRuJTpaH5yn4buuHnk2/Eua0RVKSygtobSE0hJKSygtobSE0hJKSygtobSE0mpYqd+yOdC/pi2JfTYH+pRmdIXSEkrr4667jLjl/Q9o9AA5wyMkKs3oCqUllJZQWkJpCaWVBnqCz1ij4vete7Vgd3Lo929bjm5rW17aj1gT3g0aD1H/F/o0o5sGOsRd94hFuSGgR1zBaUZXKC2htITSEkpLKC2htITSEkorDbTUyzUP2AdV9ZZEgdlWSzO6Qmm9AR9nGQp5qjwSAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTA5LTI4VDE1OjIwOjU5KzAyOjAw2s2cPwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0wOS0yOFQxNToyMDo1OSswMjowMKuQJIMAAAAASUVORK5CYII=">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:left;">
+Tide_status<br />
+[factor]
+</td>
+<td style="text-align:left;">
+1. Dead<br />
+2. Down<br />
+3. Up
+</td>
+<td style="text-align:left;">
+\11 (14.5%)<br />
+\28 (36.8%)<br />
+\37 (48.7%)
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEMAAAA+CAQAAADaf27nAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAAAn0lEQVRo3u2WMQ6AIBAExfBBO32hdj5R20MDQsLJFjMdMeKEPcOGa1JgHi2AxptoF/vnoKyh36ftVjF9tBRfPN1OQyQUNNBAAw000OjF44b1u0PLBFsx/u2ltm+IhCKikczG4ZBKXW1sKoHt1I68SChooIEGGmig0QtKICUwh3sJzLOZVJxLYJ70ZxAJBQ000EADDTR6oVgCxyESChqWGzRMEZWMKHrVAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTA5LTI4VDE1OjIwOjU5KzAyOjAw2s2cPwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0wOS0yOFQxNToyMDo1OSswMjowMKuQJIMAAAAASUVORK5CYII=">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:left;">
+Tide_time<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 186.8 (125.3)<br />
+min &lt; med &lt; max:<br />
+5 &lt; 175 &lt; 375<br />
+IQR (CV) : 255 (0.7)
+</td>
+<td style="text-align:left;">
+47 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFDvCJwAuAAABB0lEQVR42u2cUQ6CMBAFwXA8D6AnlAN4P/2txpJmRWlnZ/6ANOkk2/BYCvNjysHp6AkoqmiMpTzod72uG1O7zLUr5YVlGoRz5fy9cXya0lWUhqI0FKWhKI00oi8RMJYox+At636bKPslTekqSkNRGorSUJSGojQUpaEoDUVpKEpDURppRJtf7dd7vmN0fJtFR+/4pildRWkoSkNRGorS2GF35xrY/fr/2LiDaD0c9hQb05SuojQUpZFGtKuvJCJ35K1R1+Ju3ZVorGHTNiZN6aYRPah0Y6txQNHP6+qXGThN6SpKQ1EaitJQlIaiNBSlkUZ0Lh8Mb/3+QyRE2TOaYW5V0pSuojSeKQscCtYEXw0AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMDktMjhUMTU6MjA6NTkrMDI6MDDazZw/AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTA5LTI4VDE1OjIwOjU5KzAyOjAwq5AkgwAAAABJRU5ErkJggg==">
+</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Variable type: factor</strong></p>
+</div>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table>
 <thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="left">ordered</th>
-<th align="right">n_unique</th>
-<th align="left">top_counts</th>
+<tr>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+No
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Variable
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Stats / Values
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Freqs (% of Valid)
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Graph
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Weather</td>
-<td align="left">FALSE</td>
-<td align="right">10</td>
-<td align="left">Cle: 25, Mos: 18, Par: 17, Ove: 8</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+n_ses<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 24.3 (13.2)<br />
+min &lt; med &lt; max:<br />
+1 &lt; 28 &lt; 37<br />
+IQR (CV) : 20 (0.5)
+</td>
+<td style="text-align:left;">
+18 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFQBqN9hLAAAA8ElEQVR42u3cQQrCMBBAUSMezwPoCe0BvJ9u20JiMYYxf/7b1YX0QxrIWCyvUw7n6Bsw1NDvXNYXMz6vS+Om76USOqdr5fPn5irN0jWUxlAaQ2kMpTGUxlCazemldeS5lU9fNdLSfYLcHdOOHXki9N5ZmqVrKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSBLx+0z+MniS0NYweN0BPs3QNpTGUxlAaQ2kMpTGUxlAaQ2kMpTGUxlCagXPdmEF1QGhtUB3zNneapWsozeFn9L+2loGhEb+A/VKapWsoTVnvMY/JN5y99V+IFFhbVZqlayjNGxNJGVN3aTnjAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTA5LTI4VDE1OjIxOjAwKzAyOjAw6He8tgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0wOS0yOFQxNToyMTowMCswMjowMJkqBAoAAAAASUVORK5CYII=">
+</td>
 </tr>
-<tr class="even">
-<td align="left">Tide_status</td>
-<td align="left">FALSE</td>
-<td align="right">3</td>
-<td align="left">Up: 37, Dow: 28, Dea: 11</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+time<br />
+[POSIXct, POSIXt]
+</td>
+<td style="text-align:left;">
+min : 2019-04-09 19:23:29<br />
+med : 2020-05-25 21:20:55<br />
+max : 2020-09-04 21:33:17<br />
+range : 1y 4m 26d 2H 9M 48S
+</td>
+<td style="text-align:left;">
+57 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFQBqN9hLAAAA10lEQVR42u3csQ2DMBBA0VyU8RggmTAMwH6kNRGnWKQA//uvwwXyl0xjC8d6q+F+9gQMNfSYR/sw6vc6JxN/RRI6rmlnbNk8lVm6htIYSmMojaE0htIYSmMojaE0htIYSmMojaE0htIYSrM5TcuO357R86pr+zo2/H38NqoyS9dQGkNpDKUxlMZQGkNpDKUxlMZQGkNpDKXp+h3kKhvb8x8/5nSFTrujZ2xsH59JmaVrKI2hNIbSGEpjKI2hNIbSGEoT7e7Ee9Q7RBLtFSIBa0uVWbqG0nwAbvESVvUGt2AAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMDktMjhUMTU6MjE6MDArMDI6MDDod7y2AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTA5LTI4VDE1OjIxOjAwKzAyOjAwmSoECgAAAABJRU5ErkJggg==">
+</td>
 </tr>
-</tbody>
-</table>
-<p><strong>Variable type: numeric</strong></p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
-<th align="right">p0</th>
-<th align="right">p25</th>
-<th align="right">p50</th>
-<th align="right">p75</th>
-<th align="right">p100</th>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+min_fishing<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 51.4 (43.4)<br />
+min &lt; med &lt; max:<br />
+0 &lt; 44 &lt; 150<br />
+IQR (CV) : 77 (0.8)
+</td>
+<td style="text-align:left;">
+35 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFQBqN9hLAAABC0lEQVR42u2cUQqDMBAFm5Lj9QDtCfUA3q/9TaEpxighszN/IpEMvCVLjKb3LQb30RNQVNFj5PJi+VOwzzR6qu2UU87ftx6VIdvoOXcTJrqK0lCUhqI0FKWhKA1FaShKQ1EaitJQlIaiNHL/I1pZh2yTDxAds00eJrqK0lCUhqI0FKWhKI3dvW69FZ/jvMpu0dnPq4SJrqI0FKURRvSEPaM5VtgTROdYYcNEV1EaitJQlIaiNMKIXvp+dG3+lPG6vvlS0d9d8NY84oy+OUx0FaWhKA1FaQw5UHWE3lZiGtHeViJMdMOIThPdOvXqfRXVCxDdV71hohtGNJUBX2D//ClrNMHcqoSJrqI0PsSsHWdhs/YKAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTA5LTI4VDE1OjIxOjAwKzAyOjAw6He8tgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0wOS0yOFQxNToyMTowMCswMjowMJkqBAoAAAAASUVORK5CYII=">
+</td>
 </tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Session</td>
-<td align="right">19.50</td>
-<td align="right">11.04</td>
-<td align="right">1.00</td>
-<td align="right">10.00</td>
-<td align="right">19.50</td>
-<td align="right">29.00</td>
-<td align="right">38.00</td>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+species<br />
+[factor]
+</td>
+<td style="text-align:left;">
+1. bar<br />
+2. bar_m
+</td>
+<td style="text-align:left;">
+\52 (91.2%)<br />
+ 5 ( 8.8%)
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHIAAAAtCAQAAADYDPfUAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFQBqN9hLAAAAlklEQVRo3u2YQQqAMAwEU/GD3vSFeusT9VpFsYjQMrtzy6VkYFNI0h58htYNWNKS9YxlsYIGdEkPkhFT695+Ip8qibhakoIlKViSgiUpWJKCJSlISF5Wrfztlc5J5Z4M2pmj2Jk14ioheZrJ7Tavc6p7ql9ebzyEr0girpakYEkKlqRgSQqWpGBJChKSejceKhJxtSSFA1kMC79xCeutAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTA5LTI4VDE1OjIxOjAwKzAyOjAw6He8tgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0wOS0yOFQxNToyMTowMCswMjowMJkqBAoAAAAASUVORK5CYII=">
+</td>
 </tr>
-<tr class="even">
-<td align="left">Long</td>
-<td align="right">-1.48</td>
-<td align="right">0.01</td>
-<td align="right">-1.50</td>
-<td align="right">-1.48</td>
-<td align="right">-1.48</td>
-<td align="right">-1.47</td>
-<td align="right">-1.45</td>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+length<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 29.1 (9.8)<br />
+min &lt; med &lt; max:<br />
+10 &lt; 30 &lt; 49<br />
+IQR (CV) : 12 (0.3)
+</td>
+<td style="text-align:left;">
+22 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFQBqN9hLAAABFUlEQVR42u2a2w3CMBAEMUp5FAAVkgLoD/6QQRwyDo7t2Z2/RMpjpM3pfE66HzQ49n4Bi1q0jiU/qPle1y8XnVNfufzxS/VdnpyC87e+lm/IRNeiNCxKw6I0LErDojQsSsOiNCxKw6I0/jAziokHZ/uPzZqKjjQ2k4muRWlYlIZFaViURtPO6Fda7rUOJdqyaZSJrkVpyIgWFqN1+h/MiqvuSIvoGmSia1EaL9/o/CWnUHT+khMjE12L0hhsmRazdXtjGtGtZVImuhalISPaqRjt32x2Ev1cQ1s2mjLRtSiNaTqjmLiwXbLmECBa1hzKRNeiNCxKw6I0LErDojQsSkNGNOWLuStsfzRfjyaYW4hMdC1K4wF+BR25q7RxygAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMC0wOS0yOFQxNToyMTowMCswMjowMOh3vLYAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDktMjhUMTU6MjE6MDArMDI6MDCZKgQKAAAAAElFTkSuQmCC">
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Lat</td>
-<td align="right">43.49</td>
-<td align="right">0.00</td>
-<td align="right">43.47</td>
-<td align="right">43.49</td>
-<td align="right">43.49</td>
-<td align="right">43.49</td>
-<td align="right">43.49</td>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+lure<br />
+[factor]
+</td>
+<td style="text-align:left;">
+1. jerkbait<br />
+2. shad<br />
+3. slug<br />
+4. topwater
+</td>
+<td style="text-align:left;">
+ 2 ( 3.5%)<br />
+\38 (66.7%)<br />
+\16 (28.1%)<br />
+ 1 ( 1.8%)
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAFcAAABQCAQAAADGxCFfAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFQBqN9hLAAAA0UlEQVRo3u3aQQrCMBSE4RfpBbvTE9adR6yLgr4GFWmjmSn/rCpuPsIIGWqZwymn3gC4Ohnyh+lR5HPpDXsmU4b1V2NERNx6C9/GrAxw4cKFCxcuXLjfpLqR6d7FlpS81TR3W77vOpfhKnm8l3S8L9eEUta/JrMywIULFy5cuHDhHpDL+GlOTM/OZdg7fn7/Aqbh+PlH783KABcuXLhw4cKFe0Au46c5MT07l2EZP0r/IatTna7em5+PXPXAhQsXLly4cOFu4FqtCf14l0E9Ztw7fLcWuUvXtAoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMDktMjhUMTU6MjE6MDArMDI6MDDod7y2AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTA5LTI4VDE1OjIxOjAwKzAyOjAwmSoECgAAAABJRU5ErkJggg==">
+</td>
 </tr>
-<tr class="even">
-<td align="left">Air_temp</td>
-<td align="right">19.13</td>
-<td align="right">4.73</td>
-<td align="right">10.58</td>
-<td align="right">15.66</td>
-<td align="right">18.25</td>
-<td align="right">22.08</td>
-<td align="right">30.72</td>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+colour<br />
+[factor]
+</td>
+<td style="text-align:left;">
+1. clair<br />
+2. naturel<br />
+3. sombre
+</td>
+<td style="text-align:left;">
+\21 (36.8%)<br />
+\26 (45.6%)<br />
+\10 (17.5%)
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEAAAAA+CAQAAAAxSNXkAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFQBqN9hLAAAAmUlEQVRYw+3YwQqAIBCEYTd8wW71hHXrEeu6lmDE6nT4vWWBH8yCQ3Ym7ZrE5wNI2T9sHQZiseee38rlqzn4+KP5hTwCAAAAAAAA4HYbtm+v6GW+Aozqh74PyCOQA4oZ2AdlsLoMOley2ioHXR4BAAAAAAAAQCWTRyAHfKpktT9fIYB3lSx2UOURAAAAAAAAAP+qZIoljwDABfA+EZWeWJeEAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTA5LTI4VDE1OjIxOjAwKzAyOjAw6He8tgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0wOS0yOFQxNToyMTowMCswMjowMJkqBAoAAAAASUVORK5CYII=">
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Atm_pres</td>
-<td align="right">1017.72</td>
-<td align="right">6.17</td>
-<td align="right">996.81</td>
-<td align="right">1014.84</td>
-<td align="right">1017.27</td>
-<td align="right">1022.02</td>
-<td align="right">1028.60</td>
-</tr>
-<tr class="even">
-<td align="left">Wind_str</td>
-<td align="right">10.44</td>
-<td align="right">6.19</td>
-<td align="right">3.14</td>
-<td align="right">6.68</td>
-<td align="right">8.83</td>
-<td align="right">12.42</td>
-<td align="right">45.88</td>
-</tr>
-<tr class="odd">
-<td align="left">Wind_dir</td>
-<td align="right">204.18</td>
-<td align="right">107.18</td>
-<td align="right">6.00</td>
-<td align="right">100.75</td>
-<td align="right">233.50</td>
-<td align="right">301.50</td>
-<td align="right">358.00</td>
-</tr>
-<tr class="even">
-<td align="left">Cloud_cover</td>
-<td align="right">0.43</td>
-<td align="right">0.33</td>
-<td align="right">0.00</td>
-<td align="right">0.07</td>
-<td align="right">0.41</td>
-<td align="right">0.72</td>
-<td align="right">1.00</td>
-</tr>
-<tr class="odd">
-<td align="left">Preci_prob</td>
-<td align="right">0.03</td>
-<td align="right">0.08</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.03</td>
-<td align="right">0.47</td>
-</tr>
-<tr class="even">
-<td align="left">Preci_int</td>
-<td align="right">0.04</td>
-<td align="right">0.11</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.02</td>
-<td align="right">0.69</td>
-</tr>
-<tr class="odd">
-<td align="left">Moon</td>
-<td align="right">0.57</td>
-<td align="right">0.30</td>
-<td align="right">0.00</td>
-<td align="right">0.34</td>
-<td align="right">0.60</td>
-<td align="right">0.86</td>
-<td align="right">0.97</td>
-</tr>
-<tr class="even">
-<td align="left">Water_level</td>
-<td align="right">2.77</td>
-<td align="right">1.04</td>
-<td align="right">1.10</td>
-<td align="right">1.82</td>
-<td align="right">2.81</td>
-<td align="right">3.74</td>
-<td align="right">4.35</td>
-</tr>
-<tr class="odd">
-<td align="left">Tide_time</td>
-<td align="right">186.85</td>
-<td align="right">125.28</td>
-<td align="right">5.00</td>
-<td align="right">60.00</td>
-<td align="right">175.00</td>
-<td align="right">315.00</td>
-<td align="right">375.00</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: POSIXct</strong></p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="left">min</th>
-<th align="left">max</th>
-<th align="left">median</th>
-<th align="right">n_unique</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Time</td>
-<td align="left">2019-04-09 19:23:09</td>
-<td align="left">2020-09-13 22:12:40</td>
-<td align="left">2019-06-21 08:13:07</td>
-<td align="right">76</td>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+length_lure<br />
+[factor]
+</td>
+<td style="text-align:left;">
+1. moyen<br />
+2. petit
+</td>
+<td style="text-align:left;">
+\32 (56.1%)<br />
+\25 (43.9%)
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEsAAAAtCAQAAABM6l4mAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfkCRwPFQBqN9hLAAAAhUlEQVRYw+3XSwqAMAyE4US8oDs9oe56RN2mglAfNCP8syuIfDAVRt9NMUM2ANb7jPGwpl60xS9YZlMaqlQn0RJhwYKlEFiwYClElHUaNuXZWz6Px+WX+7sRVqBqiaKs6m5tHVqcveWpzlu+9ZMSLREWLFgKgQULlkJEWX/Y8joRLRHWnRzB7Qu/cpiHdgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMC0wOS0yOFQxNToyMTowMCswMjowMOh3vLYAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDktMjhUMTU6MjE6MDArMDI6MDCZKgQKAAAAAElFTkSuQmCC">
+</td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>catch_data %&lt;&gt;% 
-mutate_at(vars(species, lure, colour, length_lure), as.factor)
-
-catch_data %&gt;% 
-skim_without_charts() %&gt;% 
-select(-c(n_missing, complete_rate))</code></pre>
-<table>
-<caption><span id="tab:unnamed-chunk-1">Table 1: </span>Data summary</caption>
-<tbody>
-<tr class="odd">
-<td align="left">Name</td>
-<td align="left">Piped data</td>
-</tr>
-<tr class="even">
-<td align="left">Number of rows</td>
-<td align="left">57</td>
-</tr>
-<tr class="odd">
-<td align="left">Number of columns</td>
-<td align="left">8</td>
-</tr>
-<tr class="even">
-<td align="left">_______________________</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td align="left">Column type frequency:</td>
-<td align="left"></td>
-</tr>
-<tr class="even">
-<td align="left">factor</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">numeric</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">POSIXct</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">________________________</td>
-<td align="left"></td>
-</tr>
-<tr class="even">
-<td align="left">Group variables</td>
-<td align="left">None</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: factor</strong></p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="left">ordered</th>
-<th align="right">n_unique</th>
-<th align="left">top_counts</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">species</td>
-<td align="left">FALSE</td>
-<td align="right">2</td>
-<td align="left">bar: 52, bar: 5</td>
-</tr>
-<tr class="even">
-<td align="left">lure</td>
-<td align="left">FALSE</td>
-<td align="right">4</td>
-<td align="left">sha: 38, slu: 16, jer: 2, top: 1</td>
-</tr>
-<tr class="odd">
-<td align="left">colour</td>
-<td align="left">FALSE</td>
-<td align="right">3</td>
-<td align="left">nat: 26, cla: 21, som: 10</td>
-</tr>
-<tr class="even">
-<td align="left">length_lure</td>
-<td align="left">FALSE</td>
-<td align="right">2</td>
-<td align="left">moy: 32, pet: 25</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: numeric</strong></p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
-<th align="right">p0</th>
-<th align="right">p25</th>
-<th align="right">p50</th>
-<th align="right">p75</th>
-<th align="right">p100</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">n_ses</td>
-<td align="right">24.32</td>
-<td align="right">13.18</td>
-<td align="right">1</td>
-<td align="right">16</td>
-<td align="right">28</td>
-<td align="right">36</td>
-<td align="right">37</td>
-</tr>
-<tr class="even">
-<td align="left">min_fishing</td>
-<td align="right">51.39</td>
-<td align="right">43.36</td>
-<td align="right">0</td>
-<td align="right">12</td>
-<td align="right">44</td>
-<td align="right">89</td>
-<td align="right">150</td>
-</tr>
-<tr class="odd">
-<td align="left">length</td>
-<td align="right">29.11</td>
-<td align="right">9.76</td>
-<td align="right">10</td>
-<td align="right">24</td>
-<td align="right">30</td>
-<td align="right">36</td>
-<td align="right">49</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: POSIXct</strong></p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="left">min</th>
-<th align="left">max</th>
-<th align="left">median</th>
-<th align="right">n_unique</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">time</td>
-<td align="left">2019-04-09 19:23:29</td>
-<td align="left">2020-09-04 21:33:17</td>
-<td align="left">2020-05-25 21:20:55</td>
-<td align="right">57</td>
-</tr>
-</tbody>
-</table>
+</div>
 <p>Let’s work on the session data before combining both files :</p>
 <pre class="r"><code># Compute mean conditions (between beg and end session) 
 
@@ -888,7 +1027,7 @@ right_join(unique(catch_cond[, c(&quot;Session&quot;, &quot;Time_beg&quot;)])) %
 mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %&gt;%
 ggplot(aes(y = n_catch, x =Time_beg)) +
 geom_point() + 
-theme_minimal() + labs(x = &quot;Date&quot;, y = &quot;Number of catch&quot;) + scale_x_datetime(date_labels = &quot;%d/%m/%y&quot;, date_breaks = &quot;3 months&quot;)</code></pre>
+  theme_minimal() + labs(x = &quot;Date&quot;, y = &quot;Number of catch&quot;) + scale_x_datetime(date_labels = &quot;%d/%m/%y&quot;, date_breaks = &quot;3 months&quot;)</code></pre>
 <p><img src="/post/2020-09-19-ds-fishing-part-2.en_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>I didn’t go fishing during the autumn of 2019, I was too busy. Sadly, autumn is known to ne a great period for sea bass fishing. During winter, fishing is really complicated because the large majority of sea bass are returned to the ocean.</p>
 <p>This graph shows the number of fish I catch depending on the hour of the day :</p>
@@ -1028,30 +1167,6 @@ ggplot(aes(y = length, x = length_lure)) +
 geom_boxplot()+
 theme_minimal()</code></pre>
 <p><img src="/post/2020-09-19-ds-fishing-part-2.en_files/figure-html/unnamed-chunk-13-3.png" width="672" /></p>
-<pre class="r"><code>learning_data &lt;- dat_ses %&gt;% 
-mutate_at(vars(Session), as.factor) %&gt;% 
-left_join(fish_number) %&gt;% 
-mutate(nb = ifelse(is.na(nb), 0, nb ),
-catch = ifelse(nb !=0, 1, 0 ))
-
-
-corr &lt;- learning_data %&gt;% 
-select_if(is.numeric) %&gt;%
-select(-c(Long, Lat, Tide_time_beg,Tide_time_end,
-Water_level_beg, Water_level_end, catch)) %&gt;% 
-cor() %&gt;% round(1)
-
-library(ggcorrplot)
-
-ggcorrplot(corr, hc.order = TRUE, 
-type = &quot;lower&quot;, 
-lab = TRUE, 
-lab_size = 3, 
-method=&quot;circle&quot;, 
-colors = c(&quot;tomato2&quot;, &quot;white&quot;, &quot;springgreen3&quot;), 
-title=&quot;Correlogram of mtcars&quot;, 
-ggtheme=theme_bw)</code></pre>
-<p><img src="/post/2020-09-19-ds-fishing-part-2.en_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 </div>
 
 
