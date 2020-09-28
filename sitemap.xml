@@ -4,66 +4,71 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2020-09-19T00:00:00+00:00</lastmod>
+    <lastmod>2020-09-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/ds_fishing_part_2/</loc>
-    <lastmod>2020-09-19T00:00:00+00:00</lastmod>
+    <loc>/post/2020-09-25-ds-fishing-part2/</loc>
+    <lastmod>2020-09-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2020-09-19T00:00:00+00:00</lastmod>
+    <lastmod>2020-09-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/ggplot2/</loc>
-    <lastmod>2020-09-19T00:00:00+00:00</lastmod>
+    <lastmod>2020-09-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/leaflet/</loc>
+    <lastmod>2020-09-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2020-09-19T00:00:00+00:00</lastmod>
+    <lastmod>2020-09-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/categories/r/</loc>
-    <lastmod>2020-09-19T00:00:00+00:00</lastmod>
+    <lastmod>2020-09-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2020-09-19T00:00:00+00:00</lastmod>
+    <lastmod>2020-09-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/tidyverse/</loc>
-    <lastmod>2020-09-19T00:00:00+00:00</lastmod>
+    <lastmod>2020-09-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/api/</loc>
-    <lastmod>2020-09-08T00:00:00+00:00</lastmod>
+    <lastmod>2020-09-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/ds_fishing_part_1/</loc>
-    <lastmod>2020-09-08T00:00:00+00:00</lastmod>
+    <loc>/post/2020-09-12-ds-fishing-part1/</loc>
+    <lastmod>2020-09-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/shiny/</loc>
-    <lastmod>2020-09-08T00:00:00+00:00</lastmod>
+    <lastmod>2020-09-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/web-scraping/</loc>
-    <lastmod>2020-09-08T00:00:00+00:00</lastmod>
+    <lastmod>2020-09-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2015-01-04-first-post/</loc>
+    <loc>/post/2020-09-01-first-post/</loc>
     <lastmod>2020-09-01T00:00:00+00:00</lastmod>
   </url>
   

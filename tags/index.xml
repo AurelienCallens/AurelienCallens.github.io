@@ -7,24 +7,29 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>aurelien.callens@gmail.com (Aurelien Callens)</managingEditor>
     <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster>
-    <lastBuildDate>Sat, 19 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 25 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ggplot2</title>
       <link>/tags/ggplot2/</link>
-      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 25 Sep 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>/tags/ggplot2/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Tidyverse</title>
+      <title>leaflet</title>
+      <link>/tags/leaflet/</link>
+      <pubDate>Fri, 25 Sep 2020 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>/tags/leaflet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidyverse</title>
       <link>/tags/tidyverse/</link>
-      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 25 Sep 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>/tags/tidyverse/</guid>
       <description></description>
@@ -33,7 +38,7 @@
     <item>
       <title>API</title>
       <link>/tags/api/</link>
-      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>/tags/api/</guid>
       <description></description>
@@ -42,7 +47,7 @@
     <item>
       <title>shiny</title>
       <link>/tags/shiny/</link>
-      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>/tags/shiny/</guid>
       <description></description>
@@ -51,7 +56,7 @@
     <item>
       <title>Web scraping</title>
       <link>/tags/web-scraping/</link>
-      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>/tags/web-scraping/</guid>
       <description></description>

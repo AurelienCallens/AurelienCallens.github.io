@@ -7,18 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>aurelien.callens@gmail.com (Aurelien Callens)</managingEditor>
     <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster>
-    <lastBuildDate>Tue, 08 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/api/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 12 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/api/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Can Data Science make me a better angler? Part 1</title>
-      <link>/post/ds_fishing_part_1/</link>
-      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      <link>/post/2020-09-12-ds-fishing-part1/</link>
+      <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
-      <guid>/post/ds_fishing_part_1/</guid>
-      <description>My favourite hobby, in addition to R of course, is fishing. Most of the time, I am fishing european sea bass (Dicentrarchus labrax) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artficial lures that imitate a specific prey.</description>
+      <guid>/post/2020-09-12-ds-fishing-part1/</guid>
+      <description>My favourite hobby, in addition to R of course, is fishing. Most of the time, I am fishing european sea bass (Dicentrarchus labrax) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artficial lures that imitate a specific prey.
+In theory, it is quite easy to catch a fish:</description>
     </item>
     
   </channel>
