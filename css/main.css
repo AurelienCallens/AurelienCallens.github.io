@@ -839,5 +839,8 @@ h4.see-also {
 .col-md-12 {
     margin: 0 0 0 auto;
 }
-
-
+/* grViz*/
+.grViz {
+	width: 100% !important;
+	height: auto !important;
+}

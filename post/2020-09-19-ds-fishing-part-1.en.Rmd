@@ -17,15 +17,14 @@ subtitle: ''
 
 ```{r setup, include=FALSE}
 knitr:: opts_knit$set(root.dir = normalizePath(".."))
-knitr:: opts_chunk$set(warning = FALSE, message = FALSE, include = T, eval = F)
+knitr:: opts_chunk$set(warning = FALSE, message = FALSE, include = T, eval = F,
+                       dev = 'svg')
 
 library(DiagrammeR)
 ## Introduction 
 
 # In this post, I will show you how to build from scratch a shiny application that collects data about meteorological conditions and fish caught during a fishing session. First, I will explain the reasons that lead me to develop this application. Then I will show you how I collect data from different sources (API and web scrapping) to improve my fishing results. The data collected last year is cleaned and explored in a different post (accessible *here*).
 ```
-
-
 
 ## Fishing in estuaries: too much variability! 
 
@@ -202,10 +201,12 @@ Here are the main steps of this application :
 
 A simplified graph is showed below: 
 
-```{r echo=F, eval = T}
+```{r eval=T, echo=F, fig.height=2}
 
 library(DiagrammeR)
-grViz("
+library(DiagrammeRsvg)
+library(rsvg)
+ grViz("
     digraph boxes_and_circles {
         
         # right node statements
@@ -239,11 +240,8 @@ grViz("
         A6 [label = 'If session starts: append data to CSV1']
         A7 [label = 'If session ends: append data to CSV1']
 
-    }
-
-")
+    }")  
 ```
-
 
 
 ### UI side 
@@ -492,7 +490,6 @@ server <- function(input, output, session){
 I have been using this application for 1 year without any problems! The data I collected will be presented in the next post. 
 
 In the coming months, I will improve this application on two points: the weather API and the tide function. I must find a new free API to replace the actual one. Indeed, the weather API I am using has been bought by Apple and the free requests will be stopped in the following year. For the tide function, the french website is now furnishing a data stream. Using the datastream instead of webscraping the tide levels should reduce the computation time of the function. 
-
 
 
 
