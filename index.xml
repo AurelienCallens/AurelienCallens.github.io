@@ -7,7 +7,11 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>aurelien.callens@gmail.com (Aurelien Callens)</managingEditor>
     <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster>
-    <lastBuildDate>Fri, 25 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>Can Data Science make me a better angler? Part 2</title>
       <link>/post/2020-09-25-ds-fishing-part2/</link>
@@ -44,7 +48,7 @@ In theory, it is quite easy to catch a fish:</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>/page/research/</guid>
-      <description>My publications   Callens, A., Morichon, D., Abadie, S., Delpey, M., Liquet, B. (2020). Using Random forest and Gradient boosting trees to improve wave forecast at a specific location. Applied Ocean Research, 104. https://doi.org/10.1016/j.apor.2020.102339
+      <description>My publications   Callens, A., Morichon, D., Abadie, S., Delpey, M., Liquet, B. (2020). Using Random forest and Gradient boosting trees to improve wave forecast at a specific location. Applied Ocean Research, 104. doi.org/10.1016/j.apor.2020.102339
   Morichon, D., de Santiago, I., Delpey, M., Somdecoste, T., Callens, A., Liquet, B., &amp;hellip; &amp;amp; Arnould, P. (2018). Assessment of flooding hazards at an engineered beach during extreme events: Biarritz, SW France.</description>
     </item>
     

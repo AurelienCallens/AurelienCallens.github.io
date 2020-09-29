@@ -90,7 +90,7 @@
   <meta name="twitter:image" content="/img/avatar-icon.jpg" />
   <meta name="twitter:card" content="summary" />
   <link href='/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.75.1" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Aurélien Callens"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -405,7 +405,7 @@ if (!doNotTrack) {
 <h2>Collecting the data</h2>
 <div id="getting-my-gps-location" class="section level3">
 <h3>Getting my gps location</h3>
-<p>My gps location is collected by using a bit of Javascript in the header of the shiny application. This code has been developped by AugusT and is available on his <a href="https://github.com/AugustT/shiny_geolocation">github repository</a>.</p>
+<p>My gps location is collected by using a bit of Javascript in the header of the shiny application. This code has been developped by AugusT and is available on his <a href="https://github.com/AugustT/shiny_geolocation" target="_blank">github repository</a>.</p>
 </div>
 <div id="weather-api" class="section level3">
 <h3>Weather API</h3>
@@ -504,7 +504,7 @@ weather &lt;- function(x, API_key){
 <h2>The shiny application</h2>
 <p>The main problem I encountered while developping this application was data storage without paying. Shinyapps
 host freely your shiny application but there were some problem when I used the shiny application to modify the csv files.
-The solution I found was to store the data in my dropbox account, you can find <a href="https://shiny.rstudio.com/articles/persistent-data-storage.html">here</a> more details on the subject and alternatives solutions. I used the package <em>rdrop2</em> to access and modify the data with the shiny application.</p>
+The solution I found was to store the data in my dropbox account, you can find <a href="https://shiny.rstudio.com/articles/persistent-data-storage.html" target="_blank">here</a> more details on the subject and alternatives solutions. I used the package <em>rdrop2</em> to access and modify the data with the shiny application.</p>
 <p>Here are the main steps of this application :</p>
 <ol style="list-style-type: decimal">
 <li><p>When the application is started, it reads a csv file stored on my dropbox to see if a fishing session is running or not. If not the user can start a fishing session.</p></li>
@@ -514,7 +514,7 @@ The solution I found was to store the data in my dropbox account, you can find <
 </ol>
 <p>A simplified graph is showed below:</p>
 <div class="figure">
-<img src="/img/graph.svg" alt="" />
+<img src="/doc/graph.svg" alt="Simplified workflow of the application" />
 <p class="caption">Simplified workflow of the application</p>
 </div>
 <div id="ui-side" class="section level3">
@@ -750,8 +750,9 @@ observeEvent is provided in the script as commentary.</p>
 </div>
 <div id="conclusion-and-future-improvments" class="section level2">
 <h2>Conclusion and future improvments</h2>
-<p>You can find a dummy example of this application (not linked to the dropbox account) <a href="https://aureliencallens.shinyapps.io/Dummy_angler_app/">here</a>.</p>
-<p>I have been using this application for 1 year without any problems! The data I collected will be presented in the next post.</p>
+<p>You can find a dummy example of this application (not linked to the dropbox account)
+<a href="https://aureliencallens.shinyapps.io/Dummy_angler_app/" target="_blank">here</a>.
+I have been using this application for 1 year without any problems! The data I collected will be presented in the next post.</p>
 <p>In the coming months, I will improve this application on two points: the weather API and the tide function. I must find a new free API to replace the actual one. Indeed, the weather API I am using has been bought by Apple and the free requests will be stopped in the following year. For the tide function, the french website is now furnishing a data stream. Using the datastream instead of webscraping the tide levels should reduce the computation time of the function.</p>
 </div>
 
@@ -860,7 +861,7 @@ observeEvent is provided in the script as commentary.</p>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.75.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.62.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
           <br>
           Favicon made by <a href="https://www.flaticon.com/authors/becris">Becris</a> from <a href="https://www.flaticon.com/">www.flaticon.com</a>
