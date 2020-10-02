@@ -57,9 +57,9 @@
     "name" : "Aurélien Callens"
   },
   "headline": "Can Data Science make me a better angler? Part 1",
-  "description" : "My favourite hobby, in addition to R of course, is fishing. Most of the time, I am fishing european sea bass (Dicentrarchus labrax) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artficial lures that imitate a specific prey.\nIn theory, it is quite easy to catch a fish:",
+  "description" : "My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I am fishing European sea bass (Dicentrarchus labrax) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artificial lures that imitate a specific prey.\nIn theory, it is quite easy to catch a fish:",
   "inLanguage" : "en",
-  "wordCount":  1907 ,
+  "wordCount":  1910 ,
   "datePublished" : "2020-09-12T00:00:00",
   "dateModified" : "2020-09-12T00:00:00",
   "image" : "\/img\/avatar-icon.jpg",
@@ -90,7 +90,7 @@
   <meta name="twitter:image" content="/img/avatar-icon.jpg" />
   <meta name="twitter:card" content="summary" />
   <link href='/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.75.1" />
   <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Aurélien Callens"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -322,16 +322,16 @@ if (!doNotTrack) {
         
 
 
-<p>My favourite hobby, in addition to R of course, is fishing. Most of the time, I am fishing european sea bass (<em>Dicentrarchus labrax</em>) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artficial lures that imitate a specific prey.</p>
+<p>My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I am fishing European sea bass (<em>Dicentrarchus labrax</em>) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artificial lures that imitate a specific prey.</p>
 <p>In theory, it is quite easy to catch a fish:</p>
 <ol style="list-style-type: decimal">
 <li><p>Use a lure that imitate the current prey of the sea bass.</p></li>
 <li><p>Animate the lure in a spot where the fish are active.</p></li>
 <li><p>Catch a really big fish !</p></li>
 </ol>
-<p>In pratice, it is an other story ! Indeed, the feeding acitivity, the position of the european sea bass in the estuary and their preys will vary depending on different parameters :</p>
+<p>In practice, it is an other story ! Indeed, the feeding activity, the position of the European sea bass in the estuary and their preys will vary depending on different parameters :</p>
 <ul>
-<li>the local substrat, which will depend where I fish</li>
+<li>the characteristics of the riverbed, which will depend where I fish</li>
 <li>the time of the day : the sea bass is more active during dawn and dusk</li>
 <li>the current and water level associated with the tide. The water level in estuaries is constantly varying to greater or lesser degree due to the tide influence. It is also influenced by the river flow which can be higher in case of heavy rains.</li>
 </ul>
@@ -397,7 +397,7 @@ if (!doNotTrack) {
 </tbody>
 </table>
 <ul>
-<li><p>It must be adapted to small screens because I will alway use the application on my phone.</p></li>
+<li><p>It must be adapted to small screens because I will always use the application on my phone.</p></li>
 <li><p>It must remain free.</p></li>
 </ul>
 </div>
@@ -405,7 +405,7 @@ if (!doNotTrack) {
 <h2>Collecting the data</h2>
 <div id="getting-my-gps-location" class="section level3">
 <h3>Getting my gps location</h3>
-<p>My gps location is collected by using a bit of Javascript in the header of the shiny application. This code has been developped by AugusT and is available on his <a href="https://github.com/AugustT/shiny_geolocation" target="_blank">github repository</a>.</p>
+<p>My gps location is collected by using a bit of Javascript in the header of the shiny application. This code has been developed by AugusT and is available on his <a href="https://github.com/AugustT/shiny_geolocation" target="_blank">github repository</a>.</p>
 </div>
 <div id="weather-api" class="section level3">
 <h3>Weather API</h3>
@@ -502,7 +502,7 @@ weather &lt;- function(x, API_key){
 </div>
 <div id="the-shiny-application" class="section level2">
 <h2>The shiny application</h2>
-<p>The main problem I encountered while developping this application was data storage without paying. Shinyapps
+<p>The main problem I encountered while developing this application was data storage without paying. Shinyapps.io
 host freely your shiny application but there were some problem when I used the shiny application to modify the csv files.
 The solution I found was to store the data in my dropbox account, you can find <a href="https://shiny.rstudio.com/articles/persistent-data-storage.html" target="_blank">here</a> more details on the subject and alternatives solutions. I used the package <em>rdrop2</em> to access and modify the data with the shiny application.</p>
 <p>Here are the main steps of this application :</p>
@@ -514,7 +514,7 @@ The solution I found was to store the data in my dropbox account, you can find <
 </ol>
 <p>A simplified graph is showed below:</p>
 <div class="figure">
-<img src="/doc/graph.svg" alt="Simplified workflow of the application" />
+<img src="/doc/graph.svg" alt="" />
 <p class="caption">Simplified workflow of the application</p>
 </div>
 <div id="ui-side" class="section level3">
@@ -861,7 +861,7 @@ I have been using this application for 1 year without any problems! The data I c
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.62.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.75.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
           <br>
           Favicon made by <a href="https://www.flaticon.com/authors/becris">Becris</a> from <a href="https://www.flaticon.com/">www.flaticon.com</a>

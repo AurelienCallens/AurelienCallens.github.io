@@ -6,11 +6,7 @@
     <description>Recent content in Pages on Aurélien Callens</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>aurelien.callens@gmail.com (Aurelien Callens)</managingEditor>
-    <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster>
-    
-	<atom:link href="/page/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster><atom:link href="/page/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Research</title>
       <link>/page/research/</link>
@@ -18,7 +14,8 @@
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>/page/research/</guid>
       <description>My publications   Callens, A., Morichon, D., Abadie, S., Delpey, M., Liquet, B. (2020). Using Random forest and Gradient boosting trees to improve wave forecast at a specific location. Applied Ocean Research, 104. doi.org/10.1016/j.apor.2020.102339
-  Morichon, D., de Santiago, I., Delpey, M., Somdecoste, T., Callens, A., Liquet, B., &amp;hellip; &amp;amp; Arnould, P. (2018). Assessment of flooding hazards at an engineered beach during extreme events: Biarritz, SW France.</description>
+  Callens, A., Wang, Y., Fu, L. et al. (2020). Robust Estimation Procedure for Autoregressive Models with Heterogeneity. Environmental Modeling &amp;amp; Assessment. doi.org/10.1007/s10666-020-09730-w
+  Morichon, D.</description>
     </item>
     
     <item>
