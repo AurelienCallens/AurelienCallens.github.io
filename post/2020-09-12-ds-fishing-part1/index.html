@@ -59,11 +59,11 @@
   "headline": "Can Data Science make me a better angler? Part 1",
   "description" : "My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I am fishing European sea bass (Dicentrarchus labrax) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artificial lures that imitate a specific prey.\nIn theory, it is quite easy to catch a fish:",
   "inLanguage" : "en",
-  "wordCount":  1908 ,
+  "wordCount":  1863 ,
   "datePublished" : "2020-09-12T00:00:00",
   "dateModified" : "2020-09-12T00:00:00",
   "image" : "\/img\/avatar-icon.jpg",
-  "keywords" : [ "shiny, API, Web scraping" ],
+  "keywords" : [ "API, shiny, Web scraping" ],
   "mainEntityOfPage" : "\/post\/2020-09-12-ds-fishing-part1\/",
   "publisher" : {
     "@type": "Organization",
@@ -502,8 +502,8 @@ weather &lt;- function(x, API_key){
 </div>
 <div id="the-shiny-application" class="section level2">
 <h2>The shiny application</h2>
-<p>The main problem I encountered while developing this application was data storage without paying. Shinyapps.io
-host freely your shiny application but there were some problem when I used the shiny application to modify the csv files.
+<p>The main problem I encountered while developing this application was data storage. Shinyapps.io
+host freely your shiny application but there were some problems when I used the shiny application to modify the csv files.
 The solution I found was to store the data in my dropbox account, you can find <a href="https://shiny.rstudio.com/articles/persistent-data-storage.html" target="_blank">here</a> more details on the subject and alternatives solutions. I used the package <em>rdrop2</em> to access and modify the data with the shiny application.</p>
 <p>Here are the main steps of this application :</p>
 <ol style="list-style-type: decimal">
@@ -753,16 +753,16 @@ observeEvent is provided in the script as commentary.</p>
 <p>You can find a dummy example of this application (not linked to the dropbox account)
 <a href="https://aureliencallens.shinyapps.io/Dummy_angler_app/" target="_blank">here</a>.
 I have been using this application for 1 year without any problems! The data I collected will be presented in the next post.</p>
-<p>In the coming months, I will improve this application on two points: the weather API and the tide function. I must find a new free API to replace the actual one. Indeed, the weather API I am using has been bought by Apple and the free requests will be stopped in the following year. For the tide function, the french website is now furnishing a data stream. Using the datastream instead of webscraping the tide levels should make the application more reactive.</p>
+<p>In the coming months, I must find a new free API to replace the actual one. Indeed, the weather API I am using has been bought by Apple and the free requests will be stopped in the following year.</p>
 </div>
 
 
         
           <div class="blog-tags">
             
-              <a href="//tags/shiny/">shiny</a>&nbsp;
-            
               <a href="//tags/api/">API</a>&nbsp;
+            
+              <a href="//tags/shiny/">shiny</a>&nbsp;
             
               <a href="//tags/web-scraping/">Web scraping</a>&nbsp;
             
@@ -795,6 +795,20 @@ I have been using this application for 1 year without any problems! The data I c
 
 
       
+        
+          
+          <div class="disqus-comments">                  
+            <button id="show-comments" class="btn btn-default" type="button">Show <span class="disqus-comment-count" data-disqus-url="post/2020-09-12-ds-fishing-part1">comments</span></button>
+            <div id="disqus_thread"></div>
+
+            <script type="text/javascript">
+              var disqus_config = function () {
+              this.page.url = 'post\/2020-09-12-ds-fishing-part1';
+            };
+
+          </script>
+          </div>
+          
         
         
       
@@ -884,6 +898,28 @@ I have been using this application for 1 year without any problems! The data I c
 
 
 
+
+
+
+<script type="text/javascript">
+$(function(){
+  $('#show-comments').on('click', function(){
+    var disqus_shortname = 'https-aureliencallens-github-io';
+      
+    (function() {
+      var disqus = document.createElement('script'); 
+      disqus.type = 'text/javascript'; 
+      disqus.async = true;
+      disqus.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(disqus);
+    })();
+      
+    $(this).hide(); 
+    });
+  });
+      
+</script>
+<script id="dsq-count-scr" src="//https-aureliencallens-github-io.disqus.com/count.js" async></script>
 
 
 
