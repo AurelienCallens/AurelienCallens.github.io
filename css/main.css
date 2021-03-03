@@ -346,7 +346,6 @@ footer .theme-by {
 .post-preview {
   padding: 20px 0;
   border-bottom: 1px solid #eee;
-  text-align: justify;
 }
 
 @media only screen and (min-width: 768px) {
@@ -406,6 +405,7 @@ footer .theme-by {
 .post-entry {
   width: 100%;
   margin-top: 10px;
+  text-align: justify;
 }
 .post-image {
   float: right;
