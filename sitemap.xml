@@ -3,95 +3,105 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://aureliencallens.github.io/</loc>
+    <loc>/</loc>
+    <lastmod>2021-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2021-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/coastal_risks_google_trends/</loc>
+    <lastmod>2021-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ggplot2/</loc>
+    <lastmod>2021-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/gtrendsr/</loc>
+    <lastmod>2021-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2021-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2021-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2021-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/tidyverse/</loc>
+    <lastmod>2021-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rselenium/</loc>
     <lastmod>2020-11-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://aureliencallens.github.io/categories/</loc>
+    <loc>/tags/web-scraping/</loc>
     <lastmod>2020-11-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://aureliencallens.github.io/post/</loc>
+    <loc>/post/2020-11-18-aliexpress_rselenium/</loc>
     <lastmod>2020-11-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://aureliencallens.github.io/categories/r/</loc>
-    <lastmod>2020-11-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://aureliencallens.github.io/tags/rselenium/</loc>
-    <lastmod>2020-11-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://aureliencallens.github.io/tags/</loc>
-    <lastmod>2020-11-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://aureliencallens.github.io/tags/web-scraping/</loc>
-    <lastmod>2020-11-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://aureliencallens.github.io/post/2020-11-18-aliexpress_rselenium/</loc>
-    <lastmod>2020-11-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://aureliencallens.github.io/post/2020-09-25-ds-fishing-part2/</loc>
+    <loc>/post/2020-09-25-ds-fishing-part2/</loc>
     <lastmod>2020-09-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://aureliencallens.github.io/tags/ggplot2/</loc>
+    <loc>/tags/leaflet/</loc>
     <lastmod>2020-09-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://aureliencallens.github.io/tags/leaflet/</loc>
-    <lastmod>2020-09-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://aureliencallens.github.io/tags/tidyverse/</loc>
-    <lastmod>2020-09-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://aureliencallens.github.io/tags/api/</loc>
+    <loc>/tags/api/</loc>
     <lastmod>2020-09-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://aureliencallens.github.io/post/2020-09-12-ds-fishing-part1/</loc>
+    <loc>/post/2020-09-12-ds-fishing-part1/</loc>
     <lastmod>2020-09-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://aureliencallens.github.io/tags/shiny/</loc>
+    <loc>/tags/shiny/</loc>
     <lastmod>2020-09-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://aureliencallens.github.io/post/2020-09-01-first-post/</loc>
+    <loc>/post/2020-09-01-first-post/</loc>
     <lastmod>2020-09-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://aureliencallens.github.io/page/</loc>
+    <loc>/page/</loc>
   </url>
   
   <url>
-    <loc>https://aureliencallens.github.io/page/research/</loc>
+    <loc>/page/research/</loc>
   </url>
   
   <url>
-    <loc>https://aureliencallens.github.io/page/about/</loc>
+    <loc>/page/about/</loc>
   </url>
   
 </urlset>
