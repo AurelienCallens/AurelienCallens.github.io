@@ -2,22 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>leaflet on Aurélien Callens</title>
-    <link>/tags/leaflet/</link>
+    <link>https://aureliencallens.github.io/tags/leaflet/</link>
     <description>Recent content in leaflet on Aurélien Callens</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>aurelien.callens@gmail.com (Aurelien Callens)</managingEditor>
     <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster>
-    <lastBuildDate>Fri, 25 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/leaflet/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 25 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://aureliencallens.github.io/tags/leaflet/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Can R and Shiny make me a better fisherman? Part 2</title>
-      <link>/post/2020-09-25-ds-fishing-part2/</link>
+      <link>https://aureliencallens.github.io/post/2020-09-25-ds-fishing-part2/</link>
       <pubDate>Fri, 25 Sep 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
-      <guid>/post/2020-09-25-ds-fishing-part2/</guid>
+      <guid>https://aureliencallens.github.io/post/2020-09-25-ds-fishing-part2/</guid>
       <description>In the previous blog article, I described in details how I built a shiny application that stores data about my fishing sessions. In this post, I will explore the data I have collected during the last year.
 To sum up, my application store the data in two csv files. The first one contains variables related to the fishing conditions at the beginning and at the end of the session such as :</description>
     </item>

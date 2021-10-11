@@ -2,51 +2,47 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R on Aurélien Callens</title>
-    <link>/categories/r/</link>
+    <link>https://aureliencallens.github.io/categories/r/</link>
     <description>Recent content in R on Aurélien Callens</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>aurelien.callens@gmail.com (Aurelien Callens)</managingEditor>
     <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster>
-    <lastBuildDate>Wed, 03 Mar 2021 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 03 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://aureliencallens.github.io/categories/r/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Coastal risks and statistical learning: Analyzing Google trends with gtrendsR package</title>
-      <link>/post/coastal_risks_google_trends/</link>
+      <link>https://aureliencallens.github.io/post/coastal_risks_google_trends/</link>
       <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
-      <guid>/post/coastal_risks_google_trends/</guid>
+      <guid>https://aureliencallens.github.io/post/coastal_risks_google_trends/</guid>
       <description>I am currently in my third year of PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risk.</description>
     </item>
     
     <item>
       <title>Webscraping Aliexpress with Rselenium</title>
-      <link>/post/2020-11-18-aliexpress_rselenium/</link>
+      <link>https://aureliencallens.github.io/post/2020-11-18-aliexpress_rselenium/</link>
       <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
-      <guid>/post/2020-11-18-aliexpress_rselenium/</guid>
+      <guid>https://aureliencallens.github.io/post/2020-11-18-aliexpress_rselenium/</guid>
       <description>Today, I am going to show you how to scrape product prices from Aliexpress website.
 A few words on web scraping Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the robots.txt page which should be located at the root of the website adress.</description>
     </item>
     
     <item>
       <title>Can R and Shiny make me a better fisherman? Part 2</title>
-      <link>/post/2020-09-25-ds-fishing-part2/</link>
+      <link>https://aureliencallens.github.io/post/2020-09-25-ds-fishing-part2/</link>
       <pubDate>Fri, 25 Sep 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
-      <guid>/post/2020-09-25-ds-fishing-part2/</guid>
+      <guid>https://aureliencallens.github.io/post/2020-09-25-ds-fishing-part2/</guid>
       <description>In the previous blog article, I described in details how I built a shiny application that stores data about my fishing sessions. In this post, I will explore the data I have collected during the last year.
 To sum up, my application store the data in two csv files. The first one contains variables related to the fishing conditions at the beginning and at the end of the session such as :</description>
     </item>
     
     <item>
       <title>Can R and Shiny make me a better fisherman? Part 1</title>
-      <link>/post/2020-09-12-ds-fishing-part1/</link>
+      <link>https://aureliencallens.github.io/post/2020-09-12-ds-fishing-part1/</link>
       <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
-      <guid>/post/2020-09-12-ds-fishing-part1/</guid>
+      <guid>https://aureliencallens.github.io/post/2020-09-12-ds-fishing-part1/</guid>
       <description>My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I am fishing European sea bass (Dicentrarchus labrax) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artificial lures that imitate a specific prey.</description>
     </item>
     
