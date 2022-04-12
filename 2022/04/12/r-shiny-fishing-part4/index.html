@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Can R and Shiny make me a better fisherman? Part 4 - Aurélien Callens</title>
+  <meta name="description" content="Exploratory analysis on my fishing data (shiny and plotly)">
+  <meta name="author" content="Aurelien Callens"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Aurélien Callens",
+    
+    "url": "https:\/\/aureliencallens.github.io\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/aureliencallens.github.io\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/aureliencallens.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/aureliencallens.github.io\/2022\/04\/12\/r-shiny-fishing-part4\/",
+          "name": "Can r and shiny make me a better fisherman? part 4"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Aurélien Callens"
+  },
+  "headline": "Can R and Shiny make me a better fisherman? Part 4",
+  "description" : "In this post, I explore the data I have collected during the last year with the updated version of the application (presented here). This quick exploratory analysis is performed with two packages I really enjoy: Plotly and shiny.\nFor reminder, my new application store the data in three csv files. The first one contains variables related to the fishing conditions. The second one contains information about my catches and finally the third one contains information about the characteristics of the lures I used during the session.",
+  "inLanguage" : "en",
+  "wordCount":  1167 ,
+  "datePublished" : "2022-04-12T00:00:00",
+  "dateModified" : "2022-04-12T00:00:00",
+  "image" : "https:\/\/aureliencallens.github.io\/img\/avatar-icon.jpg",
+  "keywords" : [ "tidyverse, shiny, plotly" ],
+  "mainEntityOfPage" : "https:\/\/aureliencallens.github.io\/2022\/04\/12\/r-shiny-fishing-part4\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/aureliencallens.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/aureliencallens.github.io\/img\/avatar-icon.jpg",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Can R and Shiny make me a better fisherman? Part 4" />
+<meta property="og:description" content="Exploratory analysis on my fishing data (shiny and plotly)">
+<meta property="og:image" content="https://aureliencallens.github.io/img_post/seabass_bay.jpg" />
+<meta property="og:url" content="https://aureliencallens.github.io/2022/04/12/r-shiny-fishing-part4/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Aurélien Callens" />
+
+  <meta name="twitter:title" content="Can R and Shiny make me a better fisherman? Part 4" />
+  <meta name="twitter:description" content="Exploratory analysis on my fishing data (shiny and plotly)">
+  <meta name="twitter:image" content="https://aureliencallens.github.io/img_post/seabass_bay.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://aureliencallens.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.96.0" />
+  <link rel="alternate" href="https://aureliencallens.github.io/index.xml" type="application/rss+xml" title="Aurélien Callens"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://aureliencallens.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://aureliencallens.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://aureliencallens.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-129143452-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://aureliencallens.github.io/">Aurélien Callens</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Research" href="/research/">Research</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About me" href="/about/">About me</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Aurélien Callens" href="https://aureliencallens.github.io/">
+            <img class="avatar-img" src="https://aureliencallens.github.io/img/avatar-icon.jpg" alt="Aurélien Callens" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+    <div id="header-big-imgs" data-num-img=1 
+      
+          
+          data-img-src-1="https://aureliencallens.github.io/img_post/seabass_bay.jpg" 
+         
+         data-img-desc-1="Seabass"
+      ></div>
+  
+
+  <header class="header-section has-img">
+    
+      <div class="intro-header big-img">
+        
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <div class="post-heading">
+                <h1>Can R and Shiny make me a better fisherman? Part 4</h1>
+                  
+                    
+                      <h2 class="post-subheading">Exploratory analysis on my fishing data (shiny and plotly)</h2>
+                    
+                  
+                  
+                    <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on April 12, 2022
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;6&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+                  
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="img-desc" style="display: inline;"></span>
+      </div>
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Can R and Shiny make me a better fisherman? Part 4</h1>
+              
+              
+              
+                
+                  <h2 class="post-subheading">Exploratory analysis on my fishing data (shiny and plotly)</h2>
+                
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on April 12, 2022
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;6&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+
+<p>In this post, I explore the data I have collected during the last year with the updated version of the application (presented <a href="/2021/06/01/r-shiny-fishing-part3/">here</a>). This quick exploratory analysis is performed with two packages I really enjoy: <em>Plotly</em> and <em>shiny</em>.</p>
+<p>For reminder, my new application store the data in three csv files. The first one contains variables related to the fishing conditions. The second one contains information about my catches and finally the third one contains information about the characteristics of the lures I used during the session.</p>
+<div id="shiny-to-explore-fishing-data-by-session" class="section level2">
+<h2>Shiny to explore fishing data by session</h2>
+<p>I coded a small shiny application that provide a summary of the tide and river flow conditions, the lure changes and catches for each session. Don’t hesitate to explore my fishing data !</p>
+<div class="wrap" style="width: 100%; height: 1500px;
+    padding: 0; overflow: hidden;">
+<iframe style="width: 800px;
+    height: 1550px;
+    border: 0;
+    -ms-transform: scale(0.25);
+    -moz-transform: scale(0.25);
+    -o-transform: scale(0.25);
+    -webkit-transform: scale(0.25);
+    transform: scale(0.95);
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;" src="https://aureliencallens.shinyapps.io/Fishing_analysis/">
+</iframe>
+</div>
+</div>
+<div id="code-of-the-shiny-application" class="section level2">
+<h2>Code of the shiny application</h2>
+<p>Here is the code of the plotly graphs in the application:</p>
+<pre class="r"><code>library(plotly)
+library(tidyverse)
+
+
+#&#39; For the tide plot
+#&#39; 
+#&#39; @param dat first dataframe with session characteristics
+#&#39; @param n_ses the id (number) of the session
+#&#39; @param temporal_range number of hours to display (before and after the session)
+#&#39; @return A plotly object
+plot_tide_ses &lt;- function(dat, n_ses, temporal_range = 4){
+
+  dat_t &lt;- dat %&gt;% 
+    filter(Session == n_ses) %&gt;% 
+    mutate(Tide_ts = list(eval(parse(text = Ts_tide))))
+  dat_tide &lt;- as.data.frame(dat_t$Tide_ts)
+  dat_tide$hour &lt;- as.POSIXct(dat_tide$hour, origin = &quot;1970-01-01&quot;)
+  dat_tide$Water &lt;- as.numeric(as.character(dat_tide$Water))
+  
+  plot_ly(data = dat_tide, 
+          x = ~ hour, 
+          y = ~ Water, 
+          mode = &#39;lines&#39;) %&gt;%  
+    layout(shapes = list(
+      list(type = &#39;line&#39;,
+           x0 = as.POSIXct(dat_t$Beg),
+           x1 = as.POSIXct(dat_t$Beg),
+           y0 = min(dat_tide$Water),
+           y1 = max(dat_tide$Water),
+           line = list(dash = &#39;dot&#39;, width = 1)),
+      list(type = &#39;line&#39;,
+           x0 =  as.POSIXct(dat_t$End),
+           x1 = as.POSIXct(dat_t$End),
+           y0 = min(dat_tide$Water),
+           y1 = max(dat_tide$Water),
+           line = list(dash = &#39;dot&#39;, width = 1))),
+      xaxis = list(range = as.POSIXct(c(as.POSIXct(dat_t$Beg) - 3600*temporal_range ,
+                                        as.POSIXct(dat_t$End) + 3600*temporal_range )),
+                   title = &quot;&quot;),
+      yaxis = list(title = &quot;Tide level&quot;))
+}
+
+#&#39; For the river flow plot
+#&#39; 
+#&#39; @param dat first dataframe with session characteristics
+#&#39; @param n_ses the id (number) of the session
+#&#39; @param past_days number of previous to display (before the session)
+#&#39; @return A plotly object
+plot_flow_ses &lt;- function(dat, n_ses, past_days = 4){
+  dat_t &lt;- dat %&gt;% 
+    filter(Session == n_ses) %&gt;% 
+    mutate(Flow_ts = list(eval(parse(text = Ts_flow))))
+  
+  dat_flow &lt;- as.data.frame(dat_t$Flow_ts)
+  dat_flow$Date &lt;- as.POSIXct(dat_flow$Date, origin = &quot;1970-01-01&quot;)
+  dat_flow$Nive &lt;- as.numeric(as.character(dat_flow$Nive))
+  dat_flow$Adour &lt;- as.numeric(as.character(dat_flow$Adour))
+  
+  
+  dat_flow &lt;- dat_flow %&gt;% 
+    pivot_longer(cols = c(Nive, Adour), 
+                 names_to = &quot;River&quot;,
+                 values_to = &quot;Flow&quot;)
+  
+  plot_ly(data = dat_flow, 
+          x = ~ Date,
+          y = ~ Flow, 
+          color = ~ River, 
+          mode = &#39;lines&#39;) %&gt;%  
+    layout(shapes = list(
+      list(type=&#39;line&#39;,
+           x0 = as.POSIXct(dat_t$Beg),
+           x1 = as.POSIXct(dat_t$Beg),
+           y0 = min(dat_flow$Flow),
+           y1 = max(dat_flow$Flow),
+           line = list(dash = &#39;dot&#39;, width = 1))),
+      xaxis = list(range = as.POSIXct(c(as.POSIXct(dat_t$Beg) - 3600*24*past_days,
+                                        as.POSIXct(dat_t$End) )),
+                   title = &quot;&quot;))
+}
+
+#&#39; Function to prepare the dataset for the plot of lure change and catch
+#&#39; 
+#&#39; @param lure third dataframe with lure changes (hours) and characteristics
+#&#39; @param session first dataframe with session characteristics
+#&#39; @param ses_n the id (number) of the session
+#&#39; @return A dataframe
+start_end_fonction &lt;- function(lure, session, ses_n){
+  dat_ses &lt;- session %&gt;% 
+    filter(Session == ses_n)
+  
+  dat_lure &lt;- lure %&gt;% 
+    filter(n_ses == ses_n)
+  
+  startdates &lt;- dat_lure$time
+  enddates &lt;- c(startdates[-1], dat_ses$End)
+  
+  data.frame(change = length(startdates):1, 
+             start = as.POSIXct(startdates),
+             end = as.POSIXct(enddates),
+             type = dat_lure$type_lure,
+             text = paste(dat_lure$color_lure, dat_lure$length_lure))
+}
+
+#&#39; For the plot of lure change and catch
+#&#39; 
+#&#39; @param lure third dataframe with lure changes (hours) and characteristics
+#&#39; @param caught second dataframe with fish caught characteristics
+#&#39; @param session first dataframe with session characteristics
+#&#39; @param n_ses the id (number) of the session
+#&#39; @return A plotly object
+lure_change &lt;- function(lure, caught, dat, n_ses){
+  
+  df &lt;- start_end_fonction(lure, dat, n_ses)
+  
+  catch &lt;- caught %&gt;% 
+    filter(n_ses == n_ses)
+  
+  dat_t &lt;- dat %&gt;% 
+    filter(Session == n_ses) %&gt;% 
+    mutate(Tide_ts = list(eval(parse(text = Ts_tide))))
+  dat_tide &lt;- as.data.frame(dat_t$Tide_ts)
+  dat_tide$hour &lt;- as.POSIXct(dat_tide$hour, origin = &quot;1970-01-01&quot;)
+  dat_tide$Water &lt;- as.numeric(as.character(dat_tide$Water))
+  
+  plot_ly() %&gt;% 
+    add_segments(data = df,
+                 x = ~ start,
+                 xend = ~ end,
+                 y = ~ change,
+                 yend = ~ change,
+                 color = ~ type,
+                 #text = ~ text,
+                 size = I(5),
+                 alpha = 0.8) %&gt;%
+    add_segments(x = as.POSIXct(catch$time),
+                 xend = as.POSIXct(catch$time),
+                 y = min(df$change),
+                 yend = max(df$change),
+                 line = list(color = &quot;red&quot;, dash = &quot;dash&quot;),
+                 name = &#39;Fish caught&#39;) %&gt;%
+    add_trace(data = dat_tide, 
+              x = ~ hour, 
+              y = ~ Water, 
+              mode = &#39;lines&#39;, 
+              yaxis = &quot;y2&quot;,
+              name = &quot;Water level&quot;,
+              alpha = 0.4,
+              hoverinfo = &#39;skip&#39;
+    ) %&gt;% 
+    layout(xaxis = list(range = c(df$start[1] - 1000 , df$end[nrow(df)] + 1000),
+                        title = &quot;&quot;),
+           yaxis = list(title = &quot;&quot;, zeroline = FALSE, showline = FALSE,
+                        showticklabels = FALSE, showgrid = FALSE ),
+           yaxis2 = list(overlaying = &quot;y&quot;, side = &quot;right&quot;))
+}</code></pre>
+<p>Here is the code of this simple yet informative application:</p>
+<pre class="r"><code>library(shiny)
+library(shinyWidgets)
+library(shinydashboard)
+library(plotly)
+library(tidyverse)
+source(&#39;plot_functions.R&#39;)
+dat &lt;- read_csv(&quot;session1.csv&quot;)
+caught &lt;- read_csv(&quot;catch1.csv&quot;)
+lure &lt;- read_csv(&quot;lure.csv&quot;)
+
+# In order to save the tide and flow time series I parse the data in the dataframe
+# The following line is used to transform the parsed text into usable values
+dat_t &lt;- dat %&gt;% 
+  mutate(Tide_ts = list(eval(parse(text = Ts_tide))),
+         Flow_ts = list(eval(parse(text = Ts_flow))))
+
+body &lt;- dashboardBody(fluidPage(
+  # Application title
+  h1(&quot;Exploratory analysis of fishing data&quot;,
+  align = &quot;center&quot;,
+  style = &quot;padding: 40px;  text-align: center;  background: #605ca8;  color: white;  font-size: 40px;&quot;),
+  br(),
+  # Dropdown menu to select the fishing session
+  fluidRow(align = &quot;center&quot;,
+           pickerInput(inputId = &#39;Ses&#39;,
+                       label = h3(&#39;Select a fishing session:&#39;),
+                       choices = unique(dat$Session[-1]),
+                       options = list(
+                         style = &quot;btn-primary&quot;),
+                       choicesOpt = list(
+                         style = rep_len(&quot;font-size: 75%; line-height: 1.6;&quot;, 4)
+                       ))),
+  br(),
+  br(),
+  # Key figures of the session
+  fluidRow(
+    valueBoxOutput(&quot;progressD&quot;, width = 4),
+    valueBoxOutput(&quot;progressF&quot;, width = 4),
+    valueBoxOutput(&quot;progressL&quot;, width = 4)),
+  br(),
+  
+  br(),
+  # Graphs of the tide and river flow of recent days
+  fluidRow(
+    box(title = &quot;Tidal water level&quot;, status = &quot;primary&quot;, 
+        plotlyOutput(&quot;TidePlot&quot;), width = 6),
+    box(title = &quot;River flow&quot;, status = &quot;primary&quot;,
+        plotlyOutput(&quot;FlowPlot&quot;), width = 6)),
+  br(),
+  # Graph lure changes during the session + catch
+  fluidRow(
+    box(title = &quot;Lures tested and fish capture&quot;, status = &quot;warning&quot;, 
+        plotlyOutput(&quot;LurePlot&quot;), width=12))
+))
+
+ui &lt;- dashboardPage(
+  
+  dashboardHeader(disable = TRUE),
+  
+  dashboardSidebar(disable = TRUE),
+  
+  body
+)
+
+
+# Define server logic required to draw a histogram
+server &lt;- function(input, output) {
+  
+  # Duration
+  output$progressD &lt;- renderValueBox({
+    Duration = as.integer(difftime(as.POSIXct(dat$End[dat$Session == input$Ses]), as.POSIXct(dat$Beg[dat$Session == input$Ses]), units = &#39;mins&#39;))
+    valueBox(tags$p(&quot;Duration&quot;, style = &quot;font-size: 80%;&quot;),
+             tags$p(paste(Duration, &quot;min&quot;), style = &quot;font-size: 150%; font-weight: bold;&quot;),
+             icon = icon(&quot;clock&quot;), color = &quot;purple&quot;)
+  })
+  
+  # Number of fish
+  
+  output$progressF &lt;- renderValueBox({
+    fish_caught = as.integer(caught %&gt;% filter(n_ses == input$Ses) %&gt;% nrow())
+    valueBox(tags$p(&quot;Fish caught&quot;, style = &quot;font-size: 80%;&quot;), tags$p(fish_caught, style = &quot;font-size: 150%;font-weight: bold;&quot;),
+             icon = icon(&quot;trophy&quot;), color = &quot;purple&quot;)
+  })
+  
+  # Number of lures tried
+  
+  output$progressL &lt;- renderValueBox({
+    Lure = as.integer(lure %&gt;% filter(n_ses == input$Ses) %&gt;% nrow())
+    valueBox(tags$p(&quot;Lure tried&quot;, style = &quot;font-size: 80%;&quot;), tags$p(Lure, style = &quot;font-size: 150%;font-weight: bold;&quot;),
+             icon = icon(&quot;fish&quot;), color = &quot;purple&quot;)
+  })
+  
+  output$TidePlot &lt;- renderPlotly({
+    # generate plot depending on session
+    plot_tide_ses(dat, input$Ses, 4)
+  })
+  output$FlowPlot &lt;- renderPlotly({
+    # generate plot depending on session
+    plot_flow_ses(dat_t, input$Ses, 4)
+  })
+  output$LurePlot &lt;- renderPlotly({
+    # generate plot depending on session
+    lure_change(lure, caught, dat, input$Ses)
+  })
+  
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)</code></pre>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://aureliencallens.github.io//tags/tidyverse/">tidyverse</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/shiny/">shiny</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/plotly/">plotly</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/2021/06/01/r-shiny-fishing-part3/">Can R and Shiny make me a better fisherman? Part 3</a></li>
+                
+                    <li><a href="/2021/03/03/coastal-risks-google-trends/">Coastal risks and statistical learning: Analyzing Google trends with gtrendsR package</a></li>
+                
+                    <li><a href="/2020/09/25/r-shiny-fishing-part2/">Can R and Shiny make me a better fisherman? Part 2</a></li>
+                
+                    <li><a href="/2020/09/12/r-shiny-fishing-part1/">Can R and Shiny make me a better fisherman? Part 1</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://aureliencallens.github.io/2021/10/02/the-end-of-a-journey/" data-toggle="tooltip" data-placement="top" title="The end of my PhD journey">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:aurelien.callens@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/aureliencallens" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/aureliencallens" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Aurelien Callens
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020 - 2022
+          
+
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.96.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+          <br>
+          Favicon made by <a href="https://www.flaticon.com/authors/becris">Becris</a> from <a href="https://www.flaticon.com/">www.flaticon.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://aureliencallens.github.io/js/main.js"></script>
+<script src="https://aureliencallens.github.io/js/highlight.pack.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://aureliencallens.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+ 
+  <script>
+  $(document).ready(function () {
+    window.initializeCodeFolding("show" === "hide");
+  });
+  </script>
+  <script src="/js/codefolding.js"></script>
+
+
+    
+  </body>
+</html>
+

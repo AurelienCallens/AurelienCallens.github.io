@@ -10,19 +10,19 @@
     <lastBuildDate>Wed, 03 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://aureliencallens.github.io/tags/ggplot2/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Coastal risks and statistical learning: Analyzing Google trends with gtrendsR package</title>
-      <link>https://aureliencallens.github.io/post/coastal_risks_google_trends/</link>
+      <link>https://aureliencallens.github.io/2021/03/03/coastal-risks-google-trends/</link>
       <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
-      <guid>https://aureliencallens.github.io/post/coastal_risks_google_trends/</guid>
+      <guid>https://aureliencallens.github.io/2021/03/03/coastal-risks-google-trends/</guid>
       <description>I am currently in my third year of PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risk.</description>
     </item>
     
     <item>
       <title>Can R and Shiny make me a better fisherman? Part 2</title>
-      <link>https://aureliencallens.github.io/post/2020-09-25-ds-fishing-part2/</link>
+      <link>https://aureliencallens.github.io/2020/09/25/r-shiny-fishing-part2/</link>
       <pubDate>Fri, 25 Sep 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
-      <guid>https://aureliencallens.github.io/post/2020-09-25-ds-fishing-part2/</guid>
+      <guid>https://aureliencallens.github.io/2020/09/25/r-shiny-fishing-part2/</guid>
       <description>In the previous blog article, I described in details how I built a shiny application that stores data about my fishing sessions. In this post, I will explore the data I have collected during the last year.
 To sum up, my application store the data in two csv files. The first one contains variables related to the fishing conditions at the beginning and at the end of the session such as :</description>
     </item>

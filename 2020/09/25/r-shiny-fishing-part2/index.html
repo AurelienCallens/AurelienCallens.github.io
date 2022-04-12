@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Can R and Shiny make me a better fisherman? Part 2 - Aurélien Callens</title>
+  <meta name="description" content="Exploratory analysis on my fishing data">
+  <meta name="author" content="Aurelien Callens"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Aurélien Callens",
+    
+    "url": "https:\/\/aureliencallens.github.io\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/aureliencallens.github.io\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/aureliencallens.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/aureliencallens.github.io\/2020\/09\/25\/r-shiny-fishing-part2\/",
+          "name": "Can r and shiny make me a better fisherman? part 2"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Aurélien Callens"
+  },
+  "headline": "Can R and Shiny make me a better fisherman? Part 2",
+  "description" : "In the previous blog article, I described in details how I built a shiny application that stores data about my fishing sessions. In this post, I will explore the data I have collected during the last year.\nTo sum up, my application store the data in two csv files. The first one contains variables related to the fishing conditions at the beginning and at the end of the session such as :",
+  "inLanguage" : "en",
+  "wordCount":  4094 ,
+  "datePublished" : "2020-09-25T00:00:00",
+  "dateModified" : "2020-09-25T00:00:00",
+  "image" : "https:\/\/aureliencallens.github.io\/img\/avatar-icon.jpg",
+  "keywords" : [ "ggplot2, leaflet, tidyverse" ],
+  "mainEntityOfPage" : "https:\/\/aureliencallens.github.io\/2020\/09\/25\/r-shiny-fishing-part2\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/aureliencallens.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/aureliencallens.github.io\/img\/avatar-icon.jpg",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Can R and Shiny make me a better fisherman? Part 2" />
+<meta property="og:description" content="Exploratory analysis on my fishing data">
+<meta property="og:image" content="https://aureliencallens.github.io/img_post/seabass_bay.jpg" />
+<meta property="og:url" content="https://aureliencallens.github.io/2020/09/25/r-shiny-fishing-part2/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Aurélien Callens" />
+
+  <meta name="twitter:title" content="Can R and Shiny make me a better fisherman? Part 2" />
+  <meta name="twitter:description" content="Exploratory analysis on my fishing data">
+  <meta name="twitter:image" content="https://aureliencallens.github.io/img_post/seabass_bay.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://aureliencallens.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.96.0" />
+  <link rel="alternate" href="https://aureliencallens.github.io/index.xml" type="application/rss+xml" title="Aurélien Callens"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://aureliencallens.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://aureliencallens.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://aureliencallens.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-129143452-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://aureliencallens.github.io/">Aurélien Callens</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Research" href="/research/">Research</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About me" href="/about/">About me</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Aurélien Callens" href="https://aureliencallens.github.io/">
+            <img class="avatar-img" src="https://aureliencallens.github.io/img/avatar-icon.jpg" alt="Aurélien Callens" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+    <div id="header-big-imgs" data-num-img=1 
+      
+          
+          data-img-src-1="https://aureliencallens.github.io/img_post/seabass_bay.jpg" 
+         
+         data-img-desc-1="Seabass"
+      ></div>
+  
+
+  <header class="header-section has-img">
+    
+      <div class="intro-header big-img">
+        
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <div class="post-heading">
+                <h1>Can R and Shiny make me a better fisherman? Part 2</h1>
+                  
+                    
+                      <h2 class="post-subheading">Exploratory analysis on my fishing data</h2>
+                    
+                  
+                  
+                    <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on September 25, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;20&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+                  
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="img-desc" style="display: inline;"></span>
+      </div>
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Can R and Shiny make me a better fisherman? Part 2</h1>
+              
+              
+              
+                
+                  <h2 class="post-subheading">Exploratory analysis on my fishing data</h2>
+                
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on September 25, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;20&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/leaflet/leaflet.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/leaflet/leaflet.js"></script>
+<link href="/rmarkdown-libs/leafletfix/leafletfix.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/proj4/proj4.min.js"></script>
+<script src="/rmarkdown-libs/Proj4Leaflet/proj4leaflet.js"></script>
+<link href="/rmarkdown-libs/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/leaflet-binding/leaflet.js"></script>
+
+
+<p>In the previous blog article, I described in details how I built a shiny application that stores data about my fishing sessions. In this post, I will explore the data I have collected during the last year.</p>
+<p>To sum up, my application store the data in two csv files. The first one contains variables related to the fishing conditions at the beginning and at the end of the session such as :</p>
+<ul>
+<li>Time</li>
+<li>Longitude and Latitude</li>
+<li>Meteorological conditions (9 in total : Air temperature, Atm. pressure, Wind speed and direction …)</li>
+<li>Tide conditions (Current water level, Tide status and Time since the tide peak)</li>
+<li>Specific comments</li>
+</ul>
+<p>The second one contains information about my catches :</p>
+<ul>
+<li>Time when caught</li>
+<li>Time since the beginning of the session</li>
+<li>Species</li>
+<li>Length of the fish</li>
+<li>Fishing lure used</li>
+<li>Color of the fishing lure</li>
+<li>Length of the lure</li>
+</ul>
+<div id="importing-and-cleaning-my-fishing-data" class="section level2">
+<h2>Importing and cleaning my fishing data</h2>
+<p>The first step of this analysis is to import both csv files.</p>
+<ul>
+<li>Summary table of the first file:</li>
+</ul>
+<pre class="r"><code>library(summarytools)
+library(kableExtra)
+
+# Change character variables to factor
+session_data %&lt;&gt;% 
+mutate_at(vars(Weather, Tide_status), as.factor)
+
+# Make summary table 
+session_data %&gt;% 
+  select(-c(Status, Comments)) %&gt;% 
+dfSummary(., plain.ascii = FALSE, style = &quot;multiline&quot;, 
+          graph.magnif = 0.75, valid.col = FALSE) %&gt;% 
+  select(-c(text.graph, Missing)) %&gt;% 
+  knitr::kable(format = &quot;html&quot;, escape = F) %&gt;%
+  scroll_box(width = &quot;100%&quot;, height = &quot;500px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<table>
+<thead>
+<tr>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+No
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Variable
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Stats / Values
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Freqs (% of Valid)
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Graph
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Session<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 19.5 (11)<br />
+min &lt; med &lt; max:<br />
+1 &lt; 19.5 &lt; 38<br />
+IQR (CV) : 19 (0.6)
+</td>
+<td style="text-align:left;">
+38 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAAx0lEQVR42u3cwQmEMBBA0WRJdVawW6FWYHt6nT0MiArin/9uEgx+iacE+9Zq+Dz9AIYaes6IF/MrP9hvz0biwPgfmpJb1htH7pyrtfXg6yizdA2lMZTGUBpDaQylMZTGUBpDaQylMZTGUBpDaQylKRM6rk/xtCXdA/yF7TRA6LF9tjJL11AaQ2kMpTGUxlAaQ2kMpTGUxlAaQ2kMpTGUxlAaQ2kMpTGUxlAaQ2kMpTGUxlCaHk8MvvMXIrl46LHD2lJllq6hNDtoUxGs2NNpeAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMErcCkMAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDA7gbL/AAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Time<br />
+[POSIXct, POSIXt]
+</td>
+<td style="text-align:left;">
+min : 2019-04-09 19:23:09<br />
+med : 2019-06-21 08:13:07<br />
+max : 2020-09-13 22:12:40<br />
+range : 1y 5m 4d 2H 49M 31S
+</td>
+<td style="text-align:left;">
+76 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAABB0lEQVR42u2bUQ6CMBAFreF0nkBPKCfwevpbpQRsmrDMzvxB+Ogkbzdts5T3JQfXoxegqKJ9TPVDq17nlSK+l6OXvk29xGn781vj3etoh79JE11FaShKQ1EaitJQlIaiNBSloSgNRWkoSkNRGorSUJSGojQUpaEoDUVpKEojjeiO8ZtY9M49nU60d+4pTXQVpdFdo62mEHkQslt02RJiD0Kmia6iNBSloSiNNKKhTy/zwP/JQouO3H+lia6iNL5qdGTxR+OnGZ3t8LWfNNFVlEbwDcN+Wo30Ud1hYUS32mia6CpKY2iNRr7UHioaeV+VJrqK0ih1/3jCjmn1zqjA3FZJE11FaXwAiI0bDp6R7IsAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDBK3ApDAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwO4Gy/wAAAABJRU5ErkJggg==">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+Long<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : -1.5 (0)<br />
+min &lt; med &lt; max:<br />
+-1.5 &lt; -1.5 &lt; -1.5<br />
+IQR (CV) : 0 (0)
+</td>
+<td style="text-align:left;">
+69 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAABA0lEQVR42u3cQQ6CMBQAUWs4HSfQE8oJvJ5ui0AwyP/gdGaHC+oLpRoClNelja5HfwGhQrfV1Rux5+sws/tbiRyx3nm3eS8b6j+2n4ljNzN1hdISSksoLaG0hNISSksoLaG0hNISSksorWagqRewp+VdvT8Y2k8+ibp638zUFUpLKC2htITSEkpLKC2htITSEkpLKC2htITSEkpLKC2htITSEkqrGejBN2t80z53rvwBdJ/nTkfQ/Gd28/o4okc+sxubi9FvDenvsZgb8V6ddmGLUd7Nb0sjjsc74aobMxtOCI1ZEFehlJ+cVWj+uRZTqQ/YA/bOn3rVLTDbYs38YRBK6w1cEB4ObwvYYwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMErcCkMAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDA7gbL/AAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+Lat<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 43.5 (0)<br />
+min &lt; med &lt; max:<br />
+43.5 &lt; 43.5 &lt; 43.5<br />
+IQR (CV) : 0 (0)
+</td>
+<td style="text-align:left;">
+70 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAA00lEQVR42u3bQQqDMBBA0aZ4Ok+gJ7Qn6PXsdlzIqJTG/vl/JwbxQQy4mLY+avTs/QJChV5riBf3+V5fB15latmKuGDIFvdqTO6/Tz6vzNYVSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNIqA73tyFZePr82h+G0P4aem14rs3WF0hJKq8upe2SwGQH9/mBzXpmtK5SWUFqbU7fHsf+rWrQtMGj8TWsw225lvlGhtD4BqxEAhUjPPAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMErcCkMAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDA7gbL/AAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+Air_temp<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 19.1 (4.7)<br />
+min &lt; med &lt; max:<br />
+10.6 &lt; 18.3 &lt; 30.7<br />
+IQR (CV) : 6.4 (0.2)
+</td>
+<td style="text-align:left;">
+73 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAABJ0lEQVR42u2bYQ6CMAxGmeF0nEBPKCfwevp3uqmjGZR9fe8fBAgvaZuug/ScYnDxfgFEEbUx5wfWfF0rN16Tt9o05a8wm5/yxvJx/PB2LAgTuoiqgagaiKoRRtTQMKxNDdTZuiVTZ9TSBy3FGd9uKUzoIqoGomogqgaiaiCqBqJqIKoGomogqgaiaiCqRqcdbxv1Ufg+Y25X0SPH3GFCF1E1/uRo285ZK32f1lW0b7nw/BopTOgiqgaiaiCqBqJqIKoGomo4j1JqlIu5HlOkE4rus5gLE7qIqnHCHC1pKU+1edQtu2oI0bby9PuqMKGLqBpD5GjJ9lH4oKLbx+phQhdRNd5y1HO361DREf6+txImdBFVI+X15y5WjPJlWhJz+0qY0EVUjRcKXyYHmYFvUQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMErcCkMAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDA7gbL/AAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+Weather<br />
+[factor]
+</td>
+<td style="text-align:left;">
+1. Clear<br />
+2. Drizzle<br />
+3. Humid<br />
+4. Humid and Mostly Cloudy<br />
+5. Humid and Partly Cloudy<br />
+6. Mostly Cloudy<br />
+7. Overcast<br />
+8. Partly Cloudy<br />
+9. Possible Light Rain<br />
+10. Windy and Mostly Cloudy
+</td>
+<td style="text-align:left;">
+\25 (32.9%)<br />
+ 1 ( 1.3%)<br />
+ 1 ( 1.3%)<br />
+ 2 ( 2.6%)<br />
+ 1 ( 1.3%)<br />
+\18 (23.7%)<br />
+ 8 (10.5%)<br />
+\17 (22.4%)<br />
+ 2 ( 2.6%)<br />
+ 1 ( 1.3%)
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAADEAAAC3CAQAAAARfH5SAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAA/0lEQVR42u3cwQ2DMAyF4bjqdEzQTlgmYD04IQVUiJvECL3+78aFT8hRjFGEzSk6j3BBhHjmF59uhXnbAZHS0AWYNlcatYCAgFAldtvgVHeX01i+f/drstlefnktxnkMeFvQWFEQEBAQf07Q9WqIC54CAgICAiIgGl1vMxSvPe9lNbc6yu4phk4fIE+IiEBAQEDcmeALpzPMehAQEBAChGBLisnXWe+3lCbD5qMm5XcWjVpAQECoEgxizjhbUssHSVdLaquQxqKFgICAqA5dz5nmQazcDxsHMU/tNBYtBAQERHXoes5w1AQCAgJCgKDrOcNREwgICAgBwvhxym2IBWG8OB3nstqxAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwStwKQwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMDuBsv8AAAAASUVORK5CYII=">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+Atm_pres<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 1017.7 (6.2)<br />
+min &lt; med &lt; max:<br />
+996.8 &lt; 1017.3 &lt; 1028.6<br />
+IQR (CV) : 7.2 (0)
+</td>
+<td style="text-align:left;">
+70 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAA9klEQVR42u3cQQ7CIBQAUTE9nSfQE+oJvJ5ucVEISAqdP7MzxtaXfJLWEtPnEqPr7C8gVGhfW/5iznp9VU57T71Hzj+49R5kZLfCe+9B5wgzukJpCaUllJZQWkJpCaUllJZQWkJpCaUllJZQWkJpCaUllJZQWkJpCaUVBnrI9pvaTiIM9JidROXCjK5QWkJpCaW1xH7d3moXIo9sZ/KpoS0XImFGNwz0BKM75pbgBND9ddhyOxBmdIXSEkpLKC2htITSEkpLKK0w0J8b7/4/CljhwWAD9J/He/MfDJYLM7phoClfXM/lV1pb+S/1CWbbLczoCqX1BaYUF629GKdEAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwStwKQwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMDuBsv8AAAAASUVORK5CYII=">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+Wind_str<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 10.4 (6.2)<br />
+min &lt; med &lt; max:<br />
+3.1 &lt; 8.8 &lt; 45.9<br />
+IQR (CV) : 5.7 (0.6)
+</td>
+<td style="text-align:left;">
+73 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAA/UlEQVR42u3bXRLBMBRAYTFdnRWwQl2B7fEa3E6o/sS557wxHvKRptVMy/2Qo+PeAxAqdF5D/SI6XseJg/hc9h56u3qIQ/vjp+C9296Gr0szdYXSEkpLKC2htITSEkpLKC2htITSEkpLKC2htITSEkpLKK000A82guOinfCed8FnQ9/3wfveBU8zdYXSEkpLKC2htITSEkpLKC2htITSEkpLKK2n+7oj+BnLlxvY/3Zbejb0t3replgU2vN8SLMYCaUllFYa6KKnl6j4amv7s+vq0F4ehU8zddNAV5+62xSvBJdqJYBA29fZpf4qrrD/o/UvWmC2ydIsRkJpPQAcNhhjjiifFAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMErcCkMAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDA7gbL/AAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+Wind_dir<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 204.2 (107.2)<br />
+min &lt; med &lt; max:<br />
+6 &lt; 233.5 &lt; 358<br />
+IQR (CV) : 200.8 (0.5)
+</td>
+<td style="text-align:left;">
+65 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAABAUlEQVR42u2bUQrCMBAFjfR0nkBPaE/g9fQ3CCuhWreZnflrQ2kGXiC8pu15qsE5ewKKKrqNpb847npdP0zt2qKRfmA5TcIluP8YfL5MdBWloSgNRWkoSkNRGorSUJSGojRSGoa4GIlrkSlFo2JktBbZQpnoKkpDURqK0lCUhqI0FKWhKA1FaQw2DNtOhRyJ4Srl21Mh2dSM7pp+omq/GbxFNzug+72/THQVpaEoDUVpKEqjjOgPPgTn75D/JBrvT7N3zj1loqsoDUVpKEpDURqK0lCUhqI0yohO89d+TNxw3LpP1ADRsR6jTHTLiLY+4Pcp+rxx+jXaYG4hZaKrKI0Xi14bsbsk3owAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDBK3ApDAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwO4Gy/wAAAABJRU5ErkJggg==">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+Cloud_cover<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 0.4 (0.3)<br />
+min &lt; med &lt; max:<br />
+0 &lt; 0.4 &lt; 1<br />
+IQR (CV) : 0.7 (0.8)
+</td>
+<td style="text-align:left;">
+43 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAABAUlEQVR42u2bXQ7CIBAGxfR0PYGesD2B19NXjNUaoCKzM2/9oWGSb7OkgXQ/xeDcewKKKlrGlF8smwV7Sb0nWUo+8en50fzy8q33bBsRJrqK0lCUhqI0FKWhKA1FaShKQ1EaitJQlIaiNBSloSgNRWkoSkNRGorSUJSGojQUpaEojan+E59Yq7ZR1o3+qWjtNsp2mzDDRDeMaMPorlXnEI4Yfc2quWmN9qzHvdFhohtG9Ivotuxmfy06b9wb70iB0T2SHo2oi2hdMZSNDhNdRWkoSiOMaHF7qeuFA4mOdtI0THQVpaEoDUVpKEoj5Su5ZbBl3R75n/oEc3tLmOgqSuMBOxEh/7VPo8kAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDBK3ApDAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwO4Gy/wAAAABJRU5ErkJggg==">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+Preci_prob<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 0 (0.1)<br />
+min &lt; med &lt; max:<br />
+0 &lt; 0 &lt; 0.5<br />
+IQR (CV) : 0 (2.2)
+</td>
+<td style="text-align:left;">
+17 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAA3UlEQVR42u3cQQrCMBQAUSM5XU+gJ6wn6PV0G/EXQyrEzp/ZWVPIgzR0k5bnJUfX2RMQKnSs2v5Ywwf2VmZPcrR24vX9r+Vj8DZ7tj8qzdIVSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksoLaG0hNISSksorTTQ+n3IA3GqtAO6BNfOd6o0zdIVSisNtGMziov24n/eiYehZzvfn2bppoEOL92++t+qjr1/xXffm7tLO2KFffNnF0ouzTMqlNYLgyQUslOrargAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDBK3ApDAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwO4Gy/wAAAABJRU5ErkJggg==">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+Preci_int<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 0 (0.1)<br />
+min &lt; med &lt; max:<br />
+0 &lt; 0 &lt; 0.7<br />
+IQR (CV) : 0 (2.7)
+</td>
+<td style="text-align:left;">
+29 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAAxUlEQVR42u3cQQ5AMBQAUZWezgk4ISdwPba1oCmhMZ23E5V0Gix/2Lo29LU3YKih98T0Ys58sGOovd0y6Xbj8dZw8dhae9+PNPPqGkpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSGEpjKI2hNLFk8fLSBJkvBlkUhZ6Po1gzoyreGWSRO/gpOcCQrs2NEPmb01CyZn5GhtLs40EPrJ6Djx8AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDBK3ApDAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwO4Gy/wAAAABJRU5ErkJggg==">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+Moon<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 0.6 (0.3)<br />
+min &lt; med &lt; max:<br />
+0 &lt; 0.6 &lt; 1<br />
+IQR (CV) : 0.5 (0.5)
+</td>
+<td style="text-align:left;">
+32 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAABEklEQVR42u2b2w2DMAwAScV0naCdsEzQ9drfIKDhkfI43/0RKZJPMpHtQPo0MbgdHYCiiq6jzR+u8L52E0E+0nAtX2qby3EfWXsXd4VJXUVpKEpDURqK0lCUhqI0FKWhKI0wosVRypIZzZGMxfnMYpwxM1o3o9mbYZT9GMOkrqI0FKWhKA1FaShKQ1EaB9x4dwu+IKjXDB5ytT/e+JUarW2ESV1FaShKQ1EaYUR7BcOSmmXItt27ipbHwL8Z2/3femc+YVJXURqK0lCURhjRk/8lUa/aOrlovboqTOoqSkNRGorSUJSGojQUpbG6ezn3uLqi6FkG03MJk7qK0kj5mfK62AFTIv8dJMHcJgmTuorS+AJcnR9YpC8V/AAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMErcCkMAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDA7gbL/AAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:left;">
+Water_level<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 2.8 (1)<br />
+min &lt; med &lt; max:<br />
+1.1 &lt; 2.8 &lt; 4.3<br />
+IQR (CV) : 1.9 (0.4)
+</td>
+<td style="text-align:left;">
+65 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAA/ElEQVR42u3aQQ6CMBBAUWo4nSfQE8oJvJ5u64KJFaTlz/87Q2J4yQChpbymHF16n4BQob811z9GvF6X8KRuJTpaH5yn4buuHnk2/Eua0RVKSygtobSE0hJKSygtobSE0hJKSygtobSE0mpYqd+yOdC/pi2JfTYH+pRmdIXSEkrr4667jLjl/Q9o9AA5wyMkKs3oCqUllJZQWkJpCaWVBnqCz1ij4vete7Vgd3Lo929bjm5rW17aj1gT3g0aD1H/F/o0o5sGOsRd94hFuSGgR1zBaUZXKC2htITSEkpLKC2htITSEkorDbTUyzUP2AdV9ZZEgdlWSzO6Qmm9AR3nGQphvDmeAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwStwKQwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMDuBsv8AAAAASUVORK5CYII=">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:left;">
+Tide_status<br />
+[factor]
+</td>
+<td style="text-align:left;">
+1. Dead<br />
+2. Down<br />
+3. Up
+</td>
+<td style="text-align:left;">
+\11 (14.5%)<br />
+\28 (36.8%)<br />
+\37 (48.7%)
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEMAAAA7CAQAAACKsv9UAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAAn0lEQVRYw+2WUQ5AMBAFVXo6J+CEnMD1+N2SVptYXpqZPxFM+lb2hWNQYPxbAI070V6sj4Myh/c+bV8V01tT8cHd7TREQkEDDTTQQKMDjctq81teZYLd7d8WQrvoRUIR0UhmY3NIpa6vNbWvdmpHXiQUNNBAAw00OtCgfdG+cri3rzyLScW5feVJfwaRUNBAAw000OhAQ7F9/YdIKGhYTgyGEaS0KaAfAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwStwKQwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMDuBsv8AAAAASUVORK5CYII=">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:left;">
+Tide_time<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 186.8 (125.3)<br />
+min &lt; med &lt; max:<br />
+5 &lt; 175 &lt; 375<br />
+IQR (CV) : 255 (0.7)
+</td>
+<td style="text-align:left;">
+47 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAABB0lEQVR42u2cUQ6CMBAFwXA6T6AnlBN4Pf2txpJmRWlnZ/6ANOkk2/BYCvNjysHp6AkoqmiMpTzod72uG1O7zLUr5YVlGoRz5fy9cXya0lWUhqI0FKWhKI00oi8RMJYox+At636bKPslTekqSkNRGorSUJSGojQUpaEoDUVpKEpDURppRJtf7dd7vmN0fJtFR+/4pildRWkoSkNRGorS2GF35xrY/fr/2LiDaD0c9hQb05SuojQUpZFGtKuvJCJ35K1R1+Ju3ZVorGHTNiZN6aYRPah0Y6txQNHP6+qXGThN6SpKQ1EaitJQlIaiNBSlkUZ0Lh8Mb/3+QyRE2TOaYW5V0pSuojSeJ48cCsu8CVkAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDBK3ApDAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwO4Gy/wAAAABJRU5ErkJggg==">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p> </p>
+<ul>
+<li>Summary table of the second file:</li>
+</ul>
+<pre class="r"><code># Change character variables to factor
+catch_data %&lt;&gt;% 
+mutate_at(vars(species, lure, colour, length_lure), as.factor)
+
+# Make summary table 
+catch_data %&gt;% 
+dfSummary(., plain.ascii = FALSE, style = &quot;multiline&quot;, 
+          graph.magnif = 0.75, valid.col = FALSE) %&gt;% 
+  select(-c(text.graph, Missing)) %&gt;% 
+  knitr::kable(format = &quot;html&quot;, escape = F) %&gt;%
+  scroll_box(width = &quot;100%&quot;, height = &quot;500px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<table>
+<thead>
+<tr>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+No
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Variable
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Stats / Values
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Freqs (% of Valid)
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Graph
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+n_ses<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 24.3 (13.2)<br />
+min &lt; med &lt; max:<br />
+1 &lt; 28 &lt; 37<br />
+IQR (CV) : 20 (0.5)
+</td>
+<td style="text-align:left;">
+18 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAA8ElEQVR42u3cQQrCMBBAUSOezhPoCe0JvJ5u20JiMYYxf/7b1YX0QxrIWCyvUw7n6Bsw1NDvXNYXMz6vS+Om76USOqdr5fPn5irN0jWUxlAaQ2kMpTGUxlCazemldeS5lU9fNdLSfYLcHdOOHXki9N5ZmqVrKI2hNIbSGEpjKI2hNIbSGEpjKI2hNIbSBLx+0z+MniS0NYweN0BPs3QNpTGUxlAaQ2kMpTGUxlAaQ2kMpTGUxlCagXPdmEF1QGhtUB3zNneapWsozeFn9L+2loGhEb+A/VKapWsoTVnvMY/JN5y99V+IFFhbVZqlayjNGxHNGVPK0jg3AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwStwKQwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMDuBsv8AAAAASUVORK5CYII=">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+time<br />
+[POSIXct, POSIXt]
+</td>
+<td style="text-align:left;">
+min : 2019-04-09 19:23:29<br />
+med : 2020-05-25 21:20:55<br />
+max : 2020-09-04 21:33:17<br />
+range : 1y 4m 26d 2H 9M 48S
+</td>
+<td style="text-align:left;">
+57 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAA10lEQVR42u3csQ2DMBBA0VyU6ZggmTBMwHqkNRGnWKQA//uvwwXyl0xjC8d6q+F+9gQMNfSYR/sw6vc6JxN/RRI6rmlnbNk8lVm6htIYSmMojaE0htIYSmMojaE0htIYSmMojaE0htIYSrM5TcuO357R86pr+zo2/H38NqoyS9dQGkNpDKUxlMZQGkNpDKUxlMZQGkNpDKXp+h3kKhvb8x8/5nSFTrujZ2xsH59JmaVrKI2hNIbSGEpjKI2hNIbSGEoT7e7Ee9Q7RBLtFSIBa0uVWbqG0nwAbkkSVhHqu04AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDBK3ApDAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwO4Gy/wAAAABJRU5ErkJggg==">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+min_fishing<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 51.4 (43.4)<br />
+min &lt; med &lt; max:<br />
+0 &lt; 44 &lt; 150<br />
+IQR (CV) : 77 (0.8)
+</td>
+<td style="text-align:left;">
+35 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAABC0lEQVR42u2cUQqDMBAFm5LT9QTtCfUEXq/9TaEpxighszN/IpEMvCVLjKb3LQb30RNQVNFj5PJi+VOwzzR6qu2UU87ftx6VIdvoOXcTJrqK0lCUhqI0FKWhKA1FaShKQ1EaitJQlIaiNHL/I1pZh2yTDxAds00eJrqK0lCUhqI0FKWhKI3dvW69FZ/jvMpu0dnPq4SJrqI0FKURRvSEPaM5VtgTROdYYcNEV1EaitJQlIaiNMKIXvp+dG3+lPG6vvlS0d9d8NY84oy+OUx0FaWhKA1FaQw5UHWE3lZiGtHeViJMdMOIThPdOvXqfRXVCxDdV71hohtGNJUBX2D//ClrNMHcqoSJrqI0PsMwHWcXHY73AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwStwKQwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMDuBsv8AAAAASUVORK5CYII=">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+species<br />
+[factor]
+</td>
+<td style="text-align:left;">
+1. bar<br />
+2. bar_m
+</td>
+<td style="text-align:left;">
+\52 (91.2%)<br />
+ 5 ( 8.8%)
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHIAAAAqCAQAAADFCcdsAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAAjklEQVRo3u2YQQqAMAwEE/F1vkBfqC/o9/QaRbGI0DLZueVSMjQ5bHw3PkPrBiQpyXrGWKygBV38QdJsat3bT5RTlWJcJUlBkhQkSUGSFCRJQZIULimkfHulczxGSFCctBAnE47rdvuVs9c91S+vlwHClqYYV0lSkCQFSVKQJAVJUpAkhXyXASopxlWSFA7QnAvHD/kqRgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMErcCkMAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDA7gbL/AAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+length<br />
+[numeric]
+</td>
+<td style="text-align:left;">
+Mean (sd) : 29.1 (9.8)<br />
+min &lt; med &lt; max:<br />
+10 &lt; 30 &lt; 49<br />
+IQR (CV) : 12 (0.3)
+</td>
+<td style="text-align:left;">
+22 distinct values
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUCAQAAAD5P9uaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAABFUlEQVR42u2a2w3CMBAEMUp1VAAVkgpoD/6QQRwyDo7t2Z2/RMpjpM3pfE66HzQ49n4Bi1q0jiU/qPle1y8XnVNfufzxS/VdnpyC87e+lm/IRNeiNCxKw6I0LErDojQsSsOiNCxKw6I0/jAziokHZ/uPzZqKjjQ2k4muRWlYlIZFaViURtPO6Fda7rUOJdqyaZSJrkVpyIgWFqN1+h/MiqvuSIvoGmSia1EaL9/o/CWnUHT+khMjE12L0hhsmRazdXtjGtGtZVImuhalISPaqRjt32x2Ev1cQ1s2mjLRtSiNaTqjmLiwXbLmECBa1hzKRNeiNCxKw6I0LErDojQsSkNGNOWLuStsfzRfjyaYW4hMdC1K4wF8iR25d7sLagAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMErcCkMAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDA7gbL/AAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+lure<br />
+[factor]
+</td>
+<td style="text-align:left;">
+1. jerkbait<br />
+2. shad<br />
+3. slug<br />
+4. topwater
+</td>
+<td style="text-align:left;">
+ 2 ( 3.5%)<br />
+\38 (66.7%)<br />
+\16 (28.1%)<br />
+ 1 ( 1.8%)
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAFcAAABOCAQAAAD/GEK0AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAA0ElEQVRo3u3aQQrCMBSE4Rfp6XoCPaGewOvVRUFfg0poo5mBf1YVNx9hhAy1LOGU02gAXJ1M+cP1WeRzGQ17JVOm7VdzRETcRws/xqwMcOHChQsXLly4LaluZLp3sTUlbzXN3Zbvu85luEke7yUd79s1oZTtr8msDHDhwoULFy5cuC1hTXQnpmfnMhxdE79/o9FxTfyj92ZlgAsXLly4cOHCbQlrojsxPTuXYV0TSv9yqlOdrt67ia9c9cCFCxcuXLhw4e7gWq0J/XiXQT1m3Ad3ZBbKHMa9qgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMErcCkMAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDA7gbL/AAAAAElFTkSuQmCC">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+colour<br />
+[factor]
+</td>
+<td style="text-align:left;">
+1. clair<br />
+2. naturel<br />
+3. sombre
+</td>
+<td style="text-align:left;">
+\21 (36.8%)<br />
+\26 (45.6%)<br />
+\10 (17.5%)
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEAAAAA7CAQAAABhhURXAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAAnElEQVRYw+3YwQmAMAyF4UY6nRPohDqB6+k11UJF0j4Pf25WoR+8QIJ2Jm1N4vsBpOwftg4NsdjzzB/l8tUcfP3R/EIeAQAAAAAAkANuw6g9PKLL/AQetZ75cSyPQA4oemAflMHqMui8EdWqbHR5BAAAAAAAQA5gI5JHIAd82ohq/31CAO82othGlUcAAAAAAADkgH9tRIqSRwDgAnQaEaR5cS7eAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA0LTA1VDE2OjI3OjQ1KzAyOjAwStwKQwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMDuBsv8AAAAASUVORK5CYII=">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+length_lure<br />
+[factor]
+</td>
+<td style="text-align:left;">
+1. moyen<br />
+2. petit
+</td>
+<td style="text-align:left;">
+\32 (56.1%)<br />
+\25 (43.9%)
+</td>
+<td style="text-align:left;">
+<img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEsAAAAqCAQAAABR726eAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBAUQGy0+WDBSAAAAf0lEQVRYw+3WSwqAMAyE4UQ8nSfQE+oJej3dRkGoD5op/LMrlPLRZDG+m2KGbACs7xnjYU1dtMVvWGZTGqqcTqJDhAULlkJgwYKlkEuDKO9e+T0eK1Zurw91q4shbg2+a/aaW43bae3uig4RFixYCoEFC5ZCeminOhEdIqwnOQCHOAvHb8r6gAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNC0wNVQxNjoyNzo0NSswMjowMErcCkMAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDQtMDVUMTY6Mjc6NDUrMDI6MDA7gbL/AAAAAElFTkSuQmCC">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p> </p>
+<p>After cleaning and rearranging the data (code hidden below), we are ready to explore
+graphically our data !</p>
+<pre class="r"><code># Compute mean conditions (between beg and end session) 
+
+mean_weather_cond &lt;- session_data %&gt;% 
+group_by(Session) %&gt;% 
+select(-c(Long, Lat, Water_level, Tide_time)) %&gt;% 
+summarise_if(is.numeric, mean) 
+
+
+# Extract fixed conditions and comments + join with mean cond 
+
+fixed_cond_com &lt;- session_data %&gt;% 
+group_by(Session) %&gt;% 
+select(Session, Comments, Long, Lat, Weather) %&gt;% 
+mutate(Comments_parsed = paste(na.omit(Comments), collapse = &quot;&quot;)) %&gt;% 
+select(-Comments) %&gt;% 
+slice(1) %&gt;% 
+inner_join(mean_weather_cond, by = &quot;Session&quot;)
+
+# Create end and beg variables for WL, Time , Tide_time, Tide_status
+
+beg_end_vars &lt;- session_data %&gt;% 
+select(Session, Status, Water_level, Time, Tide_time, Tide_status) %&gt;% 
+pivot_wider(names_from = Status,
+values_from = c(Time, Water_level,  Tide_time, Tide_status))
+
+
+# Assemble both file and calculate duration
+
+dat_ses &lt;-  inner_join(beg_end_vars,
+fixed_cond_com,
+by = &quot;Session&quot;)
+
+# Calculate duration of the sessions
+
+dat_ses %&lt;&gt;% 
+mutate(duration = round(difftime(Time_end,  Time_beg,  units = &quot;hours&quot;),
+digits = 1))
+
+catch_cond &lt;- full_join(dat_ses,
+catch_data, by = c( &quot;Session&quot; = &quot;n_ses&quot; )) %&gt;% 
+mutate(Session = factor(Session, levels = 1:length(dat_ses$Session)))
+
+catch_cond %&lt;&gt;%
+mutate(Tide_status_ses = paste0(Tide_status_beg, &quot;_&quot;, Tide_status_end))
+
+# Simplify the Tide status variable
+
+catch_cond$Tide_status_ses &lt;- sapply(catch_cond$Tide_status_ses , function(x){switch(x, 
+&quot;Up_Dead&quot; = &quot;Up&quot;,
+&quot;Up_Up&quot; = &quot;Up&quot;,
+&quot;Up_Down&quot; = &quot;Dead&quot;,
+&quot;Down_Dead&quot; = &quot;Down&quot;,
+&quot;Down_Up&quot; = &quot;Dead&quot;,
+&quot;Down_Down&quot;  = &quot;Down&quot;,
+&quot;Dead_Dead&quot; = &quot;Dead&quot;,
+&quot;Dead_Up&quot; = &quot;Up&quot;,
+&quot;Dead_Down&quot; = &quot;Down&quot;
+)}, USE.NAMES = F)</code></pre>
+</div>
+<div id="graphical-exploration" class="section level2">
+<h2>Graphical exploration</h2>
+<div id="where-did-i-fish" class="section level3">
+<h3>Where did I fish ?</h3>
+<p>We can visualize the locations I fished the most by using the <em>leaflet</em> package:</p>
+<pre class="r"><code># Calculate the number of fish caught by session 
+fish_number &lt;-  catch_cond  %&gt;% na.omit() %&gt;% group_by(Session) %&gt;%  summarise(nb = length(Session))
+
+# Dataframe with variables we want to show on the map
+map_data &lt;- catch_cond %&gt;% 
+group_by(Session) %&gt;%
+select(Session, Time_beg, Time_end, Long,
+Lat, Water_level_beg, Tide_status_beg, Tide_time_beg, duration) 
+
+map_data &lt;- full_join(map_data, fish_number)
+
+map_data$nb[is.na(map_data$nb)] &lt;- 0
+
+# Interactive map with Popup for each session
+library(leaflet)
+
+leaflet(map_data, width = &quot;100%&quot;) %&gt;% addTiles() %&gt;%
+addPopups(lng = ~Long, lat = ~Lat, 
+with(map_data, sprintf(&quot;&lt;b&gt;Session %.0f : %.1f h&lt;/b&gt; &lt;br/&gt; %s &lt;br/&gt; %.0f  fish &lt;br/&gt; Water level: %.0f m, %s, %.0f min since last peak&quot;,                                         Session, duration,  Time_beg, nb, Water_level_beg, Tide_status_beg, Tide_time_beg)), 
+options = popupOptions(maxWidth = 100, minWidth = 50))</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addPopups","args":[[43.4903501,43.4903501,43.4903501,43.4948349,43.4948349,43.4948349,43.4948349,43.4948349,43.4929536,43.4929536,43.4717306,43.4856133,43.4856133,43.4898314,43.4879548,43.4891374,43.4888454,43.4903375,43.4907003,43.4883211,43.4870525,43.4882129,43.4902466,43.4879819,43.4879819,43.489656,43.4667765,43.4854263,43.4888221,43.4884741,43.4854276,43.4854276,43.4854276,43.490646,43.490646,43.490646,43.4884784,43.4891888,43.4885291,43.4885291,43.4849954,43.4849954,43.4849954,43.4853693,43.4865331,43.4853571,43.4881548,43.4865984,43.4895741,43.4831239,43.4831239,43.4831239,43.4831239,43.4831239,43.4831239,43.4831239,43.484568,43.484568,43.484568,43.484568,43.484568,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4850086,43.4850086,43.4850086,43.488591],[-1.474845,-1.474845,-1.474845,-1.4702738,-1.4702738,-1.4702738,-1.4702738,-1.4702738,-1.4727054,-1.4727054,-1.4726262,-1.4762295,-1.4762295,-1.4645089,-1.4741375,-1.4619148,-1.4750443,-1.4523802,-1.471115,-1.4737693,-1.4741375,-1.4648611,-1.4522513,-1.4720217,-1.4720217,-1.4784552,-1.4835086,-1.4752964,-1.4768579,-1.4752235,-1.4752846,-1.4752846,-1.4752846,-1.4753465,-1.4753465,-1.4753465,-1.4801831,-1.4717195,-1.4740189,-1.4740189,-1.5000672,-1.5000672,-1.5000672,-1.4762834,-1.4757226,-1.4762743,-1.4748271,-1.4754897,-1.4745318,-1.4726297,-1.4726297,-1.4726297,-1.4726297,-1.4726297,-1.4726297,-1.4726297,-1.4745762,-1.4745762,-1.4745762,-1.4745762,-1.4745762,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.4765871,-1.4765871,-1.4765871,-1.4750231],["<b>Session 1 : 0.9 h<\/b> <br/> 2019-04-09 19:23:09 <br/> 3  fish <br/> Water level: 4 m, Up, 340 min since last peak","<b>Session 1 : 0.9 h<\/b> <br/> 2019-04-09 19:23:09 <br/> 3  fish <br/> Water level: 4 m, Up, 340 min since last peak","<b>Session 1 : 0.9 h<\/b> <br/> 2019-04-09 19:23:09 <br/> 3  fish <br/> Water level: 4 m, Up, 340 min since last peak","<b>Session 2 : 2.1 h<\/b> <br/> 2019-04-10 18:23:40 <br/> 5  fish <br/> Water level: 3 m, Up, 240 min since last peak","<b>Session 2 : 2.1 h<\/b> <br/> 2019-04-10 18:23:40 <br/> 5  fish <br/> Water level: 3 m, Up, 240 min since last peak","<b>Session 2 : 2.1 h<\/b> <br/> 2019-04-10 18:23:40 <br/> 5  fish <br/> Water level: 3 m, Up, 240 min since last peak","<b>Session 2 : 2.1 h<\/b> <br/> 2019-04-10 18:23:40 <br/> 5  fish <br/> Water level: 3 m, Up, 240 min since last peak","<b>Session 2 : 2.1 h<\/b> <br/> 2019-04-10 18:23:40 <br/> 5  fish <br/> Water level: 3 m, Up, 240 min since last peak","<b>Session 3 : 2.3 h<\/b> <br/> 2019-04-17 20:45:27 <br/> 2  fish <br/> Water level: 1 m, Down, 305 min since last peak","<b>Session 3 : 2.3 h<\/b> <br/> 2019-04-17 20:45:27 <br/> 2  fish <br/> Water level: 1 m, Down, 305 min since last peak","<b>Session 4 : 0.8 h<\/b> <br/> 2019-04-21 17:58:26 <br/> 0  fish <br/> Water level: 4 m, Up, 320 min since last peak","<b>Session 5 : 2.0 h<\/b> <br/> 2019-04-22 18:18:23 <br/> 2  fish <br/> Water level: 4 m, Up, 305 min since last peak","<b>Session 5 : 2.0 h<\/b> <br/> 2019-04-22 18:18:23 <br/> 2  fish <br/> Water level: 4 m, Up, 305 min since last peak","<b>Session 6 : 1.0 h<\/b> <br/> 2019-04-26 18:30:25 <br/> 0  fish <br/> Water level: 2 m, Up, 110 min since last peak","<b>Session 7 : 0.6 h<\/b> <br/> 2019-05-06 18:38:02 <br/> 0  fish <br/> Water level: 4 m, Dead, 15 min since last peak","<b>Session 8 : 0.8 h<\/b> <br/> 2019-05-10 19:37:30 <br/> 0  fish <br/> Water level: 3 m, Up, 265 min since last peak","<b>Session 9 : 1.6 h<\/b> <br/> 2019-05-10 20:23:30 <br/> 1  fish <br/> Water level: 4 m, Up, 315 min since last peak","<b>Session 10 : 1.0 h<\/b> <br/> 2019-05-16 16:08:35 <br/> 0  fish <br/> Water level: 4 m, Dead, 30 min since last peak","<b>Session 11 : 0.9 h<\/b> <br/> 2019-05-21 19:18:50 <br/> 0  fish <br/> Water level: 4 m, Dead, 15 min since last peak","<b>Session 12 : 0.6 h<\/b> <br/> 2019-05-23 19:45:32 <br/> 0  fish <br/> Water level: 4 m, Up, 330 min since last peak","<b>Session 13 : 2.2 h<\/b> <br/> 2019-05-29 18:50:42 <br/> 1  fish <br/> Water level: 2 m, Down, 290 min since last peak","<b>Session 14 : 1.6 h<\/b> <br/> 2019-05-30 13:27:48 <br/> 0  fish <br/> Water level: 3 m, Up, 295 min since last peak","<b>Session 15 : 0.9 h<\/b> <br/> 2019-06-01 15:28:24 <br/> 0  fish <br/> Water level: 4 m, Up, 335 min since last peak","<b>Session 16 : 0.8 h<\/b> <br/> 2019-06-01 21:28:06 <br/> 2  fish <br/> Water level: 1 m, Down, 325 min since last peak","<b>Session 16 : 0.8 h<\/b> <br/> 2019-06-01 21:28:06 <br/> 2  fish <br/> Water level: 1 m, Down, 325 min since last peak","<b>Session 17 : 1.2 h<\/b> <br/> 2019-06-02 14:26:22 <br/> 0  fish <br/> Water level: 3 m, Up, 235 min since last peak","<b>Session 18 : 1.0 h<\/b> <br/> 2019-06-07 19:20:32 <br/> 0  fish <br/> Water level: 4 m, Up, 315 min since last peak","<b>Session 19 : 1.6 h<\/b> <br/> 2019-06-19 18:13:14 <br/> 0  fish <br/> Water level: 4 m, Up, 340 min since last peak","<b>Session 20 : 1.1 h<\/b> <br/> 2019-06-22 20:38:02 <br/> 0  fish <br/> Water level: 4 m, Dead, 370 min since last peak","<b>Session 21 : 0.8 h<\/b> <br/> 2019-06-26 20:13:34 <br/> 1  fish <br/> Water level: 2 m, Up, 115 min since last peak","<b>Session 22 : 0.2 h<\/b> <br/> 2019-06-27 20:05:43 <br/> 3  fish <br/> Water level: 2 m, Up, 45 min since last peak","<b>Session 22 : 0.2 h<\/b> <br/> 2019-06-27 20:05:43 <br/> 3  fish <br/> Water level: 2 m, Up, 45 min since last peak","<b>Session 22 : 0.2 h<\/b> <br/> 2019-06-27 20:05:43 <br/> 3  fish <br/> Water level: 2 m, Up, 45 min since last peak","<b>Session 23 : 3.3 h<\/b> <br/> 2019-06-28 18:55:31 <br/> 3  fish <br/> Water level: 2 m, Down, 295 min since last peak","<b>Session 23 : 3.3 h<\/b> <br/> 2019-06-28 18:55:31 <br/> 3  fish <br/> Water level: 2 m, Down, 295 min since last peak","<b>Session 23 : 3.3 h<\/b> <br/> 2019-06-28 18:55:31 <br/> 3  fish <br/> Water level: 2 m, Down, 295 min since last peak","<b>Session 24 : 1.4 h<\/b> <br/> 2019-07-13 19:06:20 <br/> 0  fish <br/> Water level: 2 m, Down, 250 min since last peak","<b>Session 25 : 0.2 h<\/b> <br/> 2019-08-13 21:35:09 <br/> 0  fish <br/> Water level: 1 m, Down, 310 min since last peak","<b>Session 26 : 1.3 h<\/b> <br/> 2020-05-20 20:47:38 <br/> 2  fish <br/> Water level: 2 m, Down, 270 min since last peak","<b>Session 26 : 1.3 h<\/b> <br/> 2020-05-20 20:47:38 <br/> 2  fish <br/> Water level: 2 m, Down, 270 min since last peak","<b>Session 27 : 0.0 h<\/b> <br/> 2020-05-22 22:51:04 <br/> 3  fish <br/> Water level: 1 m, Down, 325 min since last peak","<b>Session 27 : 0.0 h<\/b> <br/> 2020-05-22 22:51:04 <br/> 3  fish <br/> Water level: 1 m, Down, 325 min since last peak","<b>Session 27 : 0.0 h<\/b> <br/> 2020-05-22 22:51:04 <br/> 3  fish <br/> Water level: 1 m, Down, 325 min since last peak","<b>Session 28 : 1.4 h<\/b> <br/> 2020-05-25 20:44:09 <br/> 1  fish <br/> Water level: 4 m, Down, 110 min since last peak","<b>Session 29 : 1.2 h<\/b> <br/> 2020-05-26 21:22:28 <br/> 0  fish <br/> Water level: 4 m, Down, 95 min since last peak","<b>Session 30 : 1.3 h<\/b> <br/> 2020-06-01 20:55:54 <br/> 1  fish <br/> Water level: 2 m, Up, 70 min since last peak","<b>Session 31 : 2.3 h<\/b> <br/> 2020-06-08 19:56:35 <br/> 0  fish <br/> Water level: 4 m, Down, 40 min since last peak","<b>Session 32 : 2.0 h<\/b> <br/> 2020-06-15 20:30:55 <br/> 0  fish <br/> Water level: 2 m, Up, 50 min since last peak","<b>Session 33 : 1.1 h<\/b> <br/> 2020-06-30 20:59:48 <br/> 0  fish <br/> Water level: 2 m, Up, 105 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 35 : 2.6 h<\/b> <br/> 2020-07-17 21:51:40 <br/> 0  fish <br/> Water level: 2 m, Up, 20 min since last peak","<b>Session 35 : 2.6 h<\/b> <br/> 2020-07-17 21:51:40 <br/> 0  fish <br/> Water level: 2 m, Up, 20 min since last peak","<b>Session 35 : 2.6 h<\/b> <br/> 2020-07-17 21:51:40 <br/> 0  fish <br/> Water level: 2 m, Up, 20 min since last peak","<b>Session 35 : 2.6 h<\/b> <br/> 2020-07-17 21:51:40 <br/> 0  fish <br/> Water level: 2 m, Up, 20 min since last peak","<b>Session 35 : 2.6 h<\/b> <br/> 2020-07-17 21:51:40 <br/> 0  fish <br/> Water level: 2 m, Up, 20 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 37 : 1.6 h<\/b> <br/> 2020-09-04 20:50:17 <br/> 3  fish <br/> Water level: 3 m, Down, 125 min since last peak","<b>Session 37 : 1.6 h<\/b> <br/> 2020-09-04 20:50:17 <br/> 3  fish <br/> Water level: 3 m, Down, 125 min since last peak","<b>Session 37 : 1.6 h<\/b> <br/> 2020-09-04 20:50:17 <br/> 3  fish <br/> Water level: 3 m, Down, 125 min since last peak","<b>Session 38 : 0.6 h<\/b> <br/> 2020-09-13 21:33:41 <br/> 0  fish <br/> Water level: 2 m, Up, 50 min since last peak"],null,null,{"maxWidth":100,"minWidth":50,"autoPan":true,"keepInView":false,"closeButton":true,"className":""}]}],"limits":{"lat":[43.4667765,43.4948349],"lng":[-1.5000672,-1.4522513]}},"evals":[],"jsHooks":[]}</script>
+<p>As you see I fish mostly in the Nive river that is flowing through Bayonne city.</p>
+</div>
+<div id="when-it-is-best-to-fish" class="section level3">
+<h3>When it is best to fish ?</h3>
+<div id="time-of-the-year" class="section level4">
+<h4>Time of the year</h4>
+<p>The following graph shows the number of fish caught depending on the time of the year :</p>
+<pre class="r"><code>catch_cond %&gt;% 
+group_by(Session, Time_beg, .drop = F) %&gt;% 
+na.omit() %&gt;% 
+summarise(n_catch = n()) %&gt;% 
+right_join(unique(catch_cond[, c(&quot;Session&quot;, &quot;Time_beg&quot;)])) %&gt;% 
+mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %&gt;%
+ggplot(aes(y = n_catch, x =Time_beg)) +
+geom_point( size = 2) + 
+  theme_minimal() + labs(x = &quot;Date&quot;, y = &quot;Number of catch&quot;) + scale_x_datetime(date_labels = &quot;%d/%m/%y&quot;, date_breaks = &quot;3 months&quot;) </code></pre>
+<p><img src="/post/2020-09-25-ds-fishing-part2.en_files/figure-html/unnamed-chunk-5-1.svg" width="672" /></p>
+<p>From this graph we see that I didn’t go fishing during the autumn and winter of 2019, I don’t have any data. Unfortunately for me, autumn is known to be a great period for sea bass fishing, I must go fishing this year to compensate the lack of data in this season. During winter, fishing is really complicated because the large majority of sea bass are returned to the ocean.</p>
+</div>
+<div id="time-of-the-day" class="section level4">
+<h4>Time of the day</h4>
+<p>This graph shows the number of fish I catch depending on the hour of the day :</p>
+<pre class="r"><code>catch_cond %&gt;% 
+group_by(Session, Time_beg, .drop = F) %&gt;% 
+na.omit() %&gt;% 
+summarise(n_catch = n()) %&gt;% 
+right_join(unique(catch_cond[, c(&quot;Session&quot;, &quot;Time_beg&quot;)])) %&gt;% 
+mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch ), 
+hour = format(Time_beg, &quot;%H&quot;)) %&gt;%
+ggplot(aes(y = n_catch, x =hour)) +
+geom_point( size = 2)  + labs(x = &quot;Hour&quot;, y = &quot;Number of catch&quot;)+
+theme_minimal()</code></pre>
+<p><img src="/post/2020-09-25-ds-fishing-part2.en_files/figure-html/unnamed-chunk-6-1.svg" width="672" /></p>
+<p>I mostly fish after work or during evenings. To draw relevant conclusions about the influence of the fishing hour, I have to go fishing at different hours of the day (in the morning for example).</p>
+</div>
+<div id="the-tide" class="section level4">
+<h4>The tide</h4>
+<p>The tide is an important parameter for fishing in estuaries. Let’s see the effect of the tide current on my catches:</p>
+<pre class="r"><code>library(ggpubr)
+
+gg1 &lt;- catch_cond %&gt;% 
+  group_by(Session, Tide_status_ses, .drop = F)  %&gt;%  
+  drop_na() %&gt;% 
+  summarise(n_catch = n()) %&gt;% 
+  right_join(unique(catch_cond[, c(&quot;Session&quot;, &quot;Tide_status_ses&quot;)])) %&gt;% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %&gt;%
+  ggplot(aes(y = n_catch, x = Tide_status_ses, fill = Tide_status_ses)) +
+  geom_boxplot() +
+  labs(x = &quot;Status of tide current&quot;, y = &quot;Number of catch&quot;) +
+  theme_minimal()+ theme(legend.position=&quot;None&quot;)
+
+gg2 &lt;- catch_cond %&gt;% 
+  na.omit() %&gt;% 
+  ggplot(aes(y = length,x = Tide_status_ses, fill = Tide_status_ses)) +
+  geom_boxplot()+
+  labs(x = &quot;Status of tide current&quot;, y = &quot;Length of the fish&quot;) +
+  theme_minimal()+ theme(legend.position=&quot;None&quot;)
+
+ggarrange(gg1, gg2)</code></pre>
+<p><img src="/post/2020-09-25-ds-fishing-part2.en_files/figure-html/unnamed-chunk-7-1.svg" width="672" /></p>
+<p>It seems that the status of the tide current does not influence the number of my catch but influences the length of the fish. I tend to catch bigger fish when the current is going down.</p>
+</div>
+</div>
+<div id="does-the-moon-affect-my-fishing-results" class="section level3">
+<h3>Does the moon affect my fishing results?</h3>
+<p>A widespread belief among fishermen is that the moon influence greatly the behavior of the fish. Information about the moon phase were available thanks to the weather API, I decided to record this variable to investigate if the belief was true. The two graphs show the number and length of fish depending on the phase of moon (0 corresponding to new moon and 1 to full moon):</p>
+<pre class="r"><code>gg3 &lt;- catch_cond %&gt;% 
+  group_by(Session, Moon, .drop = F) %&gt;%  
+  na.omit() %&gt;% 
+  summarise(n_catch = n()) %&gt;% 
+  right_join(unique(catch_cond[, c(&quot;Session&quot;, &quot;Moon&quot;)])) %&gt;% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %&gt;% 
+  ggplot(aes(y = n_catch, x = Moon)) +
+  geom_point( size = 2) +
+  labs(x = &quot;Moon phase&quot;, y = &quot;Number of catch&quot;)+
+  theme_minimal()
+
+gg4 &lt;- catch_cond %&gt;% 
+  ggplot(aes(y = length, x = Moon)) +
+  geom_point( size = 2) +
+  geom_smooth(method=&quot;lm&quot;, se=T) + 
+  labs(x = &quot;Moon phase&quot;, y = &quot;Length of the fish&quot;)+
+  theme_minimal()
+
+ggarrange(gg3, gg4)</code></pre>
+<p><img src="/post/2020-09-25-ds-fishing-part2.en_files/figure-html/unnamed-chunk-8-1.svg" width="672" /></p>
+<p>The phase of the moon does not seem to influence the number of fish I catch during a session. However, I tend to catch bigger fish the closer we are to the full moon. To confirm this observation, I need to keep going fishing to get more data !</p>
+</div>
+<div id="does-the-weather-affect-my-fishing-results" class="section level3">
+<h3>Does the weather affect my fishing results?</h3>
+<p>We can look at the number of fish caught during different weather conditions:</p>
+<pre class="r"><code># precipitation probability 
+
+gg5 &lt;- catch_cond %&gt;% 
+  group_by(Session, Preci_prob, .drop = F) %&gt;%  
+  na.omit() %&gt;% 
+  summarise(n_catch = n()) %&gt;% 
+  right_join(unique(catch_cond[, c(&quot;Session&quot;, &quot;Preci_prob&quot;)])) %&gt;% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %&gt;% 
+  ggplot(aes(y = n_catch, x = Preci_prob)) +
+  geom_point()+
+  labs(x = &quot;Precipitation prob.&quot;, y = &quot;Number of catch&quot;)+
+  theme_minimal()
+
+# Atm pressure 
+
+gg6 &lt;- catch_cond %&gt;% 
+  group_by(Session, Atm_pres, .drop = F) %&gt;%  
+  na.omit() %&gt;% 
+  summarise(n_catch = n()) %&gt;% 
+  right_join(unique(catch_cond[, c(&quot;Session&quot;, &quot;Atm_pres&quot;)])) %&gt;% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %&gt;% 
+  ggplot(aes(y = n_catch, x = Atm_pres)) +
+  geom_point() +
+  labs(x = &quot;Atm. pressure&quot;, y = &quot;Number of catch&quot;)+
+  theme_minimal()
+
+#Air temp
+
+gg7 &lt;- catch_cond %&gt;% 
+  group_by(Session, Air_temp, .drop = F) %&gt;%  
+  na.omit() %&gt;% 
+  summarise(n_catch = n()) %&gt;% 
+  right_join(unique(catch_cond[, c(&quot;Session&quot;, &quot;Air_temp&quot;)])) %&gt;% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %&gt;% 
+  ggplot(aes(y = n_catch, x = Air_temp)) +
+  geom_point() +
+  labs(x = &quot;Air temp.&quot;, y = &quot;Number of catch&quot;)+
+  theme_minimal()
+
+
+#Cloud cover
+
+gg8 &lt;- catch_cond %&gt;% 
+  group_by(Session, Cloud_cover, .drop = F) %&gt;%  
+  na.omit() %&gt;% 
+  summarise(n_catch = n()) %&gt;% 
+  right_join(unique(catch_cond[, c(&quot;Session&quot;, &quot;Cloud_cover&quot;)])) %&gt;% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %&gt;% 
+  ggplot(aes(y = n_catch, x = Cloud_cover)) +
+  geom_point() +
+  labs(x = &quot;Cloud cover&quot;, y = &quot;Number of catchh&quot;)+
+  theme_minimal()
+
+ggarrange(gg5, gg6, gg7, gg8)</code></pre>
+<p><img src="/post/2020-09-25-ds-fishing-part2.en_files/figure-html/unnamed-chunk-9-1.svg" width="672" /></p>
+<p>And to their length :</p>
+<pre class="r"><code>gg15 &lt;- catch_cond %&gt;% 
+  ggplot(aes(y = length, x = Preci_prob)) +
+  geom_point( size = 2) +
+  labs( y = &quot;Length of the fish&quot;)+
+  theme_minimal()
+
+gg16 &lt;- catch_cond %&gt;% 
+  ggplot(aes(y = length, x = Atm_pres)) +
+  geom_point( size = 2) +
+  labs( y = &quot;Length of the fish&quot;)+
+  theme_minimal()
+
+gg17 &lt;- catch_cond %&gt;% 
+  ggplot(aes(y = length, x = Air_temp)) +
+  geom_point( size = 2) +
+  labs( y = &quot;Length of the fish&quot;)+
+  theme_minimal()
+
+
+gg18  &lt;- catch_cond %&gt;% 
+  ggplot(aes(y = length, x = Cloud_cover)) +
+  geom_point( size = 2) +
+  labs( y = &quot;Length of the fish&quot;)+
+  theme_minimal()
+
+ggarrange(gg15, gg16, gg17, gg18)</code></pre>
+<p><img src="/post/2020-09-25-ds-fishing-part2.en_files/figure-html/unnamed-chunk-10-1.svg" width="672" /></p>
+<p>Because we have limited data and not all weather conditions are covered, it is difficult to draw any conclusions.</p>
+</div>
+<div id="what-are-the-best-lures-to-catch-fish" class="section level3">
+<h3>What are the best lures to catch fish ?</h3>
+<p>Each time I catch a fish, I fill a form with my shiny application in order to record the characteristics of the lure used. There are different types of lures that have specific swimming patterns, different colors and size. We can represent the number of fish caught depending on the lure characteristics:</p>
+<pre class="r"><code>levels(catch_cond$colour) &lt;- c(&quot;clear&quot;, &quot;natural&quot;, &quot;dark&quot;)
+levels(catch_cond$length_lure) &lt;- c(&quot;medium&quot;, &quot;small&quot;)
+
+gg9 &lt;- catch_cond %&gt;% 
+  na.omit() %&gt;% 
+  ggplot( aes(x=lure, fill = lure)) +
+  geom_bar(stat=&quot;count&quot;, width=0.7)+
+  labs(x = &quot;Type of lure&quot;, y = &quot;&quot;)+
+  theme_minimal()+ 
+  theme(legend.position=&quot;None&quot;)
+
+gg10 &lt;- catch_cond %&gt;% 
+  na.omit() %&gt;% 
+  ggplot( aes(x=colour, fill = colour)) +
+  geom_bar(stat=&quot;count&quot;, width=0.7)+
+  labs(x = &quot;Color of the lures&quot;, y = &quot;&quot;)+
+  theme_minimal()+
+    scale_fill_brewer(palette=&quot;BuPu&quot;)+ 
+  theme(legend.position=&quot;None&quot;)
+
+gg11 &lt;- catch_cond %&gt;% 
+  na.omit() %&gt;%
+  ggplot( aes(x=length_lure, fill = length_lure)) +
+  geom_bar(stat=&quot;count&quot;, width=0.7)+
+  labs(x = &quot;Size of the lure&quot;, y = &quot;&quot;)+
+    scale_fill_brewer(palette=&quot;Dark2&quot;)+
+  theme_minimal()+ theme(legend.position=&quot;None&quot;)
+
+annotate_figure(ggarrange(gg9, gg10, gg11, ncol = 3),
+                left = text_grob(&quot;Number of catch&quot;, rot = 90)
+)</code></pre>
+<p><img src="/post/2020-09-25-ds-fishing-part2.en_files/figure-html/unnamed-chunk-11-1.svg" width="672" /></p>
+<p>We can do the same for the length of fish caught:</p>
+<pre class="r"><code>gg12 &lt;-catch_cond %&gt;% 
+  na.omit() %&gt;% 
+  ggplot(aes(y = length, x = lure, fill=lure)) +
+  geom_boxplot()+
+  labs(x = &quot;Type of lure&quot;, y = &quot;&quot;)+
+  theme_minimal()+ theme(legend.position=&quot;None&quot;)
+
+gg13 &lt;-catch_cond %&gt;% 
+  na.omit() %&gt;%
+  ggplot(aes(y = length, x = colour, fill= colour)) +
+  geom_boxplot()+
+  labs(x = &quot;Color of the lures&quot;, y = &quot;&quot;)+
+  theme_minimal()+
+    scale_fill_brewer(palette=&quot;BuPu&quot;)+ theme(legend.position=&quot;None&quot;)
+
+gg14 &lt;-catch_cond %&gt;% 
+  na.omit() %&gt;%
+  ggplot(aes(y = length, x = length_lure, fill=length_lure)) +
+  geom_boxplot()+
+  labs(x = &quot;Size of the lure&quot;, y = &quot;&quot;)+
+  theme_minimal()+
+    scale_fill_brewer(palette=&quot;Dark2&quot;)+ theme(legend.position=&quot;None&quot;)
+
+annotate_figure(ggarrange(gg12, gg13, gg14, ncol = 3),
+                left = text_grob(&quot;Length of fish&quot;, rot = 90)
+)</code></pre>
+<p><img src="/post/2020-09-25-ds-fishing-part2.en_files/figure-html/unnamed-chunk-12-1.svg" width="672" /></p>
+<p>With these 6 graphs, we can see that the most successful types of lures for me are the shad and slug types. An honorable mention is the jerkbait type : it only accounts for 2 fish, but 2 big fish (median around 47cm). The colors that worked best for me were clear and natural. For the size of the lure, bigger lures tend to catch bigger fish in average. These conclusions must be taken with a grain of salt because we do not know the time spent with each lure before catching a fish. In addition, I tend to use the same types and colors of lures (habits), I should vary more.</p>
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>Analyzing my fishing data was very interesting and it brought me some insights on my fishing style! I understood that I was fishing almost the same way with the same habits. Although it seems to be working for me, I have a biased view on how to catch European sea bass. I must use bigger lures to catch bigger fish and I must vary the types of lures used. Indeed, I fish most of the times with slug or shad lures, hence the higher number of fish caught with these types of lures.</p>
+<p>I will keep using the application to gather more data and have a better understanding on my fishing session. I will keep you updated on the results ! 😉</p>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://aureliencallens.github.io//tags/ggplot2/">ggplot2</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/leaflet/">leaflet</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/tidyverse/">tidyverse</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/2022/04/12/r-shiny-fishing-part4/">Can R and Shiny make me a better fisherman? Part 4</a></li>
+                
+                    <li><a href="/2021/06/01/r-shiny-fishing-part3/">Can R and Shiny make me a better fisherman? Part 3</a></li>
+                
+                    <li><a href="/2021/03/03/coastal-risks-google-trends/">Coastal risks and statistical learning: Analyzing Google trends with gtrendsR package</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://aureliencallens.github.io/2020/09/12/r-shiny-fishing-part1/" data-toggle="tooltip" data-placement="top" title="Can R and Shiny make me a better fisherman? Part 1">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://aureliencallens.github.io/2020/11/18/2020-11-18-aliexpress_rselenium/" data-toggle="tooltip" data-placement="top" title="Webscraping Aliexpress with Rselenium">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:aurelien.callens@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/aureliencallens" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/aureliencallens" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Aurelien Callens
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020 - 2022
+          
+
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.96.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+          <br>
+          Favicon made by <a href="https://www.flaticon.com/authors/becris">Becris</a> from <a href="https://www.flaticon.com/">www.flaticon.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://aureliencallens.github.io/js/main.js"></script>
+<script src="https://aureliencallens.github.io/js/highlight.pack.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://aureliencallens.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+ 
+  <script>
+  $(document).ready(function () {
+    window.initializeCodeFolding("show" === "hide");
+  });
+  </script>
+  <script src="/js/codefolding.js"></script>
+
+
+    
+  </body>
+</html>
+

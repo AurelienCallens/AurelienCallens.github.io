@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Can R and Shiny make me a better fisherman? Part 1 - Aurélien Callens</title>
+  <meta name="description" content="Building a shiny application to store my fishing data">
+  <meta name="author" content="Aurelien Callens"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Aurélien Callens",
+    
+    "url": "https:\/\/aureliencallens.github.io\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/aureliencallens.github.io\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/aureliencallens.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/aureliencallens.github.io\/2020\/09\/12\/r-shiny-fishing-part1\/",
+          "name": "Can r and shiny make me a better fisherman? part 1"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Aurélien Callens"
+  },
+  "headline": "Can R and Shiny make me a better fisherman? Part 1",
+  "description" : "My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I am fishing European sea bass (Dicentrarchus labrax) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artificial lures that imitate a specific prey.\nIn theory, it is quite easy to catch a fish:",
+  "inLanguage" : "en",
+  "wordCount":  1863 ,
+  "datePublished" : "2020-09-12T00:00:00",
+  "dateModified" : "2020-09-12T00:00:00",
+  "image" : "https:\/\/aureliencallens.github.io\/img\/avatar-icon.jpg",
+  "keywords" : [ "API, shiny, Web scraping" ],
+  "mainEntityOfPage" : "https:\/\/aureliencallens.github.io\/2020\/09\/12\/r-shiny-fishing-part1\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/aureliencallens.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/aureliencallens.github.io\/img\/avatar-icon.jpg",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Can R and Shiny make me a better fisherman? Part 1" />
+<meta property="og:description" content="Building a shiny application to store my fishing data">
+<meta property="og:image" content="https://aureliencallens.github.io/img_post/seabass_bay.jpg" />
+<meta property="og:url" content="https://aureliencallens.github.io/2020/09/12/r-shiny-fishing-part1/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Aurélien Callens" />
+
+  <meta name="twitter:title" content="Can R and Shiny make me a better fisherman? Part 1" />
+  <meta name="twitter:description" content="Building a shiny application to store my fishing data">
+  <meta name="twitter:image" content="https://aureliencallens.github.io/img_post/seabass_bay.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://aureliencallens.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.96.0" />
+  <link rel="alternate" href="https://aureliencallens.github.io/index.xml" type="application/rss+xml" title="Aurélien Callens"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://aureliencallens.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://aureliencallens.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://aureliencallens.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-129143452-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://aureliencallens.github.io/">Aurélien Callens</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Research" href="/research/">Research</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About me" href="/about/">About me</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Aurélien Callens" href="https://aureliencallens.github.io/">
+            <img class="avatar-img" src="https://aureliencallens.github.io/img/avatar-icon.jpg" alt="Aurélien Callens" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+    <div id="header-big-imgs" data-num-img=1 
+      
+          
+          data-img-src-1="https://aureliencallens.github.io/img_post/seabass_bay.jpg" 
+         
+         data-img-desc-1="Seabass"
+      ></div>
+  
+
+  <header class="header-section has-img">
+    
+      <div class="intro-header big-img">
+        
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <div class="post-heading">
+                <h1>Can R and Shiny make me a better fisherman? Part 1</h1>
+                  
+                    
+                      <h2 class="post-subheading">Building a shiny application to store my fishing data</h2>
+                    
+                  
+                  
+                    <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on September 12, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;9&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+                  
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="img-desc" style="display: inline;"></span>
+      </div>
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Can R and Shiny make me a better fisherman? Part 1</h1>
+              
+              
+              
+                
+                  <h2 class="post-subheading">Building a shiny application to store my fishing data</h2>
+                
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on September 12, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;9&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+
+<p>My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I am fishing European sea bass (<em>Dicentrarchus labrax</em>) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artificial lures that imitate a specific prey.</p>
+<p>In theory, it is quite easy to catch a fish:</p>
+<ol style="list-style-type: decimal">
+<li><p>Use a lure that imitate the current prey of the sea bass.</p></li>
+<li><p>Animate the lure in a spot where the fish are active.</p></li>
+<li><p>Catch a really big fish !</p></li>
+</ol>
+<p>In practice, it is an other story ! Indeed, the feeding activity, the position of the European sea bass in the estuary and their preys will vary depending on different parameters :</p>
+<ul>
+<li>the characteristics of the riverbed, which will depend where I fish</li>
+<li>the time of the day : the sea bass is more active during dawn and dusk</li>
+<li>the current and water level associated with the tide. The water level in estuaries is constantly varying to greater or lesser degree due to the tide influence. It is also influenced by the river flow which can be higher in case of heavy rains.</li>
+</ul>
+<p>As you understand, there are many parameters potentially influencing the results of my fishing session. This is why I decided to create a shiny application to augment the number and the length of the fish caught during my sessions. To reach this objective, I need to better understand the activity, the position and the prey of the sea bass depending on the parameters described above.</p>
+<div id="requirements-of-my-application" class="section level2">
+<h2>Requirements of my application</h2>
+<ul>
+<li>It must store data about my fishing session :</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>Information needed</th>
+<th>Description of the variables</th>
+<th>Where do I get the data ?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Time</td>
+<td>Time when a fish is caught, time since the beginning of the session</td>
+<td>R</td>
+</tr>
+<tr class="even">
+<td>Catch</td>
+<td>Species and length of the fish caught</td>
+<td>Geolocation from smartphone?</td>
+</tr>
+<tr class="odd">
+<td>Lures</td>
+<td>Type, length, color of lure used</td>
+<td>Weather API</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>It must record data about my catch and the artificial lures used :</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>Information needed</th>
+<th>Description of the variables</th>
+<th>Where do I get the data ?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Time</td>
+<td>Time when a fish is caught, time since the beginning of the session</td>
+<td>R</td>
+</tr>
+<tr class="even">
+<td>Catch</td>
+<td>Species and length of the fish caught</td>
+<td>User input</td>
+</tr>
+<tr class="odd">
+<td>Lures</td>
+<td>Type, length, color of lure used</td>
+<td>User input</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>It must be adapted to small screens because I will always use the application on my phone.</p></li>
+<li><p>It must remain free.</p></li>
+</ul>
+</div>
+<div id="collecting-the-data" class="section level2">
+<h2>Collecting the data</h2>
+<div id="getting-my-gps-location" class="section level3">
+<h3>Getting my gps location</h3>
+<p>My gps location is collected by using a bit of Javascript in the header of the shiny application. This code has been developed by AugusT and is available on his <a href="https://github.com/AugustT/shiny_geolocation" target="_blank">github repository</a>.</p>
+</div>
+<div id="weather-api" class="section level3">
+<h3>Weather API</h3>
+<p>For the weather data, I found a free API called Dark Sky. I made a function that takes as input the coordinates of a place and the API user key and returns the current weather conditions in a dataframe:</p>
+<pre class="r"><code>library(httr)
+library(jsonlite)
+library(tidyverse)
+library(rvest)
+
+weather &lt;- function(x, API_key){
+  url &lt;- paste0(&quot;https://api.darksky.net/forecast/&quot;,API_key,
+                &quot;/&quot;, x[1], &quot;,&quot;, x[2],
+                &quot;?units=ca&amp;exclude=hourly,alerts,flags&quot;)
+  
+  rep &lt;- GET(url)
+  
+  table &lt;- fromJSON(content(rep, &quot;text&quot;))
+  
+  current.weather.info &lt;- with(table,
+                               data.frame(Air_temp = currently$temperature,
+                                     Weather = currently$summary,
+                                     Atm_pres = currently$pressure,
+                                     Wind_str = currently$windSpeed,
+                                     Wind_dir = currently$windBearing,
+                                     Cloud_cover = currently$cloudCover,
+                                     PrecipProb = currently$precipProbability,
+                                     PrecipInt = currently$precipIntensity,  
+                                     Moon = daily$data$moonPhase[1]))
+  return(current.weather.info)
+}</code></pre>
+</div>
+<div id="web-scrapping-for-tide-data" class="section level3">
+<h3>Web scrapping for Tide data</h3>
+<p>I created a function to scrap information about the tide on a french website. The following function takes no argument and return the current water level, the tide status (going up or down) and time since the tide peak for the location I fish.</p>
+<pre class="r"><code>tide &lt;- function(){
+  
+  # Set the current time and time zone 
+  Sys.setenv(TZ=&quot;Europe/Paris&quot;)
+  time &lt;- as.POSIXct(Sys.time())
+  url &lt;- &quot;https://services.data.shom.fr/hdm/vignette/grande/BOUCAU-BAYONNE?locale=en&quot;
+  
+  # Read the web page that contains the tide data 
+  text &lt;- url %&gt;% 
+    read_html() %&gt;%
+    html_text()
+  
+  # Clean the html data to get a dataframe  with two cols Time and water level: 
+
+  text &lt;- as.character(sub(&quot;.*var data = *(.*?) *\\;.*&quot;, &quot;\\1&quot;, text))
+  text &lt;- unlist(str_split( substr(text, 1, nchar(text)-2), &quot;\\],&quot;))
+  tidy_df &lt;- data.frame(hour=NA,Water=NA)
+  
+  for(i in 1:length(text)){
+    text_dat &lt;- unlist(str_split(text[i], &#39;&quot;&#39;))[c(2,3)]
+    text_dat[1] &lt;- substr(text_dat[1], 1, nchar(text_dat[1])-1)
+    text_dat[2] &lt;- as.numeric(substr(text_dat[2], 2, nchar(text_dat[2])))
+    tidy_df[i,] &lt;- text_dat
+  }
+  
+  tidy_df$hour &lt;- as.POSIXct(paste(format(Sys.time(),&quot;%Y-%m-%d&quot;), tidy_df$hour))
+  
+  # Some lines to get the tide status (going down or up) : 
+  
+  n_closest &lt;- which(abs(tidy_df$hour - time) == min(abs(tidy_df$hour - time)))
+  
+  water_level &lt;- as.numeric(tidy_df[n_closest, 2])
+  
+  all_decrea &lt;- all(tidy_df$Water[(n_closest-6):(n_closest+6)] ==
+                      cummin(tidy_df$Water[(n_closest-6):(n_closest+6)] ))
+  
+  all_increa &lt;- all(tidy_df$Water[(n_closest-6):(n_closest+6)] ==
+                      cummax(tidy_df$Water[(n_closest-6):(n_closest+6)] ))
+  
+  maree &lt;- ifelse(all_decrea, &quot;Down&quot;, ifelse(all_increa, &quot;Up&quot;, &quot;Dead&quot;))
+  
+  
+  # Compute time since the last peak :
+  
+  last_peak &lt;- max(cumsum(rle(diff(as.numeric(tidy_df$Water), lag = 2) &gt; 0)$lengths)
+                   [cumsum(rle(diff(as.numeric(tidy_df$Water), lag = 2) &gt;0)$lengths) &lt; n_closest])
+  
+  
+  time_after &lt;- as.numeric(difftime(tidy_df$hour[n_closest], tidy_df$hour[last_peak], units = &quot;mins&quot;))
+  
+  
+  # Return the list with the results :
+  
+  return(list(Water_level = water_level,
+              Maree = maree,
+              Time_peak = time_after))
+  
+}</code></pre>
+</div>
+</div>
+<div id="the-shiny-application" class="section level2">
+<h2>The shiny application</h2>
+<p>The main problem I encountered while developing this application was data storage. Shinyapps.io
+host freely your shiny application but there were some problems when I used the shiny application to modify the csv files.
+The solution I found was to store the data in my dropbox account, you can find <a href="https://shiny.rstudio.com/articles/persistent-data-storage.html" target="_blank">here</a> more details on the subject and alternatives solutions. I used the package <em>rdrop2</em> to access and modify the data with the shiny application.</p>
+<p>Here are the main steps of this application :</p>
+<ol style="list-style-type: decimal">
+<li><p>When the application is started, it reads a csv file stored on my dropbox to see if a fishing session is running or not. If not the user can start a fishing session.</p></li>
+<li><p>When starting a new session, a line with coordinates, weather conditions, and tide condition is added to the csv file previously mentioned.</p></li>
+<li><p>If a fish is caught, the user can fill out a form to store the data in a second csv file. This file contains : the time, the species and length of the fish and information about the fishing lure used (type, color, length).</p></li>
+<li><p>The user can end the fishing session by pushing a button. This will register the ending time, weather conditions, and tide condition in the first csv file.</p></li>
+</ol>
+<p>A simplified graph is showed below:</p>
+<div class="figure">
+<img src="/img_post/graph.svg" alt="" />
+<p class="caption">Simplified workflow of the application</p>
+</div>
+<div id="ui-side" class="section level3">
+<h3>UI side</h3>
+<p>The user interface of the application is built using the <em>miniUI</em> package. This package
+allows R user to develop shiny application adapted to small screens.</p>
+<pre class="r"><code># Load libraries 
+library(shiny)
+library(shinyWidgets)
+library(googlesheets)
+library(miniUI)
+library(leaflet)
+library(rdrop2)
+Sys.setenv(TZ=&quot;Europe/Paris&quot;)
+
+#Import the functions for weather API and webscrapping 
+suppressMessages(source(&quot;api_functions.R&quot;))
+
+
+# Load the dropbox token : 
+token &lt;&lt;- readRDS(&quot;token.rds&quot;)
+
+# Minipage for small screens
+ui &lt;- miniPage(
+  # Javascript that give user location (input$lat,input$long)
+  tags$script(&#39;$(document).ready(function () {
+                           navigator.geolocation.getCurrentPosition(onSuccess, onError);
+                           
+                           function onError (err) {
+                           Shiny.onInputChange(&quot;geolocation&quot;, false);
+                           }
+                           
+                           function onSuccess (position) {
+                           setTimeout(function () {
+                           var coords = position.coords;
+                           console.log(coords.latitude + &quot;, &quot; + coords.longitude);
+                           Shiny.onInputChange(&quot;geolocation&quot;, true);
+                           Shiny.onInputChange(&quot;lat&quot;, coords.latitude);
+                           Shiny.onInputChange(&quot;long&quot;, coords.longitude);
+                           }, 1100)
+                           }
+                           });&#39;),
+  
+  gadgetTitleBar(&quot;Catch them all&quot;, left = NULL, right = NULL),
+  
+  miniTabstripPanel(
+    #First panel depends if a fishing session is started or not 
+    miniTabPanel(&quot;Session&quot;, icon = icon(&quot;sliders&quot;),
+                 miniContentPanel(uiOutput(&quot;UI_sess&quot;, align = &quot;center&quot;),
+                                  uiOutput(&quot;UI&quot;, align = &quot;center&quot;))
+    ),
+    # Second panel displays the location of the previous fishing session with the number of fish caught 
+    miniTabPanel(&quot;Map&quot;, icon = icon(&quot;map-o&quot;),
+                 miniContentPanel(scrollable = FALSE,padding = 0,
+                                  div(style=&quot;text-align:center&quot;,
+                                      prettyRadioButtons(&quot;radio&quot;, inline = TRUE, label = &quot;&quot;,
+                                                         choices = list(&quot;3 dernières sessions&quot; = 1,
+                                                                        &quot;3 Meilleures Sessions&quot; = 2,
+                                                                        &quot;Tout afficher&quot; = 3), 
+                                                         selected = 1)),
+                                  leafletOutput(&quot;map&quot;, height = &quot;93%&quot;)
+                 ))
+  )
+  
+)</code></pre>
+</div>
+<div id="server-side" class="section level3">
+<h3>Server side</h3>
+<p>The server side is mainly composed by observeEvent functions. The utility of each
+observeEvent is provided in the script as commentary.</p>
+<pre class="r"><code>server &lt;- function(input, output, session){
+  source(&quot;api_functions.R&quot;)
+  
+  # Read the csv file containing information about fishing session. If a session is running,
+  # display the UI that allows the user to input data about the fish caught. If a session is not started,
+  # display a button to start the session.
+  
+  observeEvent(input$go ,{
+    
+    dat &lt;&lt;- drop_read_csv(&quot;/app_peche/session.csv&quot;, header = T, stringsAsFactors = F, dtoken = token) 
+    
+    output$UI&lt;- renderUI({
+      tagList(
+        if(rev(dat$Status)[1] == &quot;end&quot;){
+          actionButton(&quot;go&quot;,&quot;Start session&quot;)}
+        else{
+          actionButton(&quot;go&quot;,&quot;End session&quot;) 
+        }
+      )
+    })
+    
+    output$UI_sess&lt;- renderUI({
+      if(rev(dat$Status)[1] == &quot;end&quot;){
+        tagList(textInput(&quot;comments&quot;, label = h3(&quot;Commentaires&quot;), value = &quot;NA&quot;))
+      }else{
+        input$catch
+        
+        tagList(
+          selectInput(&quot;species&quot;, label = h3(&quot;Espèces&quot;), 
+                      choices = list(&quot;Bar&quot; = &quot;bar&quot;, 
+                                     &quot;Bar moucheté&quot; = &quot;bar_m&quot;, 
+                                     &quot;Alose&quot; = &quot;alose&quot;,
+                                     &quot;Alose Feinte&quot; = &quot;alose_f&quot;,
+                                     &quot;Maquereau&quot; = &quot;maquereau&quot;, 
+                                     &quot;Chinchard&quot; = &quot;chinchard&quot;), selected = &quot;bar&quot;),
+          
+          sliderInput(&quot;length&quot;,label = h3(&quot;Taille du poisson&quot;),value=25,min=0,max=80, step=1),
+          
+          selectInput(&quot;lure&quot;, label = h3(&quot;Type de leurre&quot;), 
+                      choices = list(&quot;Shad&quot; = &quot;shad&quot;,
+                                     &quot;Slug&quot; = &quot;slug&quot;,
+                                     &quot;Jerkbait&quot; = &quot;jerkbait&quot;,
+                                     &quot;Casting jig&quot; = &quot;jig&quot;,
+                                     &quot;Topwater&quot; = &quot;topwater&quot;), selectize = FALSE),
+          
+          selectInput(&quot;color_lure&quot;, label = h3(&quot;Couleur du leurre&quot;), 
+                      choices = list(&quot;Naturel&quot; = &quot;naturel&quot;,
+                                     &quot;Sombre&quot; = &quot;sombre&quot;,
+                                     &quot;Clair&quot; = &quot;clair&quot;,
+                                     &quot;Flashy&quot; = &quot;flashy&quot; ), selectize = FALSE),
+          
+          selectInput(&quot;length_lure&quot;, label = h3(&quot;Taille du leurre&quot;), 
+                      choices = list(&quot;Petit&quot; = &quot;petit&quot;,
+                                     &quot;Moyen&quot; = &quot;moyen&quot;,
+                                     &quot;Grand&quot; = &quot;grand&quot;), selectize = FALSE),
+          
+          actionButton(&quot;catch&quot;,&quot;Rajoutez cette capture aux stats!&quot;),
+          
+          textInput(&quot;comments1&quot;, label = h3(&quot;Commentaire avant la fin ?&quot;), value = &quot;NA&quot;)
+          
+          
+        )
+        
+        
+      }
+      
+    })  
+    
+    
+  }, ignoreNULL = F)
+  
+  #If the button is pushed, create the line to be added in the csv file. 
+  
+  observeEvent(input$go,{
+    
+    #Tide + geoloc + Weather
+    c_tide &lt;- unlist(tide())
+    geoloc &lt;- c(input$lat,input$long)
+    current.weather.info &lt;- weather(geoloc) 
+    
+    # Two outcomes depending if the session starts or ends. This gives the possibility 
+    # to the user to add a comment before starting the session or after ending the session
+    
+    if(rev(dat$Status)[1] == &quot;end&quot;){
+      
+      n_ses &lt;- c(rev(dat$Session)[1]+1)
+      stat_ses &lt;- c(&quot;beg&quot;)
+      time_beg &lt;- as.character(as.POSIXct(Sys.time()))
+      comment &lt;- input$comments
+      dat.f &lt;- data.frame(n_ses, stat_ses, time_beg ,geoloc[2], geoloc[1], current.weather.info, c_tide[1], c_tide[2], c_tide[3], comment)
+      names(dat.f)&lt;-names(dat)
+      a &lt;- rbind(dat,dat.f)
+      
+    }else{
+      
+      n_ses &lt;- c(rev(dat$Session)[1])
+      stat_ses &lt;- c(&quot;end&quot;)
+      time_beg &lt;- as.character(as.POSIXct(Sys.time()))
+      comment1 &lt;- input$comments1
+      dat.f&lt;- data.frame(n_ses, stat_ses, time_beg ,geoloc[2], geoloc[1], current.weather.info, c_tide[1], c_tide[2], c_tide[3], comment1)
+      names(dat.f)&lt;-names(dat)
+      a &lt;- rbind(dat,dat.f)
+    }
+    
+    # Write csv in temporary files of shiny server 
+    write_csv(as.data.frame(a), &quot;session.csv&quot;)
+    
+    # Upload it to dropbox account 
+    drop_upload(&quot;session.csv&quot;, path = &quot;App_peche&quot;, mode = &quot;overwrite&quot;, dtoken = token)
+  })
+  
+  
+  # Add a line to the catch csv file whenever a fish is caught
+  observeEvent(input$catch,{
+    caugth &lt;- drop_read_csv(&quot;/app_peche/catch.csv&quot;, header = T, stringsAsFactors = F, dtoken = token) 
+    
+    n_ses &lt;- c(rev(dat$Session)[1])
+    time &lt;- as.POSIXct(Sys.time())
+    time_after_beg &lt;- round(as.numeric(difftime(time, rev(dat$Time)[1], units = &quot;mins&quot;)), digits = 0)
+    
+    catch &lt;- data.frame(n_ses, 
+                        time = as.character(time),
+                        min_fishing = as.character(time_after_beg),
+                        species = input$species,
+                        length = input$length,
+                        lure = input$lure,
+                        colour = input$color_lure,
+                        length_lure = input$length_lure)
+    
+    b &lt;- rbind(caugth,catch)
+    
+    # Write csv in temporary files of shiny server 
+    write_csv(as.data.frame(b), &quot;catch.csv&quot;)
+    # Upload it to dropbox account 
+    drop_upload(&quot;catch.csv&quot;, path = &quot;App_peche&quot;, mode = &quot;overwrite&quot;, dtoken = token)
+  })
+  
+  # Create the map with the results of previous session depending on the choice of the user :
+  
+  observeEvent(input$radio,{
+    
+    output$map &lt;- renderLeaflet({
+      map_data &lt;- map_choice(input$radio)
+      leaflet(map_data) %&gt;% addTiles() %&gt;%
+        addPopups(lng = ~Long,
+                  lat = ~Lat, 
+                  with(map_data,
+                       sprintf(&quot;&lt;b&gt;Session %.0f : %.1f h&lt;/b&gt; &lt;br/&gt; %s &lt;br/&gt; %.0f  poissons &lt;br/&gt; hauteur d&#39;eau: %.0f m, %s, %.0f min après l&#39;étal&quot;,
+                               n_ses,
+                               duration,
+                               Time,
+                               nb,
+                               Water_level,
+                               Tide_status,
+                               Tide_time)),
+                  options = popupOptions(maxWidth = 100, minWidth = 50))
+    })
+    
+  })
+  
+}</code></pre>
+</div>
+</div>
+<div id="conclusion-and-future-improvments" class="section level2">
+<h2>Conclusion and future improvments</h2>
+<p>You can find a dummy example of this application (not linked to the dropbox account)
+<a href="https://aureliencallens.shinyapps.io/Dummy_angler_app/" target="_blank">here</a>.
+I have been using this application for 1 year without any problems! The data I collected will be presented in the next post.</p>
+<p>In the coming months, I must find a new free API to replace the actual one. Indeed, the weather API I am using has been bought by Apple and the free requests will be stopped in the following year.</p>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://aureliencallens.github.io//tags/api/">API</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/shiny/">shiny</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/web-scraping/">Web scraping</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/2022/04/12/r-shiny-fishing-part4/">Can R and Shiny make me a better fisherman? Part 4</a></li>
+                
+                    <li><a href="/2021/06/01/r-shiny-fishing-part3/">Can R and Shiny make me a better fisherman? Part 3</a></li>
+                
+                    <li><a href="/2020/11/18/2020-11-18-aliexpress_rselenium/">Webscraping Aliexpress with Rselenium</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://aureliencallens.github.io/1/01/01/first-post/" data-toggle="tooltip" data-placement="top" title="What do I do here ?">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://aureliencallens.github.io/2020/09/25/r-shiny-fishing-part2/" data-toggle="tooltip" data-placement="top" title="Can R and Shiny make me a better fisherman? Part 2">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:aurelien.callens@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/aureliencallens" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/aureliencallens" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Aurelien Callens
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020 - 2022
+          
+
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.96.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+          <br>
+          Favicon made by <a href="https://www.flaticon.com/authors/becris">Becris</a> from <a href="https://www.flaticon.com/">www.flaticon.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://aureliencallens.github.io/js/main.js"></script>
+<script src="https://aureliencallens.github.io/js/highlight.pack.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://aureliencallens.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+ 
+  <script>
+  $(document).ready(function () {
+    window.initializeCodeFolding("show" === "show");
+  });
+  </script>
+  <script src="/js/codefolding.js"></script>
+
+
+    
+  </body>
+</html>
+
