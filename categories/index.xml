@@ -6,6 +6,25 @@
     <description>Recent content in Categories on Aurélien Callens</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>aurelien.callens@gmail.com (Aurelien Callens)</managingEditor>
-    <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster><atom:link href="https://aureliencallens.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster>
+    <lastBuildDate>Tue, 12 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://aureliencallens.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>R</title>
+      <link>https://aureliencallens.github.io/categories/r/</link>
+      <pubDate>Tue, 12 Apr 2022 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>https://aureliencallens.github.io/categories/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PhD</title>
+      <link>https://aureliencallens.github.io/categories/phd/</link>
+      <pubDate>Sat, 02 Oct 2021 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>https://aureliencallens.github.io/categories/phd/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

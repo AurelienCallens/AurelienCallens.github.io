@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>R - Aurélien Callens</title>
+  <meta name="author" content="Aurelien Callens"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Aurélien Callens",
+    
+    "url": "https:\/\/aureliencallens.github.io\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/aureliencallens.github.io\/"
+  
+  
+  
+  
+}
+</script>
+
+<meta property="og:title" content="R" />
+<meta property="og:image" content="https://aureliencallens.github.io/img/avatar-icon.jpg" />
+<meta property="og:url" content="https://aureliencallens.github.io/categories/r/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Aurélien Callens" />
+
+  <meta name="twitter:title" content="R" />
+  <meta name="twitter:image" content="https://aureliencallens.github.io/img/avatar-icon.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://aureliencallens.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.96.0" />
+  <link rel="alternate" href="https://aureliencallens.github.io/index.xml" type="application/rss+xml" title="Aurélien Callens"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://aureliencallens.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://aureliencallens.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://aureliencallens.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-129143452-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://aureliencallens.github.io/">Aurélien Callens</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Research" href="/research/">Research</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About me" href="/about/">About me</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Aurélien Callens" href="https://aureliencallens.github.io/">
+            <img class="avatar-img" src="https://aureliencallens.github.io/img/avatar-icon.jpg" alt="Aurélien Callens" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="categories-heading">
+              
+                <h1>R</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+  <div class="container" role="main">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <div class="posts-list">
+          
+            <article class="post-preview">
+    <a href="https://aureliencallens.github.io/2022/04/12/r-shiny-fishing-part4/">
+        <h2 class="post-title">Can R and Shiny make me a better fisherman? Part 4</h2>
+        
+        <h3 class="post-subtitle">
+            Exploratory analysis on my fishing data (shiny and plotly)
+        </h3>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on April 12, 2022
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;6&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        In this post, I explore the data I have collected during the last year with the updated version of the application (presented here). This quick exploratory analysis is performed with two packages I really enjoy: Plotly and shiny.
+For reminder, my new application store the data in three csv files. The first one contains variables related to the fishing conditions. The second one contains information about my catches and finally the third one contains information about the characteristics of the lures I used during the session.
+        <a href="https://aureliencallens.github.io/2022/04/12/r-shiny-fishing-part4/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+        <a href="https://aureliencallens.github.io//tags/tidyverse/">tidyverse</a>&nbsp;
+        
+        <a href="https://aureliencallens.github.io//tags/shiny/">shiny</a>&nbsp;
+        
+        <a href="https://aureliencallens.github.io//tags/plotly/">plotly</a>&nbsp;
+        
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="https://aureliencallens.github.io/2021/06/01/r-shiny-fishing-part3/">
+        <h2 class="post-title">Can R and Shiny make me a better fisherman? Part 3</h2>
+        
+        <h3 class="post-subtitle">
+            Updating my fishing application
+        </h3>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on June 1, 2021
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;7&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        In this previous post, I presented the shiny application I developed to record data about my fishing session. In today’s post, I will present briefly the changes and updates I made to improve the application. Here are the main changes :
+ Weather API: the API I was using (Dark Sky) stopped furnishing free data. I changed for Openweathermap and I needed to update the functions to gather the same information as before.
+        <a href="https://aureliencallens.github.io/2021/06/01/r-shiny-fishing-part3/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+        <a href="https://aureliencallens.github.io//tags/plotly/">plotly</a>&nbsp;
+        
+        <a href="https://aureliencallens.github.io//tags/shiny/">shiny</a>&nbsp;
+        
+        <a href="https://aureliencallens.github.io//tags/tidyverse/">tidyverse</a>&nbsp;
+        
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="https://aureliencallens.github.io/2021/03/03/coastal-risks-google-trends/">
+        <h2 class="post-title">Coastal risks and statistical learning: Analyzing Google trends with gtrendsR package</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on March 3, 2021
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;6&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        I am currently in my third year of PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risk.
+        <a href="https://aureliencallens.github.io/2021/03/03/coastal-risks-google-trends/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+        <a href="https://aureliencallens.github.io//tags/ggplot2/">ggplot2</a>&nbsp;
+        
+        <a href="https://aureliencallens.github.io//tags/tidyverse/">tidyverse</a>&nbsp;
+        
+        <a href="https://aureliencallens.github.io//tags/gtrendsr/">gtrendsR</a>&nbsp;
+        
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="https://aureliencallens.github.io/2020/11/18/2020-11-18-aliexpress_rselenium/">
+        <h2 class="post-title">Webscraping Aliexpress with Rselenium</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on November 18, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        Today, I am going to show you how to scrape product prices from Aliexpress website.
+A few words on web scraping Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the robots.txt page which should be located at the root of the website adress.
+        <a href="https://aureliencallens.github.io/2020/11/18/2020-11-18-aliexpress_rselenium/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+        <a href="https://aureliencallens.github.io//tags/rselenium/">RSelenium</a>&nbsp;
+        
+        <a href="https://aureliencallens.github.io//tags/web-scraping/">Web scraping</a>&nbsp;
+        
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="https://aureliencallens.github.io/2020/09/25/r-shiny-fishing-part2/">
+        <h2 class="post-title">Can R and Shiny make me a better fisherman? Part 2</h2>
+        
+        <h3 class="post-subtitle">
+            Exploratory analysis on my fishing data
+        </h3>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on September 25, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;20&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        In the previous blog article, I described in details how I built a shiny application that stores data about my fishing sessions. In this post, I will explore the data I have collected during the last year.
+To sum up, my application store the data in two csv files. The first one contains variables related to the fishing conditions at the beginning and at the end of the session such as :
+        <a href="https://aureliencallens.github.io/2020/09/25/r-shiny-fishing-part2/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+        <a href="https://aureliencallens.github.io//tags/ggplot2/">ggplot2</a>&nbsp;
+        
+        <a href="https://aureliencallens.github.io//tags/leaflet/">leaflet</a>&nbsp;
+        
+        <a href="https://aureliencallens.github.io//tags/tidyverse/">tidyverse</a>&nbsp;
+        
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="https://aureliencallens.github.io/2020/09/12/r-shiny-fishing-part1/">
+        <h2 class="post-title">Can R and Shiny make me a better fisherman? Part 1</h2>
+        
+        <h3 class="post-subtitle">
+            Building a shiny application to store my fishing data
+        </h3>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on September 12, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;9&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I am fishing European sea bass (Dicentrarchus labrax) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artificial lures that imitate a specific prey.
+In theory, it is quite easy to catch a fish:
+        <a href="https://aureliencallens.github.io/2020/09/12/r-shiny-fishing-part1/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+        <a href="https://aureliencallens.github.io//tags/api/">API</a>&nbsp;
+        
+        <a href="https://aureliencallens.github.io//tags/shiny/">shiny</a>&nbsp;
+        
+        <a href="https://aureliencallens.github.io//tags/web-scraping/">Web scraping</a>&nbsp;
+        
+    </div>
+    
+
+</article>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:aurelien.callens@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/aureliencallens" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/aureliencallens" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="/categories/r/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Aurelien Callens
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020 - 2022
+          
+
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.96.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+          <br>
+          Favicon made by <a href="https://www.flaticon.com/authors/becris">Becris</a> from <a href="https://www.flaticon.com/">www.flaticon.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://aureliencallens.github.io/js/main.js"></script>
+<script src="https://aureliencallens.github.io/js/highlight.pack.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://aureliencallens.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+
