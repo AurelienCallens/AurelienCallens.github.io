@@ -87,14 +87,15 @@ In theory, it is quite easy to catch a fish:</description>
     </item>
     
     <item>
-      <title>Research</title>
+      <title>Scientific productions</title>
       <link>https://aureliencallens.github.io/research/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>https://aureliencallens.github.io/research/</guid>
-      <description>My publications   Callens, A., Morichon, D., Abadie, S., Delpey, M., Liquet, B. (2020). Using Random forest and Gradient boosting trees to improve wave forecast at a specific location. Applied Ocean Research, 104. doi.org/10.1016/j.apor.2020.102339
-  Callens, A., Wang, Y., Fu, L. et al. (2020). Robust Estimation Procedure for Autoregressive Models with Heterogeneity. Environmental Modeling &amp;amp; Assessment. doi.org/10.1007/s10666-020-09730-w
-  Morichon, D.</description>
+      <description>1. Academic papers
+  Callens, A., Morichon, D., Liria, P., Epelde, I., &amp;amp; Liquet, B. (2021). Automatic Creation of Storm Impact Database Based on Video Monitoring and Convolutional Neural Networks. Remote Sensing, 13(10), 1933.doi.org/10.3390/rs13101933
+  Callens, A., Morichon, D., Abadie, S., Delpey, M., Liquet, B. (2020). Applied Ocean Research, 104. doi.org/10.1016/j.apor.2020.102339
+  Callens, A., Wang, Y., Fu, L. et al.</description>
     </item>
     
     <item>
