@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Analysis of the top R package - Aurélien Callens</title>
+  <meta name="description" content="After a little while coding in Python everyday for my work, I needed to make a break and perform some R analysis! Since the beginning of my postdoc, I haven’t followed the last trends concerning R package. In this post, I am going to analyze some data about R package to see what are the most downloaded R package during the past weeks. I will also visualize all the relationships between the R package by looking at their required dependencies.">
+  <meta name="author" content="Aurelien Callens"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Aurélien Callens",
+    
+    "url": "https:\/\/aureliencallens.github.io\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/aureliencallens.github.io\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/aureliencallens.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/aureliencallens.github.io\/2022\/07\/13\/analysis-of-the-top-r-package\/",
+          "name": "Analysis of the top r package"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Aurelien Callens"
+  },
+  "headline": "Analysis of the top R package",
+  "description" : "After a little while coding in Python everyday for my work, I needed to make a break and perform some R analysis! Since the beginning of my postdoc, I haven’t followed the last trends concerning R package. In this post, I am going to analyze some data about R package to see what are the most downloaded R package during the past weeks. I will also visualize all the relationships between the R package by looking at their required dependencies.",
+  "inLanguage" : "en",
+  "wordCount":  689 ,
+  "datePublished" : "2022-07-13T00:00:00",
+  "dateModified" : "2022-07-13T00:00:00",
+  "image" : "https:\/\/aureliencallens.github.io\/img\/avatar-icon.jpg",
+  "keywords" : [ "ggplot2, cranlogs, igraph, visNetwork" ],
+  "mainEntityOfPage" : "https:\/\/aureliencallens.github.io\/2022\/07\/13\/analysis-of-the-top-r-package\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/aureliencallens.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/aureliencallens.github.io\/img\/avatar-icon.jpg",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Analysis of the top R package" />
+<meta property="og:description" content="After a little while coding in Python everyday for my work, I needed to make a break and perform some R analysis! Since the beginning of my postdoc, I haven’t followed the last trends concerning R package. In this post, I am going to analyze some data about R package to see what are the most downloaded R package during the past weeks. I will also visualize all the relationships between the R package by looking at their required dependencies.">
+<meta property="og:image" content="https://aureliencallens.github.io/img/avatar-icon.jpg" />
+<meta property="og:url" content="https://aureliencallens.github.io/2022/07/13/analysis-of-the-top-r-package/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Aurélien Callens" />
+
+  <meta name="twitter:title" content="Analysis of the top R package" />
+  <meta name="twitter:description" content="After a little while coding in Python everyday for my work, I needed to make a break and perform some R analysis! Since the beginning of my postdoc, I haven’t followed the last trends concerning R …">
+  <meta name="twitter:image" content="https://aureliencallens.github.io/img/avatar-icon.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://aureliencallens.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.96.0" />
+  <link rel="alternate" href="https://aureliencallens.github.io/index.xml" type="application/rss+xml" title="Aurélien Callens"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://aureliencallens.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://aureliencallens.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://aureliencallens.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-129143452-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://aureliencallens.github.io/">Aurélien Callens</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Research" href="/research/">Research</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About me" href="/about/">About me</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Aurélien Callens" href="https://aureliencallens.github.io/">
+            <img class="avatar-img" src="https://aureliencallens.github.io/img/avatar-icon.jpg" alt="Aurélien Callens" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Analysis of the top R package</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on July 13, 2022
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;4&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<link href="/rmarkdown-libs/vis/vis-network.min.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/vis/vis-network.min.js"></script>
+<script src="/rmarkdown-libs/visNetwork-binding/visNetwork.js"></script>
+
+
+<p>After a little while coding in Python everyday for my work, I needed to make a break and perform some R analysis! Since the beginning of my postdoc, I haven’t followed the last trends concerning R package. In this post, I am going to analyze some data about R package to see what are the most downloaded R package during the past weeks. I will also visualize all the relationships between the R package by looking at their required dependencies.</p>
+<p>Let’s import the package required for this analysis:</p>
+<pre class="r"><code>library(tidyverse)
+library(magrittr)
+library(cranlogs)
+library(igraph)
+library(visNetwork)</code></pre>
+<div id="how-to-find-the-most-popular-r-package" class="section level1">
+<h1>How to find the most popular R package ?</h1>
+<p>The first thing is to gather the data about the number of downloads for each package. Luckily for us, there is a package called <em>cranlogs</em> that does just what we need ! With a simple line of command we can collect data about the 50 packages with the most downloads in the last month, we can then plot the result:</p>
+<pre class="r"><code>popular_pckg &lt;- cran_top_downloads(&quot;last-month&quot;, 50)
+
+popular_pckg %&gt;%
+  mutate(package = fct_reorder(package, desc(count))) %&gt;% 
+  ggplot(aes(x = package, y = count)) +
+  geom_bar(stat=&quot;identity&quot;) + 
+  scale_x_discrete(expand = expansion(mult = c(0, 0.02))) +
+  theme_bw() +
+  xlab(&quot;&quot;) +
+  ylab(&quot;Downloads&quot;)+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 9, face = &quot;bold&quot;),
+        plot.title = element_text(size = 14),
+        legend.position = &quot;none&quot;) +labs(x = NULL)</code></pre>
+<p><img src="/post/2022-07-13-quick-analysis-of-the-top-r-package.en_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>I thought this graph will be harder to make because of the availability of the data but with the right package everything can be done !</p>
+</div>
+<div id="visualisation-of-the-dependencies-between-packages" class="section level1">
+<h1>Visualisation of the dependencies between packages</h1>
+<p>Once I saw the above graph, I was wondering about all the dependencies between these packages and I wanted to know which one was the most “connected”. To answer this question, I need more data, especially about the required dependencies of each package. After some research, I found out that data about package (including description and dependencies) can be extracted with a function in the <em>tools</em> package:</p>
+<pre class="r"><code>df_pkg &lt;- tools::CRAN_package_db()[, c(&#39;Package&#39;, &#39;Description&#39;, &#39;Imports&#39;)]</code></pre>
+<p>However, this function extract the data for all the packages and I want to perform the analysis only on the top 100 popular packages. So I decided to couple the function of the <em>cranlog</em> package with the database I collected with the <code>CRAN_package_db()</code> function:</p>
+<pre class="r"><code># Can be quite long hence the parallel map
+plan(multisession, workers = 12)
+monthly_dl &lt;- future_map(df_pkg$Package, function(x){sum(cran_downloads(x, &#39;last-month&#39;)$count)})
+df_pkg$monthly_dl &lt;- unlist(monthly_dl)
+# write_csv(df_pkg, &#39;R_pkg_dl.csv&#39;)</code></pre>
+<p>We can then filter by number of downloads and keep only the top 100:</p>
+<pre class="r"><code>df_pkg &lt;- df_pkg %&gt;% 
+  distinct(Package, .keep_all= TRUE) %&gt;% 
+  arrange(monthly_dl) %&gt;% 
+  top_n(100, monthly_dl)</code></pre>
+<p>Now, it is time to prepare the data for a graph visualization. To make a graph, we need two tables. The first one must contain all the relationships between nodes (in our case nodes are packages), it has two columns : ‘from’ and ‘to’. The second table contains only one column with the names of the nodes.</p>
+<pre class="r"><code>import_cleaning &lt;- function(text){
+  text &lt;- gsub(&#39;\\s*\\([^\\)]+\\)&#39;, &#39;&#39;, text)
+  text &lt;- gsub(&#39;\\n&#39;, &#39; &#39;, text)
+  text &lt;- gsub(&#39; &#39;, &#39;&#39;, text, fixed = TRUE)
+  text &lt;- str_split(text, &#39;,&#39;)
+  return(text)
+}
+
+import_cleaning(df_pkg$Imports[2])
+
+test &lt;- df_pkg %&gt;% 
+  mutate(cleaned_imports = import_cleaning(Imports))
+
+df_target &lt;- function(x,y){
+  df &lt;- expand.grid(from=x, to=unlist(y))
+  return(df)}
+
+for(i in 1:nrow(test)){
+  if(i == 1){
+    df_res = df_target(test$Package[i], test$cleaned_imports[i])
+  }else{
+      df_res = rbind(df_res, df_target(test$Package[i], test$cleaned_imports[i]))
+  }
+}
+
+links &lt;- df_res %&gt;% 
+  filter(!is.na(to) | (to == &quot;&quot;))
+
+nodes &lt;- tibble(id=as.character(unique(unlist(df_res))))</code></pre>
+<p>Once the two matrices are made, we can interactively visualize the graph network with <em>visNetwork</em> package:</p>
+<pre class="r"><code>visNetwork(nodes, links) %&gt;%
+    visIgraphLayout(type = &quot;full&quot;) %&gt;%
+    visNodes(
+        shape = &quot;dot&quot;,
+        color = list(
+            background = &quot;#0085AF&quot;,
+            border = &quot;#013848&quot;,
+            highlight = &quot;#FF8000&quot;
+        ),
+        scaling = list(min=2,
+                       max = 10),
+        shadow = list(enabled = TRUE, size = 10)
+    ) %&gt;%
+    visEdges(
+      arrows=&#39;to&#39;,
+        shadow = FALSE,
+        color = list(color = &quot;#0085AF&quot;, highlight = &quot;#C62F4B&quot;)
+    ) %&gt;%
+    visOptions(highlightNearest = list(enabled = T, degree = 1, hover = T)) %&gt;% 
+    visLayout(randomSeed = 11)</code></pre>
+<div id="htmlwidget-1" style="width:672px;height:480px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"nodes":{"id":["DBI","rvest","xlsx","sp","plotly","RcppEigen","pbkrtest","png","uuid","rematch2","dbplyr","desc","base64enc","plyr","mime","prettyunits","readxl","highr","rprojroot","tzdb","labeling","gtable","munsell","jquerylib","fastmap","farver","rappdirs","tinytex","car","rstudioapi","yaml","viridisLite","isoband","evaluate","xml2","units","hms","broom","jpeg","colorspace","lme4","generics","purrr","vroom","pkgconfig","nloptr","readr","RColorBrewer","htmltools","fs","utf8","rJava","testthat","digest","rmarkdown","sass","bslib","R6","xfun","lubridate","Rcpp","scales","Hmisc","data.table","fansi","curl","openssl","zoo","ps","knitr","callr","withr","tidyverse","tidyr","tidyselect","cpp11","crayon","pkgdown","processx","jsonlite","ellipsis","httr","stringi","magrittr","tibble","pillar","stringr","lifecycle","textshaping","ragg","rgl","rgeos","vctrs","dplyr","glue","cli","sf","devtools","rlang","ggplot2",null,"selectr","xlsxjars","grDevices","utils","stats","graphics","lattice","grid","tools","htmlwidgets","lazyeval","crosstalk","promises","Matrix","MASS","methods","numDeriv","parallel","assertthat","blob","cellranger","abind","mgcv","nnet","quantreg","maptools","nlme","backports","splines","boot","minqa","bit64","clipr","brio","pkgload","praise","waldo","latticeExtra","cluster","rpart","foreign","gridExtra","htmlTable","viridis","askpass","dtplyr","forcats","googledrive","googlesheets4","haven","modelr","reprex","downlit","memoise","whisker","systemfonts","classInt","s2","pkgbuild","rcmdcheck","remotes","roxygen2","rversions","sessioninfo"],"x":[-0.232046745428715,0.312370186408495,-0.552284363125968,-0.495585919307733,0.099369560941869,-0.455649922558264,-0.360750252017048,0.581631513406322,-0.0795219774835915,0.455573718262569,0.0617892701017249,-0.0437044997657202,-0.141809223188563,-0.551348769134795,0.0980871880539531,0.962689337545643,0.238983569286633,-0.455459044520539,-0.12375020122486,0.516868001289732,-0.298101401692397,-0.387134493823903,-0.205914602794629,-0.0778827696808191,-0.125298494092677,0.0478730505820979,0.483398512164495,-0.292846034192412,-0.571251905493037,0.333623262854735,-0.177968936520043,0.0963605919903194,-0.402805036390282,-0.250655434964722,0.289916311595119,-0.537292150678802,0.173486503843743,0.0594217863452005,0.379512945179621,-0.40013113522912,-0.704981261426487,0.197172718637485,0.203180042120526,0.163591856111235,0.0225542031587913,-1,0.135306518731503,0.158828906587989,-0.108386697074886,0.210515846717198,0.421726890631176,-0.759117915324241,-0.0875818404946583,-0.0706563125108995,-0.133896506626696,0.190679095968088,-0.00776175574574334,0.0176334507684484,-0.314807104431922,0.437130910495843,-0.372763752450757,0.0013289403523189,-0.334563335872832,-0.0944213653511228,-0.111935795625938,0.676842341351378,0.759672260722366,-0.5306778416631,-0.292079019600073,-0.260599075056494,-0.0631043752386549,-0.116709260531862,0.289227229950413,0.103920274236724,0.215645301629906,0.165995775529751,-0.00931361464507852,0.130342104755192,-0.177458892063731,0.0852009403174194,0.143410651702016,0.331499477345694,-0.273646283373182,-0.0170954151097331,0.109954206460681,0.113446323061476,-0.0392686947538847,0.100541620200645,0.626153913753182,0.483568467062649,-0.134073499554735,-0.454474280714438,0.168615971726158,0.0279596948374434,0.0386165474228464,0.0708201180965549,-0.395480071317489,0.0508224032439712,0.0624841663544324,-0.174532706784645,0.775182052344045,0.641152138500532,-0.816502718971089,-0.307083445086062,-0.192313129586423,-0.265790117751469,-0.432974457307742,-0.74961540811339,-0.465915220888851,-0.141823560075545,0.00365457930368773,0.327463660531816,0.269954898344348,0.20228068223101,-0.625266514954824,-0.529176190816724,-0.063033630010677,-0.703090217796629,-0.710473180631838,0.270662767864185,0.211617916252841,0.482310031376026,-0.785441041023115,-0.500941363886726,-0.596382783065629,-0.829601477759964,-0.862571554207719,-0.828592623312722,0.272760484883221,-0.98367712418535,-0.980057879634044,-0.985034985575771,0.49610701130998,0.399966103904931,-0.17759094897856,-0.0589639801973236,-0.296677571242468,-0.234744501324447,-0.384697913938623,-0.338352426513825,-0.566467165925046,-0.502234119398359,-0.427499261059601,-0.491741343578668,-0.267631825315535,1,0.622813987157983,0.645214412545138,0.593937791726901,0.65129530695486,0.597814507253789,0.65572948443641,0.572862330214989,0.339766045630698,0.150599708091454,0.400232585387949,0.683549453123182,-0.706604075962888,-0.654165062460143,0.0299379685813714,0.166333921802835,0.103327952318152,0.0826097111309587,0.225646946139525,-0.0263445407864971],"y":[-0.619958729327631,-0.207082287494237,-0.542321069355416,-0.245227107684672,-0.000695110822399814,-0.446510088181095,-0.228498498016779,0.808215721875177,1,-0.193321888935959,-0.424712618998207,-0.632588598883109,0.188489801306692,-0.806370133409096,-0.0653171016578677,0.445221424799079,-0.0904583326829949,0.119178257586265,-0.988404069964943,-0.114238729875514,0.0177282091654984,0.160828235411994,0.0780670604682898,0.0910314559567325,0.364334364920736,0.407428583201424,0.13147334505804,0.140356939518107,-0.0601205300875455,-0.58654660540692,-0.38926383316561,0.272185523129515,-0.135707607003882,-0.330368668529179,-0.366231438968519,-0.651405186541643,-0.351384672889519,-0.140330774527907,0.907612978689964,-0.0562817865748395,-0.167605912789567,-0.0199380689277225,-0.240628297583605,-0.220956703878224,-0.50929487998,-0.199239256413744,-0.217784662481984,0.24256187117929,-0.00162573716223113,-0.402079623848488,-0.612209851360238,-0.77773779899133,-0.508772072953622,-0.247428358481639,-0.159012477917129,-0.0923589951179595,-0.134236234108613,-0.335164215253984,-0.0298646318628051,-0.0503115919740859,-0.523045585978251,0.0350720554771484,0.313124079859918,0.173239571966572,-0.432202259893474,-0.161968771157714,-0.238052870332609,-0.318773178145164,-0.622723025875132,-0.12360360648365,-0.563757502929817,-0.358652009159141,-0.303524958343264,-0.210818057859328,-0.316230443650706,0.970463590503443,-0.365556900698349,-0.465813053627425,-0.562522867122937,-0.250207978648037,-0.410660535794456,-0.268312739095734,-0.175967489579179,-0.277594306033002,-0.274360202997371,-0.411907558516485,-0.140544473105583,-0.325320925683457,-1,-0.806166118337644,-0.0977977850226327,-0.344636701246727,-0.281153132117832,-0.225975862151279,-0.284938891926867,-0.446564064314726,-0.400613148394418,-0.595738274763908,-0.255683814500285,-0.130067255496311,0.661546876151345,-0.0401148470502918,-0.697883411496271,-0.251341598794398,-0.332395271247934,-0.249059189094419,-0.196541080494668,-0.293212367223044,-0.0395395325914589,-0.229964348371235,0.196401960638709,0.286885986895818,0.330033745025056,0.360254423929824,-0.413321506332085,-0.120672496794632,-0.190772603027315,-0.356292483905861,-0.224722722995642,-0.724125939947219,-0.720093981089199,0.200787019869606,0.176530724250398,0.0612574356192279,0.25388179359417,0.122564073011104,0.0607210146100661,-0.0411080602484952,0.149979783517367,-0.0585841950120429,-0.274548120375449,-0.131203425976538,-0.0230924056243866,0.0431032618466645,-0.866990590087899,-0.792355035257991,-0.82392809522158,-0.836794503505392,0.558505463629765,0.620856414500187,0.501717782142202,0.581414144928499,0.612669079071873,0.51744620281476,0.598876956050817,-0.219308288207837,-0.235459262841565,-0.382274795803772,-0.341780689607548,-0.44053374851142,-0.514625381951094,-0.303407154688823,-0.456632418412029,-0.775005313463307,-0.76045287213122,-0.710822166879154,-0.944918256099266,-0.55908969672972,-0.637105258213041,-0.965751613050911,-0.93915466932023,-0.971474057114167,-0.904919631445005,-0.908730193156429,-0.931585339175552],"label":["DBI","rvest","xlsx","sp","plotly","RcppEigen","pbkrtest","png","uuid","rematch2","dbplyr","desc","base64enc","plyr","mime","prettyunits","readxl","highr","rprojroot","tzdb","labeling","gtable","munsell","jquerylib","fastmap","farver","rappdirs","tinytex","car","rstudioapi","yaml","viridisLite","isoband","evaluate","xml2","units","hms","broom","jpeg","colorspace","lme4","generics","purrr","vroom","pkgconfig","nloptr","readr","RColorBrewer","htmltools","fs","utf8","rJava","testthat","digest","rmarkdown","sass","bslib","R6","xfun","lubridate","Rcpp","scales","Hmisc","data.table","fansi","curl","openssl","zoo","ps","knitr","callr","withr","tidyverse","tidyr","tidyselect","cpp11","crayon","pkgdown","processx","jsonlite","ellipsis","httr","stringi","magrittr","tibble","pillar","stringr","lifecycle","textshaping","ragg","rgl","rgeos","vctrs","dplyr","glue","cli","sf","devtools","rlang","ggplot2",null,"selectr","xlsxjars","grDevices","utils","stats","graphics","lattice","grid","tools","htmlwidgets","lazyeval","crosstalk","promises","Matrix","MASS","methods","numDeriv","parallel","assertthat","blob","cellranger","abind","mgcv","nnet","quantreg","maptools","nlme","backports","splines","boot","minqa","bit64","clipr","brio","pkgload","praise","waldo","latticeExtra","cluster","rpart","foreign","gridExtra","htmlTable","viridis","askpass","dtplyr","forcats","googledrive","googlesheets4","haven","modelr","reprex","downlit","memoise","whisker","systemfonts","classInt","s2","pkgbuild","rcmdcheck","remotes","roxygen2","rversions","sessioninfo"]},"edges":{"from":["rvest","rvest","rvest","rvest","rvest","rvest","rvest","xlsx","xlsx","xlsx","xlsx","sp","sp","sp","sp","sp","sp","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","plotly","RcppEigen","RcppEigen","RcppEigen","RcppEigen","pbkrtest","pbkrtest","pbkrtest","pbkrtest","pbkrtest","pbkrtest","pbkrtest","pbkrtest","pbkrtest","rematch2","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","dbplyr","desc","desc","desc","desc","plyr","mime","readxl","readxl","readxl","highr","labeling","labeling","gtable","munsell","munsell","jquerylib","tinytex","car","car","car","car","car","car","car","car","car","car","car","car","car","isoband","isoband","evaluate","xml2","units","hms","hms","hms","hms","hms","hms","broom","broom","broom","broom","broom","broom","broom","broom","broom","broom","broom","broom","colorspace","colorspace","colorspace","lme4","lme4","lme4","lme4","lme4","lme4","lme4","lme4","lme4","lme4","lme4","generics","purrr","purrr","vroom","vroom","vroom","vroom","vroom","vroom","vroom","vroom","vroom","vroom","vroom","vroom","vroom","vroom","pkgconfig","readr","readr","readr","readr","readr","readr","readr","readr","readr","readr","readr","htmltools","htmltools","htmltools","htmltools","htmltools","htmltools","fs","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","testthat","digest","rmarkdown","rmarkdown","rmarkdown","rmarkdown","rmarkdown","rmarkdown","rmarkdown","rmarkdown","rmarkdown","rmarkdown","rmarkdown","rmarkdown","rmarkdown","sass","sass","sass","sass","sass","bslib","bslib","bslib","bslib","bslib","bslib","xfun","xfun","lubridate","Rcpp","Rcpp","scales","scales","scales","scales","scales","scales","scales","scales","Hmisc","Hmisc","Hmisc","Hmisc","Hmisc","Hmisc","Hmisc","Hmisc","Hmisc","Hmisc","Hmisc","Hmisc","Hmisc","Hmisc","data.table","fansi","fansi","openssl","zoo","zoo","zoo","zoo","ps","knitr","knitr","knitr","knitr","knitr","knitr","knitr","callr","callr","callr","withr","withr","withr","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyverse","tidyr","tidyr","tidyr","tidyr","tidyr","tidyr","tidyr","tidyr","tidyr","tidyr","tidyr","tidyselect","tidyselect","tidyselect","tidyselect","tidyselect","crayon","crayon","crayon","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","pkgdown","processx","processx","processx","ellipsis","httr","httr","httr","httr","httr","stringi","stringi","stringi","tibble","tibble","tibble","tibble","tibble","tibble","tibble","tibble","tibble","tibble","pillar","pillar","pillar","pillar","pillar","pillar","pillar","pillar","pillar","pillar","stringr","stringr","stringr","lifecycle","lifecycle","textshaping","ragg","ragg","rgl","rgl","rgl","rgl","rgl","rgl","rgl","rgl","rgl","rgl","rgl","rgl","rgeos","rgeos","rgeos","vctrs","vctrs","vctrs","dplyr","dplyr","dplyr","dplyr","dplyr","dplyr","dplyr","dplyr","dplyr","dplyr","dplyr","dplyr","glue","cli","cli","sf","sf","sf","sf","sf","sf","sf","sf","sf","sf","sf","sf","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","devtools","rlang","ggplot2","ggplot2","ggplot2","ggplot2","ggplot2","ggplot2","ggplot2","ggplot2","ggplot2","ggplot2","ggplot2","ggplot2","ggplot2"],"to":["httr","lifecycle","magrittr","rlang","selectr","tibble","xml2","rJava","xlsxjars","grDevices","utils","utils","stats","graphics","grDevices","lattice","grid","tools","scales","httr","jsonlite","magrittr","digest","viridisLite","base64enc","htmltools","htmlwidgets","tidyr","RColorBrewer","dplyr","vctrs","tibble","lazyeval","rlang","crosstalk","purrr","data.table","promises","Matrix","Rcpp","stats","utils","broom","dplyr","magrittr","MASS","Matrix","methods","numDeriv","parallel","knitr","tibble","assertthat","blob","cli","DBI","dplyr","glue","lifecycle","magrittr","methods","pillar","purrr","R6","rlang","tibble","tidyselect","utils","vctrs","withr","cli","R6","rprojroot","utils","Rcpp","tools","cellranger","tibble","utils","xfun","stats","graphics","grid","colorspace","methods","htmltools","xfun","abind","MASS","mgcv","nnet","pbkrtest","quantreg","grDevices","utils","stats","graphics","maptools","lme4","nlme","grid","utils","methods","methods","Rcpp","ellipsis","lifecycle","methods","pkgconfig","rlang","vctrs","backports","dplyr","ellipsis","generics","glue","methods","purrr","rlang","stringr","tibble","tidyr","ggplot2","graphics","grDevices","stats","graphics","grid","splines","utils","parallel","MASS","lattice","boot","nlme","minqa","nloptr","methods","magrittr","rlang","bit64","crayon","cli","glue","hms","lifecycle","methods","rlang","stats","tibble","tzdb","vctrs","tidyselect","withr","utils","cli","clipr","crayon","hms","lifecycle","methods","R6","rlang","tibble","utils","vroom","utils","digest","grDevices","base64enc","rlang","fastmap","methods","brio","callr","cli","crayon","desc","digest","ellipsis","evaluate","jsonlite","lifecycle","magrittr","methods","pkgload","praise","processx","ps","R6","rlang","utils","waldo","withr","utils","bslib","evaluate","htmltools","jquerylib","jsonlite","knitr","methods","stringr","tinytex","tools","utils","xfun","yaml","fs","rlang","htmltools","R6","rappdirs","grDevices","htmltools","jsonlite","sass","jquerylib","rlang","stats","tools","generics","methods","utils","farver","labeling","lifecycle","munsell","R6","RColorBrewer","rlang","viridisLite","methods","latticeExtra","cluster","rpart","nnet","foreign","gtable","grid","gridExtra","data.table","htmlTable","viridis","htmltools","base64enc","methods","grDevices","utils","askpass","utils","graphics","grDevices","lattice","utils","evaluate","highr","methods","stringr","yaml","xfun","tools","processx","R6","utils","graphics","grDevices","stats","broom","cli","crayon","dbplyr","dplyr","dtplyr","forcats","googledrive","googlesheets4","ggplot2","haven","hms","httr","jsonlite","lubridate","magrittr","modelr","pillar","purrr","readr","readxl","reprex","rlang","rstudioapi","rvest","stringr","tibble","tidyr","xml2","dplyr","ellipsis","glue","lifecycle","magrittr","purrr","rlang","tibble","tidyselect","utils","vctrs","ellipsis","glue","purrr","rlang","vctrs","grDevices","methods","utils","bslib","callr","crayon","desc","digest","downlit","fs","httr","jsonlite","magrittr","memoise","purrr","ragg","rlang","rmarkdown","tibble","whisker","withr","xml2","yaml","ps","R6","utils","rlang","curl","jsonlite","mime","openssl","R6","tools","utils","stats","ellipsis","fansi","lifecycle","magrittr","methods","pillar","pkgconfig","rlang","utils","vctrs","cli","crayon","ellipsis","fansi","glue","lifecycle","rlang","utf8","utils","vctrs","glue","magrittr","stringi","glue","rlang","systemfonts","systemfonts","textshaping","graphics","grDevices","stats","utils","htmlwidgets","htmltools","knitr","jsonlite","magrittr","R6","base64enc","mime","utils","stats","graphics","cli","glue","rlang","generics","glue","lifecycle","magrittr","methods","R6","rlang","tibble","tidyselect","utils","vctrs","pillar","methods","glue","utils","classInt","DBI","graphics","grDevices","grid","magrittr","Rcpp","s2","stats","tools","units","utils","callr","cli","desc","ellipsis","fs","httr","lifecycle","memoise","pkgbuild","pkgload","rcmdcheck","remotes","rlang","roxygen2","rstudioapi","rversions","sessioninfo","stats","testthat","tools","utils","withr","utils","digest","glue","grDevices","grid","gtable","isoband","MASS","mgcv","rlang","scales","stats","tibble","withr"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"physics":false,"shape":"dot","color":{"background":"#0085AF","border":"#013848","highlight":"#FF8000"},"shadow":{"enabled":true,"size":10},"scaling":{"min":2,"max":10}},"manipulation":{"enabled":false},"edges":{"smooth":false,"arrows":"to","color":{"color":"#0085AF","highlight":"#C62F4B"},"shadow":false},"physics":{"stabilization":false},"interaction":{"hover":true,"zoomSpeed":1},"layout":{"randomSeed":11}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","igraphlayout":{"type":"full"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);","highlight":{"enabled":true,"hoverNearest":true,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script>
+<p>Do not hesitate to move, zoom in or select packages to see their dependencies !</p>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://aureliencallens.github.io//tags/ggplot2/">ggplot2</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/cranlogs/">cranlogs</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/igraph/">igraph</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/visnetwork/">visNetwork</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/2021/03/03/coastal-risks-google-trends/">Coastal risks and statistical learning: Analyzing Google trends with gtrendsR package</a></li>
+                
+                    <li><a href="/2020/09/25/r-shiny-fishing-part2/">Can R and Shiny make me a better fisherman? Part 2</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://aureliencallens.github.io/2022/04/12/r-shiny-fishing-part4/" data-toggle="tooltip" data-placement="top" title="Can R and Shiny make me a better fisherman? Part 4">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:aurelien.callens@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/aureliencallens" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/aureliencallens" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Aurelien Callens
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020 - 2022
+          
+
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.96.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+          <br>
+          Favicon made by <a href="https://www.flaticon.com/authors/becris">Becris</a> from <a href="https://www.flaticon.com/">www.flaticon.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://aureliencallens.github.io/js/main.js"></script>
+<script src="https://aureliencallens.github.io/js/highlight.pack.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://aureliencallens.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+ 
+  <script>
+  $(document).ready(function () {
+    window.initializeCodeFolding("show" === "show");
+  });
+  </script>
+  <script src="/js/codefolding.js"></script>
+
+
+    
+  </body>
+</html>
+

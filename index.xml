@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>aurelien.callens@gmail.com (Aurelien Callens)</managingEditor>
     <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster>
-    <lastBuildDate>Tue, 12 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://aureliencallens.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://aureliencallens.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Analysis of the top R package</title>
+      <link>https://aureliencallens.github.io/2022/07/13/analysis-of-the-top-r-package/</link>
+      <pubDate>Wed, 13 Jul 2022 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>https://aureliencallens.github.io/2022/07/13/analysis-of-the-top-r-package/</guid>
+      <description>After a little while coding in Python everyday for my work, I needed to make a break and perform some R analysis! Since the beginning of my postdoc, I haven’t followed the last trends concerning R package. In this post, I am going to analyze some data about R package to see what are the most downloaded R package during the past weeks. I will also visualize all the relationships between the R package by looking at their required dependencies.</description>
+    </item>
+    
     <item>
       <title>Can R and Shiny make me a better fisherman? Part 4</title>
       <link>https://aureliencallens.github.io/2022/04/12/r-shiny-fishing-part4/</link>
