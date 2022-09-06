@@ -14,7 +14,260 @@
       <pubDate>Sat, 02 Oct 2021 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>https://aureliencallens.github.io/2021/10/02/the-end-of-a-journey/</guid>
-      <description>Two weeks ago, I defended my thesis entitled ‘Statistical learning for coastal risks assessment’ in front of an academic jury. The defense went extremely well and the the jury and the auditory were genuinely interested by the work I had done during my thesis. For me, this thesis was an amazing and enriching journey in terms of knowledge and research, but also in terms of collaboration and exchange. I now am excited to start a new journey and discover new subjects to work on !</description>
+      <description>
+
+
+&lt;p&gt;Two weeks ago, I defended my thesis entitled ‘Statistical learning for coastal risks assessment’ in front of an academic jury. The defense went extremely well and the the jury and the auditory were genuinely interested by the work I had done during my thesis. For me, this thesis was an amazing and enriching journey in terms of knowledge and research, but also in terms of collaboration and exchange. I now am excited to start a new journey and discover new subjects to work on !&lt;/p&gt;
+&lt;p&gt;You can find my thesis manuscript here:
+&lt;a href=&#34;http://www.theses.fr/2021PAUU3016&#34; target=&#34;_blank&#34;&gt; http://www.theses.fr/2021PAUU3016&lt;/a&gt;. If you don’t have the courage to read the entire manuscript (I understand 😉) you can find below a short abstract of my thesis and the slides I presented during my PhD defense.&lt;/p&gt;
+&lt;div id=&#34;abstract-of-my-thesis&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Abstract of my thesis&lt;/h2&gt;
+&lt;p&gt;Over the last decades, the quantity of data related to coastal risk has greatly increased with the installation of numerous monitoring networks. In this era of big data, the use of statistical learning methods (SLM) in the development of local predictive models becomes more legitimate and justified. The objective of this thesis is to demonstrate how SLM can contribute to the improvement of coastal risk assessment tools and to the development of an early warning system which aims to reduce coastal flooding risk.&lt;/p&gt;
+&lt;p&gt;Three methodologies have been developed and tested on real study sites. The first methodology aims to improve the local wave forecast made by spectral wave model with machine learning methods and data from monitoring networks. We showed that data assimilation with machine learning methods improve significantly the forecast of wave parameters especially the wave height and period. The second methodology concerns the creation of storm impact databases. Even though these databases are essential for the disaster risk reduction process they are rare and sparse. We therefore proposed a methodology based on a deep learning method (convolutional neural networks) to generate automatically qualitative storm impact data from images provided by video monitoring stations installed on the coast. The last methodology is about the development of a storm impact model with a statistical method (bayesian network) based exclusively on data acquired with diverse monitoring networks. With this methodology we were able to predict qualitatively the storm impact on our study site, the Grande Plage of Biarritz.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;https://aureliencallens.github.io/img_post/thesis_organization.png&#34; alt=&#34;&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;Organization of my PhD manuscript&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;my-presentation-for-the-phd-defense&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;My presentation for the PhD defense&lt;/h2&gt;
+
+
+
+
+
+
+
+
+
+    
+    &lt;link href=&#34;https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css&#34; rel=&#34;stylesheet&#34;&gt;
+
+
+
+    
+    &lt;script src=&#34;https://code.jquery.com/jquery-3.2.1.slim.min.js&#34; crossorigin=&#34;anonymous&#34;&gt;&lt;/script&gt;
+
+
+
+&lt;style&gt;
+#slide-window {
+    position: relative;
+    width: 100%;
+    height: 550px;
+    overflow: hidden;
+    top: 0px;
+    left: 0px;
+}
+
+#slides-list {
+    width: 100%;
+    height: 550px;
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+    -webkit-transform: translate3d(0px, 0px, 0px);
+    transform: translate3d(0px, 0px, 0px);
+    transition: all 0.66s ease;
+    -webkit-transition: all 0.66s ease;
+}
+
+.slide {
+    list-style: none;
+    position: relative;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 550px;
+    background: #ccc;
+    text-align: center;
+    line-height: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
+    color: #fff;
+    -webkit-transform: translate3d(0px, 0px, 0px);
+    -webkit-transform-style: preserve-3d;
+    transform: scale(0.9, 0.9);
+    -ms-transform: scale(0.9, 0.9);
+    -webkit-transform: scale(0.9, 0.9);
+}
+
+.nav {
+    position: relative;
+    z-index: 9;
+    top: 45%;
+    cursor: pointer;
+    color: #EAEAEA;
+    opacity: 0.7;
+    transition: all 0.66s ease;
+    -webkit-transition: all 0.66s ease;
+}
+
+.nav:hover {
+    opacity: 1.0;
+}
+
+#left {
+    left: 3%;
+    float: left;
+}
+
+#right {
+    right: 3%;
+    float: right;
+}
+&lt;/style&gt;
+
+
+&lt;div id=&#34;slide-window&#34;&gt;
+    &lt;ol id=&#34;slides-list&#34;&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_01.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_02.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_03.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_04.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_05.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_06.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_07.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_08.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_09.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_10.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_11.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_12.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_13.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_14.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_15.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_16.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_17.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_18.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_19.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_20.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_21.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_22.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_23.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_24.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_25.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_26.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_27.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_28.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_29.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_30.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_31.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_32.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_33.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_34.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_35.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_36.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_37.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_38.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_39.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_40.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_41.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_42.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_43.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_44.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_45.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_46.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_47.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_48.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_49.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_50.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_51.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_52.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_53.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+                &lt;li class=&#34;slide&#34; style=&#34;background:url(https://aureliencallens.github.io/Slides/Slide_54.jpeg) no-repeat ;background-size:contain&#34;&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;span class=&#34;nav fa fa-chevron-left fa-3x&#34; id=&#34;left&#34;&gt;&lt;/span&gt;
+    &lt;span class=&#34;nav fa fa-chevron-right fa-3x&#34; id=&#34;right&#34;&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+sliderJQuery = jQuery.noConflict();
+sliderJQuery(function( $ ) {
+    $.global = new Object();
+    $.global.total = 0;
+
+    $(document).ready(function () {
+        var slideWindowWidth = $(&#39;#slide-window&#39;).width();
+        var slideCount = $(&#39;#slides-list li&#39;).length;
+        var totalSlidesWidth = slideCount * slideWindowWidth;
+
+        $.global.item = 0;
+        $.global.total = slideCount;
+
+        $(&#39;.slide&#39;).css(&#39;width&#39;, slideWindowWidth + &#39;px&#39;);
+        $(&#39;#slides-list&#39;).css(&#39;width&#39;, totalSlidesWidth + &#39;px&#39;);
+
+        $(&#39;#left&#39;).click(function () {
+            resetAutoSlide();
+            performSlide(&#39;back&#39;);
+        });
+
+        $(&#39;#right&#39;).click(function () {
+            resetAutoSlide();
+            performSlide(&#39;forward&#39;);
+        });
+
+    });
+
+    function performSlide(direction) {
+        if (direction == &#39;back&#39;) {
+            var nextSlideId = $.global.item - 1;
+        }
+        if (direction == &#39;forward&#39;) {
+            var nextSlideId = $.global.item + 1;
+        }
+
+        if (nextSlideId == -1) {
+             
+            moveCss($.global.total - 1);
+        } else if (nextSlideId == $.global.total) {
+             
+            moveCss(0);
+        } else {
+             
+            moveCss(nextSlideId);
+        }
+    }
+
+    function moveCss(nextSlideId) {
+        var slideWindowWidth = $(&#39;#slide-window&#39;).width();
+        var margin = slideWindowWidth * nextSlideId;
+
+        $(&#39;#slides-list&#39;).css(&#39;transform&#39;, &#39;translate3d(-&#39; + margin + &#39;px,0px,0px)&#39;);
+
+        $.global.item = nextSlideId;
+    }
+
+    
+      var autoSlide = parseInt(&#34;0&#34;, 10);
+      var autoSlideInterval;
+      function resetAutoSlide(){
+        if(autoSlide) {
+          if(autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+          }
+          autoSlideInterval = setInterval(function(){
+            performSlide(&#39;forward&#39;);
+          }, autoSlide)
+        }
+      }
+      resetAutoSlide();
+});
+&lt;/script&gt;
+
+&lt;/div&gt;
+&lt;div id=&#34;appendix-how-to-make-this-slide-show-from-a-pdf-file&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Appendix: How to make this slide show from a pdf file&lt;/h2&gt;
+&lt;p&gt;The first step is to transform the presentation file (pdf format) into a collection of images (jpeg format) inside a specific folder with the R package &lt;em&gt;pdftools&lt;/em&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;library(pdftools)
+pdf_convert(&amp;quot;filename.pdf&amp;quot;, format = &amp;quot;jpeg&amp;quot;, pages = NULL, filenames = NULL, dpi = 300, opw = &amp;quot;&amp;quot;, upw = &amp;quot;&amp;quot;, verbose = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then we add the short code “gallery-slider.html” presented in this &lt;a href=&#34;https://github.com/tbiering/hugo-slider-shortcode&#34;&gt;github repository&lt;/a&gt; in this folder: &lt;code&gt;Website_Folder/themes/beautifulhugo/layouts/shortcodes/&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Finally we include the gallery slider our post with the following line of code:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{{&amp;lt;/* gallery-slider dir=&amp;quot;Slides/&amp;quot; width=&amp;quot;100%&amp;quot; height=&amp;quot;500px&amp;quot; */&amp;gt;}}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The directory containing the images must be placed in the &lt;code&gt;Website_Folder/static/&lt;/code&gt; folder.&lt;/p&gt;
+&lt;/div&gt;
+</description>
     </item>
     
   </channel>

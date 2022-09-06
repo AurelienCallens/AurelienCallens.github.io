@@ -14,8 +14,130 @@
       <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>https://aureliencallens.github.io/2020/11/18/2020-11-18-aliexpress_rselenium/</guid>
-      <description>Today, I am going to show you how to scrape product prices from Aliexpress website.
-A few words on web scraping Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the robots.txt page which should be located at the root of the website adress.</description>
+      <description>
+
+
+&lt;p&gt;Today, I am going to show you how to scrape product prices from Aliexpress website.&lt;/p&gt;
+&lt;div id=&#34;a-few-words-on-web-scraping&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;A few words on web scraping&lt;/h2&gt;
+&lt;p&gt;Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the &lt;em&gt;robots.txt&lt;/em&gt; page which should be located at the root of the website adress. For Aliexpress this page is located here : &lt;a href=&#34;https://www.aliexpress.com/robots.txt&#34; target=&#34;_blank&#34;&gt;www.aliexpress.com/robots.txt .&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This page indicates that webscrapping and crawling are not allowed on several page categories such as &lt;code&gt;/bin/*&lt;/code&gt;, &lt;code&gt;/search/*&lt;/code&gt;, &lt;code&gt;/wholesale*&lt;/code&gt; for example. Fortunately for us, the &lt;code&gt;/item/*&lt;/code&gt; category, where the product pages are stored, can be scraped.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;rselenium&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;RSelenium&lt;/h2&gt;
+&lt;div id=&#34;installation-for-ubuntu-18.04-lts&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Installation for Ubuntu 18.04 LTS&lt;/h3&gt;
+&lt;p&gt;The installation for RSelenium was not as easy as expected and I encountered two errors.&lt;/p&gt;
+&lt;p&gt;The first error I got after I installed the package and tried the function &lt;em&gt;Rsdriver&lt;/em&gt; was :&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Error in curl::curl_fetch_disk(url, x$path, handle = handle) :
+Unrecognized content encoding type. libcurl understands deflate, gzip content encodings.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Thanks to &lt;a href=&#34;https://github.com/ropensci/RSelenium/issues/186&#34; target=&#34;_blank&#34;&gt;this post&lt;/a&gt;, I installed the missing package : &lt;em&gt;stringi&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Once this error was addressed, I had a different one :&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Error: Invalid or corrupt jarfile /home/aurelien/.local/share/binman_seleniumserver/generic/4.0.0-alpha-2/selenium-server-standalone-4.0.0-alpha-2.jar&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This time the problem came from a corrupted file. Thanks to &lt;a href=&#34;https://stackoverflow.com/questions/20680229/invalid-or-corrupt-jarfile-usr-local-bin-selenium-server-standalone-2-38-0-jar&#34; target=&#34;_blank&#34;&gt;this post&lt;/a&gt;, I knew that I just had to download this file &lt;em&gt;selenium-server-standalone-4.0.0-alpha-2.jar&lt;/em&gt; from the official &lt;a href=&#34;https://selenium-release.storage.googleapis.com/index.html?path=4.0/&#34; target=&#34;_blank&#34;&gt;selenium website&lt;/a&gt; and replace the corrupted file with it.&lt;/p&gt;
+&lt;p&gt;I hope this will help some of you to install RSelenium with Ubuntu 18.04 LTS !&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;opening-a-web-browser&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Opening a web browser&lt;/h3&gt;
+&lt;p&gt;After addressing the errors above, I can now open a firefox browser :&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(RSelenium)
+
+#Open a firefox driver
+rD &amp;lt;- rsDriver(browser = &amp;quot;firefox&amp;quot;) 
+remDr &amp;lt;- rD[[&amp;quot;client&amp;quot;]]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;logging-in-aliexpress&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Logging in Aliexpress&lt;/h3&gt;
+&lt;p&gt;The first step to scrape product prices on aliexpress is to log in into your account:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;log_id &amp;lt;- &amp;quot;Your_mail_adress&amp;quot;
+password &amp;lt;- &amp;quot;Your_password&amp;quot;
+
+# Navigate to aliexpress login page 
+remDr$navigate(&amp;quot;https://login.aliexpress.com/&amp;quot;)
+
+# Fill the form with mail address
+remDr$findElement(using = &amp;quot;id&amp;quot;, &amp;quot;fm-login-id&amp;quot;)$sendKeysToElement(list(log_id))
+
+# Fill the form with password
+remDr$findElement(using = &amp;#39;id&amp;#39;, &amp;quot;fm-login-password&amp;quot;)$sendKeysToElement(list(password))
+
+#Submit the login form by clicking Submit button
+remDr$findElement(&amp;quot;class&amp;quot;, &amp;quot;fm-button&amp;quot;)$clickElement()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;navigating-through-the-urls-and-scraping-the-prices&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Navigating through the URLs and scraping the prices&lt;/h3&gt;
+&lt;p&gt;Now we have to navigate through a vector containing the URL of the aliexpress products we are interested in. Then we extract the price of the product by using the xpath of the product price of the webpage. The xpath of the element you want to scrape can be found by using the developper tool of chrome or firefox ( &lt;a href=&#34;https://www.scrapingbee.com/blog/practical-xpath-for-web-scraping/&#34;&gt;tutorial here !&lt;/a&gt; ). Once the price is extracted we have to ensure this price is in numerical format by removing any special character (euro or dollar sign) and replace the comma by a point for the decimal separator. Here is the R code:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;  url_list &amp;lt;- list(&amp;quot;https://fr.aliexpress.com/store/product/Maxcatch-6Pcs-lot-Craws-Soft-Fishing-Lures-110mm-11-5g-Artificial-Bait-Soft-Bait-Craws-Lures/406467_32419930548.html?spm=a2g0w.12010612.0.0.5deb64f7836LnZ&amp;quot;,
+            &amp;quot;https://fr.aliexpress.com/store/product/Maxcatch-Fishing-Lure-5Pcs-Lot-155mm-7-4g-3-colors-Swimbait-Artificial-Lizard-Soft-Fishing-Lures/406467_32613648610.html?spm=a2g0w.12010612.0.0.5deb64f7836LnZ&amp;quot;,
+            &amp;quot;https://fr.aliexpress.com/store/product/Maxcatch-6Pcs-lot-Soft-Fishing-Lures-Minnow-Biat-95mm-6g-Jerkbait-Soft-Bait/406467_32419066106.html?spm=a2g0w.12010612.0.0.25fe5872CBqy0m&amp;quot;) 
+
+# Allocate a vector to store the price of the products 
+currentp &amp;lt;- c()
+for(i in 1:length(url_list)){
+  
+  # Navigate to link [i]
+  remDr$navigate(url_list[i])
+  
+  # Find the price with an xpath selector and findElement.  
+  # Sometimes products can be removed and this could throw an error this is why we are using &amp;#39;try&amp;#39; to handle the potential errors
+  
+  current &amp;lt;- try(remDr$findElement(using = &amp;quot;xpath&amp;quot;,&amp;#39;//*[contains(concat( &amp;quot; &amp;quot;, @class, &amp;quot; &amp;quot; ), concat( &amp;quot; &amp;quot;, &amp;quot;product-price-value&amp;quot;, &amp;quot; &amp;quot; ))]&amp;#39;), silent = T)
+  
+  #If error : current price is NA 
+  if(class(current) ==&amp;#39;try-error&amp;#39;){
+    currentp[i] &amp;lt;- NA
+  }else{
+    # Get the price 
+    text &amp;lt;- unlist(current$getElementText())
+    
+    #Remove euro sign
+    text &amp;lt;- gsub(&amp;quot;[^A-Za-z0-9,;._-]&amp;quot;,&amp;quot;&amp;quot;,text)
+    
+    #Case when there is a range of price instead of one price + replace comma by point
+    if(grepl(&amp;quot;-&amp;quot;, text)) {  
+      pe &amp;lt;- sub(&amp;quot;-.*&amp;quot;,&amp;quot;&amp;quot;,text) %&amp;gt;% sub(&amp;quot;,&amp;quot;, &amp;quot;.&amp;quot;, ., fixed = TRUE)
+      currentp[i] &amp;lt;-  as.numeric(pe)
+    }else{
+      currentp[i] &amp;lt;- as.numeric(sub(&amp;quot;,&amp;quot;, &amp;quot;.&amp;quot;, text, fixed = TRUE))
+  }
+  }
+  
+Sys.sleep(4)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Between each link it is advised to wait a few seconds with &lt;em&gt;Sys.sleep(4)&lt;/em&gt; to avoid being black-listed by the website.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;phantomjs-version&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Phantomjs version&lt;/h3&gt;
+&lt;p&gt;If you execute the code above, you should see a firefox browser open and navigate through the list you provided. In case you don’t want an active window, you can replace firefox by phantomjs browser which is a headless browser (without a window).&lt;/p&gt;
+&lt;p&gt;I don’t know why but using &lt;code&gt;rsDriver(browser = &#34;phantomjs&#34;)&lt;/code&gt; does not work for me. I found &lt;a href=&#34;https://cbelanger.netlify.app/post/web-scraping-in-r-selenium-firefox-and-phantomjs/&#34; target=&#34;_blank&#34;&gt;this post&lt;/a&gt; which propose to start the phantomjs browser with the wdman package:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(wdman)
+library(RSelenium)
+# start phantomjs instance
+rPJS &amp;lt;- wdman::phantomjs(port = 4680L)
+
+# is it alive?
+rPJS$process$is_alive()
+
+#connect selenium to it?
+remDr &amp;lt;-  RSelenium::remoteDriver(browserName=&amp;quot;phantomjs&amp;quot;, port=4680L)
+
+# open a browser
+remDr$open()
+
+remDr$navigate(&amp;quot;http://www.google.com/&amp;quot;)
+
+# Screenshot of the headless browser to check if everything is working
+remDr$screenshot(display = TRUE)
+
+# Don&amp;#39;t forget to close the browser when you are finished ! 
+remDr$close()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;Once you have understand the basics of RSelenium and how to select elements inside HTML pages, it is really easy to write a script to scrape data on the web. This post was a short example to scrape the product price on Aliexpress pages but the script can be extended to scrape more data on each page such as the name of the item, its rating etc… It is even possible to automate this script to run daily in order to see price changes over time. As you see possibilities are endless!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
     </item>
     
     <item>
@@ -24,8 +146,443 @@ A few words on web scraping Before diving into the subject, you should be aware 
       <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>https://aureliencallens.github.io/2020/09/12/r-shiny-fishing-part1/</guid>
-      <description>My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I am fishing European sea bass (Dicentrarchus labrax) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artificial lures that imitate a specific prey.
-In theory, it is quite easy to catch a fish:</description>
+      <description>
+
+
+&lt;p&gt;My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I am fishing European sea bass (&lt;em&gt;Dicentrarchus labrax&lt;/em&gt;) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artificial lures that imitate a specific prey.&lt;/p&gt;
+&lt;p&gt;In theory, it is quite easy to catch a fish:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Use a lure that imitate the current prey of the sea bass.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Animate the lure in a spot where the fish are active.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Catch a really big fish !&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In practice, it is an other story ! Indeed, the feeding activity, the position of the European sea bass in the estuary and their preys will vary depending on different parameters :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the characteristics of the riverbed, which will depend where I fish&lt;/li&gt;
+&lt;li&gt;the time of the day : the sea bass is more active during dawn and dusk&lt;/li&gt;
+&lt;li&gt;the current and water level associated with the tide. The water level in estuaries is constantly varying to greater or lesser degree due to the tide influence. It is also influenced by the river flow which can be higher in case of heavy rains.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As you understand, there are many parameters potentially influencing the results of my fishing session. This is why I decided to create a shiny application to augment the number and the length of the fish caught during my sessions. To reach this objective, I need to better understand the activity, the position and the prey of the sea bass depending on the parameters described above.&lt;/p&gt;
+&lt;div id=&#34;requirements-of-my-application&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Requirements of my application&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;It must store data about my fishing session :&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Information needed&lt;/th&gt;
+&lt;th&gt;Description of the variables&lt;/th&gt;
+&lt;th&gt;Where do I get the data ?&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Time&lt;/td&gt;
+&lt;td&gt;Time when a fish is caught, time since the beginning of the session&lt;/td&gt;
+&lt;td&gt;R&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Catch&lt;/td&gt;
+&lt;td&gt;Species and length of the fish caught&lt;/td&gt;
+&lt;td&gt;Geolocation from smartphone?&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Lures&lt;/td&gt;
+&lt;td&gt;Type, length, color of lure used&lt;/td&gt;
+&lt;td&gt;Weather API&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;It must record data about my catch and the artificial lures used :&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Information needed&lt;/th&gt;
+&lt;th&gt;Description of the variables&lt;/th&gt;
+&lt;th&gt;Where do I get the data ?&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Time&lt;/td&gt;
+&lt;td&gt;Time when a fish is caught, time since the beginning of the session&lt;/td&gt;
+&lt;td&gt;R&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Catch&lt;/td&gt;
+&lt;td&gt;Species and length of the fish caught&lt;/td&gt;
+&lt;td&gt;User input&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Lures&lt;/td&gt;
+&lt;td&gt;Type, length, color of lure used&lt;/td&gt;
+&lt;td&gt;User input&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;It must be adapted to small screens because I will always use the application on my phone.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It must remain free.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;collecting-the-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Collecting the data&lt;/h2&gt;
+&lt;div id=&#34;getting-my-gps-location&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Getting my gps location&lt;/h3&gt;
+&lt;p&gt;My gps location is collected by using a bit of Javascript in the header of the shiny application. This code has been developed by AugusT and is available on his &lt;a href=&#34;https://github.com/AugustT/shiny_geolocation&#34; target=&#34;_blank&#34;&gt;github repository&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;weather-api&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Weather API&lt;/h3&gt;
+&lt;p&gt;For the weather data, I found a free API called Dark Sky. I made a function that takes as input the coordinates of a place and the API user key and returns the current weather conditions in a dataframe:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(httr)
+library(jsonlite)
+library(tidyverse)
+library(rvest)
+
+weather &amp;lt;- function(x, API_key){
+  url &amp;lt;- paste0(&amp;quot;https://api.darksky.net/forecast/&amp;quot;,API_key,
+                &amp;quot;/&amp;quot;, x[1], &amp;quot;,&amp;quot;, x[2],
+                &amp;quot;?units=ca&amp;amp;exclude=hourly,alerts,flags&amp;quot;)
+  
+  rep &amp;lt;- GET(url)
+  
+  table &amp;lt;- fromJSON(content(rep, &amp;quot;text&amp;quot;))
+  
+  current.weather.info &amp;lt;- with(table,
+                               data.frame(Air_temp = currently$temperature,
+                                     Weather = currently$summary,
+                                     Atm_pres = currently$pressure,
+                                     Wind_str = currently$windSpeed,
+                                     Wind_dir = currently$windBearing,
+                                     Cloud_cover = currently$cloudCover,
+                                     PrecipProb = currently$precipProbability,
+                                     PrecipInt = currently$precipIntensity,  
+                                     Moon = daily$data$moonPhase[1]))
+  return(current.weather.info)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;web-scrapping-for-tide-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Web scrapping for Tide data&lt;/h3&gt;
+&lt;p&gt;I created a function to scrap information about the tide on a french website. The following function takes no argument and return the current water level, the tide status (going up or down) and time since the tide peak for the location I fish.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tide &amp;lt;- function(){
+  
+  # Set the current time and time zone 
+  Sys.setenv(TZ=&amp;quot;Europe/Paris&amp;quot;)
+  time &amp;lt;- as.POSIXct(Sys.time())
+  url &amp;lt;- &amp;quot;https://services.data.shom.fr/hdm/vignette/grande/BOUCAU-BAYONNE?locale=en&amp;quot;
+  
+  # Read the web page that contains the tide data 
+  text &amp;lt;- url %&amp;gt;% 
+    read_html() %&amp;gt;%
+    html_text()
+  
+  # Clean the html data to get a dataframe  with two cols Time and water level: 
+
+  text &amp;lt;- as.character(sub(&amp;quot;.*var data = *(.*?) *\\;.*&amp;quot;, &amp;quot;\\1&amp;quot;, text))
+  text &amp;lt;- unlist(str_split( substr(text, 1, nchar(text)-2), &amp;quot;\\],&amp;quot;))
+  tidy_df &amp;lt;- data.frame(hour=NA,Water=NA)
+  
+  for(i in 1:length(text)){
+    text_dat &amp;lt;- unlist(str_split(text[i], &amp;#39;&amp;quot;&amp;#39;))[c(2,3)]
+    text_dat[1] &amp;lt;- substr(text_dat[1], 1, nchar(text_dat[1])-1)
+    text_dat[2] &amp;lt;- as.numeric(substr(text_dat[2], 2, nchar(text_dat[2])))
+    tidy_df[i,] &amp;lt;- text_dat
+  }
+  
+  tidy_df$hour &amp;lt;- as.POSIXct(paste(format(Sys.time(),&amp;quot;%Y-%m-%d&amp;quot;), tidy_df$hour))
+  
+  # Some lines to get the tide status (going down or up) : 
+  
+  n_closest &amp;lt;- which(abs(tidy_df$hour - time) == min(abs(tidy_df$hour - time)))
+  
+  water_level &amp;lt;- as.numeric(tidy_df[n_closest, 2])
+  
+  all_decrea &amp;lt;- all(tidy_df$Water[(n_closest-6):(n_closest+6)] ==
+                      cummin(tidy_df$Water[(n_closest-6):(n_closest+6)] ))
+  
+  all_increa &amp;lt;- all(tidy_df$Water[(n_closest-6):(n_closest+6)] ==
+                      cummax(tidy_df$Water[(n_closest-6):(n_closest+6)] ))
+  
+  maree &amp;lt;- ifelse(all_decrea, &amp;quot;Down&amp;quot;, ifelse(all_increa, &amp;quot;Up&amp;quot;, &amp;quot;Dead&amp;quot;))
+  
+  
+  # Compute time since the last peak :
+  
+  last_peak &amp;lt;- max(cumsum(rle(diff(as.numeric(tidy_df$Water), lag = 2) &amp;gt; 0)$lengths)
+                   [cumsum(rle(diff(as.numeric(tidy_df$Water), lag = 2) &amp;gt;0)$lengths) &amp;lt; n_closest])
+  
+  
+  time_after &amp;lt;- as.numeric(difftime(tidy_df$hour[n_closest], tidy_df$hour[last_peak], units = &amp;quot;mins&amp;quot;))
+  
+  
+  # Return the list with the results :
+  
+  return(list(Water_level = water_level,
+              Maree = maree,
+              Time_peak = time_after))
+  
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-shiny-application&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The shiny application&lt;/h2&gt;
+&lt;p&gt;The main problem I encountered while developing this application was data storage. Shinyapps.io
+host freely your shiny application but there were some problems when I used the shiny application to modify the csv files.
+The solution I found was to store the data in my dropbox account, you can find &lt;a href=&#34;https://shiny.rstudio.com/articles/persistent-data-storage.html&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; more details on the subject and alternatives solutions. I used the package &lt;em&gt;rdrop2&lt;/em&gt; to access and modify the data with the shiny application.&lt;/p&gt;
+&lt;p&gt;Here are the main steps of this application :&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;When the application is started, it reads a csv file stored on my dropbox to see if a fishing session is running or not. If not the user can start a fishing session.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;When starting a new session, a line with coordinates, weather conditions, and tide condition is added to the csv file previously mentioned.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If a fish is caught, the user can fill out a form to store the data in a second csv file. This file contains : the time, the species and length of the fish and information about the fishing lure used (type, color, length).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The user can end the fishing session by pushing a button. This will register the ending time, weather conditions, and tide condition in the first csv file.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;A simplified graph is showed below:&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;https://aureliencallens.github.io/img_post/graph.svg&#34; alt=&#34;&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;Simplified workflow of the application&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ui-side&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;UI side&lt;/h3&gt;
+&lt;p&gt;The user interface of the application is built using the &lt;em&gt;miniUI&lt;/em&gt; package. This package
+allows R user to develop shiny application adapted to small screens.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load libraries 
+library(shiny)
+library(shinyWidgets)
+library(googlesheets)
+library(miniUI)
+library(leaflet)
+library(rdrop2)
+Sys.setenv(TZ=&amp;quot;Europe/Paris&amp;quot;)
+
+#Import the functions for weather API and webscrapping 
+suppressMessages(source(&amp;quot;api_functions.R&amp;quot;))
+
+
+# Load the dropbox token : 
+token &amp;lt;&amp;lt;- readRDS(&amp;quot;token.rds&amp;quot;)
+
+# Minipage for small screens
+ui &amp;lt;- miniPage(
+  # Javascript that give user location (input$lat,input$long)
+  tags$script(&amp;#39;$(document).ready(function () {
+                           navigator.geolocation.getCurrentPosition(onSuccess, onError);
+                           
+                           function onError (err) {
+                           Shiny.onInputChange(&amp;quot;geolocation&amp;quot;, false);
+                           }
+                           
+                           function onSuccess (position) {
+                           setTimeout(function () {
+                           var coords = position.coords;
+                           console.log(coords.latitude + &amp;quot;, &amp;quot; + coords.longitude);
+                           Shiny.onInputChange(&amp;quot;geolocation&amp;quot;, true);
+                           Shiny.onInputChange(&amp;quot;lat&amp;quot;, coords.latitude);
+                           Shiny.onInputChange(&amp;quot;long&amp;quot;, coords.longitude);
+                           }, 1100)
+                           }
+                           });&amp;#39;),
+  
+  gadgetTitleBar(&amp;quot;Catch them all&amp;quot;, left = NULL, right = NULL),
+  
+  miniTabstripPanel(
+    #First panel depends if a fishing session is started or not 
+    miniTabPanel(&amp;quot;Session&amp;quot;, icon = icon(&amp;quot;sliders&amp;quot;),
+                 miniContentPanel(uiOutput(&amp;quot;UI_sess&amp;quot;, align = &amp;quot;center&amp;quot;),
+                                  uiOutput(&amp;quot;UI&amp;quot;, align = &amp;quot;center&amp;quot;))
+    ),
+    # Second panel displays the location of the previous fishing session with the number of fish caught 
+    miniTabPanel(&amp;quot;Map&amp;quot;, icon = icon(&amp;quot;map-o&amp;quot;),
+                 miniContentPanel(scrollable = FALSE,padding = 0,
+                                  div(style=&amp;quot;text-align:center&amp;quot;,
+                                      prettyRadioButtons(&amp;quot;radio&amp;quot;, inline = TRUE, label = &amp;quot;&amp;quot;,
+                                                         choices = list(&amp;quot;3 dernières sessions&amp;quot; = 1,
+                                                                        &amp;quot;3 Meilleures Sessions&amp;quot; = 2,
+                                                                        &amp;quot;Tout afficher&amp;quot; = 3), 
+                                                         selected = 1)),
+                                  leafletOutput(&amp;quot;map&amp;quot;, height = &amp;quot;93%&amp;quot;)
+                 ))
+  )
+  
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;server-side&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Server side&lt;/h3&gt;
+&lt;p&gt;The server side is mainly composed by observeEvent functions. The utility of each
+observeEvent is provided in the script as commentary.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;server &amp;lt;- function(input, output, session){
+  source(&amp;quot;api_functions.R&amp;quot;)
+  
+  # Read the csv file containing information about fishing session. If a session is running,
+  # display the UI that allows the user to input data about the fish caught. If a session is not started,
+  # display a button to start the session.
+  
+  observeEvent(input$go ,{
+    
+    dat &amp;lt;&amp;lt;- drop_read_csv(&amp;quot;/app_peche/session.csv&amp;quot;, header = T, stringsAsFactors = F, dtoken = token) 
+    
+    output$UI&amp;lt;- renderUI({
+      tagList(
+        if(rev(dat$Status)[1] == &amp;quot;end&amp;quot;){
+          actionButton(&amp;quot;go&amp;quot;,&amp;quot;Start session&amp;quot;)}
+        else{
+          actionButton(&amp;quot;go&amp;quot;,&amp;quot;End session&amp;quot;) 
+        }
+      )
+    })
+    
+    output$UI_sess&amp;lt;- renderUI({
+      if(rev(dat$Status)[1] == &amp;quot;end&amp;quot;){
+        tagList(textInput(&amp;quot;comments&amp;quot;, label = h3(&amp;quot;Commentaires&amp;quot;), value = &amp;quot;NA&amp;quot;))
+      }else{
+        input$catch
+        
+        tagList(
+          selectInput(&amp;quot;species&amp;quot;, label = h3(&amp;quot;Espèces&amp;quot;), 
+                      choices = list(&amp;quot;Bar&amp;quot; = &amp;quot;bar&amp;quot;, 
+                                     &amp;quot;Bar moucheté&amp;quot; = &amp;quot;bar_m&amp;quot;, 
+                                     &amp;quot;Alose&amp;quot; = &amp;quot;alose&amp;quot;,
+                                     &amp;quot;Alose Feinte&amp;quot; = &amp;quot;alose_f&amp;quot;,
+                                     &amp;quot;Maquereau&amp;quot; = &amp;quot;maquereau&amp;quot;, 
+                                     &amp;quot;Chinchard&amp;quot; = &amp;quot;chinchard&amp;quot;), selected = &amp;quot;bar&amp;quot;),
+          
+          sliderInput(&amp;quot;length&amp;quot;,label = h3(&amp;quot;Taille du poisson&amp;quot;),value=25,min=0,max=80, step=1),
+          
+          selectInput(&amp;quot;lure&amp;quot;, label = h3(&amp;quot;Type de leurre&amp;quot;), 
+                      choices = list(&amp;quot;Shad&amp;quot; = &amp;quot;shad&amp;quot;,
+                                     &amp;quot;Slug&amp;quot; = &amp;quot;slug&amp;quot;,
+                                     &amp;quot;Jerkbait&amp;quot; = &amp;quot;jerkbait&amp;quot;,
+                                     &amp;quot;Casting jig&amp;quot; = &amp;quot;jig&amp;quot;,
+                                     &amp;quot;Topwater&amp;quot; = &amp;quot;topwater&amp;quot;), selectize = FALSE),
+          
+          selectInput(&amp;quot;color_lure&amp;quot;, label = h3(&amp;quot;Couleur du leurre&amp;quot;), 
+                      choices = list(&amp;quot;Naturel&amp;quot; = &amp;quot;naturel&amp;quot;,
+                                     &amp;quot;Sombre&amp;quot; = &amp;quot;sombre&amp;quot;,
+                                     &amp;quot;Clair&amp;quot; = &amp;quot;clair&amp;quot;,
+                                     &amp;quot;Flashy&amp;quot; = &amp;quot;flashy&amp;quot; ), selectize = FALSE),
+          
+          selectInput(&amp;quot;length_lure&amp;quot;, label = h3(&amp;quot;Taille du leurre&amp;quot;), 
+                      choices = list(&amp;quot;Petit&amp;quot; = &amp;quot;petit&amp;quot;,
+                                     &amp;quot;Moyen&amp;quot; = &amp;quot;moyen&amp;quot;,
+                                     &amp;quot;Grand&amp;quot; = &amp;quot;grand&amp;quot;), selectize = FALSE),
+          
+          actionButton(&amp;quot;catch&amp;quot;,&amp;quot;Rajoutez cette capture aux stats!&amp;quot;),
+          
+          textInput(&amp;quot;comments1&amp;quot;, label = h3(&amp;quot;Commentaire avant la fin ?&amp;quot;), value = &amp;quot;NA&amp;quot;)
+          
+          
+        )
+        
+        
+      }
+      
+    })  
+    
+    
+  }, ignoreNULL = F)
+  
+  #If the button is pushed, create the line to be added in the csv file. 
+  
+  observeEvent(input$go,{
+    
+    #Tide + geoloc + Weather
+    c_tide &amp;lt;- unlist(tide())
+    geoloc &amp;lt;- c(input$lat,input$long)
+    current.weather.info &amp;lt;- weather(geoloc) 
+    
+    # Two outcomes depending if the session starts or ends. This gives the possibility 
+    # to the user to add a comment before starting the session or after ending the session
+    
+    if(rev(dat$Status)[1] == &amp;quot;end&amp;quot;){
+      
+      n_ses &amp;lt;- c(rev(dat$Session)[1]+1)
+      stat_ses &amp;lt;- c(&amp;quot;beg&amp;quot;)
+      time_beg &amp;lt;- as.character(as.POSIXct(Sys.time()))
+      comment &amp;lt;- input$comments
+      dat.f &amp;lt;- data.frame(n_ses, stat_ses, time_beg ,geoloc[2], geoloc[1], current.weather.info, c_tide[1], c_tide[2], c_tide[3], comment)
+      names(dat.f)&amp;lt;-names(dat)
+      a &amp;lt;- rbind(dat,dat.f)
+      
+    }else{
+      
+      n_ses &amp;lt;- c(rev(dat$Session)[1])
+      stat_ses &amp;lt;- c(&amp;quot;end&amp;quot;)
+      time_beg &amp;lt;- as.character(as.POSIXct(Sys.time()))
+      comment1 &amp;lt;- input$comments1
+      dat.f&amp;lt;- data.frame(n_ses, stat_ses, time_beg ,geoloc[2], geoloc[1], current.weather.info, c_tide[1], c_tide[2], c_tide[3], comment1)
+      names(dat.f)&amp;lt;-names(dat)
+      a &amp;lt;- rbind(dat,dat.f)
+    }
+    
+    # Write csv in temporary files of shiny server 
+    write_csv(as.data.frame(a), &amp;quot;session.csv&amp;quot;)
+    
+    # Upload it to dropbox account 
+    drop_upload(&amp;quot;session.csv&amp;quot;, path = &amp;quot;App_peche&amp;quot;, mode = &amp;quot;overwrite&amp;quot;, dtoken = token)
+  })
+  
+  
+  # Add a line to the catch csv file whenever a fish is caught
+  observeEvent(input$catch,{
+    caugth &amp;lt;- drop_read_csv(&amp;quot;/app_peche/catch.csv&amp;quot;, header = T, stringsAsFactors = F, dtoken = token) 
+    
+    n_ses &amp;lt;- c(rev(dat$Session)[1])
+    time &amp;lt;- as.POSIXct(Sys.time())
+    time_after_beg &amp;lt;- round(as.numeric(difftime(time, rev(dat$Time)[1], units = &amp;quot;mins&amp;quot;)), digits = 0)
+    
+    catch &amp;lt;- data.frame(n_ses, 
+                        time = as.character(time),
+                        min_fishing = as.character(time_after_beg),
+                        species = input$species,
+                        length = input$length,
+                        lure = input$lure,
+                        colour = input$color_lure,
+                        length_lure = input$length_lure)
+    
+    b &amp;lt;- rbind(caugth,catch)
+    
+    # Write csv in temporary files of shiny server 
+    write_csv(as.data.frame(b), &amp;quot;catch.csv&amp;quot;)
+    # Upload it to dropbox account 
+    drop_upload(&amp;quot;catch.csv&amp;quot;, path = &amp;quot;App_peche&amp;quot;, mode = &amp;quot;overwrite&amp;quot;, dtoken = token)
+  })
+  
+  # Create the map with the results of previous session depending on the choice of the user :
+  
+  observeEvent(input$radio,{
+    
+    output$map &amp;lt;- renderLeaflet({
+      map_data &amp;lt;- map_choice(input$radio)
+      leaflet(map_data) %&amp;gt;% addTiles() %&amp;gt;%
+        addPopups(lng = ~Long,
+                  lat = ~Lat, 
+                  with(map_data,
+                       sprintf(&amp;quot;&amp;lt;b&amp;gt;Session %.0f : %.1f h&amp;lt;/b&amp;gt; &amp;lt;br/&amp;gt; %s &amp;lt;br/&amp;gt; %.0f  poissons &amp;lt;br/&amp;gt; hauteur d&amp;#39;eau: %.0f m, %s, %.0f min après l&amp;#39;étal&amp;quot;,
+                               n_ses,
+                               duration,
+                               Time,
+                               nb,
+                               Water_level,
+                               Tide_status,
+                               Tide_time)),
+                  options = popupOptions(maxWidth = 100, minWidth = 50))
+    })
+    
+  })
+  
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion-and-future-improvments&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Conclusion and future improvments&lt;/h2&gt;
+&lt;p&gt;You can find a dummy example of this application (not linked to the dropbox account)
+&lt;a href=&#34;https://aureliencallens.shinyapps.io/Dummy_angler_app/&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.
+I have been using this application for 1 year without any problems! The data I collected will be presented in the next post.&lt;/p&gt;
+&lt;p&gt;In the coming months, I must find a new free API to replace the actual one. Indeed, the weather API I am using has been bought by Apple and the free requests will be stopped in the following year.&lt;/p&gt;
+&lt;/div&gt;
+</description>
     </item>
     
   </channel>

@@ -14,8 +14,303 @@
       <pubDate>Tue, 12 Apr 2022 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>https://aureliencallens.github.io/2022/04/12/r-shiny-fishing-part4/</guid>
-      <description>In this post, I explore the data I have collected during the last year with the updated version of the application (presented here). This quick exploratory analysis is performed with two packages I really enjoy: Plotly and shiny.
-For reminder, my new application store the data in three csv files. The first one contains variables related to the fishing conditions. The second one contains information about my catches and finally the third one contains information about the characteristics of the lures I used during the session.</description>
+      <description>
+
+
+&lt;p&gt;In this post, I explore the data I have collected during the last year with the updated version of the application (presented &lt;a href=&#34;https://aureliencallens.github.io/2021/06/01/r-shiny-fishing-part3/&#34;&gt;here&lt;/a&gt;). This quick exploratory analysis is performed with two packages I really enjoy: &lt;em&gt;Plotly&lt;/em&gt; and &lt;em&gt;shiny&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;For reminder, my new application store the data in three csv files. The first one contains variables related to the fishing conditions. The second one contains information about my catches and finally the third one contains information about the characteristics of the lures I used during the session.&lt;/p&gt;
+&lt;div id=&#34;shiny-to-explore-fishing-data-by-session&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Shiny to explore fishing data by session&lt;/h2&gt;
+&lt;p&gt;I coded a small shiny application that provide a summary of the tide and river flow conditions, the lure changes and catches for each session. Don’t hesitate to explore my fishing data !&lt;/p&gt;
+&lt;div class=&#34;wrap&#34; style=&#34;width: 100%; height: 1500px;
+    padding: 0; overflow: hidden;&#34;&gt;
+&lt;iframe style=&#34;width: 800px;
+    height: 1550px;
+    border: 0;
+    -ms-transform: scale(0.25);
+    -moz-transform: scale(0.25);
+    -o-transform: scale(0.25);
+    -webkit-transform: scale(0.25);
+    transform: scale(0.95);
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;&#34; src=&#34;https://aureliencallens.shinyapps.io/Fishing_analysis/&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;code-of-the-shiny-application&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Code of the shiny application&lt;/h2&gt;
+&lt;p&gt;Here is the code of the plotly graphs in the application:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(plotly)
+library(tidyverse)
+
+
+#&amp;#39; For the tide plot
+#&amp;#39; 
+#&amp;#39; @param dat first dataframe with session characteristics
+#&amp;#39; @param n_ses the id (number) of the session
+#&amp;#39; @param temporal_range number of hours to display (before and after the session)
+#&amp;#39; @return A plotly object
+plot_tide_ses &amp;lt;- function(dat, n_ses, temporal_range = 4){
+
+  dat_t &amp;lt;- dat %&amp;gt;% 
+    filter(Session == n_ses) %&amp;gt;% 
+    mutate(Tide_ts = list(eval(parse(text = Ts_tide))))
+  dat_tide &amp;lt;- as.data.frame(dat_t$Tide_ts)
+  dat_tide$hour &amp;lt;- as.POSIXct(dat_tide$hour, origin = &amp;quot;1970-01-01&amp;quot;)
+  dat_tide$Water &amp;lt;- as.numeric(as.character(dat_tide$Water))
+  
+  plot_ly(data = dat_tide, 
+          x = ~ hour, 
+          y = ~ Water, 
+          mode = &amp;#39;lines&amp;#39;) %&amp;gt;%  
+    layout(shapes = list(
+      list(type = &amp;#39;line&amp;#39;,
+           x0 = as.POSIXct(dat_t$Beg),
+           x1 = as.POSIXct(dat_t$Beg),
+           y0 = min(dat_tide$Water),
+           y1 = max(dat_tide$Water),
+           line = list(dash = &amp;#39;dot&amp;#39;, width = 1)),
+      list(type = &amp;#39;line&amp;#39;,
+           x0 =  as.POSIXct(dat_t$End),
+           x1 = as.POSIXct(dat_t$End),
+           y0 = min(dat_tide$Water),
+           y1 = max(dat_tide$Water),
+           line = list(dash = &amp;#39;dot&amp;#39;, width = 1))),
+      xaxis = list(range = as.POSIXct(c(as.POSIXct(dat_t$Beg) - 3600*temporal_range ,
+                                        as.POSIXct(dat_t$End) + 3600*temporal_range )),
+                   title = &amp;quot;&amp;quot;),
+      yaxis = list(title = &amp;quot;Tide level&amp;quot;))
+}
+
+#&amp;#39; For the river flow plot
+#&amp;#39; 
+#&amp;#39; @param dat first dataframe with session characteristics
+#&amp;#39; @param n_ses the id (number) of the session
+#&amp;#39; @param past_days number of previous to display (before the session)
+#&amp;#39; @return A plotly object
+plot_flow_ses &amp;lt;- function(dat, n_ses, past_days = 4){
+  dat_t &amp;lt;- dat %&amp;gt;% 
+    filter(Session == n_ses) %&amp;gt;% 
+    mutate(Flow_ts = list(eval(parse(text = Ts_flow))))
+  
+  dat_flow &amp;lt;- as.data.frame(dat_t$Flow_ts)
+  dat_flow$Date &amp;lt;- as.POSIXct(dat_flow$Date, origin = &amp;quot;1970-01-01&amp;quot;)
+  dat_flow$Nive &amp;lt;- as.numeric(as.character(dat_flow$Nive))
+  dat_flow$Adour &amp;lt;- as.numeric(as.character(dat_flow$Adour))
+  
+  
+  dat_flow &amp;lt;- dat_flow %&amp;gt;% 
+    pivot_longer(cols = c(Nive, Adour), 
+                 names_to = &amp;quot;River&amp;quot;,
+                 values_to = &amp;quot;Flow&amp;quot;)
+  
+  plot_ly(data = dat_flow, 
+          x = ~ Date,
+          y = ~ Flow, 
+          color = ~ River, 
+          mode = &amp;#39;lines&amp;#39;) %&amp;gt;%  
+    layout(shapes = list(
+      list(type=&amp;#39;line&amp;#39;,
+           x0 = as.POSIXct(dat_t$Beg),
+           x1 = as.POSIXct(dat_t$Beg),
+           y0 = min(dat_flow$Flow),
+           y1 = max(dat_flow$Flow),
+           line = list(dash = &amp;#39;dot&amp;#39;, width = 1))),
+      xaxis = list(range = as.POSIXct(c(as.POSIXct(dat_t$Beg) - 3600*24*past_days,
+                                        as.POSIXct(dat_t$End) )),
+                   title = &amp;quot;&amp;quot;))
+}
+
+#&amp;#39; Function to prepare the dataset for the plot of lure change and catch
+#&amp;#39; 
+#&amp;#39; @param lure third dataframe with lure changes (hours) and characteristics
+#&amp;#39; @param session first dataframe with session characteristics
+#&amp;#39; @param ses_n the id (number) of the session
+#&amp;#39; @return A dataframe
+start_end_fonction &amp;lt;- function(lure, session, ses_n){
+  dat_ses &amp;lt;- session %&amp;gt;% 
+    filter(Session == ses_n)
+  
+  dat_lure &amp;lt;- lure %&amp;gt;% 
+    filter(n_ses == ses_n)
+  
+  startdates &amp;lt;- dat_lure$time
+  enddates &amp;lt;- c(startdates[-1], dat_ses$End)
+  
+  data.frame(change = length(startdates):1, 
+             start = as.POSIXct(startdates),
+             end = as.POSIXct(enddates),
+             type = dat_lure$type_lure,
+             text = paste(dat_lure$color_lure, dat_lure$length_lure))
+}
+
+#&amp;#39; For the plot of lure change and catch
+#&amp;#39; 
+#&amp;#39; @param lure third dataframe with lure changes (hours) and characteristics
+#&amp;#39; @param caught second dataframe with fish caught characteristics
+#&amp;#39; @param session first dataframe with session characteristics
+#&amp;#39; @param n_ses the id (number) of the session
+#&amp;#39; @return A plotly object
+lure_change &amp;lt;- function(lure, caught, dat, n_ses){
+  
+  df &amp;lt;- start_end_fonction(lure, dat, n_ses)
+  
+  catch &amp;lt;- caught %&amp;gt;% 
+    filter(n_ses == n_ses)
+  
+  dat_t &amp;lt;- dat %&amp;gt;% 
+    filter(Session == n_ses) %&amp;gt;% 
+    mutate(Tide_ts = list(eval(parse(text = Ts_tide))))
+  dat_tide &amp;lt;- as.data.frame(dat_t$Tide_ts)
+  dat_tide$hour &amp;lt;- as.POSIXct(dat_tide$hour, origin = &amp;quot;1970-01-01&amp;quot;)
+  dat_tide$Water &amp;lt;- as.numeric(as.character(dat_tide$Water))
+  
+  plot_ly() %&amp;gt;% 
+    add_segments(data = df,
+                 x = ~ start,
+                 xend = ~ end,
+                 y = ~ change,
+                 yend = ~ change,
+                 color = ~ type,
+                 #text = ~ text,
+                 size = I(5),
+                 alpha = 0.8) %&amp;gt;%
+    add_segments(x = as.POSIXct(catch$time),
+                 xend = as.POSIXct(catch$time),
+                 y = min(df$change),
+                 yend = max(df$change),
+                 line = list(color = &amp;quot;red&amp;quot;, dash = &amp;quot;dash&amp;quot;),
+                 name = &amp;#39;Fish caught&amp;#39;) %&amp;gt;%
+    add_trace(data = dat_tide, 
+              x = ~ hour, 
+              y = ~ Water, 
+              mode = &amp;#39;lines&amp;#39;, 
+              yaxis = &amp;quot;y2&amp;quot;,
+              name = &amp;quot;Water level&amp;quot;,
+              alpha = 0.4,
+              hoverinfo = &amp;#39;skip&amp;#39;
+    ) %&amp;gt;% 
+    layout(xaxis = list(range = c(df$start[1] - 1000 , df$end[nrow(df)] + 1000),
+                        title = &amp;quot;&amp;quot;),
+           yaxis = list(title = &amp;quot;&amp;quot;, zeroline = FALSE, showline = FALSE,
+                        showticklabels = FALSE, showgrid = FALSE ),
+           yaxis2 = list(overlaying = &amp;quot;y&amp;quot;, side = &amp;quot;right&amp;quot;))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is the code of this simple yet informative application:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(shiny)
+library(shinyWidgets)
+library(shinydashboard)
+library(plotly)
+library(tidyverse)
+source(&amp;#39;plot_functions.R&amp;#39;)
+dat &amp;lt;- read_csv(&amp;quot;session1.csv&amp;quot;)
+caught &amp;lt;- read_csv(&amp;quot;catch1.csv&amp;quot;)
+lure &amp;lt;- read_csv(&amp;quot;lure.csv&amp;quot;)
+
+# In order to save the tide and flow time series I parse the data in the dataframe
+# The following line is used to transform the parsed text into usable values
+dat_t &amp;lt;- dat %&amp;gt;% 
+  mutate(Tide_ts = list(eval(parse(text = Ts_tide))),
+         Flow_ts = list(eval(parse(text = Ts_flow))))
+
+body &amp;lt;- dashboardBody(fluidPage(
+  # Application title
+  h1(&amp;quot;Exploratory analysis of fishing data&amp;quot;,
+  align = &amp;quot;center&amp;quot;,
+  style = &amp;quot;padding: 40px;  text-align: center;  background: #605ca8;  color: white;  font-size: 40px;&amp;quot;),
+  br(),
+  # Dropdown menu to select the fishing session
+  fluidRow(align = &amp;quot;center&amp;quot;,
+           pickerInput(inputId = &amp;#39;Ses&amp;#39;,
+                       label = h3(&amp;#39;Select a fishing session:&amp;#39;),
+                       choices = unique(dat$Session[-1]),
+                       options = list(
+                         style = &amp;quot;btn-primary&amp;quot;),
+                       choicesOpt = list(
+                         style = rep_len(&amp;quot;font-size: 75%; line-height: 1.6;&amp;quot;, 4)
+                       ))),
+  br(),
+  br(),
+  # Key figures of the session
+  fluidRow(
+    valueBoxOutput(&amp;quot;progressD&amp;quot;, width = 4),
+    valueBoxOutput(&amp;quot;progressF&amp;quot;, width = 4),
+    valueBoxOutput(&amp;quot;progressL&amp;quot;, width = 4)),
+  br(),
+  
+  br(),
+  # Graphs of the tide and river flow of recent days
+  fluidRow(
+    box(title = &amp;quot;Tidal water level&amp;quot;, status = &amp;quot;primary&amp;quot;, 
+        plotlyOutput(&amp;quot;TidePlot&amp;quot;), width = 6),
+    box(title = &amp;quot;River flow&amp;quot;, status = &amp;quot;primary&amp;quot;,
+        plotlyOutput(&amp;quot;FlowPlot&amp;quot;), width = 6)),
+  br(),
+  # Graph lure changes during the session + catch
+  fluidRow(
+    box(title = &amp;quot;Lures tested and fish capture&amp;quot;, status = &amp;quot;warning&amp;quot;, 
+        plotlyOutput(&amp;quot;LurePlot&amp;quot;), width=12))
+))
+
+ui &amp;lt;- dashboardPage(
+  
+  dashboardHeader(disable = TRUE),
+  
+  dashboardSidebar(disable = TRUE),
+  
+  body
+)
+
+
+# Define server logic required to draw a histogram
+server &amp;lt;- function(input, output) {
+  
+  # Duration
+  output$progressD &amp;lt;- renderValueBox({
+    Duration = as.integer(difftime(as.POSIXct(dat$End[dat$Session == input$Ses]), as.POSIXct(dat$Beg[dat$Session == input$Ses]), units = &amp;#39;mins&amp;#39;))
+    valueBox(tags$p(&amp;quot;Duration&amp;quot;, style = &amp;quot;font-size: 80%;&amp;quot;),
+             tags$p(paste(Duration, &amp;quot;min&amp;quot;), style = &amp;quot;font-size: 150%; font-weight: bold;&amp;quot;),
+             icon = icon(&amp;quot;clock&amp;quot;), color = &amp;quot;purple&amp;quot;)
+  })
+  
+  # Number of fish
+  
+  output$progressF &amp;lt;- renderValueBox({
+    fish_caught = as.integer(caught %&amp;gt;% filter(n_ses == input$Ses) %&amp;gt;% nrow())
+    valueBox(tags$p(&amp;quot;Fish caught&amp;quot;, style = &amp;quot;font-size: 80%;&amp;quot;), tags$p(fish_caught, style = &amp;quot;font-size: 150%;font-weight: bold;&amp;quot;),
+             icon = icon(&amp;quot;trophy&amp;quot;), color = &amp;quot;purple&amp;quot;)
+  })
+  
+  # Number of lures tried
+  
+  output$progressL &amp;lt;- renderValueBox({
+    Lure = as.integer(lure %&amp;gt;% filter(n_ses == input$Ses) %&amp;gt;% nrow())
+    valueBox(tags$p(&amp;quot;Lure tried&amp;quot;, style = &amp;quot;font-size: 80%;&amp;quot;), tags$p(Lure, style = &amp;quot;font-size: 150%;font-weight: bold;&amp;quot;),
+             icon = icon(&amp;quot;fish&amp;quot;), color = &amp;quot;purple&amp;quot;)
+  })
+  
+  output$TidePlot &amp;lt;- renderPlotly({
+    # generate plot depending on session
+    plot_tide_ses(dat, input$Ses, 4)
+  })
+  output$FlowPlot &amp;lt;- renderPlotly({
+    # generate plot depending on session
+    plot_flow_ses(dat_t, input$Ses, 4)
+  })
+  output$LurePlot &amp;lt;- renderPlotly({
+    # generate plot depending on session
+    lure_change(lure, caught, dat, input$Ses)
+  })
+  
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
     </item>
     
     <item>
@@ -24,8 +319,418 @@ For reminder, my new application store the data in three csv files. The first on
       <pubDate>Tue, 01 Jun 2021 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>https://aureliencallens.github.io/2021/06/01/r-shiny-fishing-part3/</guid>
-      <description>In this previous post, I presented the shiny application I developed to record data about my fishing session. In today’s post, I will present briefly the changes and updates I made to improve the application. Here are the main changes :
- Weather API: the API I was using (Dark Sky) stopped furnishing free data. I changed for Openweathermap and I needed to update the functions to gather the same information as before.</description>
+      <description>
+
+
+&lt;p&gt;In this &lt;a href=&#34;https://aureliencallens.github.io/2020/09/12/r-shiny-fishing-part1/&#34;&gt;previous post&lt;/a&gt;, I presented the shiny application I developed to record data about my fishing session. In today’s post, I will present briefly the changes and updates I made to improve the application. Here are the main changes :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Weather API&lt;/strong&gt;: the API I was using (Dark Sky) stopped furnishing free data. I changed for &lt;a href=&#34;https://openweathermap.org/&#34;&gt;Openweathermap&lt;/a&gt; and I needed to update the functions to gather the same information as before.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;River flow&lt;/strong&gt;: the first version of the application did not collect any information about the flow of the river in which I am fishing. However I am convinced that the river flow before the fishing session might have an impact on the presence of seabass. I therefore created a web scrapping function that collect the flow of the Nive and the Adour (main fishing rivers).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Collecting lure data&lt;/strong&gt;: in the first version, data about fishing lures I used were only collected when a fish was caught. However I did not have data about how long I used the lure before catching a fish. The new version of the application now collects data about lure and how often I change lure.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;weather-api&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Weather API&lt;/h2&gt;
+&lt;p&gt;Small changes were made to adapt the former weather function to the new weather API. As this new API do not furnish moon phase data, I decided to compute the moon phase with the &lt;em&gt;oce&lt;/em&gt; package:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(httr)
+library(jsonlite)
+library(tidyverse)
+library(rvest)
+library(oce)
+
+weather &amp;lt;- function(lat, lon, API_key){
+  url &amp;lt;- paste0(&amp;quot;api.openweathermap.org/data/2.5/weather?lat=&amp;quot;, lat, &amp;quot;&amp;amp;lon=&amp;quot;, lon, &amp;quot;&amp;amp;appid=&amp;quot;, API_key, &amp;quot;&amp;amp;units=metric&amp;quot;)
+  
+  rep &amp;lt;- GET(url)
+  
+  table &amp;lt;- fromJSON(content(rep, &amp;quot;text&amp;quot;))
+  
+  # The weather API don&amp;#39;t provide moon phase so I compute it with Oce package
+  moon_phase &amp;lt;- round(moonAngle(t = Sys.Date(),
+                                longitude = as.numeric(lon),
+                                latitude = as.numeric(lat))$illuminatedFraction,
+                      3)
+  
+  
+  current.weather.info &amp;lt;- data.frame(Air_temp = table$main$temp,
+                                     Weather = table$weather$main,
+                                     Atm_pres = table$main$pressure,
+                                     Wind_str = table$wind$speed,
+                                     Wind_dir = table$wind$deg,
+                                     Cloud_cover = table$clouds$all,
+                                     PrecipInt = ifelse(is.null(table$rains$`1h`), 0, table$rains$`1h`),  
+                                     Moon = moon_phase)
+  return(current.weather.info)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;river-flow&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;River flow&lt;/h2&gt;
+&lt;p&gt;I wrote functions to scrap information about the flow of the rivers in which I fish the most on a french website:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Get and prepare the flow data
+get_Qdata &amp;lt;- function(link){
+  table &amp;lt;- fromJSON(content(GET(link), &amp;quot;text&amp;quot;))
+  table &amp;lt;- table$Serie$ObssHydro
+  table &amp;lt;- as.data.frame(table)
+  table$DtObsHydro &amp;lt;- sub(&amp;quot;T&amp;quot;, &amp;quot; &amp;quot;, table$DtObsHydro)
+  table$DtObsHydro &amp;lt;- substr(table$DtObsHydro, start = 1, stop = 19)
+  ts &amp;lt;- data.frame(Date = seq.POSIXt(as.POSIXct(range(table$DtObsHydro)[1],&amp;#39;%m/%d/%y %H:%M:%S&amp;#39;), 
+                                     as.POSIXct(range(table$DtObsHydro)[2],&amp;#39;%m/%d/%y %H:%M:%S&amp;#39;), by=&amp;quot;hour&amp;quot;))
+  
+  table$DtObsHydro &amp;lt;- as.POSIXct(table$DtObsHydro, format = &amp;quot;%Y-%m-%d %H:%M:%S&amp;quot;)
+  
+  table &amp;lt;- full_join(table, ts, by = c(&amp;quot;DtObsHydro&amp;quot; = &amp;quot;Date&amp;quot;)) %&amp;gt;% arrange(DtObsHydro)
+  return(table)
+}
+
+# Main function to collect river flow 
+
+river_flow &amp;lt;- function(){
+  # Url of website to scrap:
+  url_index &amp;lt;- &amp;quot;https://www.vigicrues.gouv.fr/services/station.json/index.php&amp;quot;
+  
+  rep &amp;lt;- GET(url_index)
+  
+  table_index &amp;lt;- fromJSON(content(rep, &amp;quot;text&amp;quot;))$Stations%&amp;gt;% 
+    na.omit()
+  
+  # I need to add the flow of several rivers to get the flow of the rivers I am interested in:
+  stations &amp;lt;- table_index %&amp;gt;% 
+    filter(LbStationHydro %in% c(&amp;quot;Pontonx-sur-l&amp;#39;Adour&amp;quot;, &amp;quot;St-Pandelon&amp;quot;, &amp;quot;Artiguelouve&amp;quot;, &amp;quot;Escos&amp;quot;,
+                                 &amp;quot;Aïcirits [St-Palais]&amp;quot;, &amp;quot;Cambo-les-Bains&amp;quot;))
+  
+  base_url &amp;lt;- &amp;quot;http://www.vigicrues.gouv.fr/services/observations.json?CdStationHydro=&amp;quot;
+  height_url &amp;lt;- &amp;quot;&amp;amp;FormatDate=iso&amp;quot;
+  Q_url &amp;lt;- &amp;quot;&amp;amp;GrdSerie=Q&amp;quot;
+  
+  stations &amp;lt;- stations %&amp;gt;% 
+    mutate(WL_link = paste0(base_url, CdStationHydro, height_url),
+           Q_link = paste0(WL_link, Q_url))
+  
+  data_Q &amp;lt;- lapply(stations$Q_link, 
+                   function(x){get_Qdata(x)})
+  
+  data_Q &amp;lt;- suppressWarnings(Reduce(function(...) merge(..., all = TRUE, by = &amp;quot;DtObsHydro&amp;quot;),
+                   data_Q))
+  
+  names(data_Q) &amp;lt;- c(&amp;quot;Date&amp;quot;, stations$LbStationHydro) 
+  
+  data_Q &amp;lt;- data_Q  %&amp;gt;% 
+    mutate(hour_of_day = format(Date, &amp;quot;%Y-%m-%d %H&amp;quot;))
+  
+  
+  data_Q &amp;lt;- aggregate(.~hour_of_day, data = data_Q, mean, na.rm = TRUE, na.action = na.pass)
+  
+  data_Q &amp;lt;- imputeTS::na_interpolation(data_Q, option = &amp;quot;linear&amp;quot;)
+  
+  final_data &amp;lt;- data_Q %&amp;gt;% 
+    mutate(Adour = `Pontonx-sur-l&amp;#39;Adour` +  `Aïcirits [St-Palais]` + Artiguelouve + Escos + `St-Pandelon`,
+           Date = as.POSIXct(hour_of_day, tryFormats = &amp;quot;%Y-%m-%d %H&amp;quot;)) %&amp;gt;% 
+    select(Date, `Cambo-les-Bains`, Adour) %&amp;gt;% 
+    rename(Nive = `Cambo-les-Bains`)
+  
+  Cur_flow &amp;lt;- data.frame(&amp;quot;Nive_c&amp;quot; = final_data[nrow(final_data), 2],
+                         &amp;quot;Adour_c&amp;quot; = final_data[nrow(final_data), 3])
+  
+  
+  final_data &amp;lt;- cbind(Cur_flow, final_data) %&amp;gt;% 
+    nest(Ts_flow = c(Date, Nive, Adour)) %&amp;gt;% 
+    mutate(Ts_flow = paste(Ts_flow))
+
+  return(final_data)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;shiny-application&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Shiny application&lt;/h2&gt;
+&lt;p&gt;A simplified graph of the new application is showed below:&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;https://aureliencallens.github.io/img_post/graph_newapp.svg&#34; alt=&#34;&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;Simplified workflow of the new version of application&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ui-side&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;UI side&lt;/h3&gt;
+&lt;p&gt;The UI side did not change that much, I only removed the tab that displayed fishing data on a map because I wasn’t using this feature too much:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load libraries 
+library(shiny)
+library(shinyWidgets)
+library(googlesheets)
+library(miniUI)
+library(leaflet)
+library(rdrop2)
+Sys.setenv(TZ=&amp;quot;Europe/Paris&amp;quot;)
+
+#Import the functions for weather API and webscrapping 
+suppressMessages(source(&amp;quot;api_functions.R&amp;quot;))
+
+
+# Load the dropbox token : 
+token &amp;lt;&amp;lt;- readRDS(&amp;quot;token.rds&amp;quot;)
+
+# Minipage for small screens
+ui &amp;lt;- miniPage(tags$script(&amp;#39;$(document).ready(function () {
+                           navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+                           function onError (err) {
+                           Shiny.onInputChange(&amp;quot;geolocation&amp;quot;, false);
+                           }
+
+                           function onSuccess (position) {
+                           setTimeout(function () {
+                           var coords = position.coords;
+                           console.log(coords.latitude + &amp;quot;, &amp;quot; + coords.longitude);
+                           Shiny.onInputChange(&amp;quot;geolocation&amp;quot;, true);
+                           Shiny.onInputChange(&amp;quot;lat&amp;quot;, coords.latitude);
+                           Shiny.onInputChange(&amp;quot;long&amp;quot;, coords.longitude);
+                           }, 1100)
+                           }
+                           });&amp;#39;),
+               
+               gadgetTitleBar(&amp;quot;Catch them all&amp;quot;, left = NULL, right = NULL),
+               
+               miniTabstripPanel(
+                 
+                 miniTabPanel(&amp;quot;Session&amp;quot;, icon = icon(&amp;quot;sliders&amp;quot;),
+                              
+                              miniContentPanel(uiOutput(&amp;quot;UI_sess&amp;quot;, align = &amp;quot;center&amp;quot;),
+                                               uiOutput(&amp;quot;UI&amp;quot;, align = &amp;quot;center&amp;quot;))
+                              
+                 )
+               )
+               
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;server-side&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Server side&lt;/h3&gt;
+&lt;p&gt;Several changes were made in the server side to collect data about the lures I used. Now, each time I change my fishing lure, I fill a small form to collect the lure characteristics and it adds a line in a third csv file:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;server &amp;lt;- function(input, output, session){
+  
+  observeEvent(input$go ,{
+    
+  # Read the csv file containing information about fishing session. If a session is running,
+  # display the UI that allows the user to input data about the fish caught. If a session is not started,
+  # display a button to start the session and small survey on lure characteristics.
+    
+    dat &amp;lt;&amp;lt;- drop_read_csv(&amp;quot;/app_peche/session1.csv&amp;quot;, header = T, stringsAsFactors = F, dtoken = token)
+    
+    # Reactive UI
+    
+    output$UI &amp;lt;- renderUI({
+      
+      if(!is.na(rev(dat$End)[1])){
+        # We now indicate what type of lure we use at the beginning of the session:
+        tagList(
+          selectInput(&amp;quot;lure1&amp;quot;, 
+                      label = &amp;quot;Type de leurre&amp;quot;,
+                      choices = list(&amp;quot;Shad&amp;quot; = &amp;quot;shad&amp;quot;,
+                                     &amp;quot;Slug&amp;quot; = &amp;quot;slug&amp;quot;,
+                                     &amp;quot;Jerkbait&amp;quot; = &amp;quot;jerkbait&amp;quot;,
+                                     &amp;quot;Casting jig&amp;quot; = &amp;quot;jig&amp;quot;,
+                                     &amp;quot;Topwater&amp;quot; = &amp;quot;topwater&amp;quot;),
+                      selected = &amp;quot;shad&amp;quot;,
+                      selectize = FALSE),
+          
+          selectInput(&amp;quot;color_lure1&amp;quot;, 
+                      label = &amp;quot;Couleur du leurre&amp;quot;,
+                      choices = list(&amp;quot;Naturel&amp;quot; = &amp;quot;naturel&amp;quot;,
+                                     &amp;quot;Sombre&amp;quot; = &amp;quot;sombre&amp;quot;,
+                                     &amp;quot;Clair&amp;quot; = &amp;quot;clair&amp;quot;,
+                                     &amp;quot;Flashy&amp;quot; = &amp;quot;flashy&amp;quot; ),
+                      selected = &amp;quot;naturel&amp;quot;,
+                      selectize = FALSE),
+          
+          selectInput(&amp;quot;length_lure1&amp;quot;,
+                      label = &amp;quot;Taille du leurre&amp;quot;,
+                      choices = list(&amp;quot;Petit&amp;quot; = &amp;quot;petit&amp;quot;,
+                                     &amp;quot;Moyen&amp;quot; = &amp;quot;moyen&amp;quot;,
+                                     &amp;quot;Grand&amp;quot; = &amp;quot;grand&amp;quot;),
+                      selected = &amp;quot;petit&amp;quot;,
+                      selectize = FALSE),
+          
+          actionButton(&amp;quot;go&amp;quot;,&amp;quot;Commencer session !&amp;quot;))
+      }else{
+        
+        tagList(actionButton(&amp;quot;go&amp;quot;,&amp;quot;End session&amp;quot;))
+      }
+      
+    })
+    
+    output$UI_sess &amp;lt;- renderUI({
+      
+      if(!is.na(rev(dat$End)[1])){
+        
+        tagList(textInput(&amp;quot;comments&amp;quot;, label = &amp;quot;Commentaire avant le début?&amp;quot;, value = &amp;quot;NA&amp;quot;))
+        
+      }else{
+        input$catch
+        input$lure
+        tagList(
+          
+          selectInput(&amp;quot;lure_type&amp;quot;, 
+                      label = &amp;quot;Type de leurre&amp;quot;,
+                      choices = list(&amp;quot;Shad&amp;quot; = &amp;quot;shad&amp;quot;,
+                                     &amp;quot;Slug&amp;quot; = &amp;quot;slug&amp;quot;,
+                                     &amp;quot;Jerkbait&amp;quot; = &amp;quot;jerkbait&amp;quot;,
+                                     &amp;quot;Casting jig&amp;quot; = &amp;quot;jig&amp;quot;,
+                                     &amp;quot;Topwater&amp;quot; = &amp;quot;topwater&amp;quot;),
+                      selected = &amp;quot;shad&amp;quot;,
+                      selectize = FALSE),
+          
+          selectInput(&amp;quot;color_lure&amp;quot;, 
+                      label = &amp;quot;Couleur du leurre&amp;quot;,
+                      choices = list(&amp;quot;Naturel&amp;quot; = &amp;quot;naturel&amp;quot;,
+                                     &amp;quot;Sombre&amp;quot; = &amp;quot;sombre&amp;quot;,
+                                     &amp;quot;Clair&amp;quot; = &amp;quot;clair&amp;quot;,
+                                     &amp;quot;Flashy&amp;quot; = &amp;quot;flashy&amp;quot; ),
+                      selected = &amp;quot;naturel&amp;quot;,
+                      selectize = FALSE),
+          
+          selectInput(&amp;quot;length_lure&amp;quot;,
+                      label = &amp;quot;Taille du leurre&amp;quot;,
+                      choices = list(&amp;quot;Petit&amp;quot; = &amp;quot;petit&amp;quot;,
+                                     &amp;quot;Moyen&amp;quot; = &amp;quot;moyen&amp;quot;,
+                                     &amp;quot;Grand&amp;quot; = &amp;quot;grand&amp;quot;),
+                      selected = &amp;quot;petit&amp;quot;,
+                      selectize = FALSE),
+          
+          actionButton(&amp;quot;lure&amp;quot;,
+                       label = &amp;quot;Changer de leurre!&amp;quot;),
+          
+          br(), 
+          br(), 
+          
+          h4(&amp;quot;Ajouter une capture&amp;quot;),
+          
+          selectInput(&amp;quot;species&amp;quot;, 
+                      label = &amp;quot;Espèces&amp;quot;,
+                      choices = list(&amp;quot;Bar&amp;quot; = &amp;quot;bar&amp;quot;,
+                                     &amp;quot;Bar moucheté&amp;quot; = &amp;quot;bar_m&amp;quot;,
+                                     &amp;quot;Alose&amp;quot; = &amp;quot;alose&amp;quot;,
+                                     &amp;quot;Maquereau&amp;quot; = &amp;quot;maquereau&amp;quot;,
+                                     &amp;quot;Chinchard&amp;quot; = &amp;quot;chinchard&amp;quot;),
+                      selected = &amp;quot;bar&amp;quot;),
+          
+          sliderInput(&amp;quot;length&amp;quot;,
+                      label = &amp;quot;Taille du poisson&amp;quot;,
+                      value = 25, 
+                      min = 0, 
+                      max = 80, 
+                      step = 1),
+          
+          actionButton(&amp;quot;catch&amp;quot;,&amp;quot;Rajoutez cette capture aux stats!&amp;quot;),
+          
+          br(), 
+          br(), 
+          
+          textInput(&amp;quot;comments1&amp;quot;, label = h4(&amp;quot;Commentaire avant la fin ?&amp;quot;), value = &amp;quot;NA&amp;quot;)
+        )
+      }
+    })
+  }, ignoreNULL = F)
+  
+  
+  #If the button is pushed, create the line to be added in the csv file. 
+  
+  observeEvent(input$go,{
+    
+    # Two outcomes depending if the session starts or ends. This gives the possibility 
+    # to the user to add a comment before starting the session or after ending the session
+    
+    if(!is.na(rev(dat$End)[1])){
+      
+      #Tide + geoloc + Weather
+      c_tide &amp;lt;- tide()
+      geoloc &amp;lt;- c(input$lat,input$long)
+      current.weather.info &amp;lt;- weather(lat = geoloc[1], lon = geoloc[2])
+      river.flow &amp;lt;- river_flow()
+      
+      n_ses &amp;lt;- c(rev(dat$Session)[1] + 1)
+      time_beg &amp;lt;- as.character(as.POSIXct(Sys.time()))
+      comment &amp;lt;- input$comments
+      dat.f &amp;lt;&amp;lt;- cbind(data.frame(n_ses,
+                                 time_beg,
+                                 NA,
+                                 geoloc[2],
+                                 geoloc[1]),
+                      current.weather.info,
+                      c_tide,
+                      river.flow,
+                      comment)
+      names(dat.f) &amp;lt;- names(dat)
+      print(dat.f)
+      final_dat &amp;lt;- rbind(dat, dat.f)
+      
+      lure &amp;lt;- drop_read_csv(&amp;quot;/app_peche/lure.csv&amp;quot;,
+                            header = T,
+                            stringsAsFactors = F,
+                            dtoken = token)
+      
+      new_lure &amp;lt;- data.frame(n_ses = n_ses,
+                             time = as.character(as.POSIXct(Sys.time())),
+                             type_lure = input$lure1,
+                             color_lure = input$color_lure1,
+                             length_lure = input$length_lure1)
+      
+      new_df &amp;lt;- rbind(lure, 
+                      new_lure)
+      
+      write_csv(as.data.frame(new_df), &amp;quot;lure.csv&amp;quot;)
+      drop_upload(&amp;quot;lure.csv&amp;quot;, path = &amp;quot;App_peche&amp;quot;, mode = &amp;quot;overwrite&amp;quot;, dtoken = token)
+      
+
+    }else{
+      
+      dat$End[nrow(dat)] &amp;lt;- as.character(as.POSIXct(Sys.time()))
+      dat$Comments[nrow(dat)] &amp;lt;- paste(dat$Comments[nrow(dat)], &amp;quot;/&amp;quot;, input$comments1)
+      final_dat &amp;lt;- dat 
+    }
+    
+    # Write csv in temporary files of shiny server 
+    write_csv(as.data.frame(final_dat), &amp;quot;session1.csv&amp;quot;)
+    
+    # Upload it to dropbox account 
+    drop_upload(&amp;quot;session1.csv&amp;quot;, path = &amp;quot;App_peche&amp;quot;, mode = &amp;quot;overwrite&amp;quot;, dtoken = token)
+  })
+  
+  # Add a line to the catch csv file whenever a fish is caught
+  observeEvent(input$catch,{
+    caugth &amp;lt;- drop_read_csv(&amp;quot;/app_peche/catch1.csv&amp;quot;, header = T, stringsAsFactors = F, dtoken = token)
+    
+    catch &amp;lt;- data.frame(n_ses = dat$Session[nrow(dat)],
+                        time = as.character(as.POSIXct(Sys.time())),
+                        species = input$species,
+                        length = input$length)
+    
+    b &amp;lt;- rbind(caugth,catch)
+    
+    write_csv(as.data.frame(b), &amp;quot;catch1.csv&amp;quot;)
+    drop_upload(&amp;quot;catch1.csv&amp;quot;, path = &amp;quot;App_peche&amp;quot;, mode = &amp;quot;overwrite&amp;quot;, dtoken = token)
+  })
+  
+  
+  observeEvent(input$lure,{
+    lure &amp;lt;- drop_read_csv(&amp;quot;/app_peche/lure.csv&amp;quot;,
+                          header = T,
+                          stringsAsFactors = F,
+                          dtoken = token)
+    
+    new_lure &amp;lt;- data.frame(n_ses = dat$Session[nrow(dat)],
+                        time = as.character(as.POSIXct(Sys.time())),
+                        type_lure = input$lure_type,
+                        color_lure = input$color_lure,
+                        length_lure = input$length_lure)
+    
+    new_df &amp;lt;- rbind(lure, 
+               new_lure)
+    
+    write_csv(as.data.frame(new_df), &amp;quot;lure.csv&amp;quot;)
+    drop_upload(&amp;quot;lure.csv&amp;quot;, path = &amp;quot;App_peche&amp;quot;, mode = &amp;quot;overwrite&amp;quot;, dtoken = token)
+  })
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;I have tested this new application during two fishing sessions and it has been working like a charm. I can’t wait to present you my findings at the end of this fishing season !&lt;/p&gt;
+&lt;/div&gt;
+</description>
     </item>
     
     <item>
@@ -34,8 +739,443 @@ For reminder, my new application store the data in three csv files. The first on
       <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>https://aureliencallens.github.io/2020/09/12/r-shiny-fishing-part1/</guid>
-      <description>My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I am fishing European sea bass (Dicentrarchus labrax) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artificial lures that imitate a specific prey.
-In theory, it is quite easy to catch a fish:</description>
+      <description>
+
+
+&lt;p&gt;My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I am fishing European sea bass (&lt;em&gt;Dicentrarchus labrax&lt;/em&gt;) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artificial lures that imitate a specific prey.&lt;/p&gt;
+&lt;p&gt;In theory, it is quite easy to catch a fish:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Use a lure that imitate the current prey of the sea bass.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Animate the lure in a spot where the fish are active.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Catch a really big fish !&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In practice, it is an other story ! Indeed, the feeding activity, the position of the European sea bass in the estuary and their preys will vary depending on different parameters :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the characteristics of the riverbed, which will depend where I fish&lt;/li&gt;
+&lt;li&gt;the time of the day : the sea bass is more active during dawn and dusk&lt;/li&gt;
+&lt;li&gt;the current and water level associated with the tide. The water level in estuaries is constantly varying to greater or lesser degree due to the tide influence. It is also influenced by the river flow which can be higher in case of heavy rains.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As you understand, there are many parameters potentially influencing the results of my fishing session. This is why I decided to create a shiny application to augment the number and the length of the fish caught during my sessions. To reach this objective, I need to better understand the activity, the position and the prey of the sea bass depending on the parameters described above.&lt;/p&gt;
+&lt;div id=&#34;requirements-of-my-application&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Requirements of my application&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;It must store data about my fishing session :&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Information needed&lt;/th&gt;
+&lt;th&gt;Description of the variables&lt;/th&gt;
+&lt;th&gt;Where do I get the data ?&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Time&lt;/td&gt;
+&lt;td&gt;Time when a fish is caught, time since the beginning of the session&lt;/td&gt;
+&lt;td&gt;R&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Catch&lt;/td&gt;
+&lt;td&gt;Species and length of the fish caught&lt;/td&gt;
+&lt;td&gt;Geolocation from smartphone?&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Lures&lt;/td&gt;
+&lt;td&gt;Type, length, color of lure used&lt;/td&gt;
+&lt;td&gt;Weather API&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;It must record data about my catch and the artificial lures used :&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Information needed&lt;/th&gt;
+&lt;th&gt;Description of the variables&lt;/th&gt;
+&lt;th&gt;Where do I get the data ?&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Time&lt;/td&gt;
+&lt;td&gt;Time when a fish is caught, time since the beginning of the session&lt;/td&gt;
+&lt;td&gt;R&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Catch&lt;/td&gt;
+&lt;td&gt;Species and length of the fish caught&lt;/td&gt;
+&lt;td&gt;User input&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Lures&lt;/td&gt;
+&lt;td&gt;Type, length, color of lure used&lt;/td&gt;
+&lt;td&gt;User input&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;It must be adapted to small screens because I will always use the application on my phone.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It must remain free.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;collecting-the-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Collecting the data&lt;/h2&gt;
+&lt;div id=&#34;getting-my-gps-location&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Getting my gps location&lt;/h3&gt;
+&lt;p&gt;My gps location is collected by using a bit of Javascript in the header of the shiny application. This code has been developed by AugusT and is available on his &lt;a href=&#34;https://github.com/AugustT/shiny_geolocation&#34; target=&#34;_blank&#34;&gt;github repository&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;weather-api&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Weather API&lt;/h3&gt;
+&lt;p&gt;For the weather data, I found a free API called Dark Sky. I made a function that takes as input the coordinates of a place and the API user key and returns the current weather conditions in a dataframe:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(httr)
+library(jsonlite)
+library(tidyverse)
+library(rvest)
+
+weather &amp;lt;- function(x, API_key){
+  url &amp;lt;- paste0(&amp;quot;https://api.darksky.net/forecast/&amp;quot;,API_key,
+                &amp;quot;/&amp;quot;, x[1], &amp;quot;,&amp;quot;, x[2],
+                &amp;quot;?units=ca&amp;amp;exclude=hourly,alerts,flags&amp;quot;)
+  
+  rep &amp;lt;- GET(url)
+  
+  table &amp;lt;- fromJSON(content(rep, &amp;quot;text&amp;quot;))
+  
+  current.weather.info &amp;lt;- with(table,
+                               data.frame(Air_temp = currently$temperature,
+                                     Weather = currently$summary,
+                                     Atm_pres = currently$pressure,
+                                     Wind_str = currently$windSpeed,
+                                     Wind_dir = currently$windBearing,
+                                     Cloud_cover = currently$cloudCover,
+                                     PrecipProb = currently$precipProbability,
+                                     PrecipInt = currently$precipIntensity,  
+                                     Moon = daily$data$moonPhase[1]))
+  return(current.weather.info)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;web-scrapping-for-tide-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Web scrapping for Tide data&lt;/h3&gt;
+&lt;p&gt;I created a function to scrap information about the tide on a french website. The following function takes no argument and return the current water level, the tide status (going up or down) and time since the tide peak for the location I fish.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tide &amp;lt;- function(){
+  
+  # Set the current time and time zone 
+  Sys.setenv(TZ=&amp;quot;Europe/Paris&amp;quot;)
+  time &amp;lt;- as.POSIXct(Sys.time())
+  url &amp;lt;- &amp;quot;https://services.data.shom.fr/hdm/vignette/grande/BOUCAU-BAYONNE?locale=en&amp;quot;
+  
+  # Read the web page that contains the tide data 
+  text &amp;lt;- url %&amp;gt;% 
+    read_html() %&amp;gt;%
+    html_text()
+  
+  # Clean the html data to get a dataframe  with two cols Time and water level: 
+
+  text &amp;lt;- as.character(sub(&amp;quot;.*var data = *(.*?) *\\;.*&amp;quot;, &amp;quot;\\1&amp;quot;, text))
+  text &amp;lt;- unlist(str_split( substr(text, 1, nchar(text)-2), &amp;quot;\\],&amp;quot;))
+  tidy_df &amp;lt;- data.frame(hour=NA,Water=NA)
+  
+  for(i in 1:length(text)){
+    text_dat &amp;lt;- unlist(str_split(text[i], &amp;#39;&amp;quot;&amp;#39;))[c(2,3)]
+    text_dat[1] &amp;lt;- substr(text_dat[1], 1, nchar(text_dat[1])-1)
+    text_dat[2] &amp;lt;- as.numeric(substr(text_dat[2], 2, nchar(text_dat[2])))
+    tidy_df[i,] &amp;lt;- text_dat
+  }
+  
+  tidy_df$hour &amp;lt;- as.POSIXct(paste(format(Sys.time(),&amp;quot;%Y-%m-%d&amp;quot;), tidy_df$hour))
+  
+  # Some lines to get the tide status (going down or up) : 
+  
+  n_closest &amp;lt;- which(abs(tidy_df$hour - time) == min(abs(tidy_df$hour - time)))
+  
+  water_level &amp;lt;- as.numeric(tidy_df[n_closest, 2])
+  
+  all_decrea &amp;lt;- all(tidy_df$Water[(n_closest-6):(n_closest+6)] ==
+                      cummin(tidy_df$Water[(n_closest-6):(n_closest+6)] ))
+  
+  all_increa &amp;lt;- all(tidy_df$Water[(n_closest-6):(n_closest+6)] ==
+                      cummax(tidy_df$Water[(n_closest-6):(n_closest+6)] ))
+  
+  maree &amp;lt;- ifelse(all_decrea, &amp;quot;Down&amp;quot;, ifelse(all_increa, &amp;quot;Up&amp;quot;, &amp;quot;Dead&amp;quot;))
+  
+  
+  # Compute time since the last peak :
+  
+  last_peak &amp;lt;- max(cumsum(rle(diff(as.numeric(tidy_df$Water), lag = 2) &amp;gt; 0)$lengths)
+                   [cumsum(rle(diff(as.numeric(tidy_df$Water), lag = 2) &amp;gt;0)$lengths) &amp;lt; n_closest])
+  
+  
+  time_after &amp;lt;- as.numeric(difftime(tidy_df$hour[n_closest], tidy_df$hour[last_peak], units = &amp;quot;mins&amp;quot;))
+  
+  
+  # Return the list with the results :
+  
+  return(list(Water_level = water_level,
+              Maree = maree,
+              Time_peak = time_after))
+  
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-shiny-application&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The shiny application&lt;/h2&gt;
+&lt;p&gt;The main problem I encountered while developing this application was data storage. Shinyapps.io
+host freely your shiny application but there were some problems when I used the shiny application to modify the csv files.
+The solution I found was to store the data in my dropbox account, you can find &lt;a href=&#34;https://shiny.rstudio.com/articles/persistent-data-storage.html&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; more details on the subject and alternatives solutions. I used the package &lt;em&gt;rdrop2&lt;/em&gt; to access and modify the data with the shiny application.&lt;/p&gt;
+&lt;p&gt;Here are the main steps of this application :&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;When the application is started, it reads a csv file stored on my dropbox to see if a fishing session is running or not. If not the user can start a fishing session.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;When starting a new session, a line with coordinates, weather conditions, and tide condition is added to the csv file previously mentioned.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If a fish is caught, the user can fill out a form to store the data in a second csv file. This file contains : the time, the species and length of the fish and information about the fishing lure used (type, color, length).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The user can end the fishing session by pushing a button. This will register the ending time, weather conditions, and tide condition in the first csv file.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;A simplified graph is showed below:&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;https://aureliencallens.github.io/img_post/graph.svg&#34; alt=&#34;&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;Simplified workflow of the application&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ui-side&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;UI side&lt;/h3&gt;
+&lt;p&gt;The user interface of the application is built using the &lt;em&gt;miniUI&lt;/em&gt; package. This package
+allows R user to develop shiny application adapted to small screens.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load libraries 
+library(shiny)
+library(shinyWidgets)
+library(googlesheets)
+library(miniUI)
+library(leaflet)
+library(rdrop2)
+Sys.setenv(TZ=&amp;quot;Europe/Paris&amp;quot;)
+
+#Import the functions for weather API and webscrapping 
+suppressMessages(source(&amp;quot;api_functions.R&amp;quot;))
+
+
+# Load the dropbox token : 
+token &amp;lt;&amp;lt;- readRDS(&amp;quot;token.rds&amp;quot;)
+
+# Minipage for small screens
+ui &amp;lt;- miniPage(
+  # Javascript that give user location (input$lat,input$long)
+  tags$script(&amp;#39;$(document).ready(function () {
+                           navigator.geolocation.getCurrentPosition(onSuccess, onError);
+                           
+                           function onError (err) {
+                           Shiny.onInputChange(&amp;quot;geolocation&amp;quot;, false);
+                           }
+                           
+                           function onSuccess (position) {
+                           setTimeout(function () {
+                           var coords = position.coords;
+                           console.log(coords.latitude + &amp;quot;, &amp;quot; + coords.longitude);
+                           Shiny.onInputChange(&amp;quot;geolocation&amp;quot;, true);
+                           Shiny.onInputChange(&amp;quot;lat&amp;quot;, coords.latitude);
+                           Shiny.onInputChange(&amp;quot;long&amp;quot;, coords.longitude);
+                           }, 1100)
+                           }
+                           });&amp;#39;),
+  
+  gadgetTitleBar(&amp;quot;Catch them all&amp;quot;, left = NULL, right = NULL),
+  
+  miniTabstripPanel(
+    #First panel depends if a fishing session is started or not 
+    miniTabPanel(&amp;quot;Session&amp;quot;, icon = icon(&amp;quot;sliders&amp;quot;),
+                 miniContentPanel(uiOutput(&amp;quot;UI_sess&amp;quot;, align = &amp;quot;center&amp;quot;),
+                                  uiOutput(&amp;quot;UI&amp;quot;, align = &amp;quot;center&amp;quot;))
+    ),
+    # Second panel displays the location of the previous fishing session with the number of fish caught 
+    miniTabPanel(&amp;quot;Map&amp;quot;, icon = icon(&amp;quot;map-o&amp;quot;),
+                 miniContentPanel(scrollable = FALSE,padding = 0,
+                                  div(style=&amp;quot;text-align:center&amp;quot;,
+                                      prettyRadioButtons(&amp;quot;radio&amp;quot;, inline = TRUE, label = &amp;quot;&amp;quot;,
+                                                         choices = list(&amp;quot;3 dernières sessions&amp;quot; = 1,
+                                                                        &amp;quot;3 Meilleures Sessions&amp;quot; = 2,
+                                                                        &amp;quot;Tout afficher&amp;quot; = 3), 
+                                                         selected = 1)),
+                                  leafletOutput(&amp;quot;map&amp;quot;, height = &amp;quot;93%&amp;quot;)
+                 ))
+  )
+  
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;server-side&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Server side&lt;/h3&gt;
+&lt;p&gt;The server side is mainly composed by observeEvent functions. The utility of each
+observeEvent is provided in the script as commentary.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;server &amp;lt;- function(input, output, session){
+  source(&amp;quot;api_functions.R&amp;quot;)
+  
+  # Read the csv file containing information about fishing session. If a session is running,
+  # display the UI that allows the user to input data about the fish caught. If a session is not started,
+  # display a button to start the session.
+  
+  observeEvent(input$go ,{
+    
+    dat &amp;lt;&amp;lt;- drop_read_csv(&amp;quot;/app_peche/session.csv&amp;quot;, header = T, stringsAsFactors = F, dtoken = token) 
+    
+    output$UI&amp;lt;- renderUI({
+      tagList(
+        if(rev(dat$Status)[1] == &amp;quot;end&amp;quot;){
+          actionButton(&amp;quot;go&amp;quot;,&amp;quot;Start session&amp;quot;)}
+        else{
+          actionButton(&amp;quot;go&amp;quot;,&amp;quot;End session&amp;quot;) 
+        }
+      )
+    })
+    
+    output$UI_sess&amp;lt;- renderUI({
+      if(rev(dat$Status)[1] == &amp;quot;end&amp;quot;){
+        tagList(textInput(&amp;quot;comments&amp;quot;, label = h3(&amp;quot;Commentaires&amp;quot;), value = &amp;quot;NA&amp;quot;))
+      }else{
+        input$catch
+        
+        tagList(
+          selectInput(&amp;quot;species&amp;quot;, label = h3(&amp;quot;Espèces&amp;quot;), 
+                      choices = list(&amp;quot;Bar&amp;quot; = &amp;quot;bar&amp;quot;, 
+                                     &amp;quot;Bar moucheté&amp;quot; = &amp;quot;bar_m&amp;quot;, 
+                                     &amp;quot;Alose&amp;quot; = &amp;quot;alose&amp;quot;,
+                                     &amp;quot;Alose Feinte&amp;quot; = &amp;quot;alose_f&amp;quot;,
+                                     &amp;quot;Maquereau&amp;quot; = &amp;quot;maquereau&amp;quot;, 
+                                     &amp;quot;Chinchard&amp;quot; = &amp;quot;chinchard&amp;quot;), selected = &amp;quot;bar&amp;quot;),
+          
+          sliderInput(&amp;quot;length&amp;quot;,label = h3(&amp;quot;Taille du poisson&amp;quot;),value=25,min=0,max=80, step=1),
+          
+          selectInput(&amp;quot;lure&amp;quot;, label = h3(&amp;quot;Type de leurre&amp;quot;), 
+                      choices = list(&amp;quot;Shad&amp;quot; = &amp;quot;shad&amp;quot;,
+                                     &amp;quot;Slug&amp;quot; = &amp;quot;slug&amp;quot;,
+                                     &amp;quot;Jerkbait&amp;quot; = &amp;quot;jerkbait&amp;quot;,
+                                     &amp;quot;Casting jig&amp;quot; = &amp;quot;jig&amp;quot;,
+                                     &amp;quot;Topwater&amp;quot; = &amp;quot;topwater&amp;quot;), selectize = FALSE),
+          
+          selectInput(&amp;quot;color_lure&amp;quot;, label = h3(&amp;quot;Couleur du leurre&amp;quot;), 
+                      choices = list(&amp;quot;Naturel&amp;quot; = &amp;quot;naturel&amp;quot;,
+                                     &amp;quot;Sombre&amp;quot; = &amp;quot;sombre&amp;quot;,
+                                     &amp;quot;Clair&amp;quot; = &amp;quot;clair&amp;quot;,
+                                     &amp;quot;Flashy&amp;quot; = &amp;quot;flashy&amp;quot; ), selectize = FALSE),
+          
+          selectInput(&amp;quot;length_lure&amp;quot;, label = h3(&amp;quot;Taille du leurre&amp;quot;), 
+                      choices = list(&amp;quot;Petit&amp;quot; = &amp;quot;petit&amp;quot;,
+                                     &amp;quot;Moyen&amp;quot; = &amp;quot;moyen&amp;quot;,
+                                     &amp;quot;Grand&amp;quot; = &amp;quot;grand&amp;quot;), selectize = FALSE),
+          
+          actionButton(&amp;quot;catch&amp;quot;,&amp;quot;Rajoutez cette capture aux stats!&amp;quot;),
+          
+          textInput(&amp;quot;comments1&amp;quot;, label = h3(&amp;quot;Commentaire avant la fin ?&amp;quot;), value = &amp;quot;NA&amp;quot;)
+          
+          
+        )
+        
+        
+      }
+      
+    })  
+    
+    
+  }, ignoreNULL = F)
+  
+  #If the button is pushed, create the line to be added in the csv file. 
+  
+  observeEvent(input$go,{
+    
+    #Tide + geoloc + Weather
+    c_tide &amp;lt;- unlist(tide())
+    geoloc &amp;lt;- c(input$lat,input$long)
+    current.weather.info &amp;lt;- weather(geoloc) 
+    
+    # Two outcomes depending if the session starts or ends. This gives the possibility 
+    # to the user to add a comment before starting the session or after ending the session
+    
+    if(rev(dat$Status)[1] == &amp;quot;end&amp;quot;){
+      
+      n_ses &amp;lt;- c(rev(dat$Session)[1]+1)
+      stat_ses &amp;lt;- c(&amp;quot;beg&amp;quot;)
+      time_beg &amp;lt;- as.character(as.POSIXct(Sys.time()))
+      comment &amp;lt;- input$comments
+      dat.f &amp;lt;- data.frame(n_ses, stat_ses, time_beg ,geoloc[2], geoloc[1], current.weather.info, c_tide[1], c_tide[2], c_tide[3], comment)
+      names(dat.f)&amp;lt;-names(dat)
+      a &amp;lt;- rbind(dat,dat.f)
+      
+    }else{
+      
+      n_ses &amp;lt;- c(rev(dat$Session)[1])
+      stat_ses &amp;lt;- c(&amp;quot;end&amp;quot;)
+      time_beg &amp;lt;- as.character(as.POSIXct(Sys.time()))
+      comment1 &amp;lt;- input$comments1
+      dat.f&amp;lt;- data.frame(n_ses, stat_ses, time_beg ,geoloc[2], geoloc[1], current.weather.info, c_tide[1], c_tide[2], c_tide[3], comment1)
+      names(dat.f)&amp;lt;-names(dat)
+      a &amp;lt;- rbind(dat,dat.f)
+    }
+    
+    # Write csv in temporary files of shiny server 
+    write_csv(as.data.frame(a), &amp;quot;session.csv&amp;quot;)
+    
+    # Upload it to dropbox account 
+    drop_upload(&amp;quot;session.csv&amp;quot;, path = &amp;quot;App_peche&amp;quot;, mode = &amp;quot;overwrite&amp;quot;, dtoken = token)
+  })
+  
+  
+  # Add a line to the catch csv file whenever a fish is caught
+  observeEvent(input$catch,{
+    caugth &amp;lt;- drop_read_csv(&amp;quot;/app_peche/catch.csv&amp;quot;, header = T, stringsAsFactors = F, dtoken = token) 
+    
+    n_ses &amp;lt;- c(rev(dat$Session)[1])
+    time &amp;lt;- as.POSIXct(Sys.time())
+    time_after_beg &amp;lt;- round(as.numeric(difftime(time, rev(dat$Time)[1], units = &amp;quot;mins&amp;quot;)), digits = 0)
+    
+    catch &amp;lt;- data.frame(n_ses, 
+                        time = as.character(time),
+                        min_fishing = as.character(time_after_beg),
+                        species = input$species,
+                        length = input$length,
+                        lure = input$lure,
+                        colour = input$color_lure,
+                        length_lure = input$length_lure)
+    
+    b &amp;lt;- rbind(caugth,catch)
+    
+    # Write csv in temporary files of shiny server 
+    write_csv(as.data.frame(b), &amp;quot;catch.csv&amp;quot;)
+    # Upload it to dropbox account 
+    drop_upload(&amp;quot;catch.csv&amp;quot;, path = &amp;quot;App_peche&amp;quot;, mode = &amp;quot;overwrite&amp;quot;, dtoken = token)
+  })
+  
+  # Create the map with the results of previous session depending on the choice of the user :
+  
+  observeEvent(input$radio,{
+    
+    output$map &amp;lt;- renderLeaflet({
+      map_data &amp;lt;- map_choice(input$radio)
+      leaflet(map_data) %&amp;gt;% addTiles() %&amp;gt;%
+        addPopups(lng = ~Long,
+                  lat = ~Lat, 
+                  with(map_data,
+                       sprintf(&amp;quot;&amp;lt;b&amp;gt;Session %.0f : %.1f h&amp;lt;/b&amp;gt; &amp;lt;br/&amp;gt; %s &amp;lt;br/&amp;gt; %.0f  poissons &amp;lt;br/&amp;gt; hauteur d&amp;#39;eau: %.0f m, %s, %.0f min après l&amp;#39;étal&amp;quot;,
+                               n_ses,
+                               duration,
+                               Time,
+                               nb,
+                               Water_level,
+                               Tide_status,
+                               Tide_time)),
+                  options = popupOptions(maxWidth = 100, minWidth = 50))
+    })
+    
+  })
+  
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion-and-future-improvments&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Conclusion and future improvments&lt;/h2&gt;
+&lt;p&gt;You can find a dummy example of this application (not linked to the dropbox account)
+&lt;a href=&#34;https://aureliencallens.shinyapps.io/Dummy_angler_app/&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.
+I have been using this application for 1 year without any problems! The data I collected will be presented in the next post.&lt;/p&gt;
+&lt;p&gt;In the coming months, I must find a new free API to replace the actual one. Indeed, the weather API I am using has been bought by Apple and the free requests will be stopped in the following year.&lt;/p&gt;
+&lt;/div&gt;
+</description>
     </item>
     
   </channel>

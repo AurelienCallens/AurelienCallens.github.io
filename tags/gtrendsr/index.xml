@@ -14,7 +14,184 @@
       <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>https://aureliencallens.github.io/2021/03/03/coastal-risks-google-trends/</guid>
-      <description>I am currently in my third year of PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risk.</description>
+      <description>
+
+
+&lt;p&gt;I am currently in my third year of PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risk.&lt;/p&gt;
+&lt;p&gt;In this short post, we are going to use the R package &lt;code&gt;gtrendsR&lt;/code&gt; to analyze the trends of specific words related to statistical learning such as “machine learning” or “data science” and also related to coastal risks: “coastal flood”, “storm surge”.&lt;/p&gt;
+&lt;div id=&#34;analysis-of-specific-terms-for-the-whole-world&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Analysis of specific terms for the whole world&lt;/h2&gt;
+&lt;p&gt;In this first section, we are going to analyze the interest over time for several terms in the whole world. The &lt;code&gt;gtrends&lt;/code&gt; function extracts the “hits” variable for a given term. This variable is a normalized measure of the interest made by Google Trends. The number of search is normalized by geography and time range, then the resulting numbers are scaled on a range of 0 to 100 based on a topic’s proportion to all searches on all topics. All the details are given in the support of Google Trends (&lt;a href=&#34;https://support.google.com/trends/answer/4365533?hl=en&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;We can look at the interest over time for “data science”, “deep learning” and “machine learning”:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(gtrendsR)
+
+words_stats &amp;lt;- c(&amp;quot;machine learning&amp;quot;,
+           &amp;quot;deep learning&amp;quot;,
+           &amp;quot;data science&amp;quot;)
+
+res_stats &amp;lt;- lapply(words_stats, function(x){
+  gtrends(x,
+          geo = &amp;quot;&amp;quot;,
+          time = &amp;quot;all&amp;quot;)})
+
+
+interest_stats &amp;lt;- do.call(&amp;quot;rbind&amp;quot;, 
+                    lapply(res_stats, function(x){x$interest_over_time}))
+
+interest_stats %&amp;gt;% 
+  mutate(hits = as.numeric(ifelse(hits == &amp;quot;&amp;lt;1&amp;quot;, 0, hits))) %&amp;gt;% 
+  ggplot(aes(x = date, y = hits)) + 
+  geom_line() + 
+  facet_grid(~ keyword) +
+  theme_bw()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://aureliencallens.github.io/post/2021-03-01-coastal-risks-google-trends.en_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;From this figure, we see the increasing interest for these terms over the last decade.&lt;/p&gt;
+&lt;p&gt;We can do the same for terms related to coastal risks :&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;words_coastal &amp;lt;- c(&amp;quot;coastal risk&amp;quot;,
+                   &amp;quot;coastal flood&amp;quot;,
+                   &amp;quot;storm surge&amp;quot;)
+
+
+res_coast &amp;lt;- lapply(words_coastal, function(x){
+  gtrends(x,
+          geo = &amp;quot;&amp;quot;,
+          time = &amp;quot;all&amp;quot;)})
+
+
+interest_coast &amp;lt;- do.call(&amp;quot;rbind&amp;quot;, lapply(res_coast, function(x){x$interest_over_time}))
+
+interest_coast %&amp;gt;% 
+  mutate(hits = as.numeric(ifelse(hits == &amp;quot;&amp;lt;1&amp;quot;, 0, hits))) %&amp;gt;% 
+  ggplot(aes(x = date, y = hits)) + 
+  geom_line() + 
+  facet_grid(~ keyword) +
+  theme_bw()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://aureliencallens.github.io/post/2021-03-01-coastal-risks-google-trends.en_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Contrary to the interest for the statistical terms, the interest in coastal risk topics is more punctual. One of my hypothesis is that the interest in these topic increases after a large storm event has occurred in the world. We will investigate on this hypothesis at the end of the post.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;mapping-the-interest-of-storm-surge-and-data-science-in-the-world&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Mapping the interest of “storm surge” and “data science” in the world&lt;/h2&gt;
+&lt;p&gt;In addition to analyze the trend over time with &lt;code&gt;gtrendsR&lt;/code&gt;, we can also visualize the interest depending on the countries.&lt;/p&gt;
+&lt;p&gt;Let’s start with “storm surge”:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res_world &amp;lt;- gtrends(&amp;quot;Storm surge&amp;quot;,
+          geo = &amp;quot;&amp;quot;,
+          time = &amp;quot;all&amp;quot;)
+
+
+Int_country &amp;lt;- as_tibble(res_world$interest_by_country)
+
+Int_country &amp;lt;- Int_country %&amp;gt;% 
+  dplyr::rename(region = location)
+
+WolrdMap = ggplot2::map_data(map = &amp;quot;world&amp;quot;)
+
+
+Int_Merged &amp;lt;- Int_country %&amp;gt;% 
+  dplyr::full_join(x = ., 
+                   y = WolrdMap , 
+                   by = &amp;quot;region&amp;quot;) %&amp;gt;% 
+  mutate(hits = as.numeric(hits))
+
+
+Int_Merged %&amp;gt;% 
+  ggplot(aes(x = long, y = lat)) +
+  geom_polygon(aes(group = group, 
+                   fill = hits), 
+               colour = &amp;quot;grey40&amp;quot;,
+               size = 0.2) +
+  scale_fill_gradientn(colors = RColorBrewer::brewer.pal(7, &amp;quot;OrRd&amp;quot;),
+                       na.value = &amp;quot;white&amp;quot;) +
+  coord_cartesian(ylim = c(-55, 85)) + 
+  theme(legend.position=&amp;quot;bottom&amp;quot;) +
+  theme_bw() + 
+  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot;) + 
+  theme(panel.grid.major = element_line(size = 0.5, linetype = 2),
+        panel.grid.minor = element_blank()) +
+  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://aureliencallens.github.io/post/2021-03-01-coastal-risks-google-trends.en_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We see from this map that the number of Google search for this term is quite low for many countries in comparison with other terms (white color means not enough search comparing to the total number of search). In general the interest is higher in countries that are more likely to be impacted by marine storms or hurricanes. The Republic of Philippines seems the most interested country in storm surge.&lt;/p&gt;
+&lt;p&gt;We can then continue with the term “data science”:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res_world &amp;lt;- gtrends(&amp;quot;Data Science&amp;quot;,
+          geo = &amp;quot;&amp;quot;,
+          time = &amp;quot;all&amp;quot;)
+
+
+Int_country &amp;lt;- as_tibble(res_world$interest_by_country)
+
+Int_country &amp;lt;- Int_country %&amp;gt;% 
+  dplyr::rename(region = location)
+
+WolrdMap = ggplot2::map_data(map = &amp;quot;world&amp;quot;)
+
+
+Int_Merged &amp;lt;- Int_country %&amp;gt;% 
+  dplyr::full_join(x = ., 
+                   y = WolrdMap , 
+                   by = &amp;quot;region&amp;quot;) %&amp;gt;% 
+  mutate(hits = as.numeric(hits))
+
+
+Int_Merged %&amp;gt;% 
+  ggplot(aes(x = long, y = lat)) +
+  geom_polygon(aes(group = group, 
+                   fill = hits), 
+               colour = &amp;quot;grey40&amp;quot;,
+               size = 0.2) +
+  scale_fill_gradientn(colors = RColorBrewer::brewer.pal(7, &amp;quot;OrRd&amp;quot;),
+                       na.value = &amp;quot;white&amp;quot;) +
+  coord_cartesian(ylim = c(-55, 85)) + 
+  theme(legend.position=&amp;quot;bottom&amp;quot;) +
+  theme_bw() + 
+  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot;) + 
+  theme(panel.grid.major = element_line(size = 0.5, linetype = 2),
+        panel.grid.minor = element_blank()) +
+  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://aureliencallens.github.io/post/2021-03-01-coastal-risks-google-trends.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Much more countries are interested by this topic with India being the country with the highest number of Google searchs about data science.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;focusing-on-the-trend-of-storm-surge-in-france&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Focusing on the trend of “storm surge” in France&lt;/h2&gt;
+&lt;p&gt;Earlier in this post, I made the hypothesis that the number of Google search for terms like “storm surge” was related to the recent occurrence of a storm event. Let’s investigate this hypothesis for the term “Submersion marine” (marine submersion/ flood in English) in France.&lt;/p&gt;
+&lt;p&gt;First, we extract the number of hits on this term for France by indicating &lt;code&gt;geo = &#34;FR&#34;&lt;/code&gt; in the &lt;code&gt;gtrends&lt;/code&gt; function. Then we create a data frame where we gather some severe storms that impacted France (&lt;a href=&#34;http://tempetes.meteo.fr/&#34; target=&#34;_blank&#34;&gt;Website listing the severe storms in France&lt;/a&gt;). Finally, we join all the information on the same graph (red dashed lines represent storm events):&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res_fr &amp;lt;- gtrends(&amp;quot;submersion marine&amp;quot;,
+          geo = &amp;quot;FR&amp;quot;,
+          time = &amp;quot;all&amp;quot;)
+
+df_storm &amp;lt;- as.data.frame(matrix(c(
+  &amp;quot;2009-01-24 GMT&amp;quot;, &amp;quot;Klaus&amp;quot;,
+  &amp;quot;2010-02-27 GMT&amp;quot;, &amp;quot;Xynthia&amp;quot;,
+  &amp;quot;2011-12-16 GMT&amp;quot;, &amp;quot;Joachim&amp;quot;,
+  &amp;quot;2014-02-14 GMT&amp;quot;, &amp;quot;Ulla&amp;quot;,
+  &amp;quot;2014-11-04 GMT&amp;quot;, &amp;quot;Qendresa&amp;quot;,
+  &amp;quot;2016-02-10 GMT&amp;quot;, &amp;quot;Unknown&amp;quot;,
+  &amp;quot;2017-03-06 GMT&amp;quot;, &amp;quot;Zeus&amp;quot;,
+  &amp;quot;2018-01-03 GMT&amp;quot;, &amp;quot;Eleanor&amp;quot;,
+  &amp;quot;2019-12-13 GMT&amp;quot;, &amp;quot;Unknown&amp;quot;
+  ), ncol = 2, byrow = T), stringsAsFactors = F)
+
+
+names(df_storm) &amp;lt;- c(&amp;quot;date&amp;quot;, &amp;quot;Name of storm&amp;quot;)
+df_storm$date &amp;lt;- as.POSIXct(df_storm$date, tz = &amp;quot;GMT&amp;quot;)
+
+
+res_fr$interest_over_time %&amp;gt;% 
+  mutate(hits = as.numeric(ifelse(hits == &amp;quot;&amp;lt;1&amp;quot;, 0, hits))) %&amp;gt;% 
+  filter(date &amp;gt; as.POSIXct(&amp;quot;2006-01-24 GMT&amp;quot;, tz = &amp;quot;GMT&amp;quot;)) %&amp;gt;% 
+  ggplot(aes(x = date, y = hits)) + 
+  geom_line() +
+  geom_vline(xintercept = df_storm$date, col = &amp;quot;red&amp;quot;, lty = 2, alpha = 0.5, lwd = 1) + 
+  #geom_vline(xintercept = as.POSIXct(&amp;quot;2011-07-11 GMT&amp;quot;, tz = &amp;quot;GMT&amp;quot;), col = &amp;quot;blue&amp;quot;, lty = 2, alpha = 0.5) + 
+  facet_grid(~ keyword) +
+  theme_bw()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://aureliencallens.github.io/post/2021-03-01-coastal-risks-google-trends.en_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;From this figure, we can see that after a storm event there is often a surge in interest in the term “marine submersion” in France. This confirms my hypothesis !&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;This analysis was really interesting for me as it confirmed what I knew with numbers and graphs. Without a doubt, this analysis will be a great asset for my introduction, especially in the part where I will discuss about the growing interest in data science. I hope this post gave you the envy to reproduce this analysis for the terms of your choice !&lt;/p&gt;
+&lt;/div&gt;
+</description>
     </item>
     
   </channel>
