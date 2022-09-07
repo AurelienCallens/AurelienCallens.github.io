@@ -1,0 +1,24 @@
+---
+title: What do I do here ?
+author: Aurélien Callens
+date: '2020-09-01'
+slug: first-post
+categories: []
+tags: []
+type: ''
+subtitle: ''
+image: ''
+socialShare: false
+---
+
+
+Here, I will present my projects and  write articles on different subjects such as : 
+
+- Statistical analysis
+- Data visualization 
+- Shiny applications
+- Web scrapping
+- etc ...
+
+All these articles will include R code and examples. 
+Python users won't be left aside as I am currently learning this language!

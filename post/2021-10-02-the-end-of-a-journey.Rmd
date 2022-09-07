@@ -1,0 +1,50 @@
+---
+title: The end of my PhD journey
+author: ''
+date: 2021-10-02
+slug: the-end-of-a-journey
+categories:
+  - PhD
+tags: []
+subtitle: ''
+image: ''
+---
+
+Two weeks ago, I defended my thesis entitled 'Statistical learning for coastal risks assessment' in front of an academic jury. The defense went extremely well and the the jury and the auditory were genuinely interested by the work I had done during my thesis. For me, this thesis was an amazing and enriching journey in terms of knowledge and research, but also in terms of collaboration and exchange. I now am excited to start a new journey and discover new subjects to work on ! 
+
+You can find my thesis manuscript here:
+<a href="http://www.theses.fr/2021PAUU3016" target="_blank"> http://www.theses.fr/2021PAUU3016</a>. If you don't have the courage to read the entire manuscript (I understand :wink:) you can find below a short abstract of my thesis and the slides I presented during my PhD defense. 
+
+## Abstract of my thesis
+
+Over the last decades, the quantity of data related to coastal risk has greatly increased with the installation of numerous monitoring networks. In this era of big data, the use of statistical learning methods (SLM) in the development of local predictive models becomes more legitimate and justified. The objective of this thesis is to demonstrate how SLM can contribute to the improvement of coastal risk assessment tools and to the development of an early warning system which aims to reduce coastal flooding risk. 
+
+Three methodologies have been developed and tested on real study sites. The first methodology aims to improve the local wave forecast made by spectral wave model with machine learning methods and data from monitoring networks. We showed that data assimilation with machine learning methods improve significantly the forecast of wave parameters especially the wave height and period. The second methodology concerns the creation of storm impact databases. Even though these databases are essential for the disaster risk reduction process they are rare and sparse. We therefore proposed a methodology based on a deep learning method (convolutional neural networks) to generate automatically qualitative storm impact data from images provided by video monitoring stations installed on the coast. The last methodology is about the development of a storm impact model with a statistical method (bayesian network) based exclusively on data acquired with diverse monitoring networks. With this methodology we were able to predict qualitatively the storm impact on our study site, the Grande Plage of Biarritz. 
+
+![Organization of my PhD manuscript](/img_post/thesis_organization.png)
+
+## My presentation for the PhD defense
+
+```{r echo=FALSE}
+htmltools::HTML('{{< gallery-slider dir="Slides/" width="100%" height="550px" >}}')
+```
+
+
+## Appendix: How to make this slide show from a pdf file
+
+The first step is to transform the presentation file (pdf format) into a collection of images (jpeg format) inside a specific folder with the R package *pdftools*:
+
+```
+library(pdftools)
+pdf_convert("filename.pdf", format = "jpeg", pages = NULL, filenames = NULL, dpi = 300, opw = "", upw = "", verbose = TRUE)
+```
+
+Then we add the short code "gallery-slider.html" presented in this [github repository](https://github.com/tbiering/hugo-slider-shortcode) in this folder: `Website_Folder/themes/beautifulhugo/layouts/shortcodes/`
+
+Finally we include the gallery slider our post with the following line of code: 
+
+```
+{{</* gallery-slider dir="Slides/" width="100%" height="500px" */>}}
+```
+
+The directory containing the images must be placed in the  `Website_Folder/static/` folder.

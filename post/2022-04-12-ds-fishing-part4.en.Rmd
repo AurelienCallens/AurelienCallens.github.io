@@ -1,0 +1,323 @@
+---
+title: 'Can R and Shiny make me a better fisherman? Part 4'
+subtitle: 'Exploratory analysis on my fishing data (shiny and plotly)'
+author: 'Aurélien Callens'
+date: '2022-04-12'
+slug: R-shiny-fishing-part4
+categories:
+  - R
+tags:
+  - tidyverse
+  - shiny
+  - plotly
+
+share_img: '/img_post/seabass_bay.jpg'
+bigimg: [{src: "/img_post/seabass_bay.jpg", desc: "Seabass"}]
+codefolding_show: hide
+---
+
+In this post, I explore the data I have collected during the last year with the updated version of the application (presented [here](/2021/06/01/r-shiny-fishing-part3/)). This quick exploratory analysis is performed with two packages I really enjoy: *Plotly* and *shiny*.
+
+For reminder, my new application store the data in three csv files. The first one contains variables related to the fishing conditions. The second one contains information about my catches and finally the third one contains information about the characteristics of the lures I used during the session.
+
+## Shiny to explore fishing data by session
+
+I coded a small shiny application that provide a summary of the tide and river flow conditions, the lure changes and catches for each session. Don't hesitate to explore my fishing data ! 
+
+<div class="wrap" style="width: 100%; height: 1500px;
+    padding: 0; overflow: hidden;">
+<iframe style='width: 800px;
+    height: 1550px;
+    border: 0;
+    -ms-transform: scale(0.25);
+    -moz-transform: scale(0.25);
+    -o-transform: scale(0.25);
+    -webkit-transform: scale(0.25);
+    transform: scale(0.95);
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;' src="https://aureliencallens.shinyapps.io/Fishing_analysis/"> </iframe>
+</div>
+
+## Code of the shiny application 
+
+Here is the code of the plotly graphs in the application:
+
+```{r, eval=FALSE}
+library(plotly)
+library(tidyverse)
+
+
+#' For the tide plot
+#' 
+#' @param dat first dataframe with session characteristics
+#' @param n_ses the id (number) of the session
+#' @param temporal_range number of hours to display (before and after the session)
+#' @return A plotly object
+plot_tide_ses <- function(dat, n_ses, temporal_range = 4){
+
+  dat_t <- dat %>% 
+    filter(Session == n_ses) %>% 
+    mutate(Tide_ts = list(eval(parse(text = Ts_tide))))
+  dat_tide <- as.data.frame(dat_t$Tide_ts)
+  dat_tide$hour <- as.POSIXct(dat_tide$hour, origin = "1970-01-01")
+  dat_tide$Water <- as.numeric(as.character(dat_tide$Water))
+  
+  plot_ly(data = dat_tide, 
+          x = ~ hour, 
+          y = ~ Water, 
+          mode = 'lines') %>%  
+    layout(shapes = list(
+      list(type = 'line',
+           x0 = as.POSIXct(dat_t$Beg),
+           x1 = as.POSIXct(dat_t$Beg),
+           y0 = min(dat_tide$Water),
+           y1 = max(dat_tide$Water),
+           line = list(dash = 'dot', width = 1)),
+      list(type = 'line',
+           x0 =  as.POSIXct(dat_t$End),
+           x1 = as.POSIXct(dat_t$End),
+           y0 = min(dat_tide$Water),
+           y1 = max(dat_tide$Water),
+           line = list(dash = 'dot', width = 1))),
+      xaxis = list(range = as.POSIXct(c(as.POSIXct(dat_t$Beg) - 3600*temporal_range ,
+                                        as.POSIXct(dat_t$End) + 3600*temporal_range )),
+                   title = ""),
+      yaxis = list(title = "Tide level"))
+}
+
+#' For the river flow plot
+#' 
+#' @param dat first dataframe with session characteristics
+#' @param n_ses the id (number) of the session
+#' @param past_days number of previous to display (before the session)
+#' @return A plotly object
+plot_flow_ses <- function(dat, n_ses, past_days = 4){
+  dat_t <- dat %>% 
+    filter(Session == n_ses) %>% 
+    mutate(Flow_ts = list(eval(parse(text = Ts_flow))))
+  
+  dat_flow <- as.data.frame(dat_t$Flow_ts)
+  dat_flow$Date <- as.POSIXct(dat_flow$Date, origin = "1970-01-01")
+  dat_flow$Nive <- as.numeric(as.character(dat_flow$Nive))
+  dat_flow$Adour <- as.numeric(as.character(dat_flow$Adour))
+  
+  
+  dat_flow <- dat_flow %>% 
+    pivot_longer(cols = c(Nive, Adour), 
+                 names_to = "River",
+                 values_to = "Flow")
+  
+  plot_ly(data = dat_flow, 
+          x = ~ Date,
+          y = ~ Flow, 
+          color = ~ River, 
+          mode = 'lines') %>%  
+    layout(shapes = list(
+      list(type='line',
+           x0 = as.POSIXct(dat_t$Beg),
+           x1 = as.POSIXct(dat_t$Beg),
+           y0 = min(dat_flow$Flow),
+           y1 = max(dat_flow$Flow),
+           line = list(dash = 'dot', width = 1))),
+      xaxis = list(range = as.POSIXct(c(as.POSIXct(dat_t$Beg) - 3600*24*past_days,
+                                        as.POSIXct(dat_t$End) )),
+                   title = ""))
+}
+
+#' Function to prepare the dataset for the plot of lure change and catch
+#' 
+#' @param lure third dataframe with lure changes (hours) and characteristics
+#' @param session first dataframe with session characteristics
+#' @param ses_n the id (number) of the session
+#' @return A dataframe
+start_end_fonction <- function(lure, session, ses_n){
+  dat_ses <- session %>% 
+    filter(Session == ses_n)
+  
+  dat_lure <- lure %>% 
+    filter(n_ses == ses_n)
+  
+  startdates <- dat_lure$time
+  enddates <- c(startdates[-1], dat_ses$End)
+  
+  data.frame(change = length(startdates):1, 
+             start = as.POSIXct(startdates),
+             end = as.POSIXct(enddates),
+             type = dat_lure$type_lure,
+             text = paste(dat_lure$color_lure, dat_lure$length_lure))
+}
+
+#' For the plot of lure change and catch
+#' 
+#' @param lure third dataframe with lure changes (hours) and characteristics
+#' @param caught second dataframe with fish caught characteristics
+#' @param session first dataframe with session characteristics
+#' @param n_ses the id (number) of the session
+#' @return A plotly object
+lure_change <- function(lure, caught, dat, n_ses){
+  
+  df <- start_end_fonction(lure, dat, n_ses)
+  
+  catch <- caught %>% 
+    filter(n_ses == n_ses)
+  
+  dat_t <- dat %>% 
+    filter(Session == n_ses) %>% 
+    mutate(Tide_ts = list(eval(parse(text = Ts_tide))))
+  dat_tide <- as.data.frame(dat_t$Tide_ts)
+  dat_tide$hour <- as.POSIXct(dat_tide$hour, origin = "1970-01-01")
+  dat_tide$Water <- as.numeric(as.character(dat_tide$Water))
+  
+  plot_ly() %>% 
+    add_segments(data = df,
+                 x = ~ start,
+                 xend = ~ end,
+                 y = ~ change,
+                 yend = ~ change,
+                 color = ~ type,
+                 #text = ~ text,
+                 size = I(5),
+                 alpha = 0.8) %>%
+    add_segments(x = as.POSIXct(catch$time),
+                 xend = as.POSIXct(catch$time),
+                 y = min(df$change),
+                 yend = max(df$change),
+                 line = list(color = "red", dash = "dash"),
+                 name = 'Fish caught') %>%
+    add_trace(data = dat_tide, 
+              x = ~ hour, 
+              y = ~ Water, 
+              mode = 'lines', 
+              yaxis = "y2",
+              name = "Water level",
+              alpha = 0.4,
+              hoverinfo = 'skip'
+    ) %>% 
+    layout(xaxis = list(range = c(df$start[1] - 1000 , df$end[nrow(df)] + 1000),
+                        title = ""),
+           yaxis = list(title = "", zeroline = FALSE, showline = FALSE,
+                        showticklabels = FALSE, showgrid = FALSE ),
+           yaxis2 = list(overlaying = "y", side = "right"))
+}
+
+```
+
+Here is the code of this simple yet informative application: 
+
+```{r, eval=FALSE}
+library(shiny)
+library(shinyWidgets)
+library(shinydashboard)
+library(plotly)
+library(tidyverse)
+source('plot_functions.R')
+dat <- read_csv("session1.csv")
+caught <- read_csv("catch1.csv")
+lure <- read_csv("lure.csv")
+
+# In order to save the tide and flow time series I parse the data in the dataframe
+# The following line is used to transform the parsed text into usable values
+dat_t <- dat %>% 
+  mutate(Tide_ts = list(eval(parse(text = Ts_tide))),
+         Flow_ts = list(eval(parse(text = Ts_flow))))
+
+body <- dashboardBody(fluidPage(
+  # Application title
+  h1("Exploratory analysis of fishing data",
+  align = "center",
+  style = "padding: 40px;  text-align: center;  background: #605ca8;  color: white;  font-size: 40px;"),
+  br(),
+  # Dropdown menu to select the fishing session
+  fluidRow(align = "center",
+           pickerInput(inputId = 'Ses',
+                       label = h3('Select a fishing session:'),
+                       choices = unique(dat$Session[-1]),
+                       options = list(
+                         style = "btn-primary"),
+                       choicesOpt = list(
+                         style = rep_len("font-size: 75%; line-height: 1.6;", 4)
+                       ))),
+  br(),
+  br(),
+  # Key figures of the session
+  fluidRow(
+    valueBoxOutput("progressD", width = 4),
+    valueBoxOutput("progressF", width = 4),
+    valueBoxOutput("progressL", width = 4)),
+  br(),
+  
+  br(),
+  # Graphs of the tide and river flow of recent days
+  fluidRow(
+    box(title = "Tidal water level", status = "primary", 
+        plotlyOutput("TidePlot"), width = 6),
+    box(title = "River flow", status = "primary",
+        plotlyOutput("FlowPlot"), width = 6)),
+  br(),
+  # Graph lure changes during the session + catch
+  fluidRow(
+    box(title = "Lures tested and fish capture", status = "warning", 
+        plotlyOutput("LurePlot"), width=12))
+))
+
+ui <- dashboardPage(
+  
+  dashboardHeader(disable = TRUE),
+  
+  dashboardSidebar(disable = TRUE),
+  
+  body
+)
+
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+  
+  # Duration
+  output$progressD <- renderValueBox({
+    Duration = as.integer(difftime(as.POSIXct(dat$End[dat$Session == input$Ses]), as.POSIXct(dat$Beg[dat$Session == input$Ses]), units = 'mins'))
+    valueBox(tags$p("Duration", style = "font-size: 80%;"),
+             tags$p(paste(Duration, "min"), style = "font-size: 150%; font-weight: bold;"),
+             icon = icon("clock"), color = "purple")
+  })
+  
+  # Number of fish
+  
+  output$progressF <- renderValueBox({
+    fish_caught = as.integer(caught %>% filter(n_ses == input$Ses) %>% nrow())
+    valueBox(tags$p("Fish caught", style = "font-size: 80%;"), tags$p(fish_caught, style = "font-size: 150%;font-weight: bold;"),
+             icon = icon("trophy"), color = "purple")
+  })
+  
+  # Number of lures tried
+  
+  output$progressL <- renderValueBox({
+    Lure = as.integer(lure %>% filter(n_ses == input$Ses) %>% nrow())
+    valueBox(tags$p("Lure tried", style = "font-size: 80%;"), tags$p(Lure, style = "font-size: 150%;font-weight: bold;"),
+             icon = icon("fish"), color = "purple")
+  })
+  
+  output$TidePlot <- renderPlotly({
+    # generate plot depending on session
+    plot_tide_ses(dat, input$Ses, 4)
+  })
+  output$FlowPlot <- renderPlotly({
+    # generate plot depending on session
+    plot_flow_ses(dat_t, input$Ses, 4)
+  })
+  output$LurePlot <- renderPlotly({
+    # generate plot depending on session
+    lure_change(lure, caught, dat, input$Ses)
+  })
+  
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+
+```
+
+

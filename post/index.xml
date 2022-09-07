@@ -438,7 +438,7 @@ shinyApp(ui = ui, server = server)&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Two weeks ago, I defended my thesis entitled ‘Statistical learning for coastal risks assessment’ in front of an academic jury. The defense went extremely well and the the jury and the auditory were genuinely interested by the work I had done during my thesis. For me, this thesis was an amazing and enriching journey in terms of knowledge and research, but also in terms of collaboration and exchange. I now am excited to start a new journey and discover new subjects to work on !&lt;/p&gt;
 &lt;p&gt;You can find my thesis manuscript here:
-&lt;a href=&#34;http://www.theses.fr/2021PAUU3016&#34; target=&#34;_blank&#34;&gt; http://www.theses.fr/2021PAUU3016&lt;/a&gt;. If you don’t have the courage to read the entire manuscript (I understand 😉) you can find below a short abstract of my thesis and the slides I presented during my PhD defense.&lt;/p&gt;
+&lt;a href=&#34;http://www.theses.fr/2021PAUU3016&#34; target=&#34;_blank&#34;&gt; http://www.theses.fr/2021PAUU3016&lt;/a&gt;. If you don’t have the courage to read the entire manuscript (I understand :wink:) you can find below a short abstract of my thesis and the slides I presented during my PhD defense.&lt;/p&gt;
 &lt;div id=&#34;abstract-of-my-thesis&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Abstract of my thesis&lt;/h2&gt;
 &lt;p&gt;Over the last decades, the quantity of data related to coastal risk has greatly increased with the installation of numerous monitoring networks. In this era of big data, the use of statistical learning methods (SLM) in the development of local predictive models becomes more legitimate and justified. The objective of this thesis is to demonstrate how SLM can contribute to the improvement of coastal risk assessment tools and to the development of an early warning system which aims to reduce coastal flooding risk.&lt;/p&gt;
@@ -2408,7 +2408,7 @@ annotate_figure(ggarrange(gg12, gg13, gg14, ncol = 3),
 &lt;div id=&#34;conclusion&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;Analyzing my fishing data was very interesting and it brought me some insights on my fishing style! I understood that I was fishing almost the same way with the same habits. Although it seems to be working for me, I have a biased view on how to catch European sea bass. I must use bigger lures to catch bigger fish and I must vary the types of lures used. Indeed, I fish most of the times with slug or shad lures, hence the higher number of fish caught with these types of lures.&lt;/p&gt;
-&lt;p&gt;I will keep using the application to gather more data and have a better understanding on my fishing session. I will keep you updated on the results ! 😉&lt;/p&gt;
+&lt;p&gt;I will keep using the application to gather more data and have a better understanding on my fishing session. I will keep you updated on the results ! :wink:&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
