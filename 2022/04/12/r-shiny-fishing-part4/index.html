@@ -101,6 +101,17 @@
 
 
 
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-129143452-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
   </head>
   <body>
@@ -118,6 +129,12 @@
 
     <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="R-bloggers" href="https://www.r-bloggers.com/">R-bloggers</a>
+            </li>
+          
         
           
             <li>
@@ -717,6 +734,20 @@ shinyApp(ui = ui, server = server)</code></pre>
 
       
         
+          
+          <div class="disqus-comments">                  
+            <button id="show-comments" class="btn btn-default" type="button">Show <span class="disqus-comment-count" data-disqus-url="https://aureliencallens.github.io/2022/04/12/r-shiny-fishing-part4">comments</span></button>
+            <div id="disqus_thread"></div>
+
+            <script type="text/javascript">
+              var disqus_config = function () {
+              this.page.url = 'https:\/\/aureliencallens.github.io\/2022\/04\/12\/r-shiny-fishing-part4';
+            };
+
+          </script>
+          </div>
+          
+        
         
       
 
@@ -805,6 +836,28 @@ shinyApp(ui = ui, server = server)</code></pre>
 
 
 
+
+
+
+<script type="text/javascript">
+$(function(){
+  $('#show-comments').on('click', function(){
+    var disqus_shortname = 'https-aureliencallens-github-io';
+      
+    (function() {
+      var disqus = document.createElement('script'); 
+      disqus.type = 'text/javascript'; 
+      disqus.async = true;
+      disqus.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(disqus);
+    })();
+      
+    $(this).hide(); 
+    });
+  });
+      
+</script>
+<script id="dsq-count-scr" src="//https-aureliencallens-github-io.disqus.com/count.js" async></script>
 
 
 
