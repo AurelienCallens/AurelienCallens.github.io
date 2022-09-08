@@ -17,7 +17,7 @@
       <description>
 
 
-&lt;p&gt;I am currently in my third year of PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risk.&lt;/p&gt;
+&lt;p&gt;I am currently in the third year of my PHD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risk.&lt;/p&gt;
 &lt;p&gt;In this short post, we are going to use the R package &lt;code&gt;gtrendsR&lt;/code&gt; to analyze the trends of specific words related to statistical learning such as “machine learning” or “data science” and also related to coastal risks: “coastal flood”, “storm surge”.&lt;/p&gt;
 &lt;div id=&#34;analysis-of-specific-terms-for-the-whole-world&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Analysis of specific terms for the whole world&lt;/h2&gt;

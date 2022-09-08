@@ -9,7 +9,7 @@
 
   <title>Webscraping Aliexpress with Rselenium - Aurélien Callens</title>
   <meta name="description" content="Today, I am going to show you how to scrape product prices from Aliexpress website.
-A few words on web scraping Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the robots.txt page which should be located at the root of the website adress.">
+A few words on web scraping Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the robots.txt page which should be located at the root of the website address.">
   <meta name="author" content="Aurelien Callens"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -58,7 +58,7 @@ A few words on web scraping Before diving into the subject, you should be aware 
     "name" : "Aurelien Callens"
   },
   "headline": "Webscraping Aliexpress with Rselenium",
-  "description" : "Today, I am going to show you how to scrape product prices from Aliexpress website.\nA few words on web scraping Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the robots.txt page which should be located at the root of the website adress.",
+  "description" : "Today, I am going to show you how to scrape product prices from Aliexpress website.\nA few words on web scraping Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the robots.txt page which should be located at the root of the website address.",
   "inLanguage" : "en",
   "wordCount":  859 ,
   "datePublished" : "2020-11-18T00:00:00",
@@ -81,7 +81,7 @@ A few words on web scraping Before diving into the subject, you should be aware 
 
 <meta property="og:title" content="Webscraping Aliexpress with Rselenium" />
 <meta property="og:description" content="Today, I am going to show you how to scrape product prices from Aliexpress website.
-A few words on web scraping Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the robots.txt page which should be located at the root of the website adress.">
+A few words on web scraping Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the robots.txt page which should be located at the root of the website address.">
 <meta property="og:image" content="https://aureliencallens.github.io/img/avatar-icon.jpg" />
 <meta property="og:url" content="https://aureliencallens.github.io/2020/11/18/2020-11-18-aliexpress_rselenium/" />
 <meta property="og:type" content="website" />
@@ -287,7 +287,7 @@ if (!doNotTrack) {
 <p>Today, I am going to show you how to scrape product prices from Aliexpress website.</p>
 <div id="a-few-words-on-web-scraping" class="section level2">
 <h2>A few words on web scraping</h2>
-<p>Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the <em>robots.txt</em> page which should be located at the root of the website adress. For Aliexpress this page is located here : <a href="https://www.aliexpress.com/robots.txt" target="_blank">www.aliexpress.com/robots.txt .</a></p>
+<p>Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the <em>robots.txt</em> page which should be located at the root of the website address. For Aliexpress this page is located here : <a href="https://www.aliexpress.com/robots.txt" target="_blank">www.aliexpress.com/robots.txt .</a></p>
 <p>This page indicates that webscrapping and crawling are not allowed on several page categories such as <code>/bin/*</code>, <code>/search/*</code>, <code>/wholesale*</code> for example. Fortunately for us, the <code>/item/*</code> category, where the product pages are stored, can be scraped.</p>
 </div>
 <div id="rselenium" class="section level2">
@@ -315,7 +315,7 @@ remDr &lt;- rD[[&quot;client&quot;]]</code></pre>
 </div>
 <div id="logging-in-aliexpress" class="section level3">
 <h3>Logging in Aliexpress</h3>
-<p>The first step to scrape product prices on aliexpress is to log in into your account:</p>
+<p>The first step to scrape product prices on Aliexpress is to log in into your account:</p>
 <pre class="r"><code>log_id &lt;- &quot;Your_mail_adress&quot;
 password &lt;- &quot;Your_password&quot;
 
@@ -333,7 +333,7 @@ remDr$findElement(&quot;class&quot;, &quot;fm-button&quot;)$clickElement()</code
 </div>
 <div id="navigating-through-the-urls-and-scraping-the-prices" class="section level3">
 <h3>Navigating through the URLs and scraping the prices</h3>
-<p>Now we have to navigate through a vector containing the URL of the aliexpress products we are interested in. Then we extract the price of the product by using the xpath of the product price of the webpage. The xpath of the element you want to scrape can be found by using the developper tool of chrome or firefox ( <a href="https://www.scrapingbee.com/blog/practical-xpath-for-web-scraping/">tutorial here !</a> ). Once the price is extracted we have to ensure this price is in numerical format by removing any special character (euro or dollar sign) and replace the comma by a point for the decimal separator. Here is the R code:</p>
+<p>Now we have to navigate through a vector containing the URL of the aliexpress products we are interested in. Then we extract the price of the product by using the xpath of the product price of the webpage. The xpath of the element you want to scrape can be found by using the developer tool of chrome or firefox ( <a href="https://www.scrapingbee.com/blog/practical-xpath-for-web-scraping/">tutorial here !</a> ). Once the price is extracted we have to ensure this price is in numerical format by removing any special character (euro or dollar sign) and replace the comma by a point for the decimal separator. Here is the R code:</p>
 <pre class="r"><code>  url_list &lt;- list(&quot;https://fr.aliexpress.com/store/product/Maxcatch-6Pcs-lot-Craws-Soft-Fishing-Lures-110mm-11-5g-Artificial-Bait-Soft-Bait-Craws-Lures/406467_32419930548.html?spm=a2g0w.12010612.0.0.5deb64f7836LnZ&quot;,
             &quot;https://fr.aliexpress.com/store/product/Maxcatch-Fishing-Lure-5Pcs-Lot-155mm-7-4g-3-colors-Swimbait-Artificial-Lizard-Soft-Fishing-Lures/406467_32613648610.html?spm=a2g0w.12010612.0.0.5deb64f7836LnZ&quot;,
             &quot;https://fr.aliexpress.com/store/product/Maxcatch-6Pcs-lot-Soft-Fishing-Lures-Minnow-Biat-95mm-6g-Jerkbait-Soft-Bait/406467_32419066106.html?spm=a2g0w.12010612.0.0.25fe5872CBqy0m&quot;) 

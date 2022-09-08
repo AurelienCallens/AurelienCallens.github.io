@@ -14,8 +14,6 @@ subtitle: ''
 image: ''
 codefolding_show: hide
 share_img: "/post/2021-03-01-coastal-risks-google-trends.en_files/figure-html/unnamed-chunk-1-1.png"
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -25,9 +23,9 @@ library(gtrendsR)
 ```
 
 
-I am currently in my third year of PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risk.
+I am currently in the third year of my PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risks.
 
-In this short post, we are going to use the R package `gtrendsR` to analyze the trends of specific words related to statistical learning such as "machine learning" or "data science" and also related to coastal risks: "coastal flood", "storm surge". 
+In this post, we are going to use the R package `gtrendsR` to analyze the trends of specific words related to statistical learning such as "machine learning" or "data science" and also related to coastal risks: "coastal flood", "storm surge". 
 
 
 ## Analysis of specific terms for the whole world 
@@ -90,7 +88,7 @@ interest_coast %>%
   theme_bw()
 ```
 
-Contrary to the interest for the statistical terms, the interest in coastal risk topics is more punctual. One of my hypothesis is that the interest in these topic increases after a large storm event has occurred in the world.  We will investigate on this hypothesis at the end of the post. 
+Contrary to the interest for the statistical terms, the interest in terms related to coastal risk is more punctual. One of my hypothesis is that the interest in these topic increases after a large storm event has occurred in the world.  We will investigate on this hypothesis at the end of the post. 
 
 ## Mapping the interest of "storm surge" and "data science" in the world
 
@@ -138,7 +136,7 @@ Int_Merged %>%
 
 ```
 
-We see from this map that the number of Google search for this term is quite low for many countries in comparison with other terms (white color means not enough search comparing to the total number of search). In general the interest is higher in countries that are more likely to be impacted by marine storms or hurricanes. The Republic of Philippines seems the most interested country in storm surge. 
+We see from this map that the number of Google searches for this term is quite low for many countries in comparison with other terms (white color means not enough search comparing to the total number of search). In general the interest is higher in countries that are more likely to be impacted by marine storms or hurricanes. The Republic of Philippines seems the most interested country in storm surge. 
 
 We can then continue with the term "data science": 
 
@@ -182,7 +180,6 @@ Int_Merged %>%
 ```
 
 Much more countries are interested by this topic with India being the country with the highest number of Google searchs about data science.  
-
 
 ## Focusing on the trend of "storm surge" in France 
 
@@ -230,8 +227,6 @@ From this figure, we can see that after a storm event there is often a surge in 
 ## Conclusion 
 
 This analysis was really interesting for me as it confirmed what I knew with numbers and graphs. Without a doubt, this analysis will be a great asset for my introduction, especially in the part where I will discuss about the growing interest in data science. I hope this post gave you the envy to reproduce this analysis for the terms of your choice ! 
-
-  
 
 
   

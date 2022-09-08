@@ -26,12 +26,12 @@ library(DiagrammeR)
 ```
 
 
-In this [previous post](/2020/09/12/r-shiny-fishing-part1/), I presented the shiny application I developed to record data about my fishing session. In today's post, I will present briefly the changes and updates I made to improve the application. Here are the main changes : 
+In this [previous post](/2020/09/12/r-shiny-fishing-part1/), I presented the shiny application I developed to record data about my fishing session. In today's post, I will present briefly the changes and updates I made to improve the application. Here are the main changes: 
 
 
 + **Weather API**: the API I was using (Dark Sky) stopped furnishing free data. I changed for [Openweathermap](https://openweathermap.org/) and I needed to update the functions to gather the same information as before.
 
-+ **River flow**: the first version of the application did not collect any information about the flow of the river in which I am fishing. However I am convinced that the river flow before the fishing session might have an impact on the presence of seabass. I therefore created a web scrapping function that collect the flow of the Nive and the Adour (main fishing rivers). 
++ **River flow**: the first version of the application did not collect any data about the flow of the river in which I am fishing. However I am convinced that the river flow before the fishing session might have an impact on the presence of seabass. I therefore created a web scrapping function that collect the flow of the Nive and the Adour (main fishing rivers). 
 
 + **Collecting lure data**: in the first version, data about fishing lures I used were only collected when a fish was caught. However I did not have data about how long I used the lure before catching a fish. The new version of the application now collects data about lure and how often I change lure. 
 
@@ -74,7 +74,7 @@ weather <- function(lat, lon, API_key){
 
 ## River flow
 
-I wrote functions to scrap information about the flow of the rivers in which I fish the most on a french website:
+I wrote functions to scrap information about the flows of the rivers in which I fish the most on a french website:
 
 ```{r}
 
@@ -156,8 +156,6 @@ river_flow <- function(){
 ## Shiny application 
 
 A simplified graph of the new application is showed below: 
-
-
 
 ```{r eval=FALSE, include=FALSE}
 

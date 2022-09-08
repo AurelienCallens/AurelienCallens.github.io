@@ -21,7 +21,7 @@
 &lt;p&gt;For reminder, my new application store the data in three csv files. The first one contains variables related to the fishing conditions. The second one contains information about my catches and finally the third one contains information about the characteristics of the lures I used during the session.&lt;/p&gt;
 &lt;div id=&#34;shiny-to-explore-fishing-data-by-session&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Shiny to explore fishing data by session&lt;/h2&gt;
-&lt;p&gt;I coded a small shiny application that provide a summary of the tide and river flow conditions, the lure changes and catches for each session. Don’t hesitate to explore my fishing data !&lt;/p&gt;
+&lt;p&gt;I coded a small shiny application that provide a summary of the tide and river flow conditions, the lure changes and catches for each session. Don’t hesitate to explore my fishing data!&lt;/p&gt;
 &lt;div class=&#34;wrap&#34; style=&#34;width: 100%; height: 1500px;
     padding: 0; overflow: hidden;&#34;&gt;
 &lt;iframe style=&#34;width: 800px;
@@ -322,10 +322,10 @@ shinyApp(ui = ui, server = server)&lt;/code&gt;&lt;/pre&gt;
       <description>
 
 
-&lt;p&gt;In this &lt;a href=&#34;https://aureliencallens.github.io/2020/09/12/r-shiny-fishing-part1/&#34;&gt;previous post&lt;/a&gt;, I presented the shiny application I developed to record data about my fishing session. In today’s post, I will present briefly the changes and updates I made to improve the application. Here are the main changes :&lt;/p&gt;
+&lt;p&gt;In this &lt;a href=&#34;https://aureliencallens.github.io/2020/09/12/r-shiny-fishing-part1/&#34;&gt;previous post&lt;/a&gt;, I presented the shiny application I developed to record data about my fishing session. In today’s post, I will present briefly the changes and updates I made to improve the application. Here are the main changes:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Weather API&lt;/strong&gt;: the API I was using (Dark Sky) stopped furnishing free data. I changed for &lt;a href=&#34;https://openweathermap.org/&#34;&gt;Openweathermap&lt;/a&gt; and I needed to update the functions to gather the same information as before.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;River flow&lt;/strong&gt;: the first version of the application did not collect any information about the flow of the river in which I am fishing. However I am convinced that the river flow before the fishing session might have an impact on the presence of seabass. I therefore created a web scrapping function that collect the flow of the Nive and the Adour (main fishing rivers).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;River flow&lt;/strong&gt;: the first version of the application did not collect any data about the flow of the river in which I am fishing. However I am convinced that the river flow before the fishing session might have an impact on the presence of seabass. I therefore created a web scrapping function that collect the flow of the Nive and the Adour (main fishing rivers).&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Collecting lure data&lt;/strong&gt;: in the first version, data about fishing lures I used were only collected when a fish was caught. However I did not have data about how long I used the lure before catching a fish. The new version of the application now collects data about lure and how often I change lure.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div id=&#34;weather-api&#34; class=&#34;section level2&#34;&gt;
@@ -364,7 +364,7 @@ weather &amp;lt;- function(lat, lon, API_key){
 &lt;/div&gt;
 &lt;div id=&#34;river-flow&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;River flow&lt;/h2&gt;
-&lt;p&gt;I wrote functions to scrap information about the flow of the rivers in which I fish the most on a french website:&lt;/p&gt;
+&lt;p&gt;I wrote functions to scrap information about the flows of the rivers in which I fish the most on a french website:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Get and prepare the flow data
 get_Qdata &amp;lt;- function(link){
   table &amp;lt;- fromJSON(content(GET(link), &amp;quot;text&amp;quot;))

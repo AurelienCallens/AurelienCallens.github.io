@@ -12,7 +12,6 @@ socialShare: true
 comments: true
 ---
 
-
 Here, I will present my projects and  write articles on different subjects such as : 
 
 - Statistical analysis

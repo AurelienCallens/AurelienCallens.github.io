@@ -10,7 +10,7 @@ subtitle: ''
 image: ''
 ---
 
-Two weeks ago, I defended my thesis entitled 'Statistical learning for coastal risks assessment' in front of an academic jury. The defense went extremely well and the the jury and the auditory were genuinely interested by the work I had done during my thesis. For me, this thesis was an amazing and enriching journey in terms of knowledge and research, but also in terms of collaboration and exchange. I now am excited to start a new journey and discover new subjects to work on ! 
+Two weeks ago, I defended my thesis entitled 'Statistical learning for coastal risks assessment' in front of an academic jury. The defense went extremely well and the jury and the auditory were genuinely interested by the work I had done during my thesis. This thesis was an amazing and enriching journey in terms of knowledge and research, but also in terms of collaboration and exchange. I now am excited to start a new journey and discover new subjects to work on ! 
 
 You can find my thesis manuscript here:
 <a href="http://www.theses.fr/2021PAUU3016" target="_blank"> http://www.theses.fr/2021PAUU3016</a>. If you don't have the courage to read the entire manuscript (I understand :wink:) you can find below a short abstract of my thesis and the slides I presented during my PhD defense. 

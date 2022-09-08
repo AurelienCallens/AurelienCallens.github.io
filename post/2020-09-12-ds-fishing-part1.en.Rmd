@@ -29,7 +29,7 @@ library(DiagrammeR)
 ```
 
 
-My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I am fishing European sea bass (*Dicentrarchus labrax*) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don't use live baits, I prefer to use artificial lures that imitate a specific prey. 
+My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I fish European sea bass (*Dicentrarchus labrax*) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don't use live baits, I prefer to use artificial lures that imitate a specific prey. 
 
 In theory, it is quite easy to catch a fish:
 

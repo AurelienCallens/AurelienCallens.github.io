@@ -22,7 +22,7 @@ Today, I am going to show you how to scrape product prices from Aliexpress websi
 
 ## A few words on web scraping
 
-Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the *robots.txt* page which should be located at the root of the website adress. For Aliexpress this page is located here : <a href="https://www.aliexpress.com/robots.txt" target="_blank">www.aliexpress.com/robots.txt .</a>
+Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the *robots.txt* page which should be located at the root of the website address. For Aliexpress this page is located here : <a href="https://www.aliexpress.com/robots.txt" target="_blank">www.aliexpress.com/robots.txt .</a>
 
 
 This page indicates that webscrapping and crawling are not allowed on several page categories such as `/bin/*`, `/search/*`, `/wholesale*` for example. Fortunately for us, the `/item/*` category, where the product pages are stored, can be scraped. 
@@ -68,7 +68,7 @@ remDr <- rD[["client"]]
 
 ### Logging in Aliexpress
 
-The first step to scrape product prices on aliexpress is to log in into your account:  
+The first step to scrape product prices on Aliexpress is to log in into your account:  
  
 ```{r}
 log_id <- "Your_mail_adress"
@@ -90,7 +90,7 @@ remDr$findElement("class", "fm-button")$clickElement()
 
 ### Navigating through the URLs and scraping the prices
 
-Now we have to navigate through a vector containing the URL of the aliexpress products we are interested in. Then we extract the price of the product by using the xpath of the product price of the webpage. The xpath of the element you want to scrape can be found by using the developper tool of chrome or firefox ( [tutorial here !](https://www.scrapingbee.com/blog/practical-xpath-for-web-scraping/) ). Once the price is extracted we have to ensure this price is in numerical format by removing any special character (euro or dollar sign) and replace the comma by a point for the decimal separator. Here is the R code: 
+Now we have to navigate through a vector containing the URL of the aliexpress products we are interested in. Then we extract the price of the product by using the xpath of the product price of the webpage. The xpath of the element you want to scrape can be found by using the developer tool of chrome or firefox ( [tutorial here !](https://www.scrapingbee.com/blog/practical-xpath-for-web-scraping/) ). Once the price is extracted we have to ensure this price is in numerical format by removing any special character (euro or dollar sign) and replace the comma by a point for the decimal separator. Here is the R code: 
 
 ```{r}
   url_list <- list("https://fr.aliexpress.com/store/product/Maxcatch-6Pcs-lot-Craws-Soft-Fishing-Lures-110mm-11-5g-Artificial-Bait-Soft-Bait-Craws-Lures/406467_32419930548.html?spm=a2g0w.12010612.0.0.5deb64f7836LnZ",

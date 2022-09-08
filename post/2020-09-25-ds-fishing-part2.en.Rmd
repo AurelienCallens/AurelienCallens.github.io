@@ -33,7 +33,7 @@ To sum up, my application store the data in two csv files. The first one contain
 
 + Time 
 + Longitude and Latitude
-+ Meteorological conditions (9 in total : Air temperature, Atm. pressure, Wind speed and direction ...)
++ Meteorological conditions (9 in total : Air temperature, Atmospheric pressure, Wind speed and direction ...)
 + Tide conditions (Current water level, Tide status and Time since the tide peak)
 + Specific comments
 
@@ -94,7 +94,7 @@ dfSummary(., plain.ascii = FALSE, style = "multiline",
 &nbsp;
 
 After cleaning and rearranging the data (code hidden below), we are ready to explore 
-graphically our data ! 
+graphically our data! 
 
 ```{r}
 
@@ -266,7 +266,7 @@ It seems that the status of the tide current does not influence the number of my
 
 ### Does the moon affect my fishing results? 
 
-A widespread belief among fishermen is that the moon influence greatly the behavior of the fish. Information about the moon phase were available thanks to the weather API, I decided to record this variable to investigate if the belief was true. The two graphs show the number and length of fish depending on the phase of moon (0 corresponding to new moon and 1 to full moon):
+A widespread belief among fishermen is that the moon influences greatly the behavior of the fish. Data about the moon phase were available thanks to the weather API, I decided to record this variable to investigate if the belief was true. The two graphs show the number and length of fish depending on the phase of moon (0 corresponding to new moon and 1 to full moon):
 
 
 ```{r}
@@ -462,8 +462,7 @@ annotate_figure(ggarrange(gg12, gg13, gg14, ncol = 3),
 )
 ```
 
-With these 6 graphs, we can see that the most successful types of lures for me are the shad and slug types. An honorable mention is the jerkbait type : it only accounts for 2 fish, but 2 big fish (median around 47cm). The colors that worked best for me were clear and natural. For the size of the lure, bigger lures tend to catch bigger fish in average. These conclusions must be taken with a grain of salt because we do not know the time spent with each lure before catching a fish. In addition, I tend to use the same types and colors of lures (habits), I should vary more. 
-
+With these 6 graphs, we can see that the most successful types of lures for me are the shad and slug types. An honorable mention is the jerkbait type: it only accounts for 2 fish, but 2 big fish (median around 47cm). The colors that worked best for me were clear and natural. For the size of the lure, bigger lures tend to catch bigger fish in average. These conclusions must be taken with a grain of salt because we do not know the time spent with each lure before catching a fish. In addition, I tend to use the same types and colors of lures (habits), I should vary more. 
 
 ## Conclusion
 

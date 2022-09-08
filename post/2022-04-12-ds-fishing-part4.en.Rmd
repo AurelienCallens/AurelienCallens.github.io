@@ -22,7 +22,7 @@ For reminder, my new application store the data in three csv files. The first on
 
 ## Shiny to explore fishing data by session
 
-I coded a small shiny application that provide a summary of the tide and river flow conditions, the lure changes and catches for each session. Don't hesitate to explore my fishing data ! 
+I coded a small shiny application that provide a summary of the tide and river flow conditions, the lure changes and catches for each session. Don't hesitate to explore my fishing data! 
 
 <div class="wrap" style="width: 100%; height: 1500px;
     padding: 0; overflow: hidden;">

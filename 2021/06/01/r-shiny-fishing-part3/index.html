@@ -57,9 +57,9 @@
     "name" : "Aurélien Callens"
   },
   "headline": "Can R and Shiny make me a better fisherman? Part 3",
-  "description" : "In this previous post, I presented the shiny application I developed to record data about my fishing session. In today’s post, I will present briefly the changes and updates I made to improve the application. Here are the main changes :\n Weather API: the API I was using (Dark Sky) stopped furnishing free data. I changed for Openweathermap and I needed to update the functions to gather the same information as before.",
+  "description" : "In this previous post, I presented the shiny application I developed to record data about my fishing session. In today’s post, I will present briefly the changes and updates I made to improve the application. Here are the main changes:\n Weather API: the API I was using (Dark Sky) stopped furnishing free data. I changed for Openweathermap and I needed to update the functions to gather the same information as before.",
   "inLanguage" : "en",
-  "wordCount":  1467 ,
+  "wordCount":  1466 ,
   "datePublished" : "2021-06-01T00:00:00",
   "dateModified" : "2021-06-01T00:00:00",
   "image" : "https:\/\/aureliencallens.github.io\/img\/avatar-icon.jpg",
@@ -328,10 +328,10 @@ if (!doNotTrack) {
         
 
 
-<p>In this <a href="/2020/09/12/r-shiny-fishing-part1/">previous post</a>, I presented the shiny application I developed to record data about my fishing session. In today’s post, I will present briefly the changes and updates I made to improve the application. Here are the main changes :</p>
+<p>In this <a href="/2020/09/12/r-shiny-fishing-part1/">previous post</a>, I presented the shiny application I developed to record data about my fishing session. In today’s post, I will present briefly the changes and updates I made to improve the application. Here are the main changes:</p>
 <ul>
 <li><p><strong>Weather API</strong>: the API I was using (Dark Sky) stopped furnishing free data. I changed for <a href="https://openweathermap.org/">Openweathermap</a> and I needed to update the functions to gather the same information as before.</p></li>
-<li><p><strong>River flow</strong>: the first version of the application did not collect any information about the flow of the river in which I am fishing. However I am convinced that the river flow before the fishing session might have an impact on the presence of seabass. I therefore created a web scrapping function that collect the flow of the Nive and the Adour (main fishing rivers).</p></li>
+<li><p><strong>River flow</strong>: the first version of the application did not collect any data about the flow of the river in which I am fishing. However I am convinced that the river flow before the fishing session might have an impact on the presence of seabass. I therefore created a web scrapping function that collect the flow of the Nive and the Adour (main fishing rivers).</p></li>
 <li><p><strong>Collecting lure data</strong>: in the first version, data about fishing lures I used were only collected when a fish was caught. However I did not have data about how long I used the lure before catching a fish. The new version of the application now collects data about lure and how often I change lure.</p></li>
 </ul>
 <div id="weather-api" class="section level2">
@@ -370,7 +370,7 @@ weather &lt;- function(lat, lon, API_key){
 </div>
 <div id="river-flow" class="section level2">
 <h2>River flow</h2>
-<p>I wrote functions to scrap information about the flow of the rivers in which I fish the most on a french website:</p>
+<p>I wrote functions to scrap information about the flows of the rivers in which I fish the most on a french website:</p>
 <pre class="r"><code># Get and prepare the flow data
 get_Qdata &lt;- function(link){
   table &lt;- fromJSON(content(GET(link), &quot;text&quot;))
