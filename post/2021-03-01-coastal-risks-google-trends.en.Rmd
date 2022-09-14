@@ -13,13 +13,11 @@ type: ''
 subtitle: ''
 image: ''
 codefolding_show: hide
-share_img: "/post/2021-03-01-coastal-risks-google-trends.en_files/figure-html/unnamed-chunk-1-1.png"
+share_img: "/img_post/Google_trends.png"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
-library(tidyverse)
-library(gtrendsR)
 ```
 
 
@@ -199,10 +197,10 @@ df_storm <- as.data.frame(matrix(c(
   "2011-12-16 GMT", "Joachim",
   "2014-02-14 GMT", "Ulla",
   "2014-11-04 GMT", "Qendresa",
-  "2016-02-10 GMT", "Unknown",
+  "2016-02-10 GMT", "No name",
   "2017-03-06 GMT", "Zeus",
   "2018-01-03 GMT", "Eleanor",
-  "2019-12-13 GMT", "Unknown"
+  "2019-12-13 GMT", "No name"
   ), ncol = 2, byrow = T), stringsAsFactors = F)
 
 
@@ -216,6 +214,7 @@ res_fr$interest_over_time %>%
   ggplot(aes(x = date, y = hits)) + 
   geom_line() +
   geom_vline(xintercept = df_storm$date, col = "red", lty = 2, alpha = 0.5, lwd = 1) + 
+  geom_label(aes(x=date, y = seq(38, 25, length.out=nrow(df_storm)), label =`Name of storm`), data = df_storm) +
   #geom_vline(xintercept = as.POSIXct("2011-07-11 GMT", tz = "GMT"), col = "blue", lty = 2, alpha = 0.5) + 
   facet_grid(~ keyword) +
   theme_bw()

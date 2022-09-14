@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <title>Coastal risks and statistical learning: Analyzing Google trends with gtrendsR package - Aurélien Callens</title>
-  <meta name="description" content="I am currently in the third year of my PHD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risk.">
+  <meta name="description" content="I am currently in the third year of my PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risks.">
   <meta name="author" content="Aurelien Callens"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -57,9 +57,9 @@
     "name" : "Aurélien Callens"
   },
   "headline": "Coastal risks and statistical learning: Analyzing Google trends with gtrendsR package",
-  "description" : "I am currently in the third year of my PHD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risk.",
+  "description" : "I am currently in the third year of my PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risks.",
   "inLanguage" : "en",
-  "wordCount":  1108 ,
+  "wordCount":  1125 ,
   "datePublished" : "2021-03-03T00:00:00",
   "dateModified" : "2021-03-03T00:00:00",
   "image" : "https:\/\/aureliencallens.github.io\/img\/avatar-icon.jpg",
@@ -79,15 +79,15 @@
 </script>
 
 <meta property="og:title" content="Coastal risks and statistical learning: Analyzing Google trends with gtrendsR package" />
-<meta property="og:description" content="I am currently in the third year of my PHD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risk.">
-<meta property="og:image" content="https://aureliencallens.github.io/post/2021-03-01-coastal-risks-google-trends.en_files/figure-html/unnamed-chunk-1-1.png" />
+<meta property="og:description" content="I am currently in the third year of my PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risks.">
+<meta property="og:image" content="https://aureliencallens.github.io/img_post/Google_trends.png" />
 <meta property="og:url" content="https://aureliencallens.github.io/2021/03/03/coastal-risks-google-trends/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Aurélien Callens" />
 
   <meta name="twitter:title" content="Coastal risks and statistical learning: Analyzing Google trends with …" />
-  <meta name="twitter:description" content="I am currently in the third year of my PHD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context …">
-  <meta name="twitter:image" content="https://aureliencallens.github.io/post/2021-03-01-coastal-risks-google-trends.en_files/figure-html/unnamed-chunk-1-1.png" />
+  <meta name="twitter:description" content="I am currently in the third year of my PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context …">
+  <meta name="twitter:image" content="https://aureliencallens.github.io/img_post/Google_trends.png" />
   <meta name="twitter:card" content="summary" />
   <link href='https://aureliencallens.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta name="generator" content="Hugo 0.96.0" />
@@ -281,8 +281,8 @@ if (!doNotTrack) {
         
 
 
-<p>I am currently in the third year of my PHD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risk.</p>
-<p>In this short post, we are going to use the R package <code>gtrendsR</code> to analyze the trends of specific words related to statistical learning such as “machine learning” or “data science” and also related to coastal risks: “coastal flood”, “storm surge”.</p>
+<p>I am currently in the third year of my PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risks.</p>
+<p>In this post, we are going to use the R package <code>gtrendsR</code> to analyze the trends of specific words related to statistical learning such as “machine learning” or “data science” and also related to coastal risks: “coastal flood”, “storm surge”.</p>
 <div id="analysis-of-specific-terms-for-the-whole-world" class="section level2">
 <h2>Analysis of specific terms for the whole world</h2>
 <p>In this first section, we are going to analyze the interest over time for several terms in the whole world. The <code>gtrends</code> function extracts the “hits” variable for a given term. This variable is a normalized measure of the interest made by Google Trends. The number of search is normalized by geography and time range, then the resulting numbers are scaled on a range of 0 to 100 based on a topic’s proportion to all searches on all topics. All the details are given in the support of Google Trends (<a href="https://support.google.com/trends/answer/4365533?hl=en" target="_blank">here</a>).</p>
@@ -332,7 +332,7 @@ interest_coast %&gt;%
   facet_grid(~ keyword) +
   theme_bw()</code></pre>
 <p><img src="/post/2021-03-01-coastal-risks-google-trends.en_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>Contrary to the interest for the statistical terms, the interest in coastal risk topics is more punctual. One of my hypothesis is that the interest in these topic increases after a large storm event has occurred in the world. We will investigate on this hypothesis at the end of the post.</p>
+<p>Contrary to the interest for the statistical terms, the interest in terms related to coastal risk is more punctual. One of my hypothesis is that the interest in these topic increases after a large storm event has occurred in the world. We will investigate on this hypothesis at the end of the post.</p>
 </div>
 <div id="mapping-the-interest-of-storm-surge-and-data-science-in-the-world" class="section level2">
 <h2>Mapping the interest of “storm surge” and “data science” in the world</h2>
@@ -374,7 +374,7 @@ Int_Merged %&gt;%
         panel.grid.minor = element_blank()) +
   labs(x = &quot;&quot;, y = &quot;&quot;)</code></pre>
 <p><img src="/post/2021-03-01-coastal-risks-google-trends.en_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>We see from this map that the number of Google search for this term is quite low for many countries in comparison with other terms (white color means not enough search comparing to the total number of search). In general the interest is higher in countries that are more likely to be impacted by marine storms or hurricanes. The Republic of Philippines seems the most interested country in storm surge.</p>
+<p>We see from this map that the number of Google searches for this term is quite low for many countries in comparison with other terms (white color means not enough search comparing to the total number of search). In general the interest is higher in countries that are more likely to be impacted by marine storms or hurricanes. The Republic of Philippines seems the most interested country in storm surge.</p>
 <p>We can then continue with the term “data science”:</p>
 <pre class="r"><code>res_world &lt;- gtrends(&quot;Data Science&quot;,
           geo = &quot;&quot;,
@@ -428,10 +428,10 @@ df_storm &lt;- as.data.frame(matrix(c(
   &quot;2011-12-16 GMT&quot;, &quot;Joachim&quot;,
   &quot;2014-02-14 GMT&quot;, &quot;Ulla&quot;,
   &quot;2014-11-04 GMT&quot;, &quot;Qendresa&quot;,
-  &quot;2016-02-10 GMT&quot;, &quot;Unknown&quot;,
+  &quot;2016-02-10 GMT&quot;, &quot;No name&quot;,
   &quot;2017-03-06 GMT&quot;, &quot;Zeus&quot;,
   &quot;2018-01-03 GMT&quot;, &quot;Eleanor&quot;,
-  &quot;2019-12-13 GMT&quot;, &quot;Unknown&quot;
+  &quot;2019-12-13 GMT&quot;, &quot;No name&quot;
   ), ncol = 2, byrow = T), stringsAsFactors = F)
 
 
@@ -445,6 +445,7 @@ res_fr$interest_over_time %&gt;%
   ggplot(aes(x = date, y = hits)) + 
   geom_line() +
   geom_vline(xintercept = df_storm$date, col = &quot;red&quot;, lty = 2, alpha = 0.5, lwd = 1) + 
+  geom_label(aes(x=date, y = seq(38, 25, length.out=nrow(df_storm)), label =`Name of storm`), data = df_storm) +
   #geom_vline(xintercept = as.POSIXct(&quot;2011-07-11 GMT&quot;, tz = &quot;GMT&quot;), col = &quot;blue&quot;, lty = 2, alpha = 0.5) + 
   facet_grid(~ keyword) +
   theme_bw()</code></pre>
