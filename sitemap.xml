@@ -3,30 +3,48 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://aureliencallens.github.io/</loc>
-    <lastmod>2022-07-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://aureliencallens.github.io/2022/07/19/analysis-of-the-top-r-packages/</loc>
-    <lastmod>2022-07-19T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://aureliencallens.github.io/categories/</loc>
+    <lastmod>2022-09-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://aureliencallens.github.io/tags/ggplot2/</loc>
+    <lastmod>2022-09-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://aureliencallens.github.io/tags/leaflet/</loc>
+    <lastmod>2022-09-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://aureliencallens.github.io/tags/nlp/</loc>
+    <lastmod>2022-09-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://aureliencallens.github.io/2022/09/21/web-scraping-indeed-with-r/</loc>
+    <lastmod>2022-09-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://aureliencallens.github.io/post/</loc>
+    <lastmod>2022-09-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://aureliencallens.github.io/categories/r/</loc>
+    <lastmod>2022-09-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://aureliencallens.github.io/tags/rselenium/</loc>
+    <lastmod>2022-09-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://aureliencallens.github.io/tags/</loc>
+    <lastmod>2022-09-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://aureliencallens.github.io/tags/tidyverse/</loc>
+    <lastmod>2022-09-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://aureliencallens.github.io/tags/web-scraping/</loc>
+    <lastmod>2022-09-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://aureliencallens.github.io/2022/07/19/analysis-of-the-top-r-packages/</loc>
     <lastmod>2022-07-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://aureliencallens.github.io/tags/cranlogs/</loc>
     <lastmod>2022-07-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://aureliencallens.github.io/tags/ggplot2/</loc>
-    <lastmod>2022-07-19T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://aureliencallens.github.io/tags/igraph/</loc>
-    <lastmod>2022-07-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://aureliencallens.github.io/post/</loc>
-    <lastmod>2022-07-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://aureliencallens.github.io/categories/r/</loc>
-    <lastmod>2022-07-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://aureliencallens.github.io/tags/</loc>
     <lastmod>2022-07-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://aureliencallens.github.io/tags/visnetwork/</loc>
@@ -39,9 +57,6 @@
     <lastmod>2022-04-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://aureliencallens.github.io/tags/shiny/</loc>
-    <lastmod>2022-04-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://aureliencallens.github.io/tags/tidyverse/</loc>
     <lastmod>2022-04-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://aureliencallens.github.io/categories/phd/</loc>
@@ -59,19 +74,10 @@
     <loc>https://aureliencallens.github.io/tags/gtrendsr/</loc>
     <lastmod>2021-03-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://aureliencallens.github.io/tags/rselenium/</loc>
-    <lastmod>2020-11-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://aureliencallens.github.io/tags/web-scraping/</loc>
-    <lastmod>2020-11-18T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://aureliencallens.github.io/2020/11/18/2020-11-18-aliexpress_rselenium/</loc>
     <lastmod>2020-11-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://aureliencallens.github.io/2020/09/25/r-shiny-fishing-part2/</loc>
-    <lastmod>2020-09-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://aureliencallens.github.io/tags/leaflet/</loc>
     <lastmod>2020-09-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://aureliencallens.github.io/tags/api/</loc>

@@ -2,7 +2,7 @@
 title: Webscraping Aliexpress with Rselenium
 author: ''
 date: '2020-11-18'
-slug: 2020-11-18-aliexpress_RSelenium
+slug: aliexpress_RSelenium
 categories:
   - R
 tags:

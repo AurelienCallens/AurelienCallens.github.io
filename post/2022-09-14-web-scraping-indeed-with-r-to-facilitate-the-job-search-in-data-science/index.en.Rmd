@@ -1,0 +1,608 @@
+---
+title: "Web scraping Indeed with R to facilitate the job search in Data Science"
+author: "Aurelien Callens"
+date: "2022-09-14"
+slug: "web-scraping-indeed-with-r-to-facilitate-the-job-search-in-data-science"
+categories: R
+tags:
+- Web scraping
+- ggplot2
+- leaflet
+- RSelenium
+- tidyverse
+- NLP
+type: ''
+subtitle: ''
+image: ''
+---
+
+
+Let's be honest, job hunting is not particularly pleasant. Since the beginning of my recent hunt for a data scientist job (less than 2 weeks), 
+I already have encountered 2 mains problems including: 
+
++ No overview of essential information such as location, type of contract, salary range due to a large number of job posts to read
++ How to optimize my resume with accurate key words
+
+To solve these problems, I decided to scrape Indeed and analyze the data about data science jobs.
+
+## Loading libraries 
+
+The first step is to import several packages: 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+final_df <- readr::read_csv("~/Dropbox/Side projects/Job_scraper/Final_df_job_scraping.csv")
+x <- readr::read_csv("~/Dropbox/Side projects/Job_scraper/udpoutput.csv")
+```
+
+
+```{r, echo=T}
+# General
+library(tidyverse)
+# Webscraping 
+library(rvest)
+library(RSelenium)
+# Geo data
+library(tidygeocoder)
+library(leaflet)
+# NLP
+library(udpipe)
+library(textrank)
+library(wordcloud)
+# Cleaning
+library(stringr)
+# Additional functions presented at the end of the post 
+source('scraping_functions.R') 
+```
+
+## Reading the main page
+
+In the beginning of this project, I was using `read_html()` from *rvest* to access and download the webpage from Indeed. However, even though scraping is not forbidden on the pages I am interested in, Indeed pages are protected by an anti-scrapping software that blocked any of my requests. That is why I decided to access the pages with *Rselenium*:
+
+```{r , echo=T}
+url = "https://fr.indeed.com/jobs?q=data%20scientist&l=France&from=searchOnHP"
+
+# Headless Firefox browser
+exCap <- list("moz:firefoxOptions" = list(args = list('--headless')))
+rD <- rsDriver(browser = "firefox", port = 1121L, extraCapabilities = exCap,
+                verbose = F)
+remDr <- rD$client
+
+# Navigate to the url
+remDr$navigate(url)
+
+# Store page source 
+web_page <- remDr$getPageSource(header = TRUE)[[1]] %>% read_html()
+```
+
+We can now extract useful information such as the number of listed data science jobs in France:
+
+```{r}
+web_page %>%
+  html_element(css = ".desktopAurora #searchCountPages") %>%
+  html_text2() %>%
+  str_remove_all("[^0-9.-]") %>%
+  substr(start = 2, stop = 8) %>%
+  as.numeric()
+```
+
+## Extract data from the first 40 pages
+
+After navigating through the first 3 pages of listed jobs, I remarked a pattern in the url address, this means that with a line of code, I can produce url list for the first 40 pages. The only thing left is to loop over the url list with some delay (good practice for web-scraping) and gather the data with custom functions (at the end of the post):
+
+```{r, cache=TRUE, eval=F, echo=T}
+
+# Creating url link corresponding to the first 40 pages
+base_url = "https://fr.indeed.com/jobs?q=data%20scientist&l=France&start="
+url_list <- c(url, paste0(base_url, as.character(seq(from=10, to=400, by=10))))
+
+# Looping through the url list
+res <- list()
+for(i in 1:length(url_list)){
+  # Navigate to the url
+  remDr$navigate(url_list[i])
+  # Store page source 
+  web_page <- remDr$getPageSource(header = TRUE)[[1]] %>% read_html()
+
+  # Job title 
+  job_title <- web_page %>%
+    html_elements(css = ".mosaic-provider-jobcards .result") %>%
+    html_elements(css = ".resultContent") %>%
+    html_element("h2") %>%
+    html_text2() %>%
+    str_replace(".css.*;\\}", "")
+
+  # Url for job post 
+  job_url <- web_page %>%
+    html_elements(css = ".mosaic-provider-jobcards .result")%>%
+    html_elements(css = ".resultContent") %>%
+    html_element("h2") %>%
+    html_element("a") %>%
+    html_attr('href') %>%
+    lapply(function(x){paste0("https://fr.indeed.com", x)}) %>%
+    unlist()
+  
+  # Data about company
+  company_info <- web_page %>%
+    html_elements(css = ".mosaic-provider-jobcards .result")%>%
+    html_elements(css = ".resultContent")%>%
+    html_element(css = ".company_location")%>%
+    html_text2() %>%
+    lapply(FUN = tidy_comploc) %>%
+    do.call(rbind, .)
+
+  # Data about job description
+  job_desc <- web_page %>%
+    html_elements(css = ".mosaic-provider-jobcards .result")%>%
+    html_element(css =".slider_container .jobCardShelfContainer")%>%
+    html_text2() %>%
+    tidy_job_desc()
+
+  # Data about salary (when indicated)
+  salary_hour <- web_page %>%
+    html_elements(css = ".mosaic-provider-jobcards .result .resultContent")%>%
+    html_element(css = ".salaryOnly") %>%
+    html_text2() %>%
+    lapply(FUN = tidy_salary) %>%
+    do.call(rbind, .)
+  
+  # Gathering in the same dataframe
+  final_df <- cbind(job_title, company_info, salary_hour, job_desc, job_url)
+  colnames(final_df) <- c("Job_title", "Company", "Location", "Rating", "Low_salary", "High_salary", "Contract_info", "Job_desc", "url")
+  res[[i]] <- final_df
+  Sys.sleep(5)
+}
+
+final_df <- as_tibble(do.call("rbind", res))
+
+# Final data cleaning
+final_df <- final_df %>%
+  mutate_at(c("Rating", "Low_salary", "High_salary"), as.numeric)
+
+final_df$Job_title_c <- clean_job_title(final_df$Job_title)
+final_df$Job_title_c <- as.factor(final_df$Job_title_c)
+```
+
+We have now a tidy dataframe! Here is an example of the 20 first rows: 
+
+```{r}
+library(kableExtra)
+# Make summary table 
+final_df %>% 
+  select(-c(Job_desc, Job_title_c, latitude, longitude, Description,
+            Loc_possibility, url)) %>% 
+  head(20) %>% 
+  knitr::kable(format = "html", escape = F) %>%
+  scroll_box(width = "100%", height = "500px")
+```
+
+
+## Graphical representations 
+
+Let's make graphical representations to get some insights about data science jobs. 
+
+### Salary range
+
+The first thing I wanted to know is how much the companies are willing to pay in order to recruit a data science candidate. I therefore decided to make some figures about the salary range depending on the company and the job title. Beware! The following graphs must be taken with a grain of salt as they display a really small sample of the data. Indeed, the salary was listed for only 1/7 of the job post. The insights or trends in these graphs may not be representative of companies that have not listed their proposed salary. 
+
+#### Salary by company
+
+The following graphic shows the monthly income listed by some companies (not all the companies list their proposed salary): 
+
+```{r out.width="100%", fig.height=8}
+# Function to make euro X scale 
+euro <- scales::label_dollar(
+  prefix = "",
+  suffix = "\u20ac",
+  big.mark = ".",
+  decimal.mark = ","
+)
+
+final_df %>%
+  filter(Low_salary > 1600) %>% # To remove internships and freelance works
+  select(Company, Low_salary, High_salary) %>%
+  group_by(Company) %>%
+  summarize_if(is.numeric, mean) %>%
+  mutate(Mean_salary = rowMeans(cbind(Low_salary, High_salary), na.rm = T),
+           Company = fct_reorder(Company, desc(-Mean_salary))) %>%
+  ggplot(aes(x = Company)) +
+  geom_point(aes(y = Mean_salary), colour = "#267266") +
+  geom_linerange(aes(ymin = Low_salary, ymax = High_salary)) +
+  geom_hline(aes(yintercept = median(Mean_salary)), lty=2, col='red', alpha = 0.7) +
+  scale_y_continuous(labels = euro) +
+  ylab("Monthly income") +
+  xlab("") +
+  coord_flip() +
+  theme_bw(base_size = 8)
+```
+
+The median monthly salary is around 3700 euros. As you can see the salaries can vary a lot depending on the company, it is because I didn't make distinction between the different data science jobs (data scientist, data analyst, data engineer, senior or lead...).
+
+#### Salary by job title
+
+We can plot the same graph but instead of grouping by company we can group by data science jobs: 
+
+```{r}
+final_df %>%
+  filter(Low_salary > 1600) %>%
+  select(Job_title_c, Low_salary, High_salary, Job_type) %>%
+  group_by(Job_title_c) %>%
+  summarize_if(is.numeric, ~ mean(.x, na.rm = TRUE)) %>%
+  mutate(Mean_salary = rowMeans(cbind(Low_salary, High_salary), na.rm = T),
+         Job_title_c = fct_reorder(Job_title_c, desc(-Mean_salary))) %>%
+  ggplot(aes(x = Job_title_c, y = Mean_salary)) +
+  geom_point(aes(y = Mean_salary), colour = "#267266") +
+  geom_linerange(aes(ymin = Low_salary, ymax = High_salary)) +
+  scale_y_continuous(labels = euro) +
+  theme_bw(base_size = 12) +
+  xlab("") +
+  ylab("Monthly Income") +
+  coord_flip()
+```
+
+We clearly see the differences in proposed salaries depending on the job title: data scientists seem to earn in average slightly more than data analysts. The companies seem also to propose higher salary for jobs requiring more experiences (senior, lead).
+
+
+#### Salary depending on location: full remote, hybrid, on site ?
+
+```{r }
+# Tidy the types and locations of listed jobs
+final_df <- tidy_location(final_df)
+
+final_df %>%
+  drop_na(Location) %>%
+  mutate(Mean_salary = rowMeans(cbind(Low_salary, High_salary), na.rm = T),
+         Job_type = as.factor(Job_type)) %>%
+    ggplot(aes(x = Job_type, y = Mean_salary)) +
+  geom_boxplot(na.rm = TRUE) +
+  theme_bw(base_size = 12) +
+  xlab("Job Type") +
+  ylab("Income")
+```
+
+#### Job locations
+
+##### From zip code to coordinates
+```{r cache = TRUE, out.width="100%", fig.height=8, message=FALSE, warning=FALSE, echo=T, eval=F}
+# Extract coordinates from town name
+final_df <- final_df %>%
+  mutate(Loc_tidy_fr = paste(Loc_tidy, 'France')) %>%
+  geocode(Loc_tidy_fr, method = 'arcgis', lat = latitude , long = longitude) %>%
+  select(- Loc_tidy_fr)
+```
+
+##### Static map 
+
+```{r}
+library(rnaturalearth)
+library(sf)
+france <- ne_states(country = "France", returnclass = "sf") %>% 
+  filter(!name %in% c("Guyane française", "Martinique", "Guadeloupe", "La Réunion", "Mayotte"))
+
+test <- st_sf(final_df, geom= lapply(1:nrow(final_df), function(x){st_point(c(final_df$longitude[x],final_df$latitude[x]))}))
+st_crs(test) <- 4326
+
+joined <- france %>%
+  st_join(test, left = T)
+
+my_breaks = c(0, 2, 5, 10, 30, 50, 100, 260)
+
+
+joined %>% 
+  mutate(region=as.factor(name)) %>% 
+  group_by(region) %>% 
+  summarize(Job_number=n()) %>% 
+  mutate(Job_number = cut(Job_number, my_breaks)) %>% 
+  ggplot() +
+  geom_sf(aes(fill=Job_number), col='grey', lwd=0.2) + 
+  scale_fill_brewer(palette = "GnBu") + 
+  theme_bw()
+```
+
+
+```{r eval=FALSE, include=FALSE}
+ggrepel::geom_label_repel(
+    aes(label = Job_number, geometry = geometry),
+    stat = "sf_coordinates",
+    min.segment.length = 0,
+    max.overlaps = 100,
+    colour = "black",
+    segment.colour = "white"
+  )
+```
+
+
+##### Interactive map 
+```{r}
+# Plot leaflet map
+final_df %>%
+  mutate(pop_up_text = sprintf("<b>%s</b> <br/> %s",
+                                     Job_title, Company)) %>%
+  leaflet() %>%
+  setView(lng = 2.36, lat = 46.31, zoom = 6) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addMarkers(
+    popup = ~as.character(pop_up_text),
+    clusterOptions = markerClusterOptions()
+  )
+```
+
+
+## Analysis the job descriptions
+
+### Downloading and cleaning each job description
+
+```{r, eval=F, echo=T}
+job_descriptions <- list()
+pb <- txtProgressBar(min = 1, max = length(final_df$url), style = 3)
+
+for(i in 1:length(final_df$url)){
+  job_descriptions[[i]] <- read_html(go_GET(final_df$url[i])) %>%
+        html_elements(css = ".jobsearch-JobComponent-description") %>%
+      html_text2()
+  Sys.sleep(1)
+  setTxtProgressBar(pb, i)
+}
+
+job_descriptions <- as.data.frame(do.call("rbind", job_descriptions))
+
+names(job_descriptions) <- c("Description")
+
+final_df <- cbind(final_df, job_descriptions)
+
+final_df$Description_c <- lapply(final_df$Description, function(x){clean_job_desc(x)[[2]]})
+final_df$Language <- textcat::textcat(final_df$Description)
+```
+
+
+### Annotation procedure with udpipe Package
+
+This part is inspired from this [post](https://www.r-bloggers.com/2018/04/an-overview-of-keyword-extraction-techniques/).
+
+Now that the descriptions of all the listed jobs are imported, we can annotate the textual data with **udpipe** package. This package contains functions and models which can perform tokenisation, lemmatisation and key word extraction.
+
+
+```{r, eval=F, echo=T}
+desc_data_scientist <- final_df %>%
+  filter((Job_title_c == "data scientist") & (Language == "french")) %>%
+  select(Description_c)
+# Download the model if necessary
+ud_model <- udpipe_download_model(language = "french")
+ud_model <- udpipe_load_model(ud_model$file_model)
+x <- udpipe_annotate(ud_model, x = paste(desc_data_scientist, collapse = " "))
+x <- as.data.frame(x)
+```
+
+### Most common nouns
+
+```{r}
+stats <- subset(x, upos %in% "NOUN")
+stats <- txt_freq(x = stats$lemma)
+
+stats %>%
+  top_n(50, freq) %>%
+  mutate(key = as.factor(key),
+         key = fct_reorder(key, freq)) %>%
+  ggplot(aes(x = key, y = freq)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() + 
+  ylab("Most common nouns") + 
+  theme_bw()
+```
+
+### Exploring co-occurence of words
+
+```{r}
+## Co-occurrences: How frequent do words occur in the same sentence, in this case only nouns or adjectives even if we would skip 2 words in between
+stats <- cooccurrence(x = x$lemma,
+                      group = c("doc_id", "paragraph_id", "sentence_id"),
+                      relevant = x$upos %in% c("NOUN", "ADJ"), 
+                      skipgram = 2)
+head(stats)
+```
+
+### Extracting key words for resume writing 
+
+#### Method 1: Results of word network algorithm ordered by algorithm Google Pagerank 
+```{r}
+stats <- textrank_keywords(x$lemma,
+                           relevant = x$upos %in% c("NOUN", "ADJ"),
+                           ngram_max = 2,
+                           sep = " ")
+
+stats <- subset(stats$keywords, ngram >= 1 & freq >= 1)
+
+stats %>% 
+  arrange(desc(rake)) %>% 
+  head()
+
+wordcloud(words = stats$keyword, freq = stats$freq, min.freq = 3,
+          max.words=200, random.order=FALSE, rot.per=0.35,
+          colors=brewer.pal(8, "Dark2"), scale = c(3, .5))
+```
+
+#### Method 2: RAKE algorithm
+```{r, cache=T}
+stats <- keywords_rake(x = x,
+                       term = "token", 
+                       group = c("doc_id", "sentence_id"),
+                       relevant = x$upos %in% c("NOUN", "ADJ"),
+                       ngram_max = 2, n_min = 2, sep = " ")
+
+stats <- subset(stats, stats$freq >= 5 & stats$rake > 3)
+
+stats %>% 
+  arrange(desc(rake)) %>% 
+  head()
+
+wordcloud(words = stats$keyword, freq = stats$freq, min.freq = 3,
+          max.words=100, random.order=FALSE, rot.per=0.35,
+          colors=brewer.pal(8, "Dark2"), scale = c(2.5, .5))
+```
+
+
+
+
+### Functions to clean data extracted from the webpage
+
+These functions use several methods such as regular expressions, stop words and conditional statements to clean the textual data. 
+
+```{r, eval=FALSE, echo=T}
+library(rvest)
+library(stringr)
+library(httr)
+library(tidystopwords)
+library(textcat)
+
+tidy_comploc <- function(text){
+  lst <- str_split(text, pattern = "\n", simplify =T)
+  ext_str <- substr(lst[1], nchar(lst[1])-2, nchar(lst[1]))
+  res <- suppressWarnings(as.numeric(gsub(',', '.', ext_str)))
+  lst[1] <- ifelse(is.na(res), lst[1], substr(lst[1], 1, nchar(lst[1])-3))
+  lst[3] <- res
+  t(as.matrix(lst))
+}
+
+
+tidy_job_desc <- function(text){
+  stopwords <- c("Candidature facile", "Employeur réactif")
+  text <- str_remove_all(text, paste(stopwords, collapse = "|"))
+  stopwords_2 <- "(Posted|Employer).*"
+  text <- str_remove_all(text, stopwords_2)
+  text
+}
+
+
+tidy_salary <- function(text){
+  if(is.na(text)){
+    others <- NA
+    sal_low <- NA
+    sal_high <- NA
+  }else{
+    text <- str_split(text, "\n", simplify = T)
+    others <- paste(text[str_detect(text, "€", negate = T)], collapse = " | ")
+    sal <- text[str_detect(text, "€", negate = F)]
+    if(rlang::is_empty(sal)){
+      sal_low <- NA
+      sal_high <- NA
+    }else{
+      range_sal <- as.numeric(str_split(str_remove_all(str_replace(sal, "à", "-"), "[^0-9.-]"), "-", simplify = TRUE))
+      sal_low <- sort(range_sal)[1]
+      sal_high <- sort(range_sal)[2]
+
+      if(str_detect(sal, "an")){
+        sal_low <- floor(sal_low/12)
+        sal_high <- floor(sal_high/12)
+      }
+    }
+  }
+  return(c(as.numeric(sal_low), as.numeric(sal_high), others))
+}
+
+tidy_location <- function(final_df){
+  final_df$Job_type <- ifelse(final_df$Location == "Télétravail", "Full Télétravail", ifelse(str_detect(final_df$Location, "Télétravail"), "Télétravail partiel", "Présentiel"))
+  final_df$Loc_possibility <- ifelse(str_detect(final_df$Location, "lieu"), "Plusieurs lieux", NA)
+  stopwords <- c("Télétravail à", "Télétravail", "à", "hybride")
+  final_df$Loc_tidy <- str_remove_all(final_df$Location, paste(stopwords, collapse = "|"))
+  final_df$Loc_tidy <- str_remove_all(final_df$Loc_tidy, "[+].*")
+  final_df$Loc_tidy <- str_trim(final_df$Loc_tidy)
+  final_df$Loc_tidy <-  sapply(final_df$Loc_tidy,
+                               function(x){
+                                 if(!is.na(suppressWarnings(as.numeric(substr(x, 1, 5))))){
+                                   return(paste(substr(x, 7, 30), paste0('(', substr(final_df$Loc_tidy[2], 1, 2), ')')))
+                                 }else{
+                                   return(x)
+                                 }})
+  return(final_df)
+}
+
+
+keep_words <- function(text, keep) {
+  words <- strsplit(text, " ")[[1]]
+  txt <- paste(words[words %in% keep], collapse = " ")
+  return(txt)
+}
+
+clean_job_title <- function(job_titles){
+  job_titles <- tolower(job_titles)
+  job_titles <- gsub("[[:punct:]]", " ", job_titles, perl=TRUE)
+
+  words_to_keep <- c("data", "scientist", "junior", "senior", "engineer", "nlp",
+                     "analyst", "analytics", "analytic", "science", "sciences",
+                     "computer", "vision", "ingenieur", "données", "analyste",
+                     "analyses", "lead", "leader", "dataminer", "mining", "chief",
+                     "miner", "analyse", 'head')
+  job_titles_c <- unlist(sapply(job_titles, function(x){keep_words(x, words_to_keep)}, USE.NAMES = F))
+  job_titles_c <- unlist(sapply(job_titles_c, function(x){paste(unique(unlist(str_split(x, " "))), collapse = " ")}, USE.NAMES = F))
+  table(job_titles_c)
+
+  data_analytics_ind <-  job_titles_c %in% c("analyses data", "analyst data", "analyste data", "analyste data scientist", "data analyse",
+                                             "analyste données", "analytic data scientist", "analytics data", "analytics data engineer", "data analyst engineer",
+                                             "data analyst données", "data analyst scientist", "data analyst scientist données", "data analyste", "data analyst analytics",
+                                             "data analytics", "data analytics engineer", "data engineer analyst", "data scientist analyst", "data scientist analytics")
+  job_titles_c[data_analytics_ind] <- "data analyst"
+
+  data_analytics_j_ind <-  job_titles_c %in% c("junior data analyst", "junior data analytics", "junior data scientist analyst")
+  job_titles_c[data_analytics_j_ind] <- "data analyst junior"
+
+  data_scientist_ind <- job_titles_c %in% c("data computer science", "data science", "data science scientist", "data sciences",
+                                            "data sciences scientist", "data scientist données", "data scientist sciences",
+                                            "données data scientist", "scientist data", "science données", "scientist data",
+                                            "scientist data science", "computer data science", "data science données", "data scientist science")
+  job_titles_c[data_scientist_ind] <- "data scientist"
+
+  data_scientist_j_ind <- job_titles_c %in% c("junior data scientist")
+  job_titles_c[data_scientist_j_ind] <- "data scientist junior"
+
+  data_engineer_ind <- job_titles_c %in% c("data engineer scientist", "data science engineer", "data miner", "data scientist engineer",
+                                           "dataminer", "engineer data scientist", "senior data scientist engineer", "ingenieur data scientist")
+  job_titles_c[data_engineer_ind] <- "data engineer"
+
+  nlp_data_scientist_ind <- job_titles_c %in% c("data scientist nlp", "nlp data science",
+                                                "nlp data scientist", "senior data scientist nlp")
+  job_titles_c[nlp_data_scientist_ind] <- "data scientist NLP"
+
+  cv_data_scientist_ind <- job_titles_c %in% c("computer vision data scientist", "data science computer vision",
+                                               "data scientist computer vision")
+  job_titles_c[cv_data_scientist_ind] <- "data scientist CV"
+
+  lead_data_scientist_ind <- job_titles_c %in% c("chief data", "chief data scientist", "data scientist leader", "lead data scientist",
+                                                 "data chief scientist", "lead data scientist senior", "head data science")
+  job_titles_c[lead_data_scientist_ind] <- "data scientist lead or higher"
+  senior_data_scientist_ind <- job_titles_c %in% c("senior data scientist")
+  job_titles_c[senior_data_scientist_ind] <- "data scientist senior"
+
+  senior_data_analytics_ind <- job_titles_c %in% c("senior analytics data scientist", "senior data analyst", "senior data scientist analytics")
+  job_titles_c[senior_data_analytics_ind] <- "data analyst senior"
+
+
+  lead_data_analyst_ind <- job_titles_c %in% c("lead data analyst senior", "lead data analyst")
+  job_titles_c[lead_data_analyst_ind] <- "data analyst lead"
+  return(job_titles_c)
+}
+
+clean_job_desc <- function(text){
+  text <- tolower(text)
+  text <- str_replace_all(text, "\n", " ")
+  text <- str_remove(text, pattern = "dé.*du poste ")
+  text <- str_remove(text, pattern = "analyse de recr.*")
+  text <- gsub("(?!&)[[:punct:]+’+…+»+«]", " ", text, perl=TRUE)
+
+  language <- textcat(text)
+
+  if(language == "french"){
+    text <- str_replace_all(text, "œ", "oe")
+    stopwords <- c("détails", "poste", "description", "informations", "complémentaires", "c", generate_stoplist(language = "French"))
+  }else{
+    stopwords <- c("description", generate_stoplist(language = "English"))
+  }
+
+  text <- str_replace_all(text, paste(stopwords, collapse = " | "), " ")
+  text <- str_replace_all(text, paste(stopwords, collapse = " | "), " ")
+  text <- str_replace_all(text, paste(stopwords, collapse = " | "), " ")
+
+  return(c(language, text))
+}
+
+```
+

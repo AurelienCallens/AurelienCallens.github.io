@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Optimizing my search for Data scientist jobs by scraping Indeed with R - Aurélien Callens</title>
+  <meta name="description" content="A few weeks ago, I started looking for a data scientist position in industry. My first moves were:
+ To look at the job posts on websites such as Indeed To update my resume  After reading numerous job posts and work several hours on my resume, I wondered if I could optimize these steps with R and Data Science.">
+  <meta name="author" content="Aurelien Callens"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Aurélien Callens",
+    
+    "url": "https:\/\/aureliencallens.github.io\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/aureliencallens.github.io\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/aureliencallens.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/aureliencallens.github.io\/2022\/09\/21\/web-scraping-indeed-with-r\/",
+          "name": "Optimizing my search for data scientist jobs by scraping indeed with r"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Aurelien Callens"
+  },
+  "headline": "Optimizing my search for Data scientist jobs by scraping Indeed with R",
+  "description" : "A few weeks ago, I started looking for a data scientist position in industry. My first moves were:\n To look at the job posts on websites such as Indeed To update my resume  After reading numerous job posts and work several hours on my resume, I wondered if I could optimize these steps with R and Data Science.",
+  "inLanguage" : "en",
+  "wordCount":  6582 ,
+  "datePublished" : "2022-09-21T00:00:00",
+  "dateModified" : "2022-09-21T00:00:00",
+  "image" : "https:\/\/aureliencallens.github.io\/img\/avatar-icon.jpg",
+  "keywords" : [ "Web scraping, ggplot2, leaflet, RSelenium, tidyverse, NLP" ],
+  "mainEntityOfPage" : "https:\/\/aureliencallens.github.io\/2022\/09\/21\/web-scraping-indeed-with-r\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/aureliencallens.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/aureliencallens.github.io\/img\/avatar-icon.jpg",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Optimizing my search for Data scientist jobs by scraping Indeed with R" />
+<meta property="og:description" content="A few weeks ago, I started looking for a data scientist position in industry. My first moves were:
+ To look at the job posts on websites such as Indeed To update my resume  After reading numerous job posts and work several hours on my resume, I wondered if I could optimize these steps with R and Data Science.">
+<meta property="og:image" content="https://aureliencallens.github.io/img_post/Wordcloud.png" />
+<meta property="og:url" content="https://aureliencallens.github.io/2022/09/21/web-scraping-indeed-with-r/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Aurélien Callens" />
+
+  <meta name="twitter:title" content="Optimizing my search for Data scientist jobs by scraping Indeed with R" />
+  <meta name="twitter:description" content="A few weeks ago, I started looking for a data scientist position in industry. My first moves were:
+ To look at the job posts on websites such as Indeed To update my resume  After reading numerous job …">
+  <meta name="twitter:image" content="https://aureliencallens.github.io/img_post/Wordcloud.png" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://aureliencallens.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.96.0" />
+  <link rel="alternate" href="https://aureliencallens.github.io/post/index.xml" type="application/rss+xml" title="Aurélien Callens"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://aureliencallens.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://aureliencallens.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://aureliencallens.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-129143452-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://aureliencallens.github.io/">Aurélien Callens</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="R-bloggers" href="https://www.r-bloggers.com/">R-bloggers</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Research" href="/research/">Research</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About me" href="/about/">About me</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Aurélien Callens" href="https://aureliencallens.github.io/">
+            <img class="avatar-img" src="https://aureliencallens.github.io/img/avatar-icon.jpg" alt="Aurélien Callens" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Optimizing my search for Data scientist jobs by scraping Indeed with R</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on September 21, 2022
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;31&nbsp;minutes
+  
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/leaflet/leaflet.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/leaflet/leaflet.js"></script>
+<link href="/rmarkdown-libs/leafletfix/leafletfix.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/proj4/proj4.min.js"></script>
+<script src="/rmarkdown-libs/Proj4Leaflet/proj4leaflet.js"></script>
+<link href="/rmarkdown-libs/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/leaflet-binding/leaflet.js"></script>
+<script src="/rmarkdown-libs/leaflet-providers/leaflet-providers_1.9.0.js"></script>
+<script src="/rmarkdown-libs/leaflet-providers-plugin/leaflet-providers-plugin.js"></script>
+<link href="/rmarkdown-libs/leaflet-markercluster/MarkerCluster.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/leaflet-markercluster/MarkerCluster.Default.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/leaflet-markercluster/leaflet.markercluster.js"></script>
+<script src="/rmarkdown-libs/leaflet-markercluster/leaflet.markercluster.freezable.js"></script>
+<script src="/rmarkdown-libs/leaflet-markercluster/leaflet.markercluster.layersupport.js"></script>
+
+
+<p>A few weeks ago, I started looking for a data scientist position in industry. My first moves were:</p>
+<ul>
+<li>To look at the job posts on websites such as Indeed</li>
+<li>To update my resume</li>
+</ul>
+<p>After reading numerous job posts and work several hours on my resume, I wondered if I could optimize these steps with R and Data Science. I therefore decided to scrape Indeed and analyze the data about data science jobs to:</p>
+<ul>
+<li>Get a visual overview of essential information such as location, type of contract, salary range for the large number of job posts</li>
+<li>Optimize my resume for ATS scan with accurate key words</li>
+</ul>
+<div id="table-of-contents" class="section level2">
+<h2>Table of Contents</h2>
+<ol style="list-style-type: decimal">
+<li><a href="#loading-libraries">Loading libraries</a></li>
+<li><a href="#collect-the-data-with-web-scraping">Collect the data with web scraping</a></li>
+<li><a href="#visualization-of-the-proposed-salaries">Visualization of the proposed salaries</a></li>
+<li><a href="#mapping-job-locations">Mapping job locations</a></li>
+<li><a href="#analyzing-job-descriptions">Analyzing Job descriptions</a>
+<ol style="list-style-type: decimal">
+<li><a href="#downloading-and-cleaning-each-job-description">Downloading and cleaning each job description</a></li>
+<li><a href="#annotation-procedure-with-udpipe-package">Annotation procedure with udpipe Package</a></li>
+<li><a href="#most-common-nouns">Most common nouns</a></li>
+<li><a href="#extracting-key-words-for-resume-writing">Extracting key words for resume writing</a></li>
+</ol></li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#custom-functions-to-clean-data-extracted-from-the-webpage">Custom functions</a></li>
+</ol>
+</div>
+<div id="loading-libraries" class="section level2">
+<h2>Loading libraries</h2>
+<p>The first step is to import several packages:</p>
+<pre class="r"><code># General
+library(tidyverse)
+# Webscraping 
+library(rvest)
+library(RSelenium)
+# Geo data
+library(tidygeocoder)
+library(leaflet)
+library(rnaturalearth)
+library(sf)
+# NLP
+library(udpipe)
+library(textrank)
+library(wordcloud)
+# Cleaning
+library(stringr)
+# Additional functions presented at the end of the post 
+source(&#39;scraping_functions.R&#39;) </code></pre>
+</div>
+<div id="collect-the-data-with-web-scraping" class="section level2">
+<h2>Collect the data with web scraping</h2>
+<p>In the beginning of this project, I was using <code>read_html()</code> from <strong>rvest</strong> to access and download the webpage from Indeed. However, Indeed pages are protected by an anti-scrapping software that blocked any of my requests even though scraping is not forbidden on the pages I am interested in (I checked the <em>robots.txt</em> page).</p>
+<p>This is why I decided to access the pages with <strong>Rselenium</strong> which allows to run an headless browser. We first navigate to the page corresponding to the search results of data scientist jobs in France:</p>
+<pre class="r"><code>url = &quot;https://fr.indeed.com/jobs?q=data%20scientist&amp;l=France&amp;from=searchOnHP&quot;
+
+# Headless Firefox browser
+exCap &lt;- list(&quot;moz:firefoxOptions&quot; = list(args = list(&#39;--headless&#39;)))
+rD &lt;- rsDriver(browser = &quot;firefox&quot;, extraCapabilities = exCap, port=1111L,
+                verbose = F)
+remDr &lt;- rD$client
+
+# Navigate to the url
+remDr$navigate(url)
+
+# Store page source 
+web_page &lt;- remDr$getPageSource(header = TRUE)[[1]] %&gt;% read_html()</code></pre>
+<p>To scrape a specific information on a webpage you need to follow these steps:</p>
+<ol style="list-style-type: decimal">
+<li>Find on the web page the element/text/data you want to scrape</li>
+<li>Find the associated xpath or css selector with the developer tool of chrome or firefox ( <a href="https://www.scrapingbee.com/blog/practical-xpath-for-web-scraping/">tutorial here !</a> )</li>
+<li>Extract the element with <code>hmtl_element()</code> by indicating the xpath or css selector</li>
+<li>Transform the data to text with <code>html_text2()</code></li>
+<li>Clean the data if necessary</li>
+</ol>
+<p>Here is the example with the number of listed data science jobs in France:</p>
+<pre class="r"><code>web_page %&gt;%
+  html_element(css = &quot;div.jobsearch-JobCountAndSortPane-jobCount&quot;) %&gt;% # selecting with css 
+  html_text2() %&gt;% # Transform to text
+  str_remove_all(&quot;[^0-9.-]&quot;) %&gt;% # Clean the data to only get numbers
+  substr(start = 2, stop = 8) %&gt;% 
+  as.numeric()</code></pre>
+<pre><code>## [1] 1761</code></pre>
+<p>For now, we can only scrape the data from the first page. However, I am interested in all the job posts and I need to access the other pages ! After navigating through the first 3 pages of listed jobs, I remarked a pattern in the URL address (valid at the time of writing), this means that with a line of code, I can produce a list containing the URLs for the first 40 pages.</p>
+<p>Once I have the list, the only thing left is to loop over all the URLs with some delay (good practice for web-scraping), collect the data and clean it with custom functions (at the end of the post):</p>
+<pre class="r"><code># Creating URL link corresponding to the first 40 pages
+base_url = &quot;https://fr.indeed.com/jobs?q=data%20scientist&amp;l=France&amp;start=&quot;
+url_list &lt;- c(url, paste0(base_url, as.character(seq(from=10, to=400, by=10))))
+
+# Looping through the URL list
+res &lt;- list()
+for(i in 1:length(url_list)){
+  # Navigate to the URL
+  remDr$navigate(url_list[i])
+  
+  # Store page source 
+  web_page &lt;- remDr$getPageSource(header = TRUE)[[1]] %&gt;% read_html()
+
+  # Job title 
+  job_title &lt;- web_page %&gt;%
+    html_elements(css = &quot;.mosaic-provider-jobcards .result&quot;) %&gt;%
+    html_elements(css = &quot;.resultContent&quot;) %&gt;%
+    html_element(&quot;h2&quot;) %&gt;%
+    html_text2() %&gt;%
+    str_replace(&quot;.css.*;\\}&quot;, &quot;&quot;)
+
+  # URL for job post 
+  job_url &lt;- web_page %&gt;%
+    html_elements(css = &quot;.mosaic-provider-jobcards .result&quot;)%&gt;%
+    html_elements(css = &quot;.resultContent&quot;) %&gt;%
+    html_element(&quot;h2&quot;) %&gt;%
+    html_element(&quot;a&quot;) %&gt;%
+    html_attr(&#39;href&#39;) %&gt;%
+    lapply(function(x){paste0(&quot;https://fr.indeed.com&quot;, x)}) %&gt;%
+    unlist()
+  
+  # Data about company
+  company_info &lt;- web_page %&gt;%
+    html_elements(css = &quot;.mosaic-provider-jobcards .result&quot;)%&gt;%
+    html_elements(css = &quot;.resultContent&quot;)%&gt;%
+    html_element(css = &quot;.company_location&quot;)%&gt;%
+    html_text2() %&gt;%
+    lapply(FUN = tidy_comploc) %&gt;% # Function to clean the textual data
+    do.call(rbind, .)
+
+  # Data about job description
+  job_desc &lt;- web_page %&gt;%
+    html_elements(css = &quot;.mosaic-provider-jobcards .result&quot;)%&gt;%
+    html_element(css =&quot;.slider_container .jobCardShelfContainer&quot;)%&gt;%
+    html_text2() %&gt;%
+    tidy_job_desc() # Function to clean the textual data related to job desc.
+
+  # Data about salary (when indicated)
+  salary_hour &lt;- web_page %&gt;%
+    html_elements(css = &quot;.mosaic-provider-jobcards .result .resultContent&quot;)%&gt;%
+    html_element(css = &quot;.salaryOnly&quot;) %&gt;%
+    html_text2() %&gt;%
+    lapply(FUN = tidy_salary) %&gt;% # Function to clean the data related to salary
+    do.call(rbind, .)
+  
+  # Job posts in the same format
+  final_df &lt;- cbind(job_title, company_info, salary_hour, job_desc, job_url)
+  colnames(final_df) &lt;- c(&quot;Job_title&quot;, &quot;Company&quot;, &quot;Location&quot;, &quot;Rating&quot;, &quot;Low_salary&quot;, &quot;High_salary&quot;, &quot;Contract_info&quot;, &quot;Job_desc&quot;, &quot;url&quot;)
+  res[[i]] &lt;- final_df
+  
+  # Sleep 5 seconds, good practice for web scraping
+  Sys.sleep(5)
+}
+
+# Gather all the job post in a tibble
+final_df &lt;- as_tibble(do.call(&quot;rbind&quot;, res))
+
+# Final data cleaning
+final_df &lt;- final_df %&gt;%
+  mutate_at(c(&quot;Rating&quot;, &quot;Low_salary&quot;, &quot;High_salary&quot;), as.numeric)
+
+# Clean job title
+final_df$Job_title_c &lt;- clean_job_title(final_df$Job_title)  
+final_df$Job_title_c &lt;- as.factor(final_df$Job_title_c)</code></pre>
+<p>We have now a tidy data set! Here is a truncated example of the 5 first rows:</p>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<table>
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Job_title
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Company
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Location
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Rating
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Low_salary
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+High_salary
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Contract_info
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Job_desc
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Job_type
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Job_title_c
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Data Scientist junior (H/F)
+</td>
+<td style="text-align:left;">
+Kea &amp; Partners
+</td>
+<td style="text-align:left;">
+92240 Malakoff
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+3750
+</td>
+<td style="text-align:right;">
+4583
+</td>
+<td style="text-align:left;">
+CDI +2 | Travail en journée +1
+</td>
+<td style="text-align:left;">
+Plusieurs postes à pourvoirMaitrise de Python et des packages de data science. 1er cabinet européen de conseil en stratégie à devenir Société à Mission, certifiés B-Corp depuis 2021*,…
+</td>
+<td style="text-align:left;">
+Présentiel
+</td>
+<td style="text-align:left;">
+data scientist junior
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Scientist (F ou H)
+</td>
+<td style="text-align:left;">
+SNCF
+</td>
+<td style="text-align:left;">
+Saint-Denis (93)
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+CDI
+</td>
+<td style="text-align:left;">
+Le développement informatique (C, C++, Python, Azure, …). Valider et recetter les phases des projets. Travailler avec des méthodes agiles avec les équipes et…
+</td>
+<td style="text-align:left;">
+Présentiel
+</td>
+<td style="text-align:left;">
+data scientist
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Scientist (H/F) (IT)
+</td>
+<td style="text-align:left;">
+Yzee Services
+</td>
+<td style="text-align:left;">
+Paris (75)
+</td>
+<td style="text-align:right;">
+3.3
+</td>
+<td style="text-align:right;">
+2916
+</td>
+<td style="text-align:right;">
+3750
+</td>
+<td style="text-align:left;">
+Temps plein
+</td>
+<td style="text-align:left;">
+Recueillir, structurer et analyser les données pertinentes pour l’entreprise (activité liée à la relation client, conseil en externe).
+</td>
+<td style="text-align:left;">
+Présentiel
+</td>
+<td style="text-align:left;">
+data scientist
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Scientist H/F
+</td>
+<td style="text-align:left;">
+Natan (SSII)
+</td>
+<td style="text-align:left;">
+Paris (75)
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+4583
+</td>
+<td style="text-align:right;">
+5833
+</td>
+<td style="text-align:left;">
+CDI +1 | Travail en journée
+</td>
+<td style="text-align:left;">
+Plusieurs postes à pourvoirVous retrouverez une <em>ESN ambitieuse portée par le goût de l’excellence.</em>. Au sein du département en charge d’automatisation transverse des besoins de la…
+</td>
+<td style="text-align:left;">
+Présentiel
+</td>
+<td style="text-align:left;">
+data scientist
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Scientist Junior H/F / Freelance
+</td>
+<td style="text-align:left;">
+karma partners
+</td>
+<td style="text-align:left;">
+Roissy-en-Brie (77)
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+400
+</td>
+<td style="text-align:right;">
+550
+</td>
+<td style="text-align:left;">
+Temps plein +1
+</td>
+<td style="text-align:left;">
+Le profil recherché est un profil junior (0-2 ans d’expérience) en data science, avec une appétence technique et des notions d’architecture logicielle et de…
+</td>
+<td style="text-align:left;">
+Présentiel
+</td>
+<td style="text-align:left;">
+data scientist junior
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualization-of-the-proposed-salaries" class="section level3">
+<h3>Visualization of the proposed salaries</h3>
+<p>Let’s see if we can get some insights about data science jobs by making some graphical representations. The first thing I wanted to know is how much the companies are willing to pay in order to recruit a data science candidate. I therefore decided to make some figures about the salary range depending on the company and the job title.</p>
+<p><strong>Beware!</strong></p>
+<p>The following graphs must be taken with a grain of salt as they display a small sample of the data. Indeed, the salary was listed for only 14% of the job post. The insights or trends in these graphs may not be representative of companies that have not listed their proposed salary.</p>
+<div id="salary-by-company" class="section level4">
+<h4>Salary by company</h4>
+<p>The following graphic shows the monthly income listed by some companies (not all the companies list their proposed salary):</p>
+<pre class="r"><code># Function to make euro X scale 
+euro &lt;- scales::label_dollar(
+  prefix = &quot;&quot;,
+  suffix = &quot;\u20ac&quot;,
+  big.mark = &quot;.&quot;,
+  decimal.mark = &quot;,&quot;
+)
+
+final_df %&gt;%
+  filter(Low_salary &gt; 1600) %&gt;% # To remove internships and freelance works
+  select(Company, Low_salary, High_salary) %&gt;%
+  group_by(Company) %&gt;%
+  summarize_if(is.numeric, mean) %&gt;%
+  mutate(Mean_salary = rowMeans(cbind(Low_salary, High_salary), na.rm = T),
+           Company = fct_reorder(Company, desc(-Mean_salary))) %&gt;%
+  ggplot(aes(x = Company)) +
+  geom_point(aes(y = Mean_salary), colour = &quot;#267266&quot;) +
+  geom_linerange(aes(ymin = Low_salary, ymax = High_salary)) +
+  geom_hline(aes(yintercept = median(Mean_salary)), lty=2, col=&#39;red&#39;, alpha = 0.7) +
+  scale_y_continuous(labels = euro) +
+  ylab(&quot;Monthly income&quot;) +
+  xlab(&quot;&quot;) +
+  coord_flip() +
+  theme_bw(base_size = 8)</code></pre>
+<p><img src="/post/2022-09-21-web-scraping-indeed-with-r_files/figure-html/unnamed-chunk-6-1.png" width="100%" /></p>
+<p>The median monthly salary is around 3700 euros. As you can see the salaries can vary a lot depending on the company. This is partly due because I didn’t make distinction between the different data science jobs (data scientist, data analyst, data engineer, senior or lead).</p>
+</div>
+<div id="salary-by-job-title" class="section level4">
+<h4>Salary by job title</h4>
+<p>We can plot the same graph but instead of grouping by company we can group by job title:</p>
+<pre class="r"><code>final_df %&gt;%
+  filter(Low_salary &gt; 1600) %&gt;%  # To remove internships and freelance works
+  select(Job_title_c, Low_salary, High_salary, Job_type) %&gt;%
+  group_by(Job_title_c) %&gt;%
+  summarize_if(is.numeric, ~ mean(.x, na.rm = TRUE)) %&gt;%
+  mutate(Mean_salary = rowMeans(cbind(Low_salary, High_salary), na.rm = T),
+         Job_title_c = fct_reorder(Job_title_c, desc(-Mean_salary))) %&gt;%
+  ggplot(aes(x = Job_title_c, y = Mean_salary)) +
+  geom_point(aes(y = Mean_salary), colour = &quot;#267266&quot;) +
+  geom_linerange(aes(ymin = Low_salary, ymax = High_salary)) +
+  #geom_label(aes(label = n, Job_title_c, y = 1500), data = count_df) + 
+  scale_y_continuous(labels = euro) +
+  theme_bw(base_size = 12) +
+  xlab(&quot;&quot;) +
+  ylab(&quot;Monthly Income&quot;) +
+  coord_flip()</code></pre>
+<p><img src="/post/2022-09-21-web-scraping-indeed-with-r_files/figure-html/unnamed-chunk-7-1.png" width="100%" /></p>
+<p>We clearly see the differences in proposed salaries depending on the job title: data scientists seem to earn slightly more in average than data analysts. The companies also seem to propose higher salaries for jobs with more responsibilities or requiring more experiences (senior, lead).</p>
+</div>
+<div id="salary-depending-on-location-full-remote-hybrid-on-site" class="section level4">
+<h4>Salary depending on location: full remote, hybrid, on site ?</h4>
+<p>Finally we can plot the salaries depending on the location (full remote, hybrid, on site) to see if it has an impact:</p>
+<pre class="r"><code># Tidy the types and locations of listed jobs
+final_df &lt;- tidy_location(final_df)
+count_df &lt;- count(final_df %&gt;% filter(Low_salary &gt; 1600), Job_type)
+final_df %&gt;%
+  filter(Low_salary &gt; 1600) %&gt;% 
+  drop_na(Location) %&gt;%
+  mutate(Mean_salary = rowMeans(cbind(Low_salary, High_salary), na.rm = T),
+         Job_type = as.factor(Job_type)) %&gt;%
+    ggplot(aes(x = Job_type, y = Mean_salary)) +
+  geom_boxplot(na.rm = TRUE) +
+  geom_label(aes(label = n, Job_type, y = 5500), data = count_df) + 
+  scale_y_continuous(labels = euro) + 
+  theme_bw(base_size = 12) +
+  xlab(&quot;Job Type&quot;) +
+  ylab(&quot;Income&quot;)</code></pre>
+<p><img src="/post/2022-09-21-web-scraping-indeed-with-r_files/figure-html/unnamed-chunk-8-1.png" width="100%" /></p>
+<p>It is worth noting that most of the jobs proposed in France are on site jobs. The median salary for this type of jobs is slightly lower than hybrid jobs. The salary distribution of full remote and hybrid jobs must be taken with care as it is only represented by 12 job posts.</p>
+</div>
+</div>
+<div id="mapping-job-locations" class="section level3">
+<h3>Mapping job locations</h3>
+<p>During my job search, I was frustrated not to see a geographical map regrouping the locations of all the proposed jobs. Such map could help me greatly in my search. Let’s do it !</p>
+<p>First, we must tidy and homogenize the locations for all the job posts. To this end, I made a custom function (<code>tidy_location()</code>) which includes some <strong>stringr</strong> functions, you can find more details about this function at the end of this post. It outputs the location in this format <code>[Town]([Zip code])</code>. Even though all the locations have been homogenized, it can not be plotted on a map (we need the longitude and latitude). To get the latitude and longitude with the town name and zip code I used the <code>geocode()</code> function from <strong>tidygeocoder</strong> package.</p>
+<pre class="r"><code># Extract coordinates from town name
+final_df &lt;- final_df %&gt;%
+  mutate(Loc_tidy_fr = paste(Loc_tidy, &#39;France&#39;)) %&gt;%
+  geocode(Loc_tidy_fr, method = &#39;arcgis&#39;, lat = latitude , long = longitude) %&gt;%
+  select(- Loc_tidy_fr)</code></pre>
+<div id="distribution-of-data-science-jobs-in-france" class="section level4">
+<h4>Distribution of Data Science jobs in France</h4>
+<p>We can now represent the number of Data Science jobs by departments:</p>
+<pre class="r"><code># Map of France from rnaturalearth package
+france &lt;- ne_states(country = &quot;France&quot;, returnclass = &quot;sf&quot;) %&gt;% 
+  filter(!name %in% c(&quot;Guyane française&quot;, &quot;Martinique&quot;, &quot;Guadeloupe&quot;, &quot;La Réunion&quot;, &quot;Mayotte&quot;))
+
+# Transform location to st point 
+test &lt;- st_sf(final_df, geom= lapply(1:nrow(final_df), function(x){st_point(c(final_df$longitude[x],final_df$latitude[x]))}))
+st_crs(test) &lt;- 4326
+
+# St_join by departments 
+joined &lt;- france %&gt;%
+  st_join(test, left = T)
+
+# Custom breaks for visual representation
+my_breaks = c(0, 2, 5, 10, 30, 50, 100, 260)
+
+joined %&gt;% 
+  mutate(region=as.factor(name)) %&gt;% 
+  group_by(region) %&gt;% 
+  summarize(Job_number=n()) %&gt;% 
+  mutate(Job_number = cut(Job_number, my_breaks)) %&gt;% 
+  ggplot() +
+  geom_sf(aes(fill=Job_number), col=&#39;grey&#39;, lwd=0.2) + 
+  scale_fill_brewer(&quot;Job number&quot;,palette = &quot;GnBu&quot;) + 
+  theme_bw()</code></pre>
+<p><img src="/post/2022-09-21-web-scraping-indeed-with-r_files/figure-html/unnamed-chunk-10-1.png" width="100%" /></p>
+<p>It is really interesting to see that the distribution of jobs is quite heterogeneous in France. The majority of the jobs are concentrated in a few departments that include a large city. It is expected as most of the jobs are proposed by large company that are often installed in the proximity of important cities.</p>
+</div>
+<div id="interactive-map" class="section level4">
+<h4>Interactive map</h4>
+<p>We can go further and plot an interactive map with leaflet which allows us to search dynamically for a job post:</p>
+<pre class="r"><code># Plot leaflet map
+final_df %&gt;%
+  mutate(pop_up_text = sprintf(&quot;&lt;b&gt;%s&lt;/b&gt; &lt;br/&gt; %s&quot;,
+                                     Job_title, Company)) %&gt;% # Make popup text
+  leaflet() %&gt;%
+  setView(lng = 2.36, lat = 46.31, zoom = 5.2) %&gt;% # Center of France
+  addProviderTiles(providers$CartoDB.Positron) %&gt;%
+  addMarkers(
+    popup = ~as.character(pop_up_text),
+    clusterOptions = markerClusterOptions()
+  )</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[46.31,2.36],5.2,[]],"calls":[{"method":"addProviderTiles","args":["CartoDB.Positron",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addMarkers","args":[[48.8196774463495,48.9399300000001,48.8276940066496,48.8276940066496,48.7999060070039,48.7999060070039,44.8367000000001,48.88264,50.674,48.8276940066496,48.8121100000001,47.37208,43.6211015185853,48.8260444622458,48.8276940066496,48.8276940066496,48.8276940066496,48.8266600000001,48.8481900230275,43.63458,43.6597741755991,43.7042970134431,44.2021300000001,48.8276940066496,43.62235,43.6211015185853,48.8931433281449,43.3003027583506,48.8276940066496,46.559417044,43.6211015185853,48.8305285361195,48.89617,48.88822,48.8931433281449,45.194121000913,44.8367000000001,43.5703500000001,48.77108,48.8571700000001,43.5168546243986,48.8276940066496,43.6597741755991,48.8276940066496,43.5168546243986,48.89617,43.5168546243986,48.5395800000001,48.8276940066496,48.7687300000001,48.8276940066496,48.8571700000001,48.8935500000001,48.8276940066496,48.8931433281449,48.7327323895336,48.8276940066496,48.88822,48.89617,48.8262011247733,48.88822,48.89617,48.8262011247733,48.6999700000001,48.8151800000001,48.8305285361195,46.559417044,48.88822,48.83525,46.32124,48.8276940066496,43.6392095751544,48.8263481193168,48.8571700000001,47.5049560132719,48.8276940066496,48.9399300000001,48.82163,44.8367000000001,48.8121100000001,48.79983,48.84365,46.559417044,48.7929100000001,48.8276940066496,48.8276940066496,48.8574097079022,45.9982900000001,43.6211015185853,47.32698,48.8276940066496,48.8258208870661,48.8276940066496,45.7365411623063,48.8276940066496,48.8276940066496,48.9399300000001,50.6371823834797,48.8276940066496,48.8276940066496,50.6371823834797,46.15943,48.83525,48.8276940066496,50.6371823834797,48.8276940066496,48.8276940066496,44.8367000000001,49.1272448557142,48.79988,43.3003027583506,48.8931433281449,43.31856,45.75917,48.8259799593331,48.88822,48.8677300000001,50.6371823834797,48.8276940066496,48.8276940066496,48.775958474443,47.3661200000001,48.8931433281449,48.8276940066496,48.8305285361195,48.8262011247733,48.8276940066496,44.8367000000001,48.83525,48.7999060070039,48.8276940066496,48.83525,48.8276940066496,48.8481900230275,48.8276940066496,50.6120100433994,49.1147,48.8276940066496,45.790968583422,48.8276940066496,50.6371823834797,48.8276940066496,48.8276940066496,48.8276940066496,48.88264,48.9399300000001,43.31856,50.6371823834797,48.83525,45.75917,46.559417044,43.3299611373217,48.7929100000001,48.83525,48.5977500000001,48.8574097079022,45.8400600000001,48.8276940066496,47.3884600000001,48.7322534636745,48.8276940066496,45.8059200000001,50.674,45.7358762720328,48.8305285361195,48.88822,47.8117669528344,48.8276940066496,45.194121000913,48.8276940066496,48.76532,48.82163,49.00397,48.7322534636745,45.7766800000001,48.8116800000001,48.8276940066496,45.8159200000001,43.31856,45.7754997089554,45.7754997089554,46.69746,48.8276940066496,43.31856,48.830678830864,48.8258947847109,43.6211015185853,48.8276940066496,48.8258208870661,48.8276940066496,48.5218300000001,48.88822,48.08018,48.8276940066496,48.8276940066496,45.194121000913,48.8258208870661,48.76532,50.60585,50.6120100433994,47.3884600000001,50.6120100433994,45.7358762720328,43.6211015185853,48.8276940066496,48.8116800000001,48.8276940066496,48.86452,45.8059200000001,45.75917,48.8276940066496,48.89617,48.8276940066496,48.8276940066496,48.8276940066496,49.4962600000001,48.8305285361195,48.88822,48.8276940066496,48.7946600000001,48.9001400000001,43.6597741755991,48.8276940066496,47.2067075956284,48.8935500000001,48.8935500000001,48.8276940066496,50.6194914652083,48.8276940066496,50.674,45.8159200000001,48.8276940066496,48.8376400000001,48.58504,50.60585,48.8276940066496,48.8574097079022,48.7820785390683,48.8276940066496,48.9250200000001,48.8276940066496,48.8276940066496,50.6371823834797,50.60585,48.8276940066496,48.8261226082913,50.6120100433994,50.6120100433994,48.89617,47.2086104781915,48.8276940066496,48.8935500000001,48.8276940066496,48.9001400000001,48.8276940066496,48.8276940066496,48.6159000000001,45.75917,45.194121000913,48.8276940066496,48.8276940066496,48.8276940066496,44.24965,48.71299,48.8276940066496,50.6371823834797,48.8262746628261,48.8276940066496,48.8935500000001,48.8276940066496,48.8276940066496,48.9399300000001,43.7042970134431,44.8224958398699,48.25316,47.2086104781915,48.8258947847109,48.39043,48.8276940066496,46.3310324878392,48.8276940066496,48.830678830864,45.194121000913,45.75917,50.6371823834797,45.75917,50.6371823834797,48.88822,48.8258208870661,45.75917,46.559417044,50.6371823834797,43.62235,43.5168546243986,43.6597741755991,47.2086104781915,48.8258947847109,44.8367000000001,48.8276940066496,48.8262746628261,48.89617,45.790968583422,49.2091530679694,48.8276940066496,48.9250200000001,48.8276940066496,48.88264,48.8276940066496,47.2086104781915,48.8276940066496,48.8212300000001,48.8276940066496,48.9071000000001,48.8276940066496,50.6914300000001,47.2086104781915,50.6582419810157,45.1564112169298,48.7929100000001,43.6211015185853,48.843226371132,43.62235,48.0981927928816,48.8116800000001,43.6211015185853,48.88437,48.8276940066496,48.8212300000001,48.89617,50.6371823834797,43.6392095751544,50.6371823834797,48.8371784449714,48.69883,48.83525,48.8276940066496,48.8276940066496,50.60585,48.8574097079022,43.5168546243986,48.9071000000001,48.88822,50.6371823834797,49.00397,48.8212300000001,48.8212300000001,48.8212300000001,48.830678830864,48.0981927928816,48.9001400000001,43.6211015185853,48.8276940066496,48.8276940066496,48.8481900230275,48.89617,48.8276940066496,48.8276940066496,48.76989,48.89617,48.8276940066496,48.76989,48.89617,48.8276940066496,46.3000000000001,48.88437,50.6914300000001,44.8367000000001,43.5168546243986,50.6371823834797,48.88822,43.6211015185853,48.8574097079022,45.194121000913,45.75917,48.88437,48.88437,50.6371823834797,48.8276940066496,48.8276940066496,48.88822,44.7881781565531,48.89617,48.8276940066496,48.37269,43.69381,48.43602,48.88264,50.60585,48.8305285361195,48.8371283233509,48.8935500000001,48.8258947847109,46.559417044,48.8276940066496,48.8276940066496,47.3019094848752,50.6582419810157,48.8276940066496,48.8276940066496,48.8276940066496,43.31856,48.80668,48.8276940066496,50.6798000000001,47.8029700000001,47.4741687345227,47.2086104781915,48.8262746628261,48.8276940066496,48.8212300000001,48.8276940066496,48.8276940066496,45.8991,48.8931433281449,43.6597741755991,48.8276940066496,48.8276940066496,48.80668,48.8276940066496,50.39689,50.6371823834797,48.83525,48.775958474443,48.88822,48.8276940066496,48.871045,44.8418100000001,48.8276940066496,48.8276940066496,46.32124,48.9280000000001,48.8371283233509,48.8276940066496,48.83525,48.8276940066496,48.8935500000001,43.31856,50.6371823834797,48.8276940066496,48.8263481193168,48.8276940066496,48.8276940066496,48.871045,43.6211015185853,45.8991,44.9113400000001,50.6371823834797,46.32124,45.1637400000001,50.6371823834797,50.6371823834797,47.47457,48.80082,50.6582419810157,48.88822,45.6188700000001,48.88264,48.8276940066496,48.83525,48.82163,46.559417044,50.687580340085,48.8276940066496,47.2086104781915,46.559417044,48.8276940066496,43.31856,48.8276940066496,48.8276940066496,47.2975000000001,48.8276940066496,45.6467700000001,48.8276940066496,48.8276940066496,48.79983,48.9280000000001,48.8276940066496,48.8276940066496,48.9136,48.88264,43.5168546243986,48.8276940066496,48.8276940066496,44.8367000000001,48.65058,50.6371823834797,50.6371823834797,48.8276940066496,45.194121000913,48.8305285361195,48.8276940066496,45.75917,48.80668,43.5934298639117,48.88437,43.6211015185853,48.8276940066496,50.6371823834797,48.8276940066496,48.8574097079022,45.1564112169298,45.75917,48.88437,48.8276940066496,47.2086104781915,43.62235,48.8276940066496,43.5296500000001,48.83525,46.3265000000001,46.32124,47.6583400000001,43.5168546243986,44.8367000000001,50.7228769167483,48.8276940066496,48.8276940066496,44.8367000000001,48.8677300000001,43.31856,48.8276940066496,48.8276940066496,45.7740463965525,48.8276940066496,44.8367000000001,44.8367000000001,48.8276940066496,48.8375632433342,45.75917,48.8276940066496,48.8574097079022,46.559417044,47.7517,48.8931433281449,45.75917,48.88437,48.7130300000001,48.88822,43.62235,48.8931433281449,48.8677300000001,48.8276940066496,43.6211015185853,49.00397,48.8276940066496,48.89617,48.95599,48.8370782017304,48.6126300000001,50.6371823834797,48.8305285361195,45.764734043248,49.0755100000001,48.81215,43.3003027583506,43.62235,48.89617,41.3877400000001,48.8276940066496,48.8276940066496,50.6371823834797,48.8375632433342,48.8276940066496,48.88437,48.8276940066496,48.7999060070039,50.6371823834797,48.89617,48.8677300000001,48.8276940066496,48.8574097079022,48.83525,48.8276940066496,50.6371823834797,45.764734043248,43.69381,48.8931433281449,48.77108,50.6582419810157,48.8276940066496,50.5764300000001,50.6371823834797,48.58504,50.6371823834797,48.5802100000001,48.8571700000001,48.8276940066496,45.75917,50.6371823834797,49.0752600000001,48.8574097079022,48.8276940066496,50.6371823834797,48.8276940066496,43.41808,48.64261,45.75917,48.81215,43.6392095751544,50.6120100433994,48.8258208870661,48.84707,48.8276940066496,48.89617,48.8305285361195,45.194121000913,48.8276940066496,48.8276940066496,45.75917,48.8276940066496,48.8481900230275,48.8375632433342,43.63458,48.8574097079022,48.8370782017304],[2.30434645326201,2.35547000000003,2.37910003512124,2.37910003512124,2.63375547244205,2.63375547244205,-0.581069999999954,2.24024000000003,3.09420000000006,2.37910003512124,2.23791000000006,-1.17890999999997,1.41814319795288,2.38156341157237,2.37910003512124,2.37910003512124,2.37910003512124,2.12583000000006,2.24489767198392,1.39684000000005,1.42183453177351,7.25148501212311,0.620550000000037,2.37910003512124,7.04721000000006,1.41814319795288,2.22674174092761,-0.347240731774215,2.37910003512124,2.55053995300005,1.41814319795288,2.37650024406499,2.25648000000007,2.19428000000005,2.22674174092761,5.72091403683689,-0.581069999999954,3.90526000000006,2.06970000000007,2.34140000000002,5.44543867691176,2.37910003512124,1.42183453177351,2.37910003512124,5.44543867691176,2.25648000000007,5.44543867691176,2.66413000000006,2.37910003512124,1.94898000000006,2.37910003512124,2.34140000000002,2.28959000000003,2.37910003512124,2.22674174092761,2.28826745484995,2.37910003512124,2.19428000000005,2.25648000000007,2.38130747959828,2.19428000000005,2.25648000000007,2.38130747959828,2.22724000000005,2.34860000000003,2.37650024406499,2.55053995300005,2.19428000000005,2.24073000000004,-0.463379999999972,2.37910003512124,3.87336959872347,2.38104254662466,2.34140000000002,-0.604462092824452,2.37910003512124,2.35547000000003,2.41350000000006,-0.581069999999954,2.23791000000006,2.28980000000007,2.41788000000003,2.55053995300005,2.36933000000005,2.37910003512124,2.37910003512124,2.34159982722465,4.90230000000003,1.41814319795288,5.04299000000003,2.37910003512124,2.38151779666531,2.37910003512124,4.92261171724876,2.37910003512124,2.37910003512124,2.35547000000003,3.01920473644255,2.37910003512124,2.37910003512124,3.01920473644255,-1.15163999999993,2.24073000000004,2.37910003512124,3.01920473644255,2.37910003512124,2.37910003512124,-0.581069999999954,6.16731649296845,2.26310000000007,-0.347240731774215,2.22674174092761,5.40836000000007,4.82965000000007,2.38168989223694,2.19428000000005,2.22612000000004,3.01920473644255,2.37910003512124,2.37910003512124,2.45522013504922,-1.20213999999993,2.22674174092761,2.37910003512124,2.37650024406499,2.38130747959828,2.37910003512124,-0.581069999999954,2.24073000000004,2.63375547244205,2.37910003512124,2.24073000000004,2.37910003512124,2.24489767198392,2.37910003512124,3.055030118234,6.17145000000005,2.37910003512124,4.81297429597299,2.37910003512124,3.01920473644255,2.37910003512124,2.37910003512124,2.37910003512124,2.24024000000003,2.35547000000003,5.40836000000007,3.01920473644255,2.24073000000004,4.82965000000007,2.55053995300005,5.39068374837129,2.36933000000005,2.24073000000004,2.42461000000003,2.34159982722465,5.00204000000002,2.37910003512124,0.68957000000006,2.26610016700937,2.37910003512124,4.75352000000004,3.09420000000006,4.8196192395397,2.37650024406499,2.19428000000005,1.0811230001304,2.37910003512124,5.72091403683689,2.37910003512124,2.13844000000006,2.41350000000006,2.51638000000003,2.26610016700937,3.07722000000007,2.38489000000004,2.37910003512124,4.81732000000005,5.40836000000007,4.8635710317682,4.8635710317682,-1.76098999999994,2.37910003512124,5.40836000000007,2.37679893592174,2.38185942419139,1.41814319795288,2.37910003512124,2.38151779666531,2.37910003512124,2.26638000000003,2.19428000000005,7.36469000000005,2.37910003512124,2.37910003512124,5.72091403683689,2.38151779666531,2.13844000000006,3.07743000000005,3.055030118234,0.68957000000006,3.055030118234,4.8196192395397,1.41814319795288,2.37910003512124,2.38489000000004,2.37910003512124,2.44265000000007,4.75352000000004,4.82965000000007,2.37910003512124,2.25648000000007,2.37910003512124,2.37910003512124,2.37910003512124,0.359270000000038,2.37650024406499,2.19428000000005,2.37910003512124,2.33495000000005,2.30646000000007,1.42183453177351,2.37910003512124,-1.57767546611809,2.28959000000003,2.28959000000003,2.37910003512124,3.13113286260462,2.37910003512124,3.09420000000006,4.81732000000005,2.37910003512124,2.63240000000008,7.73642000000007,3.07743000000005,2.37910003512124,2.34159982722465,2.20206992499755,2.37910003512124,2.29449000000005,2.37910003512124,2.37910003512124,3.01920473644255,3.07743000000005,2.37910003512124,2.38143838663328,3.055030118234,3.055030118234,2.25648000000007,-1.61106447839568,2.37910003512124,2.28959000000003,2.37910003512124,2.30646000000007,2.37910003512124,2.37910003512124,2.37778000000003,4.82965000000007,5.72091403683689,2.37910003512124,2.37910003512124,2.37910003512124,2.14805000000007,2.36571000000004,2.37910003512124,3.01920473644255,2.38117616321901,2.37910003512124,2.28959000000003,2.37910003512124,2.37910003512124,2.35547000000003,7.25148501212311,-0.636072428533597,-0.777579999999944,-1.61106447839568,2.38185942419139,-4.48657999999995,2.37910003512124,-0.488464577230201,2.37910003512124,2.37679893592174,5.72091403683689,4.82965000000007,3.01920473644255,4.82965000000007,3.01920473644255,2.19428000000005,2.38151779666531,4.82965000000007,2.55053995300005,3.01920473644255,7.04721000000006,5.44543867691176,1.42183453177351,-1.61106447839568,2.38185942419139,-0.581069999999954,2.37910003512124,2.38117616321901,2.25648000000007,4.81297429597299,-0.326178402238162,2.37910003512124,2.29449000000005,2.37910003512124,2.24024000000003,2.37910003512124,-1.61106447839568,2.37910003512124,2.25161000000003,2.37910003512124,2.03846000000004,2.37910003512124,3.17318000000006,-1.61106447839568,3.09283602195458,5.73250854172348,2.36933000000005,1.41814319795288,2.60427375623012,7.04721000000006,-1.70524202042241,2.38489000000004,1.41814319795288,2.26935000000003,2.37910003512124,2.25161000000003,2.25648000000007,3.01920473644255,3.87336959872347,3.01920473644255,2.37055521314355,2.18778000000003,2.24073000000004,2.37910003512124,2.37910003512124,3.07743000000005,2.34159982722465,5.44543867691176,2.03846000000004,2.19428000000005,3.01920473644255,2.51638000000003,2.25161000000003,2.25161000000003,2.25161000000003,2.37679893592174,-1.70524202042241,2.30646000000007,1.41814319795288,2.37910003512124,2.37910003512124,2.24489767198392,2.25648000000007,2.37910003512124,2.37910003512124,7.41319000000004,2.25648000000007,2.37910003512124,7.41319000000004,2.25648000000007,2.37910003512124,4.83333000000005,2.26935000000003,3.17318000000006,-0.581069999999954,5.44543867691176,3.01920473644255,2.19428000000005,1.41814319795288,2.34159982722465,5.72091403683689,4.82965000000007,2.26935000000003,2.26935000000003,3.01920473644255,2.37910003512124,2.37910003512124,2.19428000000005,-0.713274833749649,2.25648000000007,2.37910003512124,7.59395000000006,5.50134000000003,-4.40055999999993,2.24024000000003,3.07743000000005,2.37650024406499,2.3705783511708,2.28959000000003,2.38185942419139,2.55053995300005,2.37910003512124,2.37910003512124,-1.49208678984398,3.09283602195458,2.37910003512124,2.37910003512124,2.37910003512124,5.40836000000007,2.33684000000005,2.37910003512124,3.15685000000002,6.38246000000004,-0.545803247183234,-1.61106447839568,2.38117616321901,2.37910003512124,2.25161000000003,2.37910003512124,2.37910003512124,6.12870000000004,2.22674174092761,1.42183453177351,2.37910003512124,2.37910003512124,2.33684000000005,2.37910003512124,3.06215000000003,3.01920473644255,2.24073000000004,2.45522013504922,2.19428000000005,2.37910003512124,2.22145149000005,-0.64758999999998,2.37910003512124,2.37910003512124,-0.463379999999972,2.04257000000007,2.3705783511708,2.37910003512124,2.24073000000004,2.37910003512124,2.28959000000003,5.40836000000007,3.01920473644255,2.37910003512124,2.38104254662466,2.37910003512124,2.37910003512124,2.22145149000005,1.41814319795288,6.12870000000004,-0.24398999999994,3.01920473644255,-0.463379999999972,6.08892000000003,3.01920473644255,3.01920473644255,-0.630699999999933,2.03087000000005,3.09283602195458,2.19428000000005,5.22923000000003,2.24024000000003,2.37910003512124,2.24073000000004,2.41350000000006,2.55053995300005,3.1160102433327,2.37910003512124,-1.61106447839568,2.55053995300005,2.37910003512124,5.40836000000007,2.37910003512124,2.37910003512124,-1.49180999999993,2.37910003512124,5.02340000000004,2.37910003512124,2.37910003512124,2.28980000000007,2.04257000000007,2.37910003512124,2.37910003512124,2.38237000000004,2.24024000000003,5.44543867691176,2.37910003512124,2.37910003512124,-0.581069999999954,-2.02314999999993,3.01920473644255,3.01920473644255,2.37910003512124,5.72091403683689,2.37650024406499,2.37910003512124,4.82965000000007,2.33684000000005,2.23266090223159,2.26935000000003,1.41814319795288,2.37910003512124,3.01920473644255,2.37910003512124,2.34159982722465,5.73250854172348,4.82965000000007,2.26935000000003,2.37910003512124,-1.61106447839568,7.04721000000006,2.37910003512124,1.52709000000004,2.24073000000004,-0.46037578499994,-0.463379999999972,-2.75984999999997,5.44543867691176,-0.581069999999954,3.16421650211755,2.37910003512124,2.37910003512124,-0.581069999999954,2.22612000000004,5.40836000000007,2.37910003512124,2.37910003512124,3.11905656280128,2.37910003512124,-0.581069999999954,-0.581069999999954,2.37910003512124,2.37058478131182,4.82965000000007,2.37910003512124,2.34159982722465,2.55053995300005,7.34367000000003,2.22674174092761,4.82965000000007,2.26935000000003,2.24628000000007,2.19428000000005,7.04721000000006,2.22674174092761,2.22612000000004,2.37910003512124,1.41814319795288,2.51638000000003,2.37910003512124,2.25648000000007,2.54041000000007,2.37060148919805,2.48231000000004,3.01920473644255,2.37650024406499,4.88650254912447,2.67528000000004,2.35699000000005,-0.347240731774215,7.04721000000006,2.25648000000007,9.16087000000005,2.37910003512124,2.37910003512124,3.01920473644255,2.37058478131182,2.37910003512124,2.26935000000003,2.37910003512124,2.63375547244205,3.01920473644255,2.25648000000007,2.22612000000004,2.37910003512124,2.34159982722465,2.24073000000004,2.37910003512124,3.01920473644255,4.88650254912447,5.50134000000003,2.22674174092761,2.06970000000007,3.09283602195458,2.37910003512124,3.05293000000006,3.01920473644255,7.73642000000007,3.01920473644255,7.68693000000007,2.34140000000002,2.37910003512124,4.82965000000007,3.01920473644255,2.10472000000004,2.34159982722465,2.37910003512124,3.01920473644255,2.37910003512124,5.21420000000006,2.29250000000008,4.82965000000007,2.35699000000005,3.87336959872347,3.055030118234,2.38151779666531,2.37578000000002,2.37910003512124,2.25648000000007,2.37650024406499,5.72091403683689,2.37910003512124,2.37910003512124,4.82965000000007,2.37910003512124,2.24489767198392,2.37058478131182,1.39684000000005,2.34159982722465,2.37060148919805],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["<b>Data Scientist junior (H/F)<\/b> <br/> Kea & Partners","<b>Data Scientist (F ou H)<\/b> <br/> SNCF","<b>Data Scientist (H/F) (IT)<\/b> <br/> Yzee Services","<b>Data Scientist H/F<\/b> <br/> Natan (SSII)","<b>Data Scientist Junior H/F / Freelance<\/b> <br/> karma partners","<b>Data Scientist junior / Freelance<\/b> <br/> STA","<b>Data scientist H/F<\/b> <br/> Unicancer","<b>Data Scientist H/F<\/b> <br/> datakeen","<b>Data Scientist F/H<\/b> <br/> KISS THE BRIDE","<b>Data Scientist H/F<\/b> <br/> Groupe Demeter","<b>Data Scientist - H/F<\/b> <br/> Bouygues Telecom","<b>Data scientist<\/b> <br/> Manitou Group","<b>Bioprocess modeler/Data scientist H/F<\/b> <br/> ALTRAN","<b>Data Scientist H/F<\/b> <br/> K-ciopé","<b>Data Scientist - Projet Énergie Verte<\/b> <br/> MP Data","<b>Data Scientist - Projet Énergie Verte<\/b> <br/> MP Data","<b>Data Scientist (m/f/d) - Paris<\/b> <br/> Simon-Kucher & Partners","<b>Data Scientist H/F<\/b> <br/> GCS SAS","<b>Data Scientist NLP<\/b> <br/> MP DATA","<b>DATA ENGINEER/SCIENTIST SKYWISE (H/F)<\/b> <br/> Airbus","<b>Data Scientist H/F<\/b> <br/> Solutec","<b>Data Scientist (Data team)<\/b> <br/> Veepee","<b>Data Scientist F/H<\/b> <br/> Réseau Primever France","<b>Data Scientist H/F<\/b> <br/> NEO2","<b>Data Scientist - H/F<\/b> <br/> Micromania Zing","<b>Data Scientist bio-informatique H/F<\/b> <br/> ALTRAN","<b>Consultant débutant en data sciences F/H - Paris<\/b> <br/> EY","<b>Data Scientist H/F<\/b> <br/> MP DATA","<b>Consultant.e Data Scientist (H/F)<\/b> <br/> June Partners","<b>Computer Vision ML, Data scientist<\/b> <br/> Sightengine","<b>Data Scientist - Computer Vision - Full remote / Freelance<\/b> <br/> Trait d'Union Consulting","<b>Data Scientist (H/F)<\/b> <br/> Nestle","<b>Data Scientist - Énergies Renouvelables<\/b> <br/> MP DATA","<b>Junior Data Scientist<\/b> <br/> Systemathics","<b>Consultant débutant data analytics F/H - Paris<\/b> <br/> EY","<b>Data Scientist H/F<\/b> <br/> Inetum","<b>Data Scientist F/M<\/b> <br/> Betclic Group","<b>Data analyst junior H/F<\/b> <br/> Septeo","<b>Data Scientist (H/F)<\/b> <br/> Renault Group","<b>Data scientist H/F<\/b> <br/> Pôle Emploi","<b>Data scientist confirmé AIX EN PROVENCE H/F<\/b> <br/> Capgemini","<b>Data Scientist H/F<\/b> <br/> Groupe Pierre & Vacances - Center Parcs","<b>DATA SCIENTIST / DATA ENGINEER, Secteur aéronautique<\/b> <br/> ALTEN","<b>DATA SCIENTIST F/H<\/b> <br/> HARNHAM","<b>Data Scientist F/H<\/b> <br/> Voyage Privé","<b>DATA SCIENTIST<\/b> <br/> Aquila Consulting","<b>ALT - DATA Scientist (F/H)<\/b> <br/> GRDF","<b>Data scientist / Ingénieur en Intelligence Artificielle F/H...<\/b> <br/> Pôle Emploi","<b>DATA SCIENTIST F/H<\/b> <br/> InVivo","<b>Data Scientist - F/H<\/b> <br/> Thales","<b>Data Scientist<\/b> <br/> AZAP","<b>Data scientist user behaviour H/F<\/b> <br/> Se Loger","<b>Data Scientist<\/b> <br/> Ysance","<b>Ingénieur Data Scientist Junior H/F<\/b> <br/> AKKA TECHNOLOGIES","<b>Consultant Débutant - DATA Analyst - 2022 - Paris - H/F - oc...<\/b> <br/> EY","<b>Ingénieur Data Scientist Junior - Intelligence Artificielle...<\/b> <br/> Ivalua","<b>DATA SCIENTIST COMPUTER VISION<\/b> <br/> Aquila Consulting","<b>Data Scientist Paiements -(H/F)<\/b> <br/> Société Générale","<b>Data Scientist - H/F<\/b> <br/> Dalkia","<b>Data Scientist<\/b> <br/> Collective Thinking","<b>Data Scientist Paiements -(H/F)<\/b> <br/> Société Générale","<b>Data Scientist - H/F<\/b> <br/> Dalkia","<b>Data Scientist<\/b> <br/> Collective Thinking","<b>Data Scientist F/H<\/b> <br/> haxio","<b>Data Scientist<\/b> <br/> Silex","<b>Data scientist H/F<\/b> <br/> Crédit Agricole Assurances","<b>Audio & Speech Recognition Data scientist<\/b> <br/> Sightengine","<b>Data Scientist - Analytics Clients - H/F<\/b> <br/> BNP Paribas","<b>Data Analyst H/F<\/b> <br/> Bouygues Telecom","<b>Data Scientist Scoring - CDD 12 mois - NIORT F/H<\/b> <br/> MAIF","<b>Data Analyst Junior (F/H) - CDI<\/b> <br/> Nexity","<b>Data analyste<\/b> <br/> PwC","<b>Consultant Data Scientist (H/F)<\/b> <br/> METRICS","<b>Data Scientist (full time, all seniority levels) - QuantumBl...<\/b> <br/> McKinsey & Company","<b>Data scientist<\/b> <br/> Meggitt","<b>Consultant Junior & Data Scientist (H/F/N)<\/b> <br/> Ekimetrics","<b>Data Analyst H/F<\/b> <br/> Generali France","<b>Data Scientist (H/F)<\/b> <br/> Natixis","<b>Data Scientist F/M<\/b> <br/> Automotive Cells Company - ACC","<b>Data Scientist Performance Mobile H/F<\/b> <br/> Bouygues Telecom","<b>Data Scientist (H/F)<\/b> <br/> LES MOUSQUETAIRES","<b>Data Scientist<\/b> <br/> datafab.io","<b>NLP Data scientist<\/b> <br/> Sightengine","<b>Data Scientist IG H/F<\/b> <br/> LCL","<b>Data Scientist | Python | Editeur de logiciel en...<\/b> <br/> Octopus IT","<b>Data Scientist (H/F)<\/b> <br/> Positive Thinking Company","<b>Data Scientist<\/b> <br/> Numberly","<b>Data analyst F/H<\/b> <br/> Eiffage","<b>Data Scientist F/H<\/b> <br/> PredExIA","<b>Engineer Data Scientist H/F<\/b> <br/> BioSerenity","<b>Data Scientist Energétique<\/b> <br/> WeSmart","<b>Data Scientist<\/b> <br/> DAMAE Medical","<b>Consultant(e) Data scientist – métiers bancaire<\/b> <br/> Groupe Consortia","<b>INGENIEUR·E D’ETUDE DATA SCIENTIST<\/b> <br/> Université Gustave Eiffel","<b>Data Scientist - Data Science<\/b> <br/> Datadog","<b>Data Scientist H/F<\/b> <br/> TotalEnergies","<b>Data Scientist (modélisation études risque) H/F en CDI<\/b> <br/> La Banque Postale Consumer Finance","<b>Data Analyst Junior (H/F)<\/b> <br/> Insitoo","<b>DATA SCIENTIST - F/H<\/b> <br/> Banque de France","<b>Data Analyst F/H<\/b> <br/> Kent FR","<b>Data Analyst / Freelance<\/b> <br/> GROUPE HN","<b>Data Scientist (H/F)<\/b> <br/> pasteque.io","<b>Data Scientist F/H<\/b> <br/> agap2 IT","<b>Consultant Explorateur Data Scientist – Santé H/F<\/b> <br/> Alcimed","<b>Data Scientist – Consultant – Financial Services (H/F)<\/b> <br/> Deloitte","<b>Data Scientist / Senior Data Scientist<\/b> <br/> FactSet Research Systems","<b>Data Scientist H/F<\/b> <br/> Michael Page","<b>Senior Data Scientist<\/b> <br/> Dataworks","<b>Data Scientist Python - Azure H/F<\/b> <br/> DSI Group","<b>Data Scientist - FMCG / données consommateurs H/F/X<\/b> <br/> Mondelez","<b>Data Analyst/Data Quality H/F<\/b> <br/> CGI Inc","<b>Consultant Data Analyst Débutant F/H - Septembre 2022<\/b> <br/> EY","<b>Data Scientist H/F<\/b> <br/> Volta Medical","<b>Data Scientist (H/F)<\/b> <br/> Activus Group","<b>Data analyst Datalake (F/H)<\/b> <br/> Digital Partners","<b>DATA SCIENTIST SPÉCIALISÉ R<\/b> <br/> Aquila Consulting","<b>Data Scientist (F/H) CDI<\/b> <br/> Médiaperformances","<b>Data Scientist (H/F)<\/b> <br/> Insitoo","<b>Chargé d'Etudes Statistiques/Data Scientist H/F<\/b> <br/> PRINTEMPS","<b>DATA SCIENTIST<\/b> <br/> Harnham","<b>Computer Vision Data Scientist<\/b> <br/> Essilor","<b>Data scientist F/H<\/b> <br/> Manitou","<b>Senior Data Scientist (H/F)<\/b> <br/> Allianz France","<b>Consultant.e Data Scientist<\/b> <br/> Softeam","<b>Data scientist<\/b> <br/> FABDEV","<b>Data Analyst (H/F)<\/b> <br/> Groupe IGS","<b>Data Scientist (F/H)<\/b> <br/> Harwell Management","<b>DATA SCIENTIST - DÉVELOPPEUR CHATBOT CONFIRMÉ(E) - H/F<\/b> <br/> Talan","<b>Data Scientist-Analyst GERS (H/F) - Boulogne-Billancourt (Fr...<\/b> <br/> Cegedim","<b>Data Scientist / Machine Learning Engineer<\/b> <br/> Air France-KLM","<b>Data Scientist h/f<\/b> <br/> HeadMind Partners","<b>Data Analyst H/F<\/b> <br/> L ETUDIANT","<b>Data Scientist<\/b> <br/> Artefact","<b>Consultant data Scientist et Python F/H<\/b> <br/> MANAGEMENT INFORMATIQUE & NOUVELLES TECHNOLOGIES...","<b>Consultant(e) Junior Data Analytics H/F<\/b> <br/> mc2i","<b>Data Scientist H/F - Lille<\/b> <br/> AVISIA","<b>Data Scientist Junior<\/b> <br/> Xtramile","<b>Data Scientist - COPERNEEC<\/b> <br/> Coperneec","<b>DATA SCIENTIST F/H<\/b> <br/> AVISIA ALPES","<b>Data Analyst Junior<\/b> <br/> RSM France","<b>Data Analyst H/F<\/b> <br/> AUSY FRANCE","<b>Data Scientist NLP - Paris - H/F<\/b> <br/> CleverConnect","<b>Data Scientist<\/b> <br/> Nova Consulting","<b>Data Analyst Junior F/H<\/b> <br/> PICNIC","<b>Data Analyst [risque]<\/b> <br/> Kaino","<b>ALT-DATA ANALYST DASHBOARD PROJETS H/F<\/b> <br/> Generali France","<b>Data scientist<\/b> <br/> WitMonki","<b>DATA ANALYST<\/b> <br/> Harnham","<b>Data Analyst IT (H/F)<\/b> <br/> Renault Group","<b>Data Analyst (H/F)<\/b> <br/> GRANDLYON HABITAT","<b>Data & Analytics Consultant<\/b> <br/> Dataworks","<b>Offre d'emploi en CDI : Data Scientist<\/b> <br/> Jalis","<b>DATA Analyst H/F<\/b> <br/> LCL","<b>Data Analyst H/F<\/b> <br/> Lobster communication","<b>Data Analyst H/F<\/b> <br/> BFR Systems","<b>Data Analyst<\/b> <br/> Deezer","<b>Analyste Data h/f<\/b> <br/> ISERBA","<b>Data Scientist (F/M)<\/b> <br/> Younited Credit","<b>Data Analyst<\/b> <br/> Daher","<b>Data/Analyst Data Translator (H/F)<\/b> <br/> Carrefour","<b>Consultant Data Analytics<\/b> <br/> Dataworks","<b>DATA ANALYST H/F<\/b> <br/> HC RESOURCES","<b>Data Scientist H/F<\/b> <br/> Lesaffre","<b>Data Scientist F/H<\/b> <br/> KLANIK","<b>Data analyst<\/b> <br/> Pôle Emploi","<b>Data Scientist H/F<\/b> <br/> Groupama Assurances Mutuelles","<b>Responsable Data Scientist (F/H)<\/b> <br/> Don't Call Me Jennyfer","<b>Data Scientist – F/H<\/b> <br/> Adevinta Group","<b>DATA SCIENTIST - CDI - F/H<\/b> <br/> spartoo.com","<b>DATA SCIENTIST SANTÉ F/H<\/b> <br/> GIP SESAN","<b>Data Scientist - F/H<\/b> <br/> Air Liquide","<b>Data Scientist (F/H)<\/b> <br/> Groupe BPCE","<b>Data Analyst- Economie des Lignes H/F<\/b> <br/> Air France-KLM","<b>Data Analyst (H/F)<\/b> <br/> Carrefour","<b>Data Scientist Expérimenté - F/H<\/b> <br/> Accenture","<b>Data Scientist F/H<\/b> <br/> Fnac Darty","<b>Data Scientist<\/b> <br/> Margo Conseil","<b>Data Scientist H/F<\/b> <br/> REEL","<b>Data Scientist pour l'imagerie en Neuroscience F/H<\/b> <br/> Aix-Marseille Université","<b>Data Analyst - H/F<\/b> <br/> Avisto","<b>Data Analyst - H/F<\/b> <br/> Avisto","<b>Data scientist H/F<\/b> <br/> Segula Technologies","<b>Data Scientist Senior<\/b> <br/> Cleyrop","<b>Data scientist<\/b> <br/> IA BTP","<b>Data Scientist<\/b> <br/> AVIV Group","<b>Data Analyst (H/F)<\/b> <br/> Mydral","<b>DATA SCIENTIST – 3DTRUST H/F<\/b> <br/> Basseti Group","<b>Data Scientist h-f<\/b> <br/> Danem People France","<b>Data Analyst H/F<\/b> <br/> Kaino","<b>Accelerator - Junior Data Scientist (M/F)<\/b> <br/> Sanofi","<b>Ingénieur Data Scientist Prestation GMP H/F<\/b> <br/> Renault Group","<b>CHARGE(E) D’ETUDES STATISTIQUES / DATA ANALYST-(H/F)<\/b> <br/> Société Générale","<b>Research Engineer – Data Scientist<\/b> <br/> PPRS Research","<b>Data Scientist F/H<\/b> <br/> YZEE SERVICES","<b>Data Scientist H/F - CDI<\/b> <br/> Richemont","<b>DATA SCIENTIST - CDI - F/H<\/b> <br/> spartoo.com","<b>Data Analyst H/F<\/b> <br/> Kaino","<b>Data Scientist - F/H<\/b> <br/> Air Liquide","<b>Data Scientist - DP4P (H/F)<\/b> <br/> ADEO Services","<b>Data Analyst (F/H)<\/b> <br/> Meilleurtaux","<b>Data Analyste H/F<\/b> <br/> Q1C1","<b>Data Analyst<\/b> <br/> Extia","<b>Data Scientist F/H<\/b> <br/> KLANIK","<b>DATA SCIENTIST – 3DTRUST H/F<\/b> <br/> Basseti Group","<b>Data Scientist – F/H<\/b> <br/> Adevinta Group","<b>Data Scientist F/H<\/b> <br/> Fnac Darty","<b>Senior Data Scientist<\/b> <br/> Cegid","<b>Data Scientist / Data analyst F/H<\/b> <br/> AUTOVISION","<b>DATA ANALYST H/F<\/b> <br/> HC RESOURCES","<b>Data analyst junior<\/b> <br/> Easylife","<b>Data Science Manager (F/H)<\/b> <br/> Accenture","<b>Data Scientist F/H<\/b> <br/> autobiz","<b>Data Analyst (H/F)<\/b> <br/> Guerlain","<b>DATA SCIENCE CONSULTANT PARIS<\/b> <br/> managementsolutions","<b>DATA SCIENTIST NLP<\/b> <br/> Aquila Consulting","<b>Data Analyst KUSMI TEA H/F<\/b> <br/> KUSMI TEA","<b>Data scientist<\/b> <br/> FABDEV","<b>CHARGE(E) D’ETUDES STATISTIQUES / DATA ANALYST-(H/F)<\/b> <br/> Société Générale","<b>Consultant.e Data Scientist<\/b> <br/> Softeam","<b>Data Analyst - (F/H)<\/b> <br/> Avisto","<b>Data Analyst (H/F)<\/b> <br/> TAXIS G7","<b>Data Analyst H/F<\/b> <br/> GESER BEST","<b>CDD DATA ANALYST H/F<\/b> <br/> Caisse des Dépôts","<b>Data Scientist Climat<\/b> <br/> Generali France","<b>Junior data analyst H/F<\/b> <br/> Lagardere","<b>Junior data analyst H/F<\/b> <br/> Lagardere","<b>Data Scientist - COPERNEEC<\/b> <br/> Coperneec","<b>Data Analyst (F/H)<\/b> <br/> Auchan Retail France","<b>Ingénieur Data Scientist H/F<\/b> <br/> AKKA TECHNOLOGIES","<b>Data Scientist H/F<\/b> <br/> Lesaffre","<b>Data Scientist H/F<\/b> <br/> REEL","<b>Data Analyst (H/F/NB)<\/b> <br/> Synchrone","<b>Analyste de données (Data analyst)<\/b> <br/> ONISEP","<b>Data Analyst (H/F)<\/b> <br/> Hess Automobile","<b>DATA ANALYST - SCDP (F/H)<\/b> <br/> ADEO Services","<b>Data Scientist Confirmé<\/b> <br/> IPANEMA CONSULTING","<b>Product Analytic - Data Scientist<\/b> <br/> Criteo","<b>DATA SCIENTIST H/F<\/b> <br/> CAPGEMINI ENGINEERING","<b>Data Scientist F/H<\/b> <br/> YZEE SERVICES","<b>CDD - Data Analyst Junior H/F 92230, Gennevilliers, Hauts-de...<\/b> <br/> Audika","<b>Accelerator - Junior Data Scientist (M/F)<\/b> <br/> Sanofi","<b>Responsable Data Analyst F/H<\/b> <br/> Kent FR","<b>data analyst<\/b> <br/> Ausy","<b>Data Analyst Positive Impact - H/F<\/b> <br/> ADEO Services","<b>Lead Data Scientist<\/b> <br/> NATAN","<b>Data Analyst H/F<\/b> <br/> Les Nouveaux Héritiers","<b>Data Scientist H/F - Lille<\/b> <br/> AVISIA","<b>Data Scientist (H/F)<\/b> <br/> TALENTS RH","<b>Innovation / R&D / Data Sciences_Modèle d'offre d'emploi<\/b> <br/> SUEZ","<b>Data Scientist F/H<\/b> <br/> TELITEM CONSULTING","<b>Data analyst H/F<\/b> <br/> Econocom","<b>Junior data analyst H/F<\/b> <br/> Lagardère Travel Retail","<b>Apprenticeship Data Scientist F/M/<\/b> <br/> Subsea 7","<b>Data Analyst H/F<\/b> <br/> Monoprix.fr","<b>Data Analyst Senior F/H<\/b> <br/> 24S.com","<b>Data Analyst Senior F/H<\/b> <br/> 24S.com","<b>Data Analyst (H/F)<\/b> <br/> ÉQUIPEMENT DE LA MAISON","<b>ST I Data Scientist H/F<\/b> <br/> Vision Systems","<b>Data Scientist H/F<\/b> <br/> Schneider Electric","<b>DATA SCIENTIST / BIOSTATISTICIAN / BIOSTATISTICS<\/b> <br/> Ariana Pharma","<b>Data Analyst H/F<\/b> <br/> Sport Faction","<b>Data Analyst<\/b> <br/> TCO","<b>Ingénieur Pépinière DOP - Data Analyst Hubgrade (F/H)<\/b> <br/> Veolia","<b>Data Scientist Confirmé H/F<\/b> <br/> Air France-KLM","<b>Data Scientist H/F - CDI<\/b> <br/> Richemont","<b>Data Analyst H/F<\/b> <br/> Cenisis","<b>Data Analyst F/H<\/b> <br/> NATIXIS","<b>Data Scientist Senior<\/b> <br/> Dataworks","<b>Data Scientist H/F<\/b> <br/> Ekino France","<b>Data Scientist h-f<\/b> <br/> Danem People France","<b>Data Scientist h-f<\/b> <br/> Danem People France","<b>ALT - DATA SCIENTIST CLIMAT<\/b> <br/> Generali France","<b>Data Analyst H/F<\/b> <br/> Eau d'Azur","<b>Data Analyst H/F<\/b> <br/> BNP Paribas","<b>Data Scientist<\/b> <br/> บริษัท โตโยต้า ลีสซิ่ง (ประเทศไทย) จำกัด","<b>DATA SCIENTIST/DATA ANALYST<\/b> <br/> Go Concept","<b>DATA SCIENTIST (H/F)<\/b> <br/> mycommunIT","<b>Data Scientist / Data Analyst<\/b> <br/> Siderlog","<b>Data Analyst H/F<\/b> <br/> Epoka for Apside","<b>DATA ANALYST F/H<\/b> <br/> GESER BEST","<b>Ph.D Data Scientist - Machine Learning et Prévisions de séri...<\/b> <br/> QUANTMETRY","<b>Data Scientist<\/b> <br/> AVIV Group","<b>Data Scientist - Machine Learning (F/H)<\/b> <br/> Kelkoo LTD","<b>Data Scientist F/H<\/b> <br/> TOPORDER","<b>Data Analyst F/H<\/b> <br/> ADHERENCE CONSULTING","<b>Data Scientist F/H<\/b> <br/> TOPORDER","<b>Data Analyst F/H<\/b> <br/> ADHERENCE CONSULTING","<b>Data Analyste - Opérations/Ventes<\/b> <br/> EATON","<b>Data Analyst (H/F)<\/b> <br/> Interforum","<b>Data Analyst H/F<\/b> <br/> MDA Electroménager","<b>Ingénieur(e) Data Science, Machine Learning , Deep Learning<\/b> <br/> Data2innov","<b>Data Scientist NLP - Lille H/F<\/b> <br/> CleverConnect","<b>Data Scientist Senior<\/b> <br/> MyDataModels","<b>Data Analyst - Environnement<\/b> <br/> Simpliciti","<b>Thèse CIFRE (PhD Thesis) - Data Science / Artificial Intelli...<\/b> <br/> AIRBUS","<b>CHARGE(E) DE STATISTIQUES / DATA ANALYST (H/F)<\/b> <br/> CAF DE LOIRE-ATLANTIQUE","<b>Data Scientist (H/F)<\/b> <br/> Mydral","<b>Senior Data Scientist_<\/b> <br/> Sense4data","<b>Business Analyst Data<\/b> <br/> Softeam","<b>Data Analyst<\/b> <br/> 8SEC","<b>Data Analyst Junior - Paris - 2022 H/F<\/b> <br/> MAZARS","<b>Data Analyst F/H<\/b> <br/> IKIGAÏ","<b>Ingénieur Data Scientist / Dataviz h/f<\/b> <br/> Legallais","<b>Data Scientist<\/b> <br/> Pernod Ricard","<b>CDD - Data Analyst Junior H/F<\/b> <br/> Audika Groupe","<b>Data Analyst / Data Scientist F/H<\/b> <br/> Actirise","<b>ESG Data Analyst-(H/F)<\/b> <br/> Société Générale","<b>DATA ANALYST F/H<\/b> <br/> AQUANTIS","<b>DATA ANALYST H/F<\/b> <br/> Segula Technologies","<b>Data Analyst (H/F)<\/b> <br/> NJ PARTNERS","<b>CDD - Data Analyst F/H<\/b> <br/> La Banque Postale","<b>Data Engineer / Data Scientist<\/b> <br/> Quotatis Groupe","<b>DATA ANALYST – CDI (H/F)<\/b> <br/> IRI","<b>Data Analyst Fraude<\/b> <br/> Adevinta Group","<b>DATA SCIENTIST H/F<\/b> <br/> ÏDKIDS GROUP","<b>CHARGE(E) DE STATISTIQUES / DATA ANALYST (H/F)<\/b> <br/> CAF DE LOIRE-ATLANTIQUE","<b>Data Analyst<\/b> <br/> Market Espace","<b>Senior Data Scientist<\/b> <br/> HP","<b>Datascientist / Data Analyst H/F<\/b> <br/> LCL","<b>Data Analyste - Intelligence Economique (H/F)<\/b> <br/> Eowin","<b>DATA ANALYST BATIMENT<\/b> <br/> CSTB","<b>Data Scientist Senior<\/b> <br/> MyDataModels","<b>Data analyst F/H<\/b> <br/> YUMENS","<b>Data Analyst F/H<\/b> <br/> Fnac Darty","<b>DATA MINER F/H<\/b> <br/> PRO DIRECT SERVICES","<b>Lead Data Scientist<\/b> <br/> ILLUIN TECHNOLOGY","<b>Ph.D Data Scientist - Machine Learning et Prévisions de séri...<\/b> <br/> QUANTMETRY","<b>VIE - CANAL+ SUISSE - Data Analyst - F/H<\/b> <br/> Canal Plus","<b>Data Scientist III<\/b> <br/> American Express Global Business Travel","<b>Data Analyst (H/F)<\/b> <br/> Sii","<b>Data analyste| PwC Montpellier | CDI/CDD | H/F<\/b> <br/> PwC","<b>Data Analyst – Nord – Lille F/H<\/b> <br/> OTTEO","<b>Data Analyst F/H<\/b> <br/> Groupe IGS","<b>Data Scientist Position<\/b> <br/> PARIS-SACLAY CENTER FOR DATA SCIENCE","<b>Data Analyst Marketing Stratégique - Boursorama-(H/F)<\/b> <br/> Boursorama","<b>Data Analyst / Data Scientist F/H<\/b> <br/> Actirise","<b>Senior Data Scientist<\/b> <br/> Pernod Ricard","<b>Data Analyst - DP4P (H/F)<\/b> <br/> ADEO Services","<b>Data Analyst Programmatic<\/b> <br/> Numberly","<b>Data Analyst - Environnement<\/b> <br/> Groupe Berto","<b>DATA ANALYST – CDI (H/F)<\/b> <br/> IRI","<b>Data Scientist Senior<\/b> <br/> Plastic Omnium","<b>Data Analyst H/F<\/b> <br/> WEB TRANSITION","<b>Finance Data Analyst Flying Blue H/F<\/b> <br/> Air France-KLM","<b>CDD - Data Analyst F/H<\/b> <br/> La Banque Postale","<b>CDD - Data Analyst F/H<\/b> <br/> La Banque Postale","<b>Data Analyst Transport H/F<\/b> <br/> Transdev","<b>Data Scientist<\/b> <br/> AVIV Group","<b>Data Analyst Marketing F/H<\/b> <br/> Avanci","<b>Data Analyst (H/F)<\/b> <br/> G7","<b>Data Analyst H/F<\/b> <br/> umlaut","<b>CDD - 6 MOIS - DATA ANALYSTE<\/b> <br/> Caisse des Dépôts","<b>Consultant(e) BI / Data Analyst H/F<\/b> <br/> Decivision","<b>data analyst - reglementations bancaires+data F/H<\/b> <br/> GROUPE AYDON","<b>Data Scientist<\/b> <br/> KANTAR","<b>BUSINESS ANALYST DATA H/F<\/b> <br/> Caisse des Dépôts","<b>Vertica Data Scientist EMEA<\/b> <br/> Micro Focus","<b>Industrial Engineering Data Analyst<\/b> <br/> MARS","<b>CDD 12 MOIS - BUSINESS ET DATA ANALYST H/F H/F<\/b> <br/> CARGLASS","<b>Data scientist H/F - Innovation numérique<\/b> <br/> Polyconseil","<b>Industrial Engineering Data Analyst<\/b> <br/> MARS","<b>CDD 12 MOIS - BUSINESS ET DATA ANALYST H/F H/F<\/b> <br/> CARGLASS","<b>Data scientist H/F - Innovation numérique<\/b> <br/> Polyconseil","<b>Data Analyst H/F<\/b> <br/> MASSILLY HOLDING","<b>Data Analyst | H/F<\/b> <br/> PwC","<b>DATA SCIENTIST H/F<\/b> <br/> ÏDKIDS GROUP","<b>Data Scientist - Développeur Chatbot Confirmé(e) - H/F<\/b> <br/> Talan Opérations","<b>DATA ANALYST F/H<\/b> <br/> ALLOPNEUS.COM","<b>Data Analyst H/F<\/b> <br/> Inetum","<b>Analyste Business Data-(H/F)<\/b> <br/> Société Générale","<b>Data Analyst Océanographe – Observation spatiale (F/H)<\/b> <br/> ALTEN","<b>Data Scientist<\/b> <br/> Fideliz","<b>Data Analyst Senior H/F<\/b> <br/> CGI Inc","<b>Data scientist (H/F)<\/b> <br/> Opéra Conseil","<b>Manager Data Analytics| CDI | H/F<\/b> <br/> PwC","<b>Manager Data Analytics| CDI | H/F<\/b> <br/> PwC","<b>Senior Data Scientist<\/b> <br/> AG SOLUTION","<b>Data Engineer / Data Scientist<\/b> <br/> Quotatis Groupe","<b>Data Analyst | Luxe (H/F) Paris<\/b> <br/> CENOVA","<b>Data Analyst Achats H/F<\/b> <br/> Spie Batignolles","<b>Analyste (data) SIRH H/F<\/b> <br/> Mercer","<b>Innovation / R&D / Data Sciences_Modèle d'offre d'emploi<\/b> <br/> SUEZ","<b>Data Analyst H/NB/F<\/b> <br/> Ubisoft","<b>Data Business Analyst* H/F<\/b> <br/> Socomec","<b>Data Scientist (F/H)<\/b> <br/> PELLENC ST","<b>Data Analyst H/F<\/b> <br/> Crédit Mutuel Arkea","<b>Data Analyst - Power BI/Tableau F/H<\/b> <br/> MINSART-KREMER","<b>LEAD DATA SCIENTIST - F/H<\/b> <br/> ADEO Services","<b>Data Fraud Analyst<\/b> <br/> OVHcloud","<b>Data Analyst F/H<\/b> <br/> Crédit Agricole Assurances","<b>Data Analyst Marketing<\/b> <br/> Axys Consultants","<b>Manager Data Analytics (H/F)<\/b> <br/> Mydral","<b>Ingénieur(e) Data Science, Machine Learning , Deep Learning<\/b> <br/> Data2innov","<b>Responsable Data Science H/F<\/b> <br/> Crédit Agricole d'Ile-de-France","<b>Consultant Data Analytics H/F<\/b> <br/> Group onePoint","<b>Analyste DATA H/F<\/b> <br/> Leasecom","<b>Data Scientist H/F<\/b> <br/> LESAFFRE GROUP","<b>JUNIOR DATA SCIENTIST FINANCE/ QUANTITATIVE ANALYST (Paris)...<\/b> <br/> Swiss Life Asset managers","<b>Data Analyst (H/F)<\/b> <br/> Legrand Support","<b>Data Scientist Senior (H/F)<\/b> <br/> Equancy","<b>Head of Data science<\/b> <br/> Data Recrutement","<b>Marketing Performance Data Analyst H/F<\/b> <br/> Amplifon","<b>Consultant(e) Data Analyst<\/b> <br/> SOCIO DATA MANAGEMENT","<b>Data Analyst Risk F/H<\/b> <br/> Groupe BPCE","<b>P&S EAME Data Scientist – Modelling and Analytics (M/W)<\/b> <br/> Syngenta","<b>Data Analyste (F/H) - CDD Angers<\/b> <br/> AXA","<b>DATA ANALYST H/F<\/b> <br/> Segula Technologies","<b>Chargé d'études statistiques / Data analyst / Data scientist...<\/b> <br/> Unédic","<b>Senior Data Scientist NLP<\/b> <br/> Data Recrutement","<b>Responsable Data Analytics F/H<\/b> <br/> La Banque Postale","<b>Responsable Data & Analytics<\/b> <br/> Harnham","<b>Data Analyst (H/F)<\/b> <br/> NJ PARTNERS","<b>Traffic Data Analyst (H/F)<\/b> <br/> Groupe ATOLL","<b>Consultant(e)s Débutant(e)s en Data & Analytics et Innovatio...<\/b> <br/> EY","<b>Data Analyst Propulsion System<\/b> <br/> Airbus","<b>Consultant Data & Digital – Analyste<\/b> <br/> Eight Advisory","<b>Data Scientist/Data Engineer<\/b> <br/> Capital Management Fund","<b>Data Analyst CA en contrat d'apprentissage<\/b> <br/> Orange France","<b>Data Analyst – H/F<\/b> <br/> MALHERBE Paris","<b>Data Analyst H/F<\/b> <br/> Imprimerie Nationale","<b>Data Analyst (H/F)<\/b> <br/> alteca","<b>CDI - Data Analyst Outremer (F/H)<\/b> <br/> Canal Plus","<b>Data Scientist Sénior h-f<\/b> <br/> Danem People France","<b>Data Analyst -FRANFINANCE-(H/F)<\/b> <br/> Franfinance","<b>Performance Data Analyst - H/F<\/b> <br/> BNP Paribas","<b>Data/Business Analyst - Paris (H/F)<\/b> <br/> Scient","<b>Data Business Analyst<\/b> <br/> Oncrawl","<b>Data analyst H/F<\/b> <br/> L'atelier des Chefs","<b>WM - Data Analyste Epargne Financière, F/H<\/b> <br/> BNP Paribas","<b>Data Analyst H/F<\/b> <br/> Acii","<b>Data Engineer/ Data Scientist H/F<\/b> <br/> PSAPeugeotCitroen","<b>Data Scientist F/H<\/b> <br/> 1G LINK","<b>Data & Analytics – Consultant Confirmé<\/b> <br/> Adone Conseil","<b>CDI - Data Analyst Afrique (F/H)<\/b> <br/> Canal Plus","<b>Junior marketing data analyst<\/b> <br/> Richemont","<b>Chef de Projets Data & Analytics (F/H)<\/b> <br/> Micropole","<b>Head of Data Scientist H/F<\/b> <br/> Volta Medical","<b>Data Scientist F/H<\/b> <br/> Web Transition","<b>DATA DIGITAL ANALYST (H/F)<\/b> <br/> OUI.sncf","<b>Data Analyst - CDI F/H<\/b> <br/> FAB GROUP","<b>Data Analyst - Reply France (h/f)<\/b> <br/> Reply","<b>Senior Data Scientist H/F<\/b> <br/> Capgemini Invent","<b>Data/Business Analyst - Paris (H/F)<\/b> <br/> Scient","<b>DATA ANALYST H/F<\/b> <br/> Klanik","<b>Traffic Data Analyst (H/F)<\/b> <br/> Groupe ATOLL","<b>Data Analyst / Marketing<\/b> <br/> Ets Chambon et Fils","<b>Data Analyst F/H<\/b> <br/> NHOOD","<b>Data Analyst H/F<\/b> <br/> Acii","<b>Data Analyst<\/b> <br/> Club Med","<b>Data Analyst PowerBI ( H/F )<\/b> <br/> Insitoo","<b>Data analyst SQL datastudio (H/F)<\/b> <br/> Insitoo","<b>Data Analyst (H/F) - CDI<\/b> <br/> MSD","<b>DATA ANALYST FORCE DE VENTE (H/F)<\/b> <br/> Atmosphères","<b>Data Scientist ML/DL & DataViz H/F<\/b> <br/> Smily RH","<b>Data Analyst -FRANFINANCE-(H/F)<\/b> <br/> Franfinance","<b>Data Analyst (H/F)<\/b> <br/> Vicat","<b>Data Analyst - Power BI/Tableau F/H<\/b> <br/> MINSART-KREMER","<b>WM - Data Analyste Epargne Financière, F/H<\/b> <br/> BNP Paribas","<b>CDI - Data Analyst Afrique (F/H)<\/b> <br/> Canal Plus","<b>Data Scientist Senior F/H<\/b> <br/> NICKEL","<b>Ingénieur(e) Data Science, Machine Learning , Deep Learning<\/b> <br/> Data2innov","<b>Data Analyst – F/H<\/b> <br/> Atecna","<b>Data & Analytics – Consultant Confirmé<\/b> <br/> Adone Conseil","<b>Analyste Développeur orienté DATA-(H/F)<\/b> <br/> Société Générale Securities Services","<b>Data Scientist Engineering Manager<\/b> <br/> Kpler","<b>Data Analyst H/F<\/b> <br/> Crédit Agricole Assurances","<b>Data Scientist (F/H)<\/b> <br/> Ekkiden","<b>JUNIOR DATA SCIENTIST FINANCE/ QUANTITATIVE ANALYST (Paris)...<\/b> <br/> Swiss Life Asset managers","<b>Data Analyst Senior<\/b> <br/> Adevinta Group","<b>Data analyst Talend H/F<\/b> <br/> YA HUNTING","<b>Data Analyst<\/b> <br/> Inetum Capital Market","<b>Data Analyst H/F<\/b> <br/> POTAIN Manitowoc","<b>Performance Data Analyst - H/F<\/b> <br/> BNP Paribas","<b>Data Scientist (F/H)<\/b> <br/> alteca","<b>Data Analyst (H/F)<\/b> <br/> LES MOUSQUETAIRES","<b>Data Engineer/ Data Scientist H/F<\/b> <br/> PSAPeugeotCitroen","<b>Data Analyst (H/F)<\/b> <br/> NJ PARTNERS","<b>DATAMINER SENIOR (H/F)<\/b> <br/> OUI.sncf","<b>Data Analyst<\/b> <br/> Quick","<b>Data analyste<\/b> <br/> KANTAR","<b>Senior data scientist AIX EN PROVENCE H/F<\/b> <br/> Capgemini","<b>Data Scientist // Full remote // Fluent English // Ecologie<\/b> <br/> Sept Lieues","<b>Data Analyst / Chargé d'études H/F - Siège<\/b> <br/> TINGARI","<b>Data Analyst H/F<\/b> <br/> Betclic Group","<b>BI/DATA ANALYST (H/F)<\/b> <br/> Groupe Beaumanoir","<b>Data Analyst H/F<\/b> <br/> NEO2","<b>Data Analyst F/H<\/b> <br/> HN SERVICES - HN FORMATION - HN RECRUTEMENT -...","<b>Business Analyst Data H/F<\/b> <br/> Group onePoint","<b>Data Scientist F/M<\/b> <br/> Schneider Electric","<b>Game Data Analyst (F/H/NB)<\/b> <br/> Focus Entertainment","<b>Consultant.e Data Analyst (H/F)<\/b> <br/> June Partners","<b>Data Analyst H/F - CDI<\/b> <br/> Viatris","<b>Web et Data Analyst<\/b> <br/> Groupe Atlantic","<b>Data analyst<\/b> <br/> PIERRE FABRE S.A.","<b>Consultant Data Analytics| CDI| H/F<\/b> <br/> PwC","<b>Data Scientist_PhD Level (M/F)<\/b> <br/> Evotec","<b>Consultant Data expérimenté : Data Scientist / Data Engineer...<\/b> <br/> IBM interactive","<b>Data Analyst (H/F)<\/b> <br/> Insitoo","<b>Data Analyst Senior (H/F)<\/b> <br/> RSM France","<b>Data Scientist - PhD Graduates<\/b> <br/> SmartAdServer","<b>Data scientist H/F<\/b> <br/> HAYS","<b>Data Analyst (H/F)<\/b> <br/> Opéra Conseil","<b>Consultant Business Intelligence (BI) / Data Analytics - Neu...<\/b> <br/> Grant Thornton France","<b>Lead Data Scientist / Freelance<\/b> <br/> CELAD","<b>Analyste DATA H/F<\/b> <br/> CGI Inc","<b>Docteur/PhD spécialisé en Data Science F/H<\/b> <br/> Scalian","<b>Data Analyst H/F<\/b> <br/> NOVELIS","<b>Product Data Analyst<\/b> <br/> Pictarine","<b>DATA ANALYST POWER BI ASAP<\/b> <br/> Groupe Trèfle","<b>Data Analyst - Niort H(/F)<\/b> <br/> Scient","<b>Data Scientist/Chatbot-Niort F/H<\/b> <br/> SIDERLOG CONSEIL","<b>Analyste Data - Référent H/F<\/b> <br/> Saur","<b>Data Analyst - CLIENT FINAL F/H<\/b> <br/> My Talent Expert","<b>Data Scientist F/H/X<\/b> <br/> EXTERNATIC","<b>Data Analyst Senior H/F<\/b> <br/> DataKhi","<b>Margo Analytics - Data Engineer – H/F<\/b> <br/> Margo Conseil","<b>Data Scientist<\/b> <br/> Content Square","<b>Manager Data Analytics F/M<\/b> <br/> Betclic Group","<b>Data Scientist - Logiciels B-to-B / B-to-C en temps réel - 9...<\/b> <br/> Sept Lieues","<b>Actuaire IARD DATA ANALYTICS (F/H)<\/b> <br/> AXA","<b>Data Analyst (H/F)<\/b> <br/> FAB Group","<b>Data Analyst & Steward (f/m/d)<\/b> <br/> Allianz Global Investors","<b>Consultant / Analyste Business Data (H/F)<\/b> <br/> CGI Inc","<b>Consultant(e) Data Analyst – Confirmé(e)<\/b> <br/> SOCIO DATA MANAGEMENT","<b>Data Analyst H/F<\/b> <br/> HOREA CONSEIL","<b>Data Analyst H/F<\/b> <br/> HOREA CONSEIL","<b>Data Scientist<\/b> <br/> Presans","<b>Data Analyst F/H<\/b> <br/> AVISIA","<b>Data Analyst Consultant (H/F)<\/b> <br/> ENDRIX","<b>Business Data Analyst CDI / Permanent Job Paris / France<\/b> <br/> Teemo","<b>Data Analyst - Industry Team<\/b> <br/> Deezer","<b>Data Science Manager - Instagram Creator Relevance<\/b> <br/> Instagram","<b>ANALYTICS DATA ARCHITECT<\/b> <br/> EasyNeo","<b>Data Scientist expert en IA Conversationnelle F/H<\/b> <br/> Orange Business Services","<b>Data Scientist – Machine Deep learning (H/F)<\/b> <br/> DAVIDSON","<b>CDI - Product Owner Data Analytics (F/H)<\/b> <br/> Sephora","<b>Data Science & Artificial Intelligence Research Scientist M/...<\/b> <br/> TotalEnergies","<b>Consultant Data Scientist confirmé - (H/F)<\/b> <br/> Groupe HLI","<b>Ingénieur Data Scientist Expérimenté (H/F)<\/b> <br/> Thales","<b>Data Scientist Expérimenté H/F<\/b> <br/> EY","<b>Actuaire/Data Scientist - H/F<\/b> <br/> AXA","<b>Data Scientist (Python and SQL) - Freelance<\/b> <br/> Veepee","<b>Data Analyst Industrie 4.0 H/F<\/b> <br/> Inetum","<b>Web Data Scientist Confirmé H/F<\/b> <br/> Raja France","<b>Analyste Data et Business H/F<\/b> <br/> TotalEnergies","<b>Analyste métier confirmé - Data Steward H/F<\/b> <br/> Enedis","<b>Contrôleur de gestion / Data analyst H/F - Villepinte<\/b> <br/> Petit Forestier","<b>Analyste Data BCBS 239 F/H<\/b> <br/> NATIXIS","<b>Test & Data Analytics Engineer - Silicon Photonics (ID 2207)<\/b> <br/> Ligentec SA","<b>Data Scientist Sénior H/F<\/b> <br/> Insitoo","<b>DATA ANALYST<\/b> <br/> Groupe Europa","<b>ANALYSTE DATA BI (H/F)<\/b> <br/> MISTER AUTO","<b>Consultant data analytics H/F<\/b> <br/> Leihia","<b>DATA ANALYST Domaine Assurances, Mutuelles H/F<\/b> <br/> MGEN","<b>Data Scientist confirmé(e) H/F<\/b> <br/> TotalEnergies","<b>Ingénieur Data Scientist Expérimenté (H/F)<\/b> <br/> Thales","<b>Analyste métier confirmé - Data Steward H/F<\/b> <br/> Enedis","<b>Lead - Data Analytics<\/b> <br/> Everise","<b>Data Scientist<\/b> <br/> Data Recrutement","<b>Data Analyst H/F<\/b> <br/> NOVELIS","<b>Data Analyst / Quality Manager (H/F)<\/b> <br/> Insitoo","<b>Data Analyst F/H<\/b> <br/> AVISIA","<b>Data Miner<\/b> <br/> Data Recrutement","<b>CDI - Product Owner Data Analytics (F/H)<\/b> <br/> Sephora","<b>Senior Data Scientist<\/b> <br/> Attraqt","<b>Ingénieur Recherche Opérationnelle - Data Scientist H/F<\/b> <br/> Air France-KLM","<b>Business Analyst Data H/F<\/b> <br/> Insitoo","<b>DATA ANALYST - H/F<\/b> <br/> Dalkia","<b>Actuaire/Data Scientist - H/F<\/b> <br/> AXA","<b>Data Analyst (H/F)<\/b> <br/> FAB Group","<b>Consultant data analytics expérimenté(e)<\/b> <br/> The Information Lab","<b>DATA ANALYST POWER BI ASAP<\/b> <br/> Groupe Trèfle","<b>Analyste Data et Business H/F<\/b> <br/> TotalEnergies","<b>Process Data Scientist<\/b> <br/> AG SOLUTION","<b>ANALYSTE DATA BI (H/F)<\/b> <br/> MISTER AUTO","<b>DATA ANALYST (H/F/D)<\/b> <br/> Pellenc","<b>CONSULTANT DÉBUTANT DATA ANALYST EN FINANCEMENT F/H<\/b> <br/> KPMG","<b>Data Scientist – Contrôle Statistique des Systèmes de produc...<\/b> <br/> Renault Group","<b>Data Scientist ML/DL & DataViz H/F<\/b> <br/> Smily RH","<b>Data Analyst marketing client - EMEA zone<\/b> <br/> Louis Vuitton","<b>Sourcing Data Analyst H/F<\/b> <br/> Kingfisher","<b>Business Analyst Data H/F<\/b> <br/> Insitoo","<b>Data scientist F/H<\/b> <br/> Synergie","<b>Data Analyst / Quality Manager (H/F)<\/b> <br/> Insitoo","<b>BI/Data Analyst (H/F)<\/b> <br/> PROMINENT FRANCE","<b>Data Analyst (Flex/Remote)<\/b> <br/> Scaleway","<b>Confirmed Consultant & Data Scientist (H/F/N)<\/b> <br/> Ekimetrics","<b>Data Analyst Consultant H/F à Lyon 7 CDI<\/b> <br/> ENDRIX","<b>Data Analyst F/H<\/b> <br/> AVISIA NORD","<b>Data Analyst H/F<\/b> <br/> Expectra","<b>Data Analyst - Industry Team<\/b> <br/> Deezer","<b>Paris Office - Data & Analytics Specialist (m/f/d)<\/b> <br/> L.E.K. Consulting","<b>Data Analyst (H/F)<\/b> <br/> @talentEgal","<b>Data Miner<\/b> <br/> Data Recrutement","<b>Support Engineering: Product Data Analyst (M/F)<\/b> <br/> Airbus","<b>Data analyst merchandising H/F - CDD<\/b> <br/> Brico depôt","<b>Junior Data & Content Analyst<\/b> <br/> Metrixx","<b>DATA ANALYST Domaine Assurances, Mutuelles H/F<\/b> <br/> MGEN","<b>Ingénieur Développement Python & Data Analyst (H/F)<\/b> <br/> Viveris","<b>Data Analyst - Supply Chain H/F<\/b> <br/> Viveris","<b>Customer Success Data Analyst<\/b> <br/> Sociabble","<b>Data Scientist R&D (PhD) | Optimisation stochastique |...<\/b> <br/> Octopus IT","<b>Data Scientist - France/Germany/UK/Spain<\/b> <br/> Shift Technology","<b>Data Transformation & Analytics engineer (F/H)<\/b> <br/> Saint-Gobain","<b>Senior Clinical Data Analyst<\/b> <br/> DentalMonitoring","<b>PhD en Data Science F/H<\/b> <br/> Jean-Yves Arrouet","<b>Data Scientist confirmé(e)<\/b> <br/> Data Recrutement","<b>Lead Data Scientist Senior F/H<\/b> <br/> GroupAgora","<b>Data Analyst Exploitation Eolien (H/F)<\/b> <br/> Boralex","<b>Product Data Analyst<\/b> <br/> Ledger","<b>Data Scientist Confirmé F/H<\/b> <br/> LINCOLN","<b>Data Scientist (F/H)<\/b> <br/> Descartes Underwriting","<b>Data Science Experts for Finance Transformation (m/f)<\/b> <br/> Airbus","<b>Data Analyst, Retail Media<\/b> <br/> Criteo","<b>Senior Data Analyst<\/b> <br/> Harnham"],null,{"showCoverageOnHover":true,"zoomToBoundsOnClick":true,"spiderfyOnMaxZoom":true,"removeOutsideVisibleBounds":true,"spiderLegPolylineOptions":{"weight":1.5,"color":"#222","opacity":0.5},"freezeAtZoom":false},null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[41.3877400000001,50.7228769167483],"lng":[-4.48657999999995,9.16087000000005]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="analyzing-job-descriptions" class="section level2">
+<h2>Analyzing job descriptions</h2>
+<p>Nowadays most of the resumes are scanned and interpreted by an applicant tracking system (ATS). To make things simple, this system looks for key words in your resume and assess the match with the job you are applying for. It is therefore important to describe your experiences with specific key words to improve the chances of getting to the next step of the hiring process.</p>
+<p>But what key words should I include in my resume ? Let’s answer this question by analyzing the job descriptions of data scientist jobs.</p>
+<div id="downloading-and-cleaning-each-job-description" class="section level3">
+<h3>Downloading and cleaning each job description</h3>
+<p>First we download the full description of each job by navigating through all the URL listed in our table. We then clean and homogenize the description with a custom function:</p>
+<pre class="r"><code># Loop through all the URLs
+job_descriptions &lt;- list()
+pb &lt;- txtProgressBar(min = 1, max = length(final_df$url), style = 3)
+for(i in 1:length(final_df$url)){
+  remDr$navigate(final_df$url[i])
+  web_page &lt;- remDr$getPageSource(header = TRUE)[[1]] %&gt;% read_html()
+  job_descriptions[[i]] &lt;- web_page %&gt;%
+        html_elements(css = &quot;.jobsearch-JobComponent-description&quot;) %&gt;%
+      html_text2()
+  Sys.sleep(2)
+  setTxtProgressBar(pb, i)
+}
+# Gathering in dataframe
+job_descriptions &lt;- as.data.frame(do.call(&quot;rbind&quot;, job_descriptions))
+names(job_descriptions) &lt;- c(&quot;Description&quot;)
+
+# Binding to same table:
+final_df &lt;- cbind(final_df, job_descriptions)
+
+# Homogenize with custom function
+final_df$Description_c &lt;- lapply(final_df$Description, function(x){clean_job_desc(x)[[2]]})
+final_df$Language &lt;- textcat::textcat(final_df$Description)</code></pre>
+</div>
+<div id="annotation-procedure-with-udpipe-package" class="section level3">
+<h3>Annotation procedure with udpipe Package</h3>
+<p>This part is inspired from this <a href="https://www.r-bloggers.com/2018/04/an-overview-of-keyword-extraction-techniques/">post</a>.</p>
+<p>Now that the descriptions of all the listed jobs are imported and pre-cleaned, we can annotate the textual data with <strong>udpipe</strong> package. This package contains functions and models which can perform tokenisation, lemmatisation and key word extraction.</p>
+<p>We first restrict this analysis to data scientist job post written in french, then we annotate all the descriptions:</p>
+<pre class="r"><code># Restricting the analysis to Data scientist post written in french
+desc_data_scientist &lt;- final_df %&gt;%
+  filter((Job_title_c == &quot;data scientist&quot;) &amp; (Language == &quot;french&quot;)) %&gt;%
+  select(Description_c)
+
+ud_model &lt;- udpipe_download_model(language = &quot;french&quot;) # Download the model if necessary
+ud_model &lt;- udpipe_load_model(ud_model$file_model) 
+
+# Annotate the descriptions 
+x &lt;- udpipe_annotate(ud_model, x = paste(desc_data_scientist, collapse = &quot; &quot;))
+x &lt;- as.data.frame(x)</code></pre>
+</div>
+<div id="most-common-nouns" class="section level3">
+<h3>Most common nouns</h3>
+<p>We can visualize the most employed word throughout the data scientist job posts written in french:</p>
+<pre class="r"><code>stats &lt;- subset(x, upos %in% &quot;NOUN&quot;)
+stats &lt;- txt_freq(x = stats$lemma)
+
+stats %&gt;%
+  top_n(50, freq) %&gt;%
+  mutate(key = as.factor(key),
+         key = fct_reorder(key, freq)) %&gt;%
+  ggplot(aes(x = key, y = freq)) +
+  geom_bar(stat = &#39;identity&#39;) +
+  coord_flip() + 
+  ylab(&quot;Most common nouns&quot;) + 
+  theme_bw()</code></pre>
+<p><img src="/post/2022-09-21-web-scraping-indeed-with-r_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>Even though, it gives us an idea of words to include it is not very informative as key words are often composed by two or more words.</p>
+</div>
+<div id="extracting-key-words-for-resume-writing" class="section level3">
+<h3>Extracting key words for resume writing</h3>
+<p>There are several methods implemented in <strong>udpipe</strong> to extract key words from a text. After testing several methods, I selected the Rapid Automatic Keyword Extraction (RAKE) which gives me the best results:</p>
+<pre class="r"><code>stats &lt;- keywords_rake(x = x,
+                       term = &quot;token&quot;,# Search on token
+                       group = c(&quot;doc_id&quot;, &quot;sentence_id&quot;), # On every post 
+                       relevant = x$upos %in% c(&quot;NOUN&quot;, &quot;ADJ&quot;),  # Only among noun and adj.
+                       ngram_max = 2, n_min = 2, sep = &quot; &quot;)
+
+stats &lt;- subset(stats, stats$freq &gt;= 5 &amp; stats$rake &gt; 3)
+
+stats %&gt;% 
+  arrange(desc(rake)) %&gt;% 
+  head()</code></pre>
+<pre><code>##                     keyword ngram freq     rake
+## 1 intelligence artificielle     2    9 9.368889
+## 2             tableaux bord     2    5 8.504274
+## 3      formation supérieure     2    5 8.374725
+## 4        modèles prédictifs     2   15 7.581294
+## 5         force proposition     2    6 7.190238
+## 6        production échelle     2    5 7.034038</code></pre>
+<pre class="r"><code>wordcloud(words = stats$keyword, freq = stats$freq, min.freq = 3,
+          max.words=100, random.order=FALSE, rot.per=0.35,
+          colors=brewer.pal(8, &quot;Dark2&quot;), scale = c(2.5, .5))</code></pre>
+<p><img src="/post/2022-09-21-web-scraping-indeed-with-r_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>We can see that this method has selected important french key words related to the data scientist job !
+In the first positions, we find the key words: “artificial intelligence”, “dashboards”, “higher education”, “predictive model”. I’d better check if these words appear on my resume !</p>
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>I hope I convinced you that it is possible to optimize your job search with Data Science!</p>
+<p>If this post has caught your interest and you are looking for a new Data Scientist, do not hesitate to contact me on my <a href="mailto:aurelien.callens@gmail.com">mail</a> as I am currently looking for a job in France (Hybrid, Remote) or in Europe (Remote).</p>
+</div>
+<div id="custom-functions-to-clean-data-extracted-from-the-webpage" class="section level2">
+<h2>Custom functions to clean data extracted from the webpage</h2>
+<p>These functions use several methods such as regular expressions, stop words and conditional statements to clean the textual data.</p>
+<pre class="r"><code>library(rvest)
+library(stringr)
+library(httr)
+library(tidystopwords)
+library(textcat)
+
+# Function to tidy the data related to the company
+tidy_comploc &lt;- function(text){
+  lst &lt;- str_split(text, pattern = &quot;\n&quot;, simplify =T)
+  ext_str &lt;- substr(lst[1], nchar(lst[1])-2, nchar(lst[1]))
+  res &lt;- suppressWarnings(as.numeric(gsub(&#39;,&#39;, &#39;.&#39;, ext_str)))
+  lst[1] &lt;- ifelse(is.na(res), lst[1], substr(lst[1], 1, nchar(lst[1])-3))
+  lst[3] &lt;- res
+  t(as.matrix(lst))
+}
+
+# Function to tidy the short job description provided with the job post
+tidy_job_desc &lt;- function(text){
+  stopwords &lt;- c(&quot;Candidature facile&quot;, &quot;Employeur réactif&quot;)
+  text &lt;- str_remove_all(text, paste(stopwords, collapse = &quot;|&quot;))
+  stopwords_2 &lt;- &quot;(Posted|Employer).*&quot;
+  text &lt;- str_remove_all(text, stopwords_2)
+  text
+}
+
+# Function to tidy the salary data if provided
+tidy_salary &lt;- function(text){
+  if(is.na(text)){
+    others &lt;- NA
+    sal_low &lt;- NA
+    sal_high &lt;- NA
+  }else{
+    text &lt;- str_split(text, &quot;\n&quot;, simplify = T)
+    others &lt;- paste(text[str_detect(text, &quot;€&quot;, negate = T)], collapse = &quot; | &quot;)
+    sal &lt;- text[str_detect(text, &quot;€&quot;, negate = F)]
+    if(rlang::is_empty(sal)){
+      sal_low &lt;- NA
+      sal_high &lt;- NA
+    }else{
+      range_sal &lt;- as.numeric(str_split(str_remove_all(str_replace(sal, &quot;à&quot;, &quot;-&quot;), &quot;[^0-9.-]&quot;), &quot;-&quot;, simplify = TRUE))
+      sal_low &lt;- sort(range_sal)[1]
+      sal_high &lt;- sort(range_sal)[2]
+
+      if(str_detect(sal, &quot;an&quot;)){
+        sal_low &lt;- floor(sal_low/12)
+        sal_high &lt;- floor(sal_high/12)
+      }
+    }
+  }
+  return(c(as.numeric(sal_low), as.numeric(sal_high), others))
+}
+
+# Function to tidy the location of the job (Remote/Hybrid/Onsite) + homogenize 
+# location and zip code
+tidy_location &lt;- function(final_df){
+  final_df$Job_type &lt;- ifelse(final_df$Location == &quot;Télétravail&quot;, &quot;Full Remote&quot;, ifelse(str_detect(final_df$Location, &quot;Télétravail&quot;), &quot;Hybrid&quot;, &quot;On site&quot;))
+  final_df$Loc_possibility &lt;- ifelse(str_detect(final_df$Location, &quot;lieu&quot;), &quot;Plusieurs lieux&quot;, NA)
+  stopwords &lt;- c(&quot;Télétravail à&quot;, &quot;Télétravail&quot;, &quot;à&quot;, &quot;hybride&quot;)
+  final_df$Loc_tidy &lt;- str_remove_all(final_df$Location, paste(stopwords, collapse = &quot;|&quot;))
+  final_df$Loc_tidy &lt;- str_remove_all(final_df$Loc_tidy, &quot;[+].*&quot;)
+  final_df$Loc_tidy &lt;- str_trim(final_df$Loc_tidy)
+  final_df$Loc_tidy &lt;-  sapply(final_df$Loc_tidy,
+                               function(x){
+                                 if(!is.na(suppressWarnings(as.numeric(substr(x, 1, 5))))){
+                                   return(paste(substr(x, 7, 30), paste0(&#39;(&#39;, substr(final_df$Loc_tidy[2], 1, 2), &#39;)&#39;)))
+                                 }else{
+                                   return(x)
+                                 }})
+  return(final_df)
+}
+
+# Function to keep only certain words in text
+keep_words &lt;- function(text, keep) {
+  words &lt;- strsplit(text, &quot; &quot;)[[1]]
+  txt &lt;- paste(words[words %in% keep], collapse = &quot; &quot;)
+  return(txt)
+}
+
+# Homogenize the job title and class them in a few categories
+clean_job_title &lt;- function(job_titles){
+  job_titles &lt;- tolower(job_titles)
+  job_titles &lt;- gsub(&quot;[[:punct:]]&quot;, &quot; &quot;, job_titles, perl=TRUE)
+
+  words_to_keep &lt;- c(&quot;data&quot;, &quot;scientist&quot;, &quot;junior&quot;, &quot;senior&quot;, &quot;engineer&quot;, &quot;nlp&quot;,
+                     &quot;analyst&quot;, &quot;analytics&quot;, &quot;analytic&quot;, &quot;science&quot;, &quot;sciences&quot;,
+                     &quot;computer&quot;, &quot;vision&quot;, &quot;ingenieur&quot;, &quot;données&quot;, &quot;analyste&quot;,
+                     &quot;analyses&quot;, &quot;lead&quot;, &quot;leader&quot;, &quot;dataminer&quot;, &quot;mining&quot;, &quot;chief&quot;,
+                     &quot;miner&quot;, &quot;analyse&quot;, &#39;head&#39;)
+  job_titles_c &lt;- unlist(sapply(job_titles, function(x){keep_words(x, words_to_keep)}, USE.NAMES = F))
+  job_titles_c &lt;- unlist(sapply(job_titles_c, function(x){paste(unique(unlist(str_split(x, &quot; &quot;))), collapse = &quot; &quot;)}, USE.NAMES = F))
+  table(job_titles_c)
+
+  data_analytics_ind &lt;-  job_titles_c %in% c(&quot;analyses data&quot;, &quot;analyst data&quot;, &quot;analyste data&quot;, &quot;analyste data scientist&quot;, &quot;data analyse&quot;,
+                                             &quot;analyste données&quot;, &quot;analytic data scientist&quot;, &quot;analytics data&quot;, &quot;analytics data engineer&quot;, &quot;data analyst engineer&quot;,
+                                             &quot;data analyst données&quot;, &quot;data analyst scientist&quot;, &quot;data analyst scientist données&quot;, &quot;data analyste&quot;, &quot;data analyst analytics&quot;,
+                                             &quot;data analytics&quot;, &quot;data analytics engineer&quot;, &quot;data engineer analyst&quot;, &quot;data scientist analyst&quot;, &quot;data scientist analytics&quot;)
+  job_titles_c[data_analytics_ind] &lt;- &quot;data analyst&quot;
+
+  data_analytics_j_ind &lt;-  job_titles_c %in% c(&quot;junior data analyst&quot;, &quot;junior data analytics&quot;, &quot;junior data scientist analyst&quot;)
+  job_titles_c[data_analytics_j_ind] &lt;- &quot;data analyst junior&quot;
+
+  data_scientist_ind &lt;- job_titles_c %in% c(&quot;data computer science&quot;, &quot;data science&quot;, &quot;data science scientist&quot;, &quot;data sciences&quot;,
+                                            &quot;data sciences scientist&quot;, &quot;data scientist données&quot;, &quot;data scientist sciences&quot;,
+                                            &quot;données data scientist&quot;, &quot;scientist data&quot;, &quot;science données&quot;, &quot;scientist data&quot;,
+                                            &quot;scientist data science&quot;, &quot;computer data science&quot;, &quot;data science données&quot;, &quot;data scientist science&quot;)
+  job_titles_c[data_scientist_ind] &lt;- &quot;data scientist&quot;
+
+  data_scientist_j_ind &lt;- job_titles_c %in% c(&quot;junior data scientist&quot;)
+  job_titles_c[data_scientist_j_ind] &lt;- &quot;data scientist junior&quot;
+
+  data_engineer_ind &lt;- job_titles_c %in% c(&quot;data engineer scientist&quot;, &quot;data science engineer&quot;, &quot;data miner&quot;, &quot;data scientist engineer&quot;,
+                                           &quot;dataminer&quot;, &quot;engineer data scientist&quot;, &quot;senior data scientist engineer&quot;, &quot;ingenieur data scientist&quot;)
+  job_titles_c[data_engineer_ind] &lt;- &quot;data engineer&quot;
+
+  nlp_data_scientist_ind &lt;- job_titles_c %in% c(&quot;data scientist nlp&quot;, &quot;nlp data science&quot;,
+                                                &quot;nlp data scientist&quot;, &quot;senior data scientist nlp&quot;)
+  job_titles_c[nlp_data_scientist_ind] &lt;- &quot;data scientist NLP&quot;
+
+  cv_data_scientist_ind &lt;- job_titles_c %in% c(&quot;computer vision data scientist&quot;, &quot;data science computer vision&quot;,
+                                               &quot;data scientist computer vision&quot;)
+  job_titles_c[cv_data_scientist_ind] &lt;- &quot;data scientist CV&quot;
+
+  lead_data_scientist_ind &lt;- job_titles_c %in% c(&quot;chief data&quot;, &quot;chief data scientist&quot;, &quot;data scientist leader&quot;, &quot;lead data scientist&quot;,
+                                                 &quot;data chief scientist&quot;, &quot;lead data scientist senior&quot;, &quot;head data science&quot;)
+  job_titles_c[lead_data_scientist_ind] &lt;- &quot;data scientist lead or higher&quot;
+  senior_data_scientist_ind &lt;- job_titles_c %in% c(&quot;senior data scientist&quot;)
+  job_titles_c[senior_data_scientist_ind] &lt;- &quot;data scientist senior&quot;
+
+  senior_data_analytics_ind &lt;- job_titles_c %in% c(&quot;senior analytics data scientist&quot;, &quot;senior data analyst&quot;, &quot;senior data scientist analytics&quot;)
+  job_titles_c[senior_data_analytics_ind] &lt;- &quot;data analyst senior&quot;
+
+
+  lead_data_analyst_ind &lt;- job_titles_c %in% c(&quot;lead data analyst senior&quot;, &quot;lead data analyst&quot;)
+  job_titles_c[lead_data_analyst_ind] &lt;- &quot;data analyst lead&quot;
+  return(job_titles_c)
+}
+
+# Function to clean the full job description before word annotation
+clean_job_desc &lt;- function(text){
+  text &lt;- tolower(text)
+  text &lt;- str_replace_all(text, &quot;\n&quot;, &quot; &quot;)
+  text &lt;- str_remove(text, pattern = &quot;dé.*du poste &quot;)
+  text &lt;- str_remove(text, pattern = &quot;analyse de recr.*&quot;)
+  text &lt;- gsub(&quot;(?!&amp;)[[:punct:]+’+…+»+«]&quot;, &quot; &quot;, text, perl=TRUE)
+
+  language &lt;- textcat(text)
+
+  if(language == &quot;french&quot;){
+    text &lt;- str_replace_all(text, &quot;œ&quot;, &quot;oe&quot;)
+    stopwords &lt;- c(&quot;détails&quot;, &quot;poste&quot;, &quot;description&quot;, &quot;informations&quot;, &quot;complémentaires&quot;, &quot;c&quot;, generate_stoplist(language = &quot;French&quot;))
+  }else{
+    stopwords &lt;- c(&quot;description&quot;, generate_stoplist(language = &quot;English&quot;))
+  }
+
+  text &lt;- str_replace_all(text, paste(stopwords, collapse = &quot; | &quot;), &quot; &quot;)
+  text &lt;- str_replace_all(text, paste(stopwords, collapse = &quot; | &quot;), &quot; &quot;)
+  text &lt;- str_replace_all(text, paste(stopwords, collapse = &quot; | &quot;), &quot; &quot;)
+
+  return(c(language, text))
+}</code></pre>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://aureliencallens.github.io//tags/web-scraping/">Web scraping</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/ggplot2/">ggplot2</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/leaflet/">leaflet</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/rselenium/">RSelenium</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/tidyverse/">tidyverse</a>&nbsp;
+            
+              <a href="https://aureliencallens.github.io//tags/nlp/">NLP</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2faureliencallens.github.io%2f2022%2f09%2f21%2fweb-scraping-indeed-with-r%2f&amp;text=Optimizing%20my%20search%20for%20Data%20scientist%20jobs%20by%20scraping%20Indeed%20with%20R&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2faureliencallens.github.io%2f2022%2f09%2f21%2fweb-scraping-indeed-with-r%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2faureliencallens.github.io%2f2022%2f09%2f21%2fweb-scraping-indeed-with-r%2f&amp;title=Optimizing%20my%20search%20for%20Data%20scientist%20jobs%20by%20scraping%20Indeed%20with%20R" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2faureliencallens.github.io%2f2022%2f09%2f21%2fweb-scraping-indeed-with-r%2f&amp;title=Optimizing%20my%20search%20for%20Data%20scientist%20jobs%20by%20scraping%20Indeed%20with%20R" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2faureliencallens.github.io%2f2022%2f09%2f21%2fweb-scraping-indeed-with-r%2f&amp;title=Optimizing%20my%20search%20for%20Data%20scientist%20jobs%20by%20scraping%20Indeed%20with%20R" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2faureliencallens.github.io%2f2022%2f09%2f21%2fweb-scraping-indeed-with-r%2f&amp;description=Optimizing%20my%20search%20for%20Data%20scientist%20jobs%20by%20scraping%20Indeed%20with%20R" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/2022/07/19/analysis-of-the-top-r-packages/">Analysis of the top R packages</a></li>
+                
+                    <li><a href="/2022/04/12/r-shiny-fishing-part4/">Can R and Shiny make me a better fisherman? Part 4</a></li>
+                
+                    <li><a href="/2021/06/01/r-shiny-fishing-part3/">Can R and Shiny make me a better fisherman? Part 3</a></li>
+                
+                    <li><a href="/2021/03/03/coastal-risks-google-trends/">Coastal risks and statistical learning: Analyzing Google trends with gtrendsR package</a></li>
+                
+                    <li><a href="/2020/11/18/2020-11-18-aliexpress_rselenium/">Webscraping Aliexpress with Rselenium</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://aureliencallens.github.io/2022/07/19/analysis-of-the-top-r-packages/" data-toggle="tooltip" data-placement="top" title="Analysis of the top R packages">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+          
+          <div class="disqus-comments">                  
+            <button id="show-comments" class="btn btn-default" type="button">Show <span class="disqus-comment-count" data-disqus-url="https://aureliencallens.github.io/2022/09/21/web-scraping-indeed-with-r">comments</span></button>
+            <div id="disqus_thread"></div>
+
+            <script type="text/javascript">
+              var disqus_config = function () {
+              this.page.url = 'https:\/\/aureliencallens.github.io\/2022\/09\/21\/web-scraping-indeed-with-r';
+            };
+
+          </script>
+          </div>
+          
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:aurelien.callens@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/aureliencallens" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/aureliencallens" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="https://aureliencallens.github.io/post/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Aurelien Callens
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020 - 2022
+          
+
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.96.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+          <br>
+          Favicon made by <a href="https://www.flaticon.com/authors/becris">Becris</a> from <a href="https://www.flaticon.com/">www.flaticon.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://aureliencallens.github.io/js/main.js"></script>
+<script src="https://aureliencallens.github.io/js/highlight.pack.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://aureliencallens.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+$(function(){
+  $('#show-comments').on('click', function(){
+    var disqus_shortname = 'https-aureliencallens-github-io';
+      
+    (function() {
+      var disqus = document.createElement('script'); 
+      disqus.type = 'text/javascript'; 
+      disqus.async = true;
+      disqus.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(disqus);
+    })();
+      
+    $(this).hide(); 
+    });
+  });
+      
+</script>
+<script id="dsq-count-scr" src="//https-aureliencallens-github-io.disqus.com/count.js" async></script>
+
+
+
+ 
+  <script>
+  $(document).ready(function () {
+    window.initializeCodeFolding("show" === "show");
+  });
+  </script>
+  <script src="/js/codefolding.js"></script>
+
+
+    
+  </body>
+</html>
+

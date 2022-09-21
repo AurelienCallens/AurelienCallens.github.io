@@ -7,22 +7,67 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>aurelien.callens@gmail.com (Aurelien Callens)</managingEditor>
     <webMaster>aurelien.callens@gmail.com (Aurelien Callens)</webMaster>
-    <lastBuildDate>Tue, 19 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://aureliencallens.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://aureliencallens.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ggplot2</title>
+      <link>https://aureliencallens.github.io/tags/ggplot2/</link>
+      <pubDate>Wed, 21 Sep 2022 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>https://aureliencallens.github.io/tags/ggplot2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>leaflet</title>
+      <link>https://aureliencallens.github.io/tags/leaflet/</link>
+      <pubDate>Wed, 21 Sep 2022 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>https://aureliencallens.github.io/tags/leaflet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NLP</title>
+      <link>https://aureliencallens.github.io/tags/nlp/</link>
+      <pubDate>Wed, 21 Sep 2022 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>https://aureliencallens.github.io/tags/nlp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RSelenium</title>
+      <link>https://aureliencallens.github.io/tags/rselenium/</link>
+      <pubDate>Wed, 21 Sep 2022 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>https://aureliencallens.github.io/tags/rselenium/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidyverse</title>
+      <link>https://aureliencallens.github.io/tags/tidyverse/</link>
+      <pubDate>Wed, 21 Sep 2022 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>https://aureliencallens.github.io/tags/tidyverse/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web scraping</title>
+      <link>https://aureliencallens.github.io/tags/web-scraping/</link>
+      <pubDate>Wed, 21 Sep 2022 00:00:00 +0000</pubDate>
+      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
+      <guid>https://aureliencallens.github.io/tags/web-scraping/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>cranlogs</title>
       <link>https://aureliencallens.github.io/tags/cranlogs/</link>
       <pubDate>Tue, 19 Jul 2022 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>https://aureliencallens.github.io/tags/cranlogs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ggplot2</title>
-      <link>https://aureliencallens.github.io/tags/ggplot2/</link>
-      <pubDate>Tue, 19 Jul 2022 00:00:00 +0000</pubDate>
-      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
-      <guid>https://aureliencallens.github.io/tags/ggplot2/</guid>
       <description></description>
     </item>
     
@@ -63,47 +108,11 @@
     </item>
     
     <item>
-      <title>tidyverse</title>
-      <link>https://aureliencallens.github.io/tags/tidyverse/</link>
-      <pubDate>Tue, 12 Apr 2022 00:00:00 +0000</pubDate>
-      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
-      <guid>https://aureliencallens.github.io/tags/tidyverse/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>gtrendsR</title>
       <link>https://aureliencallens.github.io/tags/gtrendsr/</link>
       <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
       <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
       <guid>https://aureliencallens.github.io/tags/gtrendsr/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>RSelenium</title>
-      <link>https://aureliencallens.github.io/tags/rselenium/</link>
-      <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
-      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
-      <guid>https://aureliencallens.github.io/tags/rselenium/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Web scraping</title>
-      <link>https://aureliencallens.github.io/tags/web-scraping/</link>
-      <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
-      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
-      <guid>https://aureliencallens.github.io/tags/web-scraping/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>leaflet</title>
-      <link>https://aureliencallens.github.io/tags/leaflet/</link>
-      <pubDate>Fri, 25 Sep 2020 00:00:00 +0000</pubDate>
-      <author>aurelien.callens@gmail.com (Aurelien Callens)</author>
-      <guid>https://aureliencallens.github.io/tags/leaflet/</guid>
       <description></description>
     </item>
     
