@@ -1,0 +1,23 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Test_website_blog"
+  navbar:
+    right:
+      - blog.qmd
+      - about.qmd
+      - icon: github
+        href: https://github.com/
+      - icon: twitter
+        href: https://twitter.com
+
+format:
+  html:
+    theme: flatly
+    css: styles.css
+
+
+
+
