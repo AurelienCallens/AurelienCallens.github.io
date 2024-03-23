@@ -1,0 +1,10 @@
+# Quarto stuff 
+/.quarto/
+/_site/
+
+#Data
+*.csv
+
+
+#Vscode 
+*.code-workspace

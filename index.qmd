@@ -1,7 +1,15 @@
 ---
-title: "Test"
+title: "My blog posts"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: true
+  filter-ui: true
+  feed: 
+    categories: 
+        - R
+page-layout: full
+title-block-banner: false
 ---
-
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.

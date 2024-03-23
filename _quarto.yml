@@ -3,16 +3,28 @@ project:
   output-dir: docs
 
 website:
-  title: "Test_website_blog"
+  title: "Aurelien Callens"
+  site-url: https://aureliencallens.github.io/
   navbar:
     right:
-      - blog.qmd
-      - about.qmd
+      - myprojects.qmd
+      - text: "About"
+        file: about.qmd
       - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
-
+        href: https://github.com/AurelienCallens/AurelienCallens
+  back-to-top-navigation: true
+  page-footer:
+    right:  
+      - Aurélien Callens • © 2024 
+    center:
+      - icon: github
+        href: https://github.com/AurelienCallens/AurelienCallens
+      - icon: linkedin
+        href: https://github.com/AurelienCallens/AurelienCallens
+      - icon: envelope-fill
+        href: "mailto:aurelien.callens@gmail.com"
+      
+  favicon: img/favicon.ico
 format:
   html:
     theme: flatly
