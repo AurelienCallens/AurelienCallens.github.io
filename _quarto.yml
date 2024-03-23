@@ -5,6 +5,7 @@ project:
 website:
   title: "Aurelien Callens"
   site-url: https://aureliencallens.github.io/
+  google-analytics: "G-MBB7RWKF8X"
   navbar:
     right:
       - myprojects.qmd
