@@ -165,16 +165,7 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 </section>
 <section id="my-presentation-for-the-phd-defense" class="level2">
 <h2 class="anchored" data-anchor-id="my-presentation-for-the-phd-defense">My presentation for the PhD defense</h2>
-</section>
-<section id="appendix-how-to-make-this-slide-show-from-a-pdf-file" class="level2">
-<h2 class="anchored" data-anchor-id="appendix-how-to-make-this-slide-show-from-a-pdf-file">Appendix: How to make this slide show from a pdf file</h2>
-<p>The first step is to transform the presentation file (pdf format) into a collection of images (jpeg format) inside a specific folder with the R package <em>pdftools</em>:</p>
-<pre><code>library(pdftools)
-pdf_convert("filename.pdf", format = "jpeg", pages = NULL, filenames = NULL, dpi = 300, opw = "", upw = "", verbose = TRUE)</code></pre>
-<p>Then we add the short code “gallery-slider.html” presented in this <a href="https://github.com/tbiering/hugo-slider-shortcode">github repository</a> in this folder: <code>Website_Folder/themes/beautifulhugo/layouts/shortcodes/</code></p>
-<p>Finally we include the gallery slider our post with the following line of code:</p>
-<pre><code>{{&lt; gallery-slider dir="Slides/" width="100%" height="500px" &gt;}}</code></pre>
-<p>The directory containing the images must be placed in the <code>Website_Folder/static/</code> folder.</p>
+<p>You can find my presentation <a href="./doc/Presentation_thesis_Callens_Aurelien.pdf">here</a></p>
 
 
 </section>
