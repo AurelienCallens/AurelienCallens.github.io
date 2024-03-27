@@ -1,7 +1,7 @@
 # Quarto stuff 
 /.quarto/
 /_site/
-
+/doc/
 #Data
 *.csv
 

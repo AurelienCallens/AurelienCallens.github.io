@@ -21,26 +21,4 @@ Three methodologies have been developed and tested on real study sites. The firs
 
 ## My presentation for the PhD defense
 
-```{r echo=FALSE}
-htmltools::HTML('{{< gallery-slider dir="Slides/" width="100%" height="550px" >}}')
-```
-
-
-## Appendix: How to make this slide show from a pdf file
-
-The first step is to transform the presentation file (pdf format) into a collection of images (jpeg format) inside a specific folder with the R package *pdftools*:
-
-```
-library(pdftools)
-pdf_convert("filename.pdf", format = "jpeg", pages = NULL, filenames = NULL, dpi = 300, opw = "", upw = "", verbose = TRUE)
-```
-
-Then we add the short code "gallery-slider.html" presented in this [github repository](https://github.com/tbiering/hugo-slider-shortcode) in this folder: `Website_Folder/themes/beautifulhugo/layouts/shortcodes/`
-
-Finally we include the gallery slider our post with the following line of code: 
-
-```
-{{</* gallery-slider dir="Slides/" width="100%" height="500px" */>}}
-```
-
-The directory containing the images must be placed in the  `Website_Folder/static/` folder.
+You can find my presentation [here](./doc/Presentation_thesis_Callens_Aurelien.pdf)
