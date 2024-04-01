@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://aureliencallens.github.io/posts/2022/ds-fishing-part4.en.html</loc>
-    <lastmod>2024-03-27T16:22:21.282Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2021/the-end-of-a-journey.html</loc>
-    <lastmod>2024-03-27T16:22:52.685Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2021/coastal-risks-google-trends.en.html</loc>
-    <lastmod>2024-03-27T16:22:19.834Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2020/aliexpress-rselenium.html</loc>
-    <lastmod>2024-03-27T16:22:18.874Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2020/ds-fishing-part2.en.html</loc>
-    <lastmod>2024-03-27T16:22:17.366Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/index.html</loc>
-    <lastmod>2024-04-01T06:27:35.084Z</lastmod>
-  </url>
-  <url>
     <loc>https://aureliencallens.github.io/about.html</loc>
-    <lastmod>2024-04-01T06:31:18.277Z</lastmod>
+    <lastmod>2024-04-01T07:04:47.607Z</lastmod>
   </url>
   <url>
-    <loc>https://aureliencallens.github.io/myprojects.html</loc>
-    <lastmod>2024-03-27T16:22:38.526Z</lastmod>
+    <loc>https://aureliencallens.github.io/posts/2022/ds-fishing-part4.en.html</loc>
+    <lastmod>2024-04-01T07:04:46.875Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/posts/2022/web-scraping-indeed-with-r.html</loc>
-    <lastmod>2024-03-27T16:22:18.430Z</lastmod>
+    <lastmod>2024-04-01T07:04:46.075Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/posts/2020/ds-fishing-part1.en.html</loc>
-    <lastmod>2024-03-27T16:22:19.402Z</lastmod>
+    <lastmod>2024-04-01T07:04:44.719Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2021/the-end-of-a-journey.html</loc>
+    <lastmod>2024-04-01T07:04:43.403Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2021/coastal-risks-google-trends.en.html</loc>
+    <lastmod>2024-04-01T07:04:42.671Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/myprojects.html</loc>
+    <lastmod>2024-04-01T07:04:42.191Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/posts/2021/ds-fishing-part3.en.html</loc>
-    <lastmod>2024-03-27T16:22:20.278Z</lastmod>
+    <lastmod>2024-04-01T07:04:43.155Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2020/ds-fishing-part2.en.html</loc>
+    <lastmod>2024-04-01T07:04:44.211Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2020/aliexpress-rselenium.html</loc>
+    <lastmod>2024-04-01T07:04:45.099Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/posts/2022/analysis-of-the-top-r-packages.en.html</loc>
-    <lastmod>2024-03-27T16:22:20.894Z</lastmod>
+    <lastmod>2024-04-01T07:04:46.479Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/index.html</loc>
+    <lastmod>2024-04-01T07:04:47.419Z</lastmod>
   </url>
 </urlset>
