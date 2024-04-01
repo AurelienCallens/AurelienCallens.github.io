@@ -8,7 +8,8 @@ website:
   google-analytics: "G-MBB7RWKF8X"
   navbar:
     right:
-      - myprojects.qmd
+      - text: "Projects"
+        href: projects/index.qmd
       - text: "About"
         file: about.qmd
       - icon: github
