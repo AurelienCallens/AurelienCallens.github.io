@@ -1,0 +1,7 @@
+---
+title: "404: Page Not Found 👻"
+---
+
+The page you requested cannot be found. Perhaps it was moved or renamed!  
+
+Now that you're here, why not check out my [blog posts](index.qmd) about data science? 
