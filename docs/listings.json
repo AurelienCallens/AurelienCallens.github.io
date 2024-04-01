@@ -2,15 +2,15 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/2022/web-scraping-indeed-with-r.html",
-      "/posts/2022/analysis-of-the-top-r-packages.en.html",
-      "/posts/2022/ds-fishing-part4.en.html",
-      "/posts/2021/the-end-of-a-journey.html",
-      "/posts/2021/ds-fishing-part3.en.html",
-      "/posts/2021/coastal-risks-google-trends.en.html",
-      "/posts/2020/aliexpress-rselenium.html",
-      "/posts/2020/ds-fishing-part2.en.html",
-      "/posts/2020/ds-fishing-part1.en.html"
+      "/posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html",
+      "/posts/2022-07-19-top-r-packages/index.html",
+      "/posts/2022-04-12-datascience-fishing-part4/index.html",
+      "/posts/2021-10-02-the-end-of-a-journey/index.html",
+      "/posts/2021-06-01-datascience-fishing-part3/index.html",
+      "/posts/2021-03-03-coastal-risks-google-trends-r/index.html",
+      "/posts/2020-11-18-webscraping-aliexpress-rselenium/index.html",
+      "/posts/2020-09-25-datascience-fishing-part2/index.html",
+      "/posts/2020-09-12-datascience-fishing-part1/index.html"
     ]
   }
 ]
