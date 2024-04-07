@@ -1,0 +1,39 @@
+---
+title: "Statistical learning for coastal risks assessment"
+subtitle: "PhD Thesis"
+author: "Aurélien Callens"
+date: "2021-10-01"
+image: featured.png
+categories:
+  - Research
+  - R
+  - Python
+  - Deep learning
+  - Machine learning
+  - EDA
+---
+
+## Summary
+
+The objective of my work was to demonstrate how statistical learning methods can contribute to the improvement of coastal risk assessment tools and to the development of an early warning system which aims to reduce coastal flooding risk. I worked on 4 subjects: 
+
+- Clustering on weather patterns 
+- Machine learning method to correct wave forecast
+- Deep learning to make a wave impact database from wave monitoring images
+- Bayesian network to improve decision making for coastal risks
+
+## Productions
+
+- **My PhD thesis**: 
+  + <a href="http://www.theses.fr/2021PAUU3016" target="_blank"> Statistical learning for coastal risks assessment</a>
+
+- **Presentation**: 
+  + [Presentation for my thesis defense](/doc/Presentation_thesis_Callens_Aurelien.pdf)
+
+- **Two published papers in reviewed journals**: 
+    + Callens, A., Morichon, D., Liria, P., Epelde, I., & Liquet, B. (2021). Automatic Creation of Storm Impact Database Based on Video Monitoring and Convolutional Neural Networks. Remote Sensing, 13(10), 1933, (<a href="https://doi.org/10.3390/rs13101933" target="_blank">10.3390/rs13101933</a>).
+    + Callens, A., Morichon, D., Abadie, S., Delpey, M., Liquet, B. (2020). Using Random forest and Gradient boosting trees to improve wave forecast at a specific location. Applied Ocean Research, 104, (<a href="https://doi.org/10.1016/j.apor.2020.102339" target="_blank">10.1016/j.apor.2020.102339</a>).
+
+- **Blog post**: 
+  + [The end of my PhD journey](/posts/2021-10-02-the-end-of-a-journey/)
+

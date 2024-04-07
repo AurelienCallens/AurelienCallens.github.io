@@ -1,0 +1,28 @@
+---
+title: "My fishing application"
+subtitle: "How to use R to catch more fish (or not)"
+author: "Aurélien Callens"
+date: "2022-04-01"
+image: featured.jpg
+categories:
+  - Fun
+  - R
+  - Shiny
+  - EDA
+---
+
+## Summary
+
+In this project, I made a shiny application to record my fishing session with the aim to find the optimal weather condition to catch more fish. I made several blog post related to this project, don't hesitate to check them out! 
+
+## Productions
+
+- **Blog posts**: 
+    + [Building a shiny application to store my fishing data](/posts/2020-09-12-datascience-fishing-part1/)
+    + [Exploratory analysis on my fishing data](/posts/2020-09-25-datascience-fishing-part2/)
+    + [Updating my application](/posts/2021-06-01-datascience-fishing-part3/)
+    + [Exploratory analysis on my fishing data (shiny and plotly)](/posts/2022-04-12-datascience-fishing-part4/)
+
+- **Shiny applications**
+    +  <a href="https://aureliencallens.shinyapps.io/Dummy_angler_app/" target="_blank">Dummy example of the fishing application I use </a>
+    + <a href="https://aureliencallens.shinyapps.io/Fishing_analysis/" target="_blank">Shiny application presenting the results of my fishing season 2021</a>
