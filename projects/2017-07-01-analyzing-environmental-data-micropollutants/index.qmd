@@ -1,0 +1,34 @@
+---
+title: "Analysis of physical and climatic forcings impacting the transport of micropollutants in the Adour estuary"
+subtitle: "Master's degree Internship"
+author: "Aurélien Callens"
+date: "2017-07-01"
+image: featured.png
+categories:
+  - Research
+  - R
+  - Shiny
+  - EDA
+  - Statistical modeling
+---
+
+## Summary
+
+The aim of this work was to provide a descriptive synthesis of the physical and climatic forcings of the Adour (a french river) plume, namely swell, wind and flow. This synthesis aims to estimate the initial parameters of a hydrodynamic model of the Adour plume, which will be used to better better understand the transport of micropollutants in this estuary. 
+
+
+## Productions
+
+
+- **My Master Thesis**: 
+  + <a href="/doc/Master_thesis_1_Callens_Aurelien.pdf" target="_blank"> Analysis of physical and climatic forcings impacting the transport of micropollutants in the Adour estuary (French version)</a>. 
+
+
+- **Shiny application**: 
+  + <a href="https://aureliencallens.shinyapps.io/application/" target="_blank"> Check out here my first amazing (but laggy) Shiny application</a> summarizing a part of my first internship.
+
+
+- **A published paper in a reviewed journal**:
+  + Morichon, D., de Santiago, I., Delpey, M., Somdecoste, T., Callens, A., Liquet, B., ... & Arnould, P. (2018). Assessment of flooding hazards at an engineered beach during extreme events: Biarritz, SW France. Journal of Coastal Research, 85(sp1), 801-805, (<a href="https://doi.org/10.2112/SI85-161.1" target="_blank">10.2112/SI85-161.1</a>).
+
+

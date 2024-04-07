@@ -21,4 +21,4 @@ Three methodologies have been developed and tested on real study sites. The firs
 
 ## My presentation for the PhD defense
 
-You can find my presentation [here](./doc/Presentation_thesis_Callens_Aurelien.pdf)
+You can find my presentation [here](../../doc/Presentation_thesis_Callens_Aurelien.pdf)

@@ -1,0 +1,10 @@
+/* title */
+
+/* source: https://github.com/spcanelon/silvia/blob/main/assets/listing-default.css
+
+/* remove styling from title block partial */
+#title-block-header, #title-block-header-title {
+    all: unset;
+    background-image: none !important;
+  }
+  

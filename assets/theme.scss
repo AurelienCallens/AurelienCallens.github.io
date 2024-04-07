@@ -1,0 +1,18 @@
+/*-- scss:defaults --*/
+// Quarto references:
+// Variables: https://github.com/quarto-dev/quarto-cli/src/resources/formats/html/bootstrap/_bootstrap-variables.scss
+// Rules: https://github.com/quarto-dev/quarto-cli/src/resources/formats/html/bootstrap/_bootstrap-rules.scss
+
+
+// Title block
+
+// style background image on posts
+// source: https://github.com/spcanelon/silvia
+.featured-image {
+  // https://stackoverflow.com/a/24084708
+  // style = "background-image: url(featured.png), url(featured.jpg); background-size: cover; color: white; box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.65);"
+  background-size: cover; 
+  background-position: center;
+  color: white; 
+  box-shadow: inset 0 0 0 1000px rgba(0,38,66,0.75);
+}

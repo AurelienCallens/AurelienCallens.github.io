@@ -1,5 +1,6 @@
 ---
 title: "Can R and Shiny make me a better fisherman? Part 3"
+subtitle: "Updating my application"
 author: "Aurélien Callens"
 date: "2021-06-01"
 toc: true

@@ -1,0 +1,28 @@
+---
+title: "Robust regression for time series exhibiting heteroscedasticity"
+subtitle: "Final year master's degree Internship"
+author: "Aurélien Callens"
+date: "2018-09-01"
+image: featured.png
+categories:
+  - Research
+  - R
+  - Statistical modeling
+  - EDA
+---
+
+## Summary 
+
+During this internship, I worked on a new statistical method to perform robust regression for time series exhibiting heteroscedasticity. We developed and tested this method on a dataset containing chlorophyll concentration in a small tributary of the Thames River (UK). 
+
+## Productions
+ 
+- **My Master 2 Thesis**:
+  + <a href="/doc/Master_thesis_2_Callens_Aurelien.pdf" target="_blank"> Robust regression for time series exhibiting heterogeneity</a>
+
+- **Developement in the `rlmDataDriven` package**: 
+    + `rlmDD_het.R` : this function performs a robust regression which accounts for temporal correlations and heterogeneity.
+    + `whm.R` : this function is the R implementation of the weighted M-estimation. 
+
+- **A published paper in a reviewed journal**: 
+  + Callens, A., Wang, Y., Fu, L. et al. (2020). Robust Estimation Procedure for Autoregressive Models with Heterogeneity. Environmental Modeling & Assessment, (<a href="https://doi.org/10.1007/s10666-020-09730-w" target="_blank">10.1007/s10666-020-09730-w</a>)

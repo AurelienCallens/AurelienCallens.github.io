@@ -1,5 +1,14 @@
 [
   {
+    "listing": "/projects/index.html",
+    "items": [
+      "/projects/2022-04-01-my-fishing-application/index.html",
+      "/projects/2021-10-01-statistical-learning-coastal-risks/index.html",
+      "/projects/2018-09-01-robust-regression-time-series/index.html",
+      "/projects/2017-07-01-analyzing-environmental-data-micropollutants/index.html"
+    ]
+  },
+  {
     "listing": "/index.html",
     "items": [
       "/posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html",

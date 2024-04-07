@@ -29,7 +29,9 @@ website:
   favicon: img/favicon.ico
 format:
   html:
-    theme: flatly
+    theme: 
+    - flatly
+    - assets/theme.scss
     css: styles.css
 
 

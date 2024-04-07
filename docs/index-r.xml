@@ -19,6 +19,7 @@
 
 
 
+
 <p>A few weeks ago, I started looking for a data scientist position in industry. My first moves were:</p>
 <ul>
 <li>To look at the job posts on websites such as Indeed</li>
@@ -3134,6 +3135,7 @@ font-style: inherit;">c</span>(language, text))</span>
 
 
 
+
 <p>After a little while coding in Python every day for my work, I needed to make a break and perform some R analysis! Since the beginning of my postdoc, I haven’t followed the last trends concerning R packages. In this post, I am going to analyze some data about R packages to see what are the most downloaded packages during the past weeks. I will also visualize all the relationships between the R packages by looking at their required dependencies.</p>
 <p>Let’s import the packages required for this analysis:</p>
 <div class="cell">
@@ -3739,6 +3741,7 @@ font-style: inherit;">11</span>)</span></code></pre></div>
   <dc:creator>Aurélien Callens</dc:creator>
   <link>https://aureliencallens.github.io/posts/2022-04-12-datascience-fishing-part4/index.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -5305,6 +5308,7 @@ font-style: inherit;">server =</span> server)</span></code></pre></div>
   <dc:creator>Aurélien Callens</dc:creator>
   <link>https://aureliencallens.github.io/posts/2021-06-01-datascience-fishing-part3/index.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -7214,6 +7218,7 @@ font-style: inherit;">dtoken =</span> token)</span>
 
 
 
+
 <p>I am currently in the third year of my PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which presents the general context and the contributions of my thesis in the research world. For my introduction, I decided to include the Google trend analysis of specific terms related to my PhD subject. For information, the aim of my PhD is to demonstrate the potential contributions of statistical learning methods in the study of coastal risks.</p>
 <p>In this post, we are going to use the R package <code>gtrendsR</code> to analyze the trends of specific words related to statistical learning such as “machine learning” or “data science” and also related to coastal risks: “coastal flood”, “storm surge”.</p>
 <section id="analysis-of-specific-terms-for-the-whole-world" class="level2">
@@ -8163,6 +8168,7 @@ font-style: inherit;">theme_bw</span>()</span></code></pre></div>
 
 
 
+
 <p>Today, I am going to show you how to scrape product prices from Aliexpress website.</p>
 <section id="a-few-words-on-web-scraping" class="level2">
 <h2 class="anchored" data-anchor-id="a-few-words-on-web-scraping">A few words on web scraping</h2>
@@ -8591,6 +8597,7 @@ font-style: inherit;">close</span>()</span></code></pre></div>
   <dc:creator>Aurélien Callens</dc:creator>
   <link>https://aureliencallens.github.io/posts/2020-09-25-datascience-fishing-part2/index.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -10635,6 +10642,7 @@ font-style: inherit;">90</span>)</span>
   <dc:creator>Aurélien Callens</dc:creator>
   <link>https://aureliencallens.github.io/posts/2020-09-12-datascience-fishing-part1/index.html</link>
   <description><![CDATA[ 
+
 
 
 
