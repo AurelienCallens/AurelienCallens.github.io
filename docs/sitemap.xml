@@ -2,50 +2,66 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://aureliencallens.github.io/about.html</loc>
-    <lastmod>2024-04-01T09:50:41.946Z</lastmod>
+    <lastmod>2024-04-07T14:46:50.513Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/posts/2021-03-03-coastal-risks-google-trends-r/index.html</loc>
-    <lastmod>2024-04-01T09:50:27.194Z</lastmod>
+    <lastmod>2024-04-07T14:46:49.797Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/posts/2022-04-12-datascience-fishing-part4/index.html</loc>
-    <lastmod>2024-04-01T09:50:26.234Z</lastmod>
+    <lastmod>2024-04-07T14:46:48.805Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/posts/2020-09-25-datascience-fishing-part2/index.html</loc>
-    <lastmod>2024-04-01T09:50:24.866Z</lastmod>
+    <lastmod>2024-04-07T14:46:47.437Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/posts/2021-10-02-the-end-of-a-journey/index.html</loc>
-    <lastmod>2024-04-01T09:50:23.718Z</lastmod>
+    <lastmod>2024-04-07T14:46:46.310Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/posts/2020-09-12-datascience-fishing-part1/index.html</loc>
-    <lastmod>2024-04-01T09:50:23.090Z</lastmod>
+    <lastmod>2024-04-07T14:46:45.698Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/projects/2017-07-01-analyzing-environmental-data-micropollutants/index.html</loc>
+    <lastmod>2024-04-07T14:46:44.830Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/projects/index.html</loc>
-    <lastmod>2024-04-01T09:50:34.758Z</lastmod>
+    <lastmod>2024-04-07T14:46:44.394Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/projects/2021-10-01-statistical-learning-coastal-risks/index.html</loc>
+    <lastmod>2024-04-07T14:46:43.698Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/projects/2018-09-01-robust-regression-time-series/index.html</loc>
+    <lastmod>2024-04-07T14:46:43.922Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/projects/2022-04-01-my-fishing-application/index.html</loc>
+    <lastmod>2024-04-07T14:46:44.606Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/posts/2020-11-18-webscraping-aliexpress-rselenium/index.html</loc>
-    <lastmod>2024-04-01T09:50:23.478Z</lastmod>
+    <lastmod>2024-04-07T14:46:46.082Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/posts/2022-07-19-top-r-packages/index.html</loc>
-    <lastmod>2024-04-01T09:50:24.110Z</lastmod>
+    <lastmod>2024-04-07T14:46:46.677Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html</loc>
-    <lastmod>2024-04-01T09:50:25.826Z</lastmod>
+    <lastmod>2024-04-07T14:46:48.429Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/posts/2021-06-01-datascience-fishing-part3/index.html</loc>
-    <lastmod>2024-04-01T09:50:26.654Z</lastmod>
+    <lastmod>2024-04-07T14:46:49.233Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/index.html</loc>
-    <lastmod>2024-04-01T09:50:31.810Z</lastmod>
+    <lastmod>2024-04-07T14:46:50.329Z</lastmod>
   </url>
 </urlset>

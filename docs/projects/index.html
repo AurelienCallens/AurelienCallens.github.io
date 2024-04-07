@@ -31,6 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../img/favicon.ico" rel="icon">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -60,6 +62,35 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-categories','listing-date','listing-image',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MBB7RWKF8X"></script>
 
 <script type="text/javascript">
@@ -69,12 +100,15 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 </script>
+<link rel="stylesheet" href="../assets/listing-default.css">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -112,16 +146,26 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Deep learning">Deep learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="EDA">EDA <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Fun">Fun <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Machine learning">Machine learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Research">Research <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Shiny">Shiny <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Statistical modeling">Statistical modeling <span class="quarto-category-count">(2)</span></div></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
+<!-- source: https://github.com/gadenbuie/garrickadenbuie-com/blob/main/_partials/title-block-link-buttons/title-block.html -->
+<!-- 
 <header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<div class="quarto-title"> 
+-->
+<!-- <header id="title-block-header" class="quarto-title-block default page-columns"> -->
+<!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> -->
+<header id="title-block-header" class="quarto-title-block default page-columns">
+<div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);">
 <h1 class="title">My projects</h1>
+<p class="subtitle lead"></p><p>Some of my (fun or serious) projects I have worked on !</p><p></p>
 </div>
 
 
@@ -134,88 +178,161 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
   </div>
   
 
+
 </header>
 
-<p>Academic papers</p>
-<ul>
-<li><p>Callens, A., Morichon, D., Liria, P., Epelde, I., &amp; Liquet, B. (2021). Automatic Creation of Storm Impact Database Based on Video Monitoring and Convolutional Neural Networks. Remote Sensing, 13(10), 1933, (<a href="https://doi.org/10.3390/rs13101933" target="_blank">10.3390/rs13101933</a>).</p></li>
-<li><p>Callens, A., Morichon, D., Abadie, S., Delpey, M., Liquet, B. (2020). Applied Ocean Research, 104, (<a href="https://doi.org/10.1016/j.apor.2020.102339" target="_blank">10.1016/j.apor.2020.102339</a>).</p></li>
-<li><p>Callens, A., Wang, Y., Fu, L. et al.&nbsp;(2020). Robust Estimation Procedure for Autoregressive Models with Heterogeneity. Environmental Modeling &amp; Assessment, ( <a href="https://doi.org/10.1007/s10666-020-09730-w" target="_blank">10.1007/s10666-020-09730-w</a>).</p></li>
-<li><p>Morichon, D., de Santiago, I., Delpey, M., Somdecoste, T., Callens, A., Liquet, B., … &amp; Arnould, P. (2018). Assessment of flooding hazards at an engineered beach during extreme events: Biarritz, SW France. Journal of Coastal Research, 85(sp1), 801-805, ( <a href="https://doi.org/10.2112/SI85-161.1" target="_blank">10.2112/SI85-161.1</a>).</p></li>
-</ul>
-<p>My thesis report</p>
-<ul>
-<li><p><em>PhD thesis</em>: <a href="http://www.theses.fr/2021PAUU3016" target="_blank"> Statistical learning for coastal risks assessment</a></p></li>
-<li><p><em>Master 2 Thesis</em>: <a href="../doc/Master_thesis_2_Callens_Aurelien.pdf" target="_blank"> Robust regression for time series exhibiting heterogeneity</a></p></li>
-<li><p><em>Master 1 Thesis</em>: <a href="../doc/Master_thesis_1_Callens_Aurelien.pdf" target="_blank"> Analysis of physical and climatic forcings impacting the transport of micropollutants in the Adour estuary (French version)</a>.</p></li>
-</ul>
-<p>Shiny applications</p>
-<ul>
-<li><p><a href="https://aureliencallens.shinyapps.io/application/" target="_blank">My first amazing (but laggy) Shiny application</a> summarizing a part of my first internship (master 1).</p></li>
-<li><p><a href="https://aureliencallens.shinyapps.io/Dummy_angler_app/" target="_blank">Dummy example of the fishing application I use </a></p></li>
-<li><p><a href="https://aureliencallens.shinyapps.io/Fishing_analysis/" target="_blank">Shiny application presenting the results of my fishing season 2021</a></p></li>
-</ul>
-<p>Rpackage - Involved in the development of <code>rlmDataDriven</code> package (available on CRAN), especially: + <code>rlmDD_het.R</code> : this function performs a robust regression which accounts for temporal correlations and heterogeneity. + <code>whm.R</code> : this function is the R implementation of the weighted M-estimation.</p>
-<style>
-
-#hero-banner {
-  padding-top: 35px;
-  background-color: rgb(237,243,249);
-}
-
-#quarto-content main { 
-  margin-top: 0;
-  padding-top: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-.headline {
-  font-size: 1.25em;
-  font-weight: 300;
-  padding-bottom: 1em;
-}
-
-.headline p {
-  margin: 0;
-  padding-bottom: 0.2rem;
-}
-
-.headline a {
-  text-decoration: none;
-}
-
-.headline ul li {
-  margin-bottom: 0.3em;
-}
-
-.carousel.card {
-  padding-top: 2em;
-}
-
-.carousel img {
-  width: 70%;
-  margin-bottom: 110px;
-}
-
-.carousel-control-prev-icon, .carousel-control-next-icon {
-  margin-bottom: 110px;
-}
-
-.carousel-caption {
-  padding-top: 1em;
-}
-
-.touch {
-  
-}
-</style>
 
 
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+
+<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="Fun,R,Shiny,EDA" data-listing-date-sort="1648764000000" data-listing-file-modified-sort="1712499427053" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<a href="../projects/2022-04-01-my-fishing-application/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img src="../projects/2022-04-01-my-fishing-application/featured.jpg" class="thumbnail-image card-img" style="height: 100%;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+My fishing application
+</h5>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Fun'); return false;">
+Fun
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Shiny'); return false;">
+Shiny
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('EDA'); return false;">
+EDA
+</div>
+</div>
+<div class="card-attribution card-text-small end">
+<div class="listing-date">
+Apr 1, 2022
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="Research,R,Python,Deep learning,Machine learning,EDA" data-listing-date-sort="1633039200000" data-listing-file-modified-sort="1712499453608" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<a href="../projects/2021-10-01-statistical-learning-coastal-risks/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img src="../projects/2021-10-01-statistical-learning-coastal-risks/featured.png" class="thumbnail-image card-img" style="height: 100%;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Statistical learning for coastal risks assessment
+</h5>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Research'); return false;">
+Research
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
+Python
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Deep learning'); return false;">
+Deep learning
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Machine learning'); return false;">
+Machine learning
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('EDA'); return false;">
+EDA
+</div>
+</div>
+<div class="card-attribution card-text-small end">
+<div class="listing-date">
+Oct 1, 2021
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="Research,R,Statistical modeling,EDA" data-listing-date-sort="1535752800000" data-listing-file-modified-sort="1712499422057" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<a href="../projects/2018-09-01-robust-regression-time-series/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img src="../projects/2018-09-01-robust-regression-time-series/featured.png" class="thumbnail-image card-img" style="height: 100%;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Robust regression for time series exhibiting heteroscedasticity
+</h5>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Research'); return false;">
+Research
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Statistical modeling'); return false;">
+Statistical modeling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('EDA'); return false;">
+EDA
+</div>
+</div>
+<div class="card-attribution card-text-small end">
+<div class="listing-date">
+Sep 1, 2018
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="3" data-categories="Research,R,Shiny,EDA,Statistical modeling" data-listing-date-sort="1498860000000" data-listing-file-modified-sort="1712499408501" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<a href="../projects/2017-07-01-analyzing-environmental-data-micropollutants/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img src="../projects/2017-07-01-analyzing-environmental-data-micropollutants/featured.png" class="thumbnail-image card-img" style="height: 100%;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Analysis of physical and climatic forcings impacting the transport of micropollutants in the Adour estuary
+</h5>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Research'); return false;">
+Research
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Shiny'); return false;">
+Shiny
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('EDA'); return false;">
+EDA
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Statistical modeling'); return false;">
+Statistical modeling
+</div>
+</div>
+<div class="card-attribution card-text-small end">
+<div class="listing-date">
+Jul 1, 2017
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

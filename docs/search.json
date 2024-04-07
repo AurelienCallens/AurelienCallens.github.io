@@ -161,6 +161,90 @@
     "text": "Conclusion and future improvments\nYou can find a dummy example of this application (not linked to the dropbox account) here. I have been using this application for 1 year without any problems! The data I collected will be presented in the next post.\nIn the coming months, I must find a new free API to replace the actual one. Indeed, the weather API I am using has been bought by Apple and the free requests will be stopped in the following year."
   },
   {
+    "objectID": "projects/2017-07-01-analyzing-environmental-data-micropollutants/index.html",
+    "href": "projects/2017-07-01-analyzing-environmental-data-micropollutants/index.html",
+    "title": "Analysis of physical and climatic forcings impacting the transport of micropollutants in the Adour estuary",
+    "section": "",
+    "text": "The aim of this work was to provide a descriptive synthesis of the physical and climatic forcings of the Adour (a french river) plume, namely swell, wind and flow. This synthesis aims to estimate the initial parameters of a hydrodynamic model of the Adour plume, which will be used to better better understand the transport of micropollutants in this estuary."
+  },
+  {
+    "objectID": "projects/2017-07-01-analyzing-environmental-data-micropollutants/index.html#summary",
+    "href": "projects/2017-07-01-analyzing-environmental-data-micropollutants/index.html#summary",
+    "title": "Analysis of physical and climatic forcings impacting the transport of micropollutants in the Adour estuary",
+    "section": "",
+    "text": "The aim of this work was to provide a descriptive synthesis of the physical and climatic forcings of the Adour (a french river) plume, namely swell, wind and flow. This synthesis aims to estimate the initial parameters of a hydrodynamic model of the Adour plume, which will be used to better better understand the transport of micropollutants in this estuary."
+  },
+  {
+    "objectID": "projects/2017-07-01-analyzing-environmental-data-micropollutants/index.html#productions",
+    "href": "projects/2017-07-01-analyzing-environmental-data-micropollutants/index.html#productions",
+    "title": "Analysis of physical and climatic forcings impacting the transport of micropollutants in the Adour estuary",
+    "section": "Productions",
+    "text": "Productions\n\nMy Master Thesis:\n\n Analysis of physical and climatic forcings impacting the transport of micropollutants in the Adour estuary (French version).\n\nShiny application:\n\n Check out here my first amazing (but laggy) Shiny application summarizing a part of my first internship.\n\nA published paper in a reviewed journal:\n\nMorichon, D., de Santiago, I., Delpey, M., Somdecoste, T., Callens, A., Liquet, B., … & Arnould, P. (2018). Assessment of flooding hazards at an engineered beach during extreme events: Biarritz, SW France. Journal of Coastal Research, 85(sp1), 801-805, (10.2112/SI85-161.1)."
+  },
+  {
+    "objectID": "projects/2021-10-01-statistical-learning-coastal-risks/index.html",
+    "href": "projects/2021-10-01-statistical-learning-coastal-risks/index.html",
+    "title": "Statistical learning for coastal risks assessment",
+    "section": "",
+    "text": "The objective of my work was to demonstrate how statistical learning methods can contribute to the improvement of coastal risk assessment tools and to the development of an early warning system which aims to reduce coastal flooding risk. I worked on 4 subjects:\n\nClustering on weather patterns\nMachine learning method to correct wave forecast\nDeep learning to make a wave impact database from wave monitoring images\nBayesian network to improve decision making for coastal risks"
+  },
+  {
+    "objectID": "projects/2021-10-01-statistical-learning-coastal-risks/index.html#summary",
+    "href": "projects/2021-10-01-statistical-learning-coastal-risks/index.html#summary",
+    "title": "Statistical learning for coastal risks assessment",
+    "section": "",
+    "text": "The objective of my work was to demonstrate how statistical learning methods can contribute to the improvement of coastal risk assessment tools and to the development of an early warning system which aims to reduce coastal flooding risk. I worked on 4 subjects:\n\nClustering on weather patterns\nMachine learning method to correct wave forecast\nDeep learning to make a wave impact database from wave monitoring images\nBayesian network to improve decision making for coastal risks"
+  },
+  {
+    "objectID": "projects/2021-10-01-statistical-learning-coastal-risks/index.html#productions",
+    "href": "projects/2021-10-01-statistical-learning-coastal-risks/index.html#productions",
+    "title": "Statistical learning for coastal risks assessment",
+    "section": "Productions",
+    "text": "Productions\n\nMy PhD thesis:\n\n Statistical learning for coastal risks assessment\n\nPresentation:\n\nPresentation for my thesis defense\n\nTwo published papers in reviewed journals:\n\nCallens, A., Morichon, D., Liria, P., Epelde, I., & Liquet, B. (2021). Automatic Creation of Storm Impact Database Based on Video Monitoring and Convolutional Neural Networks. Remote Sensing, 13(10), 1933, (10.3390/rs13101933).\nCallens, A., Morichon, D., Abadie, S., Delpey, M., Liquet, B. (2020). Using Random forest and Gradient boosting trees to improve wave forecast at a specific location. Applied Ocean Research, 104, (10.1016/j.apor.2020.102339).\n\nBlog post:\n\nThe end of my PhD journey"
+  },
+  {
+    "objectID": "projects/2018-09-01-robust-regression-time-series/index.html",
+    "href": "projects/2018-09-01-robust-regression-time-series/index.html",
+    "title": "Robust regression for time series exhibiting heteroscedasticity",
+    "section": "",
+    "text": "During this internship, I worked on a new statistical method to perform robust regression for time series exhibiting heteroscedasticity. We developed and tested this method on a dataset containing chlorophyll concentration in a small tributary of the Thames River (UK)."
+  },
+  {
+    "objectID": "projects/2018-09-01-robust-regression-time-series/index.html#summary",
+    "href": "projects/2018-09-01-robust-regression-time-series/index.html#summary",
+    "title": "Robust regression for time series exhibiting heteroscedasticity",
+    "section": "",
+    "text": "During this internship, I worked on a new statistical method to perform robust regression for time series exhibiting heteroscedasticity. We developed and tested this method on a dataset containing chlorophyll concentration in a small tributary of the Thames River (UK)."
+  },
+  {
+    "objectID": "projects/2018-09-01-robust-regression-time-series/index.html#productions",
+    "href": "projects/2018-09-01-robust-regression-time-series/index.html#productions",
+    "title": "Robust regression for time series exhibiting heteroscedasticity",
+    "section": "Productions",
+    "text": "Productions\n\nMy Master 2 Thesis:\n\n Robust regression for time series exhibiting heterogeneity\n\nDevelopement in the rlmDataDriven package:\n\nrlmDD_het.R : this function performs a robust regression which accounts for temporal correlations and heterogeneity.\nwhm.R : this function is the R implementation of the weighted M-estimation.\n\nA published paper in a reviewed journal:\n\nCallens, A., Wang, Y., Fu, L. et al. (2020). Robust Estimation Procedure for Autoregressive Models with Heterogeneity. Environmental Modeling & Assessment, (10.1007/s10666-020-09730-w)"
+  },
+  {
+    "objectID": "projects/2022-04-01-my-fishing-application/index.html",
+    "href": "projects/2022-04-01-my-fishing-application/index.html",
+    "title": "My fishing application",
+    "section": "",
+    "text": "In this project, I made a shiny application to record my fishing session with the aim to find the optimal weather condition to catch more fish. I made several blog post related to this project, don’t hesitate to check them out!"
+  },
+  {
+    "objectID": "projects/2022-04-01-my-fishing-application/index.html#summary",
+    "href": "projects/2022-04-01-my-fishing-application/index.html#summary",
+    "title": "My fishing application",
+    "section": "",
+    "text": "In this project, I made a shiny application to record my fishing session with the aim to find the optimal weather condition to catch more fish. I made several blog post related to this project, don’t hesitate to check them out!"
+  },
+  {
+    "objectID": "projects/2022-04-01-my-fishing-application/index.html#productions",
+    "href": "projects/2022-04-01-my-fishing-application/index.html#productions",
+    "title": "My fishing application",
+    "section": "Productions",
+    "text": "Productions\n\nBlog posts:\n\nBuilding a shiny application to store my fishing data\nExploratory analysis on my fishing data\nUpdating my application\nExploratory analysis on my fishing data (shiny and plotly)\n\nShiny applications\n\nDummy example of the fishing application I use \nShiny application presenting the results of my fishing season 2021"
+  },
+  {
     "objectID": "posts/2020-11-18-webscraping-aliexpress-rselenium/index.html",
     "href": "posts/2020-11-18-webscraping-aliexpress-rselenium/index.html",
     "title": "Webscraping Aliexpress with Rselenium",
@@ -270,6 +354,6 @@
     "href": "index.html",
     "title": "My blog posts",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nOptimizing my search for Data scientist jobs by scraping Indeed with R\n\n\n\n\n\n\n\nR\n\n\nWeb scraping\n\n\nEDA\n\n\nNLP\n\n\n\n\n\n\n\n\n\n\n\nSep 21, 2022\n\n\nAurelien Callens\n\n\n\n\n\n\n  \n\n\n\n\nAnalysis of the top R packages\n\n\n\n\n\n\n\nR\n\n\nEDA\n\n\n\n\n\n\n\n\n\n\n\nJul 19, 2022\n\n\nAurelien Callens\n\n\n\n\n\n\n  \n\n\n\n\nCan R and Shiny make me a better fisherman? Part 4\n\n\nExploratory analysis on my fishing data (shiny and plotly)\n\n\n\n\nR\n\n\nShiny\n\n\nEDA\n\n\n\n\n\n\n\n\n\n\n\nApr 12, 2022\n\n\nAurélien Callens\n\n\n\n\n\n\n  \n\n\n\n\nThe end of my PhD journey\n\n\n\n\n\n\n\n\n\n\n\n\nOct 2, 2021\n\n\nAurelien Callens\n\n\n\n\n\n\n  \n\n\n\n\nCan R and Shiny make me a better fisherman? Part 3\n\n\n\n\n\n\n\nR\n\n\nShiny\n\n\nWeb scraping\n\n\n\n\n\n\n\n\n\n\n\nJun 1, 2021\n\n\nAurélien Callens\n\n\n\n\n\n\n  \n\n\n\n\nCoastal risks and statistical learning: Analyzing Google trends with gtrendsR package\n\n\n\n\n\n\n\nR\n\n\nEDA\n\n\n\n\n\n\n\n\n\n\n\nMar 3, 2021\n\n\nAurélien Callens\n\n\n\n\n\n\n  \n\n\n\n\nWebscraping Aliexpress with Rselenium\n\n\n\n\n\n\n\nR\n\n\nWeb scraping\n\n\n\n\n\n\n\n\n\n\n\nNov 18, 2020\n\n\nAurelien Callens\n\n\n\n\n\n\n  \n\n\n\n\nCan R and Shiny make me a better fisherman? Part 2\n\n\nExploratory analysis on my fishing data\n\n\n\n\nR\n\n\nEDA\n\n\n\n\n\n\n\n\n\n\n\nSep 25, 2020\n\n\nAurélien Callens\n\n\n\n\n\n\n  \n\n\n\n\nCan R and Shiny make me a better fisherman? Part 1\n\n\nBuilding a shiny application to store my fishing data\n\n\n\n\nR\n\n\nShiny\n\n\nWeb scraping\n\n\n\n\n\n\n\n\n\n\n\nSep 12, 2020\n\n\nAurélien Callens\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nOptimizing my search for Data scientist jobs by scraping Indeed with R\n\n\n\n\n\n\n\nR\n\n\nWeb scraping\n\n\nEDA\n\n\nNLP\n\n\n\n\n\n\n\n\n\n\n\nSep 21, 2022\n\n\nAurelien Callens\n\n\n\n\n\n\n  \n\n\n\n\nAnalysis of the top R packages\n\n\n\n\n\n\n\nR\n\n\nEDA\n\n\n\n\n\n\n\n\n\n\n\nJul 19, 2022\n\n\nAurelien Callens\n\n\n\n\n\n\n  \n\n\n\n\nCan R and Shiny make me a better fisherman? Part 4\n\n\nExploratory analysis on my fishing data (shiny and plotly)\n\n\n\n\nR\n\n\nShiny\n\n\nEDA\n\n\n\n\n\n\n\n\n\n\n\nApr 12, 2022\n\n\nAurélien Callens\n\n\n\n\n\n\n  \n\n\n\n\nThe end of my PhD journey\n\n\n\n\n\n\n\n\n\n\n\n\nOct 2, 2021\n\n\nAurelien Callens\n\n\n\n\n\n\n  \n\n\n\n\nCan R and Shiny make me a better fisherman? Part 3\n\n\nUpdating my application\n\n\n\n\nR\n\n\nShiny\n\n\nWeb scraping\n\n\n\n\n\n\n\n\n\n\n\nJun 1, 2021\n\n\nAurélien Callens\n\n\n\n\n\n\n  \n\n\n\n\nCoastal risks and statistical learning: Analyzing Google trends with gtrendsR package\n\n\n\n\n\n\n\nR\n\n\nEDA\n\n\n\n\n\n\n\n\n\n\n\nMar 3, 2021\n\n\nAurélien Callens\n\n\n\n\n\n\n  \n\n\n\n\nWebscraping Aliexpress with Rselenium\n\n\n\n\n\n\n\nR\n\n\nWeb scraping\n\n\n\n\n\n\n\n\n\n\n\nNov 18, 2020\n\n\nAurelien Callens\n\n\n\n\n\n\n  \n\n\n\n\nCan R and Shiny make me a better fisherman? Part 2\n\n\nExploratory analysis on my fishing data\n\n\n\n\nR\n\n\nEDA\n\n\n\n\n\n\n\n\n\n\n\nSep 25, 2020\n\n\nAurélien Callens\n\n\n\n\n\n\n  \n\n\n\n\nCan R and Shiny make me a better fisherman? Part 1\n\n\nBuilding a shiny application to store my fishing data\n\n\n\n\nR\n\n\nShiny\n\n\nWeb scraping\n\n\n\n\n\n\n\n\n\n\n\nSep 12, 2020\n\n\nAurélien Callens\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   }
 ]
