@@ -1,0 +1,35 @@
+---
+title: "Exploring the Value of Remote Sensing in Agriculture"
+author: "Aurelien Callens"
+date: "2024-09-19"
+toc: true
+execute:
+  freeze: true
+image: images/radar_hourly.webp
+format: 
+  html:
+    code-fold: false
+    code-tools: false
+    code-summary: "Show the code"
+project:
+  execute-dir: project
+categories:
+  - Research
+  - EDA
+---
+
+I just published a new article on Medium exploring the role of remote sensing in agriculture, specifically how radar data can help estimate precipitation more effectively ! 📡🌾🌧
+
+Knowing exactly how much rain has fallen on a field is critical for farmers. It impacts decisions on irrigation, disease prevention, and overall crop health. Traditionally, rain gauges have been the gold standard for measuring precipitation, but their reach is limited to where they are physically installed.
+
+Enter remote sensing—weather radars and satellites provide spatially continuous precipitation estimates, offering a broader perspective that ground stations alone cannot match. But how reliable are they for agriculture-specific applications? At Sencrop, we’re investigating whether radar data can:
+
+- Complement our network of weather stations, especially in less dense areas
+- Improve the quality of precipitation data through gap filling and anomaly detection
+- Meet the precision required for hourly rainfall estimates, essential for irrigation and disease forecasting
+
+In this post, I compare radar data with traditional weather station measurements to see how well it aligns with agricultural needs.
+
+Curious about how radar can enhance weather-based decision-making in farming? Read the full article here: [Exploring the Value of Remote Sensing in Agriculture: Making Sense of Radar Data](https://medium.com/science-engineering-at-sencrop/exploring-the-value-of-remote-sensing-in-agriculture-making-sense-of-radar-data-63a46fa97901)
+
+See you !

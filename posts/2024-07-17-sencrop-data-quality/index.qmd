@@ -1,0 +1,34 @@
+---
+title: "The Importance of Data Quality Control in Meteorology"
+author: "Aurelien Callens"
+date: "2024-07-17"
+toc: true
+execute:
+  freeze: true
+image: images/data_distribution.webp
+format: 
+  html:
+    code-fold: false
+    code-tools: false
+    code-summary: "Show the code"
+project:
+  execute-dir: project
+categories:
+  - Research
+  - Anomaly detection
+---
+
+Long time no see! I’ve been busy settling into my new position, but I’m back with a fresh article on Medium. 🚀
+
+When working with weather data, ensuring data quality is not just a nice-to-have—it’s a necessity. Weather forecasts, decision-support tools, and climate analyses all rely on accurate measurements. But what happens when a sensor malfunctions, a station is installed incorrectly, or—believe it or not—a bird decides to nest in a rain collector? 🐦
+
+At Sencrop, the network of weather stations fuels a variety of downstream processes, from simple aggregations to complex agricultural decision-making tools. Without robust anomaly detection, these processes could be thrown off by faulty measurements, leading to inaccurate insights.
+
+In this article, I explore:
+
+- Why data quality control matters in meteorology
+- Common  data quality control methods and why they are not adapted to our case
+- How we implement an inovative anomaly detection to keep our data reliable
+
+If you're curious about how to keep your data clean and meaningful, check it out here: 
+[Sencrop’s data quality control: Beyond the Z-score](https://medium.com/science-engineering-at-sencrop/sencrops-data-quality-control-beyond-the-z-score-67f59397a359)

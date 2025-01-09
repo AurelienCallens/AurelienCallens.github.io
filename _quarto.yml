@@ -13,16 +13,16 @@ website:
       - text: "About"
         file: about.qmd
       - icon: github
-        href: https://github.com/AurelienCallens/AurelienCallens
+        href: https://github.com/AurelienCallens
   back-to-top-navigation: true
   page-footer:
     right:  
       - Aurélien Callens • © 2024 
     center:
       - icon: github
-        href: https://github.com/AurelienCallens/AurelienCallens
+        href: https://github.com/AurelienCallens
       - icon: linkedin
-        href: https://github.com/AurelienCallens/AurelienCallens
+        href: www.linkedin.com/in/aureliencallens
       - icon: envelope-fill
         href: "mailto:aurelien.callens@gmail.com"
       

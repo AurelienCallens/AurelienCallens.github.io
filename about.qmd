@@ -10,7 +10,7 @@ about:
       href: https://www.linkedin.com/in/aureliencallens
     - icon: github
       text: Github
-      href: https://github.com/AurelienCallens/AurelienCallens
+      href: https://github.com/AurelienCallens
 
 ---
 
@@ -20,7 +20,9 @@ My name is Aurélien Callens, I am passionate about data science, coding and fis
 
 ## Professional Experience
 
-+ **02/2023 - Nowadays**: Research data scientist @ Sencrop, Lille, France
++ **02/2023 - 01/2025**: Freelance data scientist, Agen, France
+
++ **02/2023 - 01/2025**: Research data scientist @ Sencrop, Lille, France
 
 + **10/2021 - 10/2022**: Deep learning research engineer @ SUEZ and University of Pau and Pays de l'Adour, Bidart, France
 

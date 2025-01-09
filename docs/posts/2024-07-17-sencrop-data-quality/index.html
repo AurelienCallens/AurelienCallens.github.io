@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Aurélien Callens">
-<meta name="dcterms.date" content="2017-07-01">
+<meta name="author" content="Aurelien Callens">
+<meta name="dcterms.date" content="2024-07-17">
 
-<title>Aurelien Callens - Analysis of physical and climatic forcings impacting the transport of micropollutants in the Adour estuary</title>
+<title>Aurelien Callens - The Importance of Data Quality Control in Meteorology</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,7 +83,7 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -121,83 +121,63 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns">
-<div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);">
-<h1 class="title">Analysis of physical and climatic forcings impacting the transport of micropollutants in the Adour estuary</h1>
-<p class="subtitle lead">Master’s degree Internship</p>
-    <div class="quarto-categories">
-        <div class="quarto-category">Research</div>
-        <div class="quarto-category">R</div>
-        <div class="quarto-category">Shiny</div>
-        <div class="quarto-category">EDA</div>
-        <div class="quarto-category">Statistical modeling</div>
-      </div>
-  </div>
-
-
-
-<div class="quarto-title-meta">
-
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Aurélien Callens </p>
-          </div>
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">The Importance of Data Quality Control in Meteorology</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Research</div>
+                <div class="quarto-category">Anomaly detection</div>
+              </div>
+                  </div>
   </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">July 1, 2017</p>
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Aurelien Callens </p>
+            </div>
     </div>
-  </div>
-  
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 17, 2024</p>
+      </div>
+    </div>
     
-  </div>
+      
+    </div>
+    
   
-
-
-
-</header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
-<!-- source: https://github.com/gadenbuie/garrickadenbuie-com/blob/main/_partials/title-block-link-buttons/title-block.html -->
-<!-- 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title"> 
--->
-<!-- <header id="title-block-header" class="quarto-title-block default page-columns"> -->
-<!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> -->
 
 
 
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>The aim of this work was to provide a descriptive synthesis of the physical and climatic forcings of the Adour (a french river) plume, namely swell, wind and flow. This synthesis aims to estimate the initial parameters of a hydrodynamic model of the Adour plume, which will be used to better better understand the transport of micropollutants in this estuary.</p>
-</section>
-<section id="productions" class="level2">
-<h2 class="anchored" data-anchor-id="productions">Productions</h2>
+
+<p>Long time no see! I’ve been busy settling into my new position, but I’m back with a fresh article on Medium. 🚀</p>
+<p>When working with weather data, ensuring data quality is not just a nice-to-have—it’s a necessity. Weather forecasts, decision-support tools, and climate analyses all rely on accurate measurements. But what happens when a sensor malfunctions, a station is installed incorrectly, or—believe it or not—a bird decides to nest in a rain collector? 🐦</p>
+<p>At Sencrop, the network of weather stations fuels a variety of downstream processes, from simple aggregations to complex agricultural decision-making tools. Without robust anomaly detection, these processes could be thrown off by faulty measurements, leading to inaccurate insights.</p>
+<p>In this article, I explore:</p>
 <ul>
-<li><strong>My Master Thesis</strong>:
-<ul>
-<li><a href="../../doc/Master_thesis_1_Callens_Aurelien.pdf" target="_blank"> Analysis of physical and climatic forcings impacting the transport of micropollutants in the Adour estuary (French version)</a>.</li>
-</ul></li>
-<li><strong>Shiny application</strong>:
-<ul>
-<li><a href="https://aureliencallens.shinyapps.io/application/" target="_blank"> Check out here my first amazing (but laggy) Shiny application</a> summarizing a part of my first internship.</li>
-</ul></li>
-<li><strong>A published paper in a reviewed journal</strong>:
-<ul>
-<li>Morichon, D., de Santiago, I., Delpey, M., Somdecoste, T., Callens, A., Liquet, B., … &amp; Arnould, P. (2018). Assessment of flooding hazards at an engineered beach during extreme events: Biarritz, SW France. Journal of Coastal Research, 85(sp1), 801-805, (<a href="https://doi.org/10.2112/SI85-161.1" target="_blank">10.2112/SI85-161.1</a>).</li>
-</ul></li>
+<li>Why data quality control matters in meteorology</li>
+<li>Common data quality control methods and why they are not adapted to our case</li>
+<li>How we implement an inovative anomaly detection to keep our data reliable</li>
 </ul>
+<p>If you’re curious about how to keep your data clean and meaningful, check it out here: <a href="https://medium.com/science-engineering-at-sencrop/sencrops-data-quality-control-beyond-the-z-score-67f59397a359">Sencrop’s data quality control: Beyond the Z-score</a></p>
 
 
-</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
