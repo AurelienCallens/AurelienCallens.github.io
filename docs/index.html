@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.547">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -48,7 +48,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -57,6 +63,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -104,16 +111,43 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="styles.css">
-<link rel="alternate" type="application/rss+xml" title="Aurelien Callens" href="index.xml"></head>
+<link rel="alternate" type="application/rss+xml" title="Aurelien Callens" href="index.xml" data-external="1"></head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Aurelien Callens</span>
     </a>
@@ -125,22 +159,22 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./projects/index.html" rel="" target="">
- <span class="menu-text">Projects</span></a>
+    <a class="nav-link" href="./projects/index.html"> 
+<span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/AurelienCallens/AurelienCallens" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/AurelienCallens"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -150,7 +184,7 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(9)</span></div><div class="category" data-category="EDA">EDA <span class="quarto-category-count">(5)</span></div><div class="category" data-category="NLP">NLP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(8)</span></div><div class="category" data-category="Shiny">Shiny <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Web scraping">Web scraping <span class="quarto-category-count">(4)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(12)</span></div><div class="category" data-category="Anomaly detection">Anomaly detection <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Deep learning">Deep learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="EDA">EDA <span class="quarto-category-count">(6)</span></div><div class="category" data-category="NLP">NLP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(8)</span></div><div class="category" data-category="Research">Research <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Shiny">Shiny <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Web scraping">Web scraping <span class="quarto-category-count">(4)</span></div></div></div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
@@ -161,7 +195,7 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page-left">
 
     
   
@@ -169,7 +203,9 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
   </div>
   
 
+
 </header>
+
 
 
 
@@ -202,19 +238,127 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
     </div>
 </div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="R,Web scraping,EDA,NLP" data-listing-date-sort="1663711200000" data-listing-file-modified-sort="1711964692527" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="23">
+<div class="quarto-post image-right" data-index="0" data-categories="Research,Deep learning" data-listing-date-sort="1734390000000" data-listing-file-modified-sort="1736434846024" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="184">
 <div class="thumbnail">
-<p><a href="./posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html"> <p class="card-img-top"><img src="posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index_files/figure-html/unnamed-chunk-6-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+<p><a href="./posts/2024-12-17-rainfall-interpolation-deep-learning/index.html" class="no-external"></a></p><a href="./posts/2024-12-17-rainfall-interpolation-deep-learning/index.html" class="no-external">
+<p><img src="./posts/2024-12-17-rainfall-interpolation-deep-learning/images/densification_model.webp" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-12-17-rainfall-interpolation-deep-learning/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html">
 <h3 class="no-anchor listing-title">
-Optimizing my search for Data scientist jobs by scraping Indeed with R
+<a href="./posts/2024-12-17-rainfall-interpolation-deep-learning/index.html" class="no-external">Rainfall with a Precision of 1km²—A Myth Becoming Reality?</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-12-17-rainfall-interpolation-deep-learning/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Research'); return false;">
+Research
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Deep learning'); return false;">
+Deep learning
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/2024-12-17-rainfall-interpolation-deep-learning/index.html" class="no-external">Once again, I published a new article on Medium! This time I explore an exciting challenge in agriculture and meteorology: Can we achieve the accuracy of rain gauges while…</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/2024-12-17-rainfall-interpolation-deep-learning/index.html" class="no-external">
+<div class="listing-date">
+Dec 17, 2024
+</div>
+<div class="listing-author">
+Aurelien Callens
 </div>
 </a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="Research,EDA" data-listing-date-sort="1726696800000" data-listing-file-modified-sort="1736434808327" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="196">
+<div class="thumbnail">
+<p><a href="./posts/2024-09-19-exploring-value-remote-sensing-agriculture/index.html" class="no-external"></a></p><a href="./posts/2024-09-19-exploring-value-remote-sensing-agriculture/index.html" class="no-external">
+<p><img src="./posts/2024-09-19-exploring-value-remote-sensing-agriculture/images/radar_hourly.webp" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-09-19-exploring-value-remote-sensing-agriculture/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/2024-09-19-exploring-value-remote-sensing-agriculture/index.html" class="no-external">Exploring the Value of Remote Sensing in Agriculture</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/2024-09-19-exploring-value-remote-sensing-agriculture/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Research'); return false;">
+Research
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('EDA'); return false;">
+EDA
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/2024-09-19-exploring-value-remote-sensing-agriculture/index.html" class="no-external">I just published a new article on Medium exploring the role of remote sensing in agriculture, specifically how radar data can help estimate precipitation more effectively !…</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/2024-09-19-exploring-value-remote-sensing-agriculture/index.html" class="no-external">
+<div class="listing-date">
+Sep 19, 2024
+</div>
+<div class="listing-author">
+Aurelien Callens
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="Research,Anomaly detection" data-listing-date-sort="1721167200000" data-listing-file-modified-sort="1736434768341" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="170">
+<div class="thumbnail">
+<p><a href="./posts/2024-07-17-sencrop-data-quality/index.html" class="no-external"></a></p><a href="./posts/2024-07-17-sencrop-data-quality/index.html" class="no-external">
+<p><img src="./posts/2024-07-17-sencrop-data-quality/images/data_distribution.webp" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-07-17-sencrop-data-quality/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/2024-07-17-sencrop-data-quality/index.html" class="no-external">The Importance of Data Quality Control in Meteorology</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/2024-07-17-sencrop-data-quality/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Research'); return false;">
+Research
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Anomaly detection'); return false;">
+Anomaly detection
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/2024-07-17-sencrop-data-quality/index.html" class="no-external">Long time no see! I’ve been busy settling into my new position, but I’m back with a fresh article on Medium. 🚀</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/2024-07-17-sencrop-data-quality/index.html" class="no-external">
+<div class="listing-date">
+Jul 17, 2024
+</div>
+<div class="listing-author">
+Aurelien Callens
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="R,Web scraping,EDA,NLP" data-listing-date-sort="1663711200000" data-listing-file-modified-sort="1736431815875" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="23" data-listing-word-count-sort="4504">
+<div class="thumbnail">
+<p><a href="./posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html" class="no-external"></a></p><a href="./posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html" class="no-external">
+<p class="card-img-top"><img src="posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index_files/figure-html/unnamed-chunk-6-1.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html" class="no-external">Optimizing my search for Data scientist jobs by scraping Indeed with R</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html" class="no-external"></a>
+</div>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
 R
@@ -229,14 +373,12 @@ EDA
 NLP
 </div>
 </div>
-<a href="./posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html">
 <div class="listing-description">
-A few weeks ago, I started looking for a data scientist position in industry. My first moves were:
+<a href="./posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html" class="no-external">A few weeks ago, I started looking for a data scientist position in industry. My first moves were:</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html">
+<a href="./posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html" class="no-external">
 <div class="listing-date">
 Sep 21, 2022
 </div>
@@ -246,19 +388,19 @@ Aurelien Callens
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="R,EDA" data-listing-date-sort="1658181600000" data-listing-file-modified-sort="1711956164905" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="quarto-post image-right" data-index="4" data-categories="R,EDA" data-listing-date-sort="1658181600000" data-listing-file-modified-sort="1736431815875" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="819">
 <div class="thumbnail">
-<p><a href="./posts/2022-07-19-top-r-packages/index.html"> <p class="card-img-top"><img src="posts/2022-07-19-top-r-packages/index_files/figure-html/unnamed-chunk-2-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+<p><a href="./posts/2022-07-19-top-r-packages/index.html" class="no-external"></a></p><a href="./posts/2022-07-19-top-r-packages/index.html" class="no-external">
+<p class="card-img-top"><img src="posts/2022-07-19-top-r-packages/index_files/figure-html/unnamed-chunk-2-1.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/2022-07-19-top-r-packages/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2022-07-19-top-r-packages/index.html">
 <h3 class="no-anchor listing-title">
-Analysis of the top R packages
+<a href="./posts/2022-07-19-top-r-packages/index.html" class="no-external">Analysis of the top R packages</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2022-07-19-top-r-packages/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
 R
@@ -267,14 +409,12 @@ R
 EDA
 </div>
 </div>
-<a href="./posts/2022-07-19-top-r-packages/index.html">
 <div class="listing-description">
-After a little while coding in Python every day for my work, I needed to make a break and perform some R analysis! Since the beginning of my postdoc, I haven’t followed the…
+<a href="./posts/2022-07-19-top-r-packages/index.html" class="no-external">After a little while coding in Python every day for my work, I needed to make a break and perform some R analysis! Since the beginning of my postdoc, I haven’t followed the…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2022-07-19-top-r-packages/index.html">
+<a href="./posts/2022-07-19-top-r-packages/index.html" class="no-external">
 <div class="listing-date">
 Jul 19, 2022
 </div>
@@ -284,19 +424,19 @@ Aurelien Callens
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="R,Shiny,EDA" data-listing-date-sort="1649714400000" data-listing-file-modified-sort="1711956164905" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13">
+<div class="quarto-post image-right" data-index="5" data-categories="R,Shiny,EDA" data-listing-date-sort="1649714400000" data-listing-file-modified-sort="1736431815875" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2485">
 <div class="thumbnail">
-<p><a href="./posts/2022-04-12-datascience-fishing-part4/index.html"> <img src="./posts/2022-04-12-datascience-fishing-part4/images/seabass_bay.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2022-04-12-datascience-fishing-part4/index.html" class="no-external"></a></p><a href="./posts/2022-04-12-datascience-fishing-part4/index.html" class="no-external">
+<p><img src="./posts/2022-04-12-datascience-fishing-part4/images/seabass_bay.jpg" class="thumbnail-image"></p>
+</a><p><a href="./posts/2022-04-12-datascience-fishing-part4/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2022-04-12-datascience-fishing-part4/index.html">
 <h3 class="no-anchor listing-title">
-Can R and Shiny make me a better fisherman? Part 4
+<a href="./posts/2022-04-12-datascience-fishing-part4/index.html" class="no-external">Can R and Shiny make me a better fisherman? Part 4</a>
 </h3>
 <div class="listing-subtitle">
-Exploratory analysis on my fishing data (shiny and plotly)
+<a href="./posts/2022-04-12-datascience-fishing-part4/index.html" class="no-external">Exploratory analysis on my fishing data (shiny and plotly)</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
 R
@@ -308,14 +448,12 @@ Shiny
 EDA
 </div>
 </div>
-<a href="./posts/2022-04-12-datascience-fishing-part4/index.html">
 <div class="listing-description">
-In this post, I explore the data I have collected during the last year with the updated version of the application (presented here). This quick exploratory analysis…<em></em><em></em>
+<a href="./posts/2022-04-12-datascience-fishing-part4/index.html" class="no-external">In this post, I explore the data I have collected during the last year with the updated version of the application (presented here). This quick exploratory analysis is…<em></em><em></em></a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2022-04-12-datascience-fishing-part4/index.html">
+<a href="./posts/2022-04-12-datascience-fishing-part4/index.html" class="no-external">
 <div class="listing-date">
 Apr 12, 2022
 </div>
@@ -325,25 +463,25 @@ Aurélien Callens
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1633125600000" data-listing-file-modified-sort="1712311443527" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="quarto-post image-right" data-index="6" data-listing-date-sort="1633125600000" data-listing-file-modified-sort="1736431815875" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="388">
 <div class="thumbnail">
-<p><a href="./posts/2021-10-02-the-end-of-a-journey/index.html"> <p class="card-img-top"><img src="posts/2021-10-02-the-end-of-a-journey/images/thesis_organization.png"  class="thumbnail-image card-img"/></p> </a></p>
+<p><a href="./posts/2021-10-02-the-end-of-a-journey/index.html" class="no-external"></a></p><a href="./posts/2021-10-02-the-end-of-a-journey/index.html" class="no-external">
+<p class="card-img-top"><img src="posts/2021-10-02-the-end-of-a-journey/images/thesis_organization.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/2021-10-02-the-end-of-a-journey/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2021-10-02-the-end-of-a-journey/index.html">
 <h3 class="no-anchor listing-title">
-The end of my PhD journey
+<a href="./posts/2021-10-02-the-end-of-a-journey/index.html" class="no-external">The end of my PhD journey</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2021-10-02-the-end-of-a-journey/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-Two weeks ago, I defended my thesis entitled ‘Statistical learning for coastal risks assessment’ in front of an academic jury. The defense went extremely well and the jury…
+<a href="./posts/2021-10-02-the-end-of-a-journey/index.html" class="no-external">Two weeks ago, I defended my thesis entitled ‘Statistical learning for coastal risks assessment’ in front of an academic jury. The defense went extremely well and the jury…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2021-10-02-the-end-of-a-journey/index.html">
+<a href="./posts/2021-10-02-the-end-of-a-journey/index.html" class="no-external">
 <div class="listing-date">
 Oct 2, 2021
 </div>
@@ -353,19 +491,19 @@ Aurelien Callens
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="R,Shiny,Web scraping" data-listing-date-sort="1622498400000" data-listing-file-modified-sort="1712311991031" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="31">
+<div class="quarto-post image-right" data-index="7" data-categories="R,Shiny,Web scraping" data-listing-date-sort="1622498400000" data-listing-file-modified-sort="1736431815874" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="31" data-listing-word-count-sort="6003">
 <div class="thumbnail">
-<p><a href="./posts/2021-06-01-datascience-fishing-part3/index.html"> <p class="card-img-top"><img src="posts/2021-06-01-datascience-fishing-part3/images/graph_newapp.svg"  class="thumbnail-image card-img"/></p> </a></p>
+<p><a href="./posts/2021-06-01-datascience-fishing-part3/index.html" class="no-external"></a></p><a href="./posts/2021-06-01-datascience-fishing-part3/index.html" class="no-external">
+<p class="card-img-top"><img src="posts/2021-06-01-datascience-fishing-part3/images/graph_newapp.svg"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/2021-06-01-datascience-fishing-part3/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2021-06-01-datascience-fishing-part3/index.html">
 <h3 class="no-anchor listing-title">
-Can R and Shiny make me a better fisherman? Part 3
+<a href="./posts/2021-06-01-datascience-fishing-part3/index.html" class="no-external">Can R and Shiny make me a better fisherman? Part 3</a>
 </h3>
 <div class="listing-subtitle">
-Updating my application
+<a href="./posts/2021-06-01-datascience-fishing-part3/index.html" class="no-external">Updating my application</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
 R
@@ -377,14 +515,12 @@ Shiny
 Web scraping
 </div>
 </div>
-<a href="./posts/2021-06-01-datascience-fishing-part3/index.html">
 <div class="listing-description">
-In this previous post, I presented the shiny application I developed to record…
+<a href="./posts/2021-06-01-datascience-fishing-part3/index.html" class="no-external">In this previous post, I presented the shiny application I developed to record data about my fishing session. In today’s post, I will present briefly the changes and updates…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2021-06-01-datascience-fishing-part3/index.html">
+<a href="./posts/2021-06-01-datascience-fishing-part3/index.html" class="no-external">
 <div class="listing-date">
 Jun 1, 2021
 </div>
@@ -394,19 +530,19 @@ Aurélien Callens
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="R,EDA" data-listing-date-sort="1614726000000" data-listing-file-modified-sort="1711963229726" data-listing-date-modified-sort="1707174000000" data-listing-reading-time-sort="8">
+<div class="quarto-post image-right" data-index="8" data-categories="R,EDA" data-listing-date-sort="1614726000000" data-listing-file-modified-sort="1736431815870" data-listing-date-modified-sort="1707174000000" data-listing-reading-time-sort="8" data-listing-word-count-sort="1586">
 <div class="thumbnail">
-<p><a href="./posts/2021-03-03-coastal-risks-google-trends-r/index.html"> <p class="card-img-top"><img src="posts/2021-03-03-coastal-risks-google-trends-r/index_files/figure-html/unnamed-chunk-1-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+<p><a href="./posts/2021-03-03-coastal-risks-google-trends-r/index.html" class="no-external"></a></p><a href="./posts/2021-03-03-coastal-risks-google-trends-r/index.html" class="no-external">
+<p class="card-img-top"><img src="posts/2021-03-03-coastal-risks-google-trends-r/index_files/figure-html/unnamed-chunk-1-1.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/2021-03-03-coastal-risks-google-trends-r/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2021-03-03-coastal-risks-google-trends-r/index.html">
 <h3 class="no-anchor listing-title">
-Coastal risks and statistical learning: Analyzing Google trends with gtrendsR package
+<a href="./posts/2021-03-03-coastal-risks-google-trends-r/index.html" class="no-external">Coastal risks and statistical learning: Analyzing Google trends with gtrendsR package</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2021-03-03-coastal-risks-google-trends-r/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
 R
@@ -415,14 +551,12 @@ R
 EDA
 </div>
 </div>
-<a href="./posts/2021-03-03-coastal-risks-google-trends-r/index.html">
 <div class="listing-description">
-I am currently in the third year of my PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which…
+<a href="./posts/2021-03-03-coastal-risks-google-trends-r/index.html" class="no-external">I am currently in the third year of my PhD and it is time for me to synthesize all the work I have done by writing my thesis. One important step is the introduction which…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2021-03-03-coastal-risks-google-trends-r/index.html">
+<a href="./posts/2021-03-03-coastal-risks-google-trends-r/index.html" class="no-external">
 <div class="listing-date">
 Mar 3, 2021
 </div>
@@ -432,19 +566,19 @@ Aurélien Callens
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="R,Web scraping" data-listing-date-sort="1605654000000" data-listing-file-modified-sort="1711956164885" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="quarto-post image-right" data-index="9" data-categories="R,Web scraping" data-listing-date-sort="1605654000000" data-listing-file-modified-sort="1736431815870" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="948">
 <div class="thumbnail">
-<p><a href="./posts/2020-11-18-webscraping-aliexpress-rselenium/index.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+<p><a href="./posts/2020-11-18-webscraping-aliexpress-rselenium/index.html" class="no-external"></a></p><a href="./posts/2020-11-18-webscraping-aliexpress-rselenium/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="./posts/2020-11-18-webscraping-aliexpress-rselenium/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2020-11-18-webscraping-aliexpress-rselenium/index.html">
 <h3 class="no-anchor listing-title">
-Webscraping Aliexpress with Rselenium
+<a href="./posts/2020-11-18-webscraping-aliexpress-rselenium/index.html" class="no-external">Webscraping Aliexpress with Rselenium</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2020-11-18-webscraping-aliexpress-rselenium/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
 R
@@ -453,14 +587,12 @@ R
 Web scraping
 </div>
 </div>
-<a href="./posts/2020-11-18-webscraping-aliexpress-rselenium/index.html">
 <div class="listing-description">
-Today, I am going to show you how to scrape product prices from Aliexpress website.
+<a href="./posts/2020-11-18-webscraping-aliexpress-rselenium/index.html" class="no-external">Today, I am going to show you how to scrape product prices from Aliexpress website.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2020-11-18-webscraping-aliexpress-rselenium/index.html">
+<a href="./posts/2020-11-18-webscraping-aliexpress-rselenium/index.html" class="no-external">
 <div class="listing-date">
 Nov 18, 2020
 </div>
@@ -470,19 +602,19 @@ Aurelien Callens
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-categories="R,EDA" data-listing-date-sort="1600984800000" data-listing-file-modified-sort="1711962667716" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11">
+<div class="quarto-post image-right" data-index="10" data-categories="R,EDA" data-listing-date-sort="1600984800000" data-listing-file-modified-sort="1736431815870" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2199">
 <div class="thumbnail">
-<p><a href="./posts/2020-09-25-datascience-fishing-part2/index.html"> <p class="card-img-top"><img src="posts/2020-09-25-datascience-fishing-part2/index_files/figure-html/unnamed-chunk-4-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+<p><a href="./posts/2020-09-25-datascience-fishing-part2/index.html" class="no-external"></a></p><a href="./posts/2020-09-25-datascience-fishing-part2/index.html" class="no-external">
+<p class="card-img-top"><img src="posts/2020-09-25-datascience-fishing-part2/index_files/figure-html/unnamed-chunk-4-1.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/2020-09-25-datascience-fishing-part2/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2020-09-25-datascience-fishing-part2/index.html">
 <h3 class="no-anchor listing-title">
-Can R and Shiny make me a better fisherman? Part 2
+<a href="./posts/2020-09-25-datascience-fishing-part2/index.html" class="no-external">Can R and Shiny make me a better fisherman? Part 2</a>
 </h3>
 <div class="listing-subtitle">
-Exploratory analysis on my fishing data
+<a href="./posts/2020-09-25-datascience-fishing-part2/index.html" class="no-external">Exploratory analysis on my fishing data</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
 R
@@ -491,14 +623,12 @@ R
 EDA
 </div>
 </div>
-<a href="./posts/2020-09-25-datascience-fishing-part2/index.html">
 <div class="listing-description">
-In the previous blog…
+<a href="./posts/2020-09-25-datascience-fishing-part2/index.html" class="no-external">In the previous blog article, I described in details how I built a shiny application that stores data about my fishing sessions. In this post, I will explore the data I have…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2020-09-25-datascience-fishing-part2/index.html">
+<a href="./posts/2020-09-25-datascience-fishing-part2/index.html" class="no-external">
 <div class="listing-date">
 Sep 25, 2020
 </div>
@@ -508,19 +638,19 @@ Aurélien Callens
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-categories="R,Shiny,Web scraping" data-listing-date-sort="1599861600000" data-listing-file-modified-sort="1711956164885" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="27">
+<div class="quarto-post image-right" data-index="11" data-categories="R,Shiny,Web scraping" data-listing-date-sort="1599861600000" data-listing-file-modified-sort="1736431815870" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="27" data-listing-word-count-sort="5286">
 <div class="thumbnail">
-<p><a href="./posts/2020-09-12-datascience-fishing-part1/index.html"> <img src="./posts/2020-09-12-datascience-fishing-part1/images/seabass_bay.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2020-09-12-datascience-fishing-part1/index.html" class="no-external"></a></p><a href="./posts/2020-09-12-datascience-fishing-part1/index.html" class="no-external">
+<p><img src="./posts/2020-09-12-datascience-fishing-part1/images/seabass_bay.jpg" class="thumbnail-image"></p>
+</a><p><a href="./posts/2020-09-12-datascience-fishing-part1/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2020-09-12-datascience-fishing-part1/index.html">
 <h3 class="no-anchor listing-title">
-Can R and Shiny make me a better fisherman? Part 1
+<a href="./posts/2020-09-12-datascience-fishing-part1/index.html" class="no-external">Can R and Shiny make me a better fisherman? Part 1</a>
 </h3>
 <div class="listing-subtitle">
-Building a shiny application to store my fishing data
+<a href="./posts/2020-09-12-datascience-fishing-part1/index.html" class="no-external">Building a shiny application to store my fishing data</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
 R
@@ -532,14 +662,12 @@ Shiny
 Web scraping
 </div>
 </div>
-<a href="./posts/2020-09-12-datascience-fishing-part1/index.html">
 <div class="listing-description">
-My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I fish European sea bass (<em>Dicentrarchus labrax</em>) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use…
+<a href="./posts/2020-09-12-datascience-fishing-part1/index.html" class="no-external">My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I fish European sea bass (<em>Dicentrarchus labrax</em>) in estuaries. The sea bass is a predatory…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2020-09-12-datascience-fishing-part1/index.html">
+<a href="./posts/2020-09-12-datascience-fishing-part1/index.html" class="no-external">
 <div class="listing-date">
 Sep 12, 2020
 </div>
@@ -633,10 +761,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -646,8 +773,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -660,6 +796,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -703,6 +958,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -728,6 +984,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -796,13 +1078,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/AurelienCallens/AurelienCallens">
+    <a class="nav-link" href="https://github.com/AurelienCallens">
       <i class="bi bi-github" role="img">
 </i> 
     </a>
   </li>  
     <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/AurelienCallens/AurelienCallens">
+    <a class="nav-link" href="./www.linkedin.com/in/aureliencallens">
       <i class="bi bi-linkedin" role="img">
 </i> 
     </a>
@@ -824,6 +1106,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+
 
 
 

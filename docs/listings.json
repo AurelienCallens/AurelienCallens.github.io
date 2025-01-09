@@ -11,6 +11,9 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2024-12-17-rainfall-interpolation-deep-learning/index.html",
+      "/posts/2024-09-19-exploring-value-remote-sensing-agriculture/index.html",
+      "/posts/2024-07-17-sencrop-data-quality/index.html",
       "/posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html",
       "/posts/2022-07-19-top-r-packages/index.html",
       "/posts/2022-04-12-datascience-fishing-part4/index.html",

@@ -1,0 +1,37 @@
+---
+title: "Rainfall with a Precision of 1km²—A Myth Becoming Reality?"
+author: "Aurelien Callens"
+date: "2024-12-17"
+toc: true
+execute:
+  freeze: true
+image: images/densification_model.webp
+format: 
+  html:
+    code-fold: false
+    code-tools: false
+    code-summary: "Show the code"
+project:
+  execute-dir: project
+categories:
+  - Research
+  - Deep learning
+---
+
+Once again, I published a new article on Medium! This time I explore an exciting challenge in agriculture and meteorology: Can we achieve the accuracy of rain gauges while benefiting from the broad coverage of remote sensing? 🌧📡
+
+🌾 Why does spatial rainfall data matter?
+
+Rainfall influences everything from irrigation planning to crop health management. While traditional rain gauges provide highly accurate, localized measurements, they don’t capture rainfall patterns across larger regions—creating blind spots for decision-making. Weather radars and satellites help fill these gaps, but their estimates of ground-level rainfall lack precision.
+
+🔬 The challenge and our approach
+
+At Sencrop, we’re tackling this challenge with deep learning. In this post, I introduce an innovative methodology called densification, which merges:
+- Sparse but precise rainfall observations from our weather station network
+- Dense but less accurate rainfall estimates from radar and satellite data
+
+The goal? Provide high-resolution (1km²) rainfall data anywhere in Europe, with accuracy equal to or better than our station network.
+
+Curious to see how we’re making this a reality? Check out the full article here: [Rainfall with a precision of 1km²: a myth becoming reality?](https://medium.com/science-engineering-at-sencrop/rainfall-with-a-precision-of-1km%C2%B2-a-myth-becoming-reality-ee97f440c148)
+
+Let me know what you think!💡
