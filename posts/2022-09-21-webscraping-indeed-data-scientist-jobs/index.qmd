@@ -2,7 +2,6 @@
 title: "Optimizing my search for Data scientist jobs by scraping Indeed with R"
 author: "Aurelien Callens"
 date: "2022-09-21"
-lang: en
 toc: true
 execute:
   freeze: true

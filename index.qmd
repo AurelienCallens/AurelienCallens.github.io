@@ -1,23 +1,15 @@
 ---
-title: "Aurélien Callens"
-image: img/profile.jpg
-about:
-  template: jolla
-  image-width: 15em
-  links:
-    - icon: linkedin
-      text: LinkedIn
-      href: https://www.linkedin.com/in/aureliencallens
-    - icon: github
-      text: Github
-      href: https://github.com/AurelienCallens
-    - icon: envelope-fill
-      text: Email
-      href: "mailto:aurelien.callens@gmail.com"
+title: "My blog posts"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: true
+  filter-ui: true
+  feed: 
+    categories: 
+        - R
+page-layout: full
+title-block-banner: false
 ---
-
-
-My name is Aurélien Callens, and I'm passionate about data science, coding… and fishing! After completing a PhD in applied mathematics focused on coastal risk modeling, I continued my journey in an AgTech startup, leading R&D projects in geospatial data fusion and deep learning for meteorology.
-
-As a freelance Data Scientist, I leverage my expertise in data analysis, Machine Learning, and Deep Learning to help businesses unlock the full potential of their data. Whether working with environmental, geospatial, or industrial data, I support my clients from research to industrialization, transforming data into impactful and innovative solutions.
-

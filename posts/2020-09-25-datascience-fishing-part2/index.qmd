@@ -1,7 +1,6 @@
 ---
 title: "Can R and Shiny make me a better fisherman? Part 2"
 subtitle: "Exploratory analysis on my fishing data"
-lang: en
 author: "Aurélien Callens"
 date: "2020-09-25"
 format: 
