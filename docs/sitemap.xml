@@ -1,79 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://aureliencallens.github.io/about.html</loc>
-    <lastmod>2025-01-09T14:48:24.500Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/projects/2021-10-01-statistical-learning-coastal-risks/index.html</loc>
-    <lastmod>2025-01-09T14:10:15.889Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/projects/index.html</loc>
-    <lastmod>2025-01-09T14:10:15.889Z</lastmod>
-  </url>
-  <url>
     <loc>https://aureliencallens.github.io/index.html</loc>
-    <lastmod>2025-01-09T14:10:15.869Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2020-09-25-datascience-fishing-part2/index.html</loc>
-    <lastmod>2025-01-09T14:10:15.870Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2021-06-01-datascience-fishing-part3/index.html</loc>
-    <lastmod>2025-01-09T14:10:15.874Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2021-10-02-the-end-of-a-journey/index.html</loc>
-    <lastmod>2025-01-09T14:10:15.875Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2024-07-17-sencrop-data-quality/index.html</loc>
-    <lastmod>2025-01-09T14:59:28.341Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2021-03-03-coastal-risks-google-trends-r/index.html</loc>
-    <lastmod>2025-01-09T14:10:15.870Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2022-07-19-top-r-packages/index.html</loc>
-    <lastmod>2025-01-09T14:10:15.875Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2022-04-12-datascience-fishing-part4/index.html</loc>
-    <lastmod>2025-01-09T14:10:15.875Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2020-11-18-webscraping-aliexpress-rselenium/index.html</loc>
-    <lastmod>2025-01-09T14:10:15.870Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2024-09-19-exploring-value-remote-sensing-agriculture/index.html</loc>
-    <lastmod>2025-01-09T15:00:08.327Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html</loc>
-    <lastmod>2025-01-09T14:10:15.875Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2020-09-12-datascience-fishing-part1/index.html</loc>
-    <lastmod>2025-01-09T14:10:15.870Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aureliencallens.github.io/posts/2024-12-17-rainfall-interpolation-deep-learning/index.html</loc>
-    <lastmod>2025-01-09T15:00:46.024Z</lastmod>
+    <lastmod>2025-02-05T21:04:17.369Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/projects/2022-04-01-my-fishing-application/index.html</loc>
-    <lastmod>2025-01-09T14:10:15.889Z</lastmod>
+    <lastmod>2025-02-05T21:04:17.456Z</lastmod>
   </url>
   <url>
-    <loc>https://aureliencallens.github.io/projects/2018-09-01-robust-regression-time-series/index.html</loc>
-    <lastmod>2025-01-09T14:46:45.235Z</lastmod>
+    <loc>https://aureliencallens.github.io/projects/2021-10-01-statistical-learning-coastal-risks/index.html</loc>
+    <lastmod>2025-02-05T21:04:17.456Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/blog.html</loc>
+    <lastmod>2025-02-05T21:04:17.365Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2022-09-21-webscraping-indeed-data-scientist-jobs/index.html</loc>
+    <lastmod>2025-02-05T21:04:17.370Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2020-11-18-webscraping-aliexpress-rselenium/index.html</loc>
+    <lastmod>2025-02-05T21:04:17.369Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2020-09-25-datascience-fishing-part2/index.html</loc>
+    <lastmod>2025-02-05T21:04:17.369Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2024-07-17-sencrop-data-quality/index.html</loc>
+    <lastmod>2025-02-05T21:04:17.456Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2024-12-17-rainfall-interpolation-deep-learning/index.html</loc>
+    <lastmod>2025-02-05T21:04:17.456Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2022-04-12-datascience-fishing-part4/index.html</loc>
+    <lastmod>2025-02-05T21:04:17.370Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2022-07-19-top-r-packages/index.html</loc>
+    <lastmod>2025-02-05T21:04:17.370Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2020-09-12-datascience-fishing-part1/index.html</loc>
+    <lastmod>2025-02-05T21:04:17.369Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2021-10-02-the-end-of-a-journey/index.html</loc>
+    <lastmod>2025-02-05T21:04:17.370Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2024-09-19-exploring-value-remote-sensing-agriculture/index.html</loc>
+    <lastmod>2025-02-05T21:04:17.456Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/posts/2021-06-01-datascience-fishing-part3/index.html</loc>
+    <lastmod>2025-02-05T21:04:17.369Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/myprojects.html</loc>
+    <lastmod>2025-02-05T21:04:17.369Z</lastmod>
   </url>
   <url>
     <loc>https://aureliencallens.github.io/projects/2017-07-01-analyzing-environmental-data-micropollutants/index.html</loc>
-    <lastmod>2025-01-09T14:46:48.402Z</lastmod>
+    <lastmod>2025-02-05T21:04:17.456Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aureliencallens.github.io/projects/2018-09-01-robust-regression-time-series/index.html</loc>
+    <lastmod>2025-02-05T21:04:17.456Z</lastmod>
   </url>
 </urlset>
