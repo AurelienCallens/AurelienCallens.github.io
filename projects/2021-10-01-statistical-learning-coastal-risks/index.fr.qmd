@@ -1,0 +1,38 @@
+---
+title: "Apprentissage statistique pour l'évaluation des risques côtiers"
+subtitle: "PhD Thesis"
+author: "Aurélien Callens"
+date: "2021-10-01"
+image: featured.png
+categories:
+  - Research
+  - R
+  - Python
+  - Deep learning
+  - Machine learning
+  - EDA
+---
+
+## Résumé  
+
+L'objectif de mon travail était de démontrer comment les méthodes d'apprentissage statistique peuvent contribuer à l'amélioration des outils d'évaluation des risques côtiers et au développement d'un système d'alerte précoce visant à réduire le risque d'inondation côtière. J'ai travaillé sur 4 sujets :  
+
+- Regroupement des régimes météorologiques  
+- Méthode d'apprentissage automatique pour corriger les prévisions de vagues  
+- Apprentissage profond pour créer une base de données d'impacts de vagues à partir d'images de surveillance  
+- Réseau bayésien pour améliorer la prise de décision en matière de risques côtiers  
+
+## Productions  
+
+- **Ma thèse de doctorat** :  
+  + <a href="http://www.theses.fr/2021PAUU3016" target="_blank">Apprentissage statistique pour l'évaluation des risques côtiers</a>  
+
+- **Présentation** :  
+  + [Présentation pour ma soutenance de thèse](/doc/Presentation_thesis_Callens_Aurelien.pdf)  
+
+- **Deux articles publiés dans des revues à comité de lecture** :  
+    + Callens, A., Morichon, D., Liria, P., Epelde, I., & Liquet, B. (2021). Automatic Creation of Storm Impact Database Based on Video Monitoring and Convolutional Neural Networks. *Remote Sensing, 13*(10), 1933, (<a href="https://doi.org/10.3390/rs13101933" target="_blank">10.3390/rs13101933</a>).  
+    + Callens, A., Morichon, D., Abadie, S., Delpey, M., Liquet, B. (2020). Using Random forest and Gradient boosting trees to improve wave forecast at a specific location. *Applied Ocean Research, 104*, (<a href="https://doi.org/10.1016/j.apor.2020.102339" target="_blank">10.1016/j.apor.2020.102339</a>).  
+
+- **Article de blog** :  
+  + [La fin de mon parcours doctoral](/posts/2021-10-02-the-end-of-a-journey/)  
