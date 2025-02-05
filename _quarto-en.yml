@@ -1,0 +1,8 @@
+website:
+    navbar:
+      background: primary
+      right:
+        - href: blog.qmd 
+        - href: myprojects.qmd
+        - icon: github
+          href: https://github.com/AurelienCallens

@@ -1,0 +1,25 @@
+---
+title: "Aurélien Callens"
+image: img/profile.jpg
+about:
+  template: jolla
+  image-width: 15em
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/aureliencallens
+    - icon: github
+      text: Github
+      href: https://github.com/AurelienCallens
+    - icon: envelope-fill
+      text: Email
+      href: "mailto:aurelien.callens@gmail.com"
+---
+
+
+Je m'appelle Aurélien Callens, passionné par la science des données, le code… et la pêche ! Après une thèse en mathématiques appliquées dédiée à la modélisation des risques côtiers, j’ai poursuivi mon parcours en start-up AgTech, où j’ai dirigé des projets de R&D en fusion de données géospatiales et deep learning appliqué à la météorologie.
+
+En tant que Data Scientist freelance, je mets mon expertise en analyse de données, Machine Learning et Deep Learning au service des entreprises. Qu’il s’agisse de données environnementales, géospatiales ou industrielles, j’accompagne mes clients de la recherche à l’industrialisation pour transformer leurs données en solutions concrètes et impactantes. 
+
+
+
