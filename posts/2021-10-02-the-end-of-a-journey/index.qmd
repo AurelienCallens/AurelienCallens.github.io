@@ -2,6 +2,7 @@
 title: "The end of my PhD journey"
 author: "Aurelien Callens"
 date: "2021-10-02"
+lang: en
 execute:
   eval: false
 ---

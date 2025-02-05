@@ -1,11 +1,8 @@
 ---
-title: "Optimizing my search for Data scientist jobs by scraping Indeed with R"
+title: "Optimiser ma recherche de postes de Data Scientist en scrappant Indeed avec R"
 author: "Aurelien Callens"
 date: "2022-09-21"
-lang: en
-toc: true
-execute:
-  freeze: true
+lang: fr
 format: 
   html:
     code-fold: false
@@ -20,19 +17,20 @@ categories:
   - NLP
 ---
 
-A few weeks ago, I started looking for a data scientist position in industry. My first moves were:
+Il y a quelques semaines, j'ai commencé à chercher un poste de data scientist dans l'industrie. Mes premiers gestes ont été :
 
-+  To look at the job posts on websites such as Indeed
-+  To update my resume 
++  Regarder les offres d'emploi sur des sites comme Indeed
++  Mettre à jour mon CV
 
-After reading numerous job posts and work several hours on my resume, I wondered if I could optimize these steps with R and Data Science. I therefore decided to scrape Indeed and analyze the data about data science jobs to:
+Après avoir lu de nombreuses annonces et travaillé plusieurs heures sur mon CV, je me suis demandé si je pouvais optimiser ces étapes avec R et Data Science. J'ai donc décidé de scraper Indeed et d'analyser les données des offres de data science pour :
 
-+  Get a visual overview of essential information such as location, type of contract, salary range for the large number of job posts 
-+  Optimize my resume for ATS scan with accurate key words
++  Obtenir une vue d'ensemble visuelle des informations essentielles comme la localisation, le type de contrat, la fourchette salariale pour un grand nombre d'annonces
++  Optimiser mon CV pour le scan ATS avec des mots-clés précis
 
-## Loading libraries 
+## Chargement des bibliothèques
 
-The first step is to import several packages: 
+La première étape est d'importer plusieurs packages :
+
 
 ```{r setup, include=FALSE}
 # General
@@ -81,11 +79,12 @@ library(stringr)
 source('scraping_functions.R') 
 ```
 
-## Collect the data with web scraping
+## Collecter les données avec le web scraping
 
-In the beginning of this project, I was using `read_html()` from **rvest** to access and download the webpage from Indeed. However, Indeed pages are protected by an anti-scrapping software that blocked any of my requests even though scraping is not forbidden on the pages I am interested in (I checked the *robots.txt* page). 
+Au début de ce projet, j'utilisais `read_html()` de **rvest** pour accéder et télécharger la page web d'Indeed. Cependant, les pages Indeed sont protégées par un logiciel anti-scraping qui bloquait toutes mes demandes, même si le scraping n'est pas interdit sur les pages qui m'intéressent (j'ai vérifié la page *robots.txt*).
 
-This is why I decided to access the pages with **Rselenium** which allows to run an headless browser. We first navigate to the page corresponding to the search results of data scientist jobs in France:
+C'est pourquoi j'ai décidé d'accéder aux pages avec **Rselenium** qui permet d'exécuter un navigateur sans tête. On commence par naviguer vers la page correspondant aux résultats de recherche des offres de Data Scientist en France :
+
 
 ```{r, eval=F, echo=T}
 url = "https://fr.indeed.com/jobs?q=data%20scientist&l=France&from=searchOnHP"
@@ -103,15 +102,16 @@ remDr$navigate(url)
 web_page <- remDr$getPageSource(header = TRUE)[[1]] %>% read_html()
 ```
 
-To scrape a specific information on a webpage you need to follow these steps:
+Pour scraper une information spécifique sur une page web, voici les étapes à suivre :
 
-1. Find on the web page the element/text/data you want to scrape
-2. Find the associated xpath or css selector with the developer tool of chrome or firefox ( [tutorial here !](https://www.scrapingbee.com/blog/practical-xpath-for-web-scraping/) )
-3. Extract the element with `hmtl_element()` by indicating the xpath or css selector
-4. Transform the data to text with `html_text2()`
-5. Clean the data if necessary
+1. Trouver l'élément/texte/donnée que vous souhaitez scraper sur la page web.
+2. Trouver le xpath ou le sélecteur CSS associé en utilisant l'outil de développement de Chrome ou Firefox ([tutoriel ici !](https://www.scrapingbee.com/blog/practical-xpath-for-web-scraping/)).
+3. Extraire l'élément avec `html_element()` en indiquant le xpath ou le sélecteur CSS.
+4. Transformer les données en texte avec `html_text2()`.
+5. Nettoyer les données si nécessaire.
 
-Here is the example with the number of listed data science jobs in France:
+Voici l'exemple avec le nombre d'offres de Data Scientist listées en France :
+
 
 ```{r, eval=F}
 web_page %>%
@@ -122,9 +122,9 @@ web_page %>%
   as.numeric()
 ```
 
-For now, we can only scrape the data from the first page. However, I am interested in all the job posts and I need to access the other pages ! After navigating through the first 3 pages of listed jobs, I remarked a pattern in the URL address (valid at the time of writing), this means that with a line of code, I can produce a list containing the URLs for the first 40 pages. 
+Pour l'instant, on ne peut scraper les données que de la première page. Cependant, je suis intéressé par toutes les offres d'emploi et j'ai besoin d'accéder aux autres pages ! Après avoir navigué sur les 3 premières pages des offres, j'ai remarqué un modèle dans l'URL (valide au moment de l'écriture), ce qui signifie qu'avec une seule ligne de code, je peux produire une liste contenant les URL des 40 premières pages.
 
-Once I have the list, the only thing left is to loop over all the URLs with some delay (good practice for web-scraping), collect the data and clean it with custom functions (at the end of the post):
+Une fois la liste obtenue, il ne reste plus qu'à boucler sur toutes les URL avec un délai (bonne pratique pour le web scraping), collecter les données et les nettoyer avec des fonctions personnalisées (à la fin de l'article) :
 
 ```{r, cache=TRUE, eval=F, echo=T}
 
@@ -204,7 +204,7 @@ final_df$Job_title_c <- clean_job_title(final_df$Job_title)
 final_df$Job_title_c <- as.factor(final_df$Job_title_c)
 ```
 
-We have now a tidy data set! Here is a truncated example of the 5 first rows: 
+On a maintenant un jeu de données propre ! Voici un exemple tronqué des 5 premières lignes :
 
 ```{r, echo=FALSE}
 library(kableExtra)
@@ -218,18 +218,17 @@ final_df %>%
 ```
 
 
+### Visualisation des salaires proposés
 
-### Visualization of the proposed salaries
+Voyons si on peut obtenir quelques informations sur les offres de jobs en data science en réalisant quelques représentations graphiques. La première chose que je voulais savoir, c'était combien les entreprises étaient prêtes à payer pour recruter un candidat en data science. J'ai donc décidé de réaliser quelques graphiques sur la plage de salaires en fonction de l'entreprise et du titre du poste.
 
-Let's see if we can get some insights about data science jobs by making some graphical representations. The first thing I wanted to know is how much the companies are willing to pay in order to recruit a data science candidate. I therefore decided to make some figures about the salary range depending on the company and the job title. 
+**Attention !**
 
-**Beware!**
+Les graphiques suivants doivent être pris avec des pincettes, car ils affichent un petit échantillon des données. En effet, le salaire n'était listé que pour 14% des annonces. Les tendances ou informations dans ces graphiques peuvent ne pas être représentatives des entreprises n'ayant pas indiqué leur salaire proposé.
 
-The following graphs must be taken with a grain of salt as they display a small sample of the data. Indeed, the salary was listed for only 14% of the job post. The insights or trends in these graphs may not be representative of companies that have not listed their proposed salary. 
+#### Salaire par entreprise
 
-#### Salary by company
-
-The following graphic shows the monthly income listed by some companies (not all the companies list their proposed salary): 
+Le graphique suivant montre les revenus mensuels proposés par certaines entreprises (toutes les entreprises ne listent pas leur salaire proposé) :
 
 ```{r fig.height=8, out.width="100%"}
 # Function to make euro X scale 
@@ -258,11 +257,11 @@ final_df %>%
   theme_bw(base_size = 8)
 ```
 
-The median monthly salary is around 3700 euros. As you can see the salaries can vary a lot depending on the company. This is partly due because I didn't make distinction between the different data science jobs (data scientist, data analyst, data engineer, senior or lead).
+La médiane des salaires mensuels est d'environ 3700 euros. Comme vous pouvez le constater, les salaires peuvent varier considérablement selon l'entreprise. Cela est en partie dû au fait que je n'ai pas fait de distinction entre les différents types de postes en data science (data scientist, data analyst, data engineer, senior ou lead).
 
-#### Salary by job title
+#### Salaire par titre de poste
 
-We can plot the same graph but instead of grouping by company we can group by job title: 
+On peut tracer le même graphique, mais au lieu de regrouper par entreprise, on va regrouper par titre de poste :
 
 ```{r out.width="100%"}
 
@@ -284,11 +283,12 @@ final_df %>%
   coord_flip()
 ```
 
-We clearly see the differences in proposed salaries depending on the job title: data scientists seem to earn slightly more in average than data analysts. The companies also seem to propose higher salaries for jobs with more responsibilities or requiring more experiences (senior, lead).
+On remarque clairement les différences de salaires proposés en fonction du titre de poste : les data scientists semblent gagner légèrement plus en moyenne que les data analysts. Les entreprises semblent également proposer des salaires plus élevés pour les postes avec plus de responsabilités ou nécessitant plus d'expérience (senior, lead).
 
-#### Salary depending on location: full remote, hybrid, on site ?
+#### Salaire en fonction de la localisation : télétravail complet, hybride, sur site ?
 
-Finally we can plot the salaries depending on the location (full remote, hybrid, on site) to see if it has an impact:
+Enfin, on peut tracer les salaires en fonction de la localisation (télétravail complet, hybride, sur site) pour voir si cela a un impact :
+
 
 ```{r out.width="100%"}
 # Tidy the types and locations of listed jobs
@@ -308,13 +308,14 @@ final_df %>%
   ylab("Income")
 ```
 
-It is worth noting that most of the jobs proposed in France are on site jobs. The median salary for this type of jobs is slightly lower than hybrid jobs. The salary distribution of full remote and hybrid jobs must be taken with care as it is only represented by 12 job posts.
+Il est à noter que la plupart des emplois proposés en France sont des emplois sur site. Le salaire médian pour ce type de postes est légèrement inférieur à celui des emplois hybrides. La distribution des salaires pour les emplois en télétravail complet et hybrides doit être interprétée avec prudence car elle ne concerne que 12 offres d'emploi.
 
-### Mapping job locations
+### Cartographie des lieux des emplois
 
-During my job search, I was frustrated not to see a geographical map regrouping the locations of all the proposed jobs. Such map could help me greatly in my search. Let's do it !
+Lors de ma recherche d'emploi, j'étais frustré de ne pas voir une carte géographique regroupant les lieux de tous les emplois proposés. Une telle carte pourrait m'aider considérablement dans ma recherche. Faisons-la !
 
-First, we must tidy and homogenize the locations for all the job posts. To this end, I made a custom function (`tidy_location()`) which includes some **stringr** functions, you can find more details about this function at the end of this post. It outputs the location in this format `[Town]([Zip code])`. Even though all the locations have been homogenized, it can not be plotted on a map (we need the longitude and latitude). To get the latitude and longitude with the town name and zip code I used the `geocode()` function from **tidygeocoder** package.
+Tout d'abord, on doit nettoyer et homogénéiser les lieux pour toutes les offres d'emploi. À cette fin, j'ai créé une fonction personnalisée (`tidy_location()`) qui inclut plusieurs fonctions de **stringr**. Vous pouvez trouver plus de détails sur cette fonction à la fin de ce post. Elle renvoie le lieu sous ce format : `[Ville]([Code postal])`. Même si tous les lieux ont été homogénéisés, ils ne peuvent pas être directement tracés sur une carte (on a besoin de la longitude et de la latitude). Pour obtenir la latitude et la longitude à partir du nom de la ville et du code postal, j'ai utilisé la fonction `geocode()` du package **tidygeocoder**.
+
 
 ```{r cache = TRUE, out.width="100%", fig.height=8, message=FALSE, warning=FALSE, echo=T, eval=F}
 # Extract coordinates from town name
@@ -324,9 +325,9 @@ final_df <- final_df %>%
   select(- Loc_tidy_fr)
 ```
 
-#### Distribution of Data Science jobs in France
+#### Distribution des emplois en Data Science en France
 
-We can now represent the number of Data Science jobs by departments: 
+On peut maintenant représenter le nombre d'emplois en Data Science par département : 
 
 ```{r out.width="100%"}
 # Map of France from rnaturalearth package
@@ -355,11 +356,12 @@ joined %>%
   theme_bw()
 ```
 
-It is really interesting to see that the distribution of jobs is quite heterogeneous in France. The majority of the jobs are concentrated in a few departments that include a large city. It is expected as most of the jobs are proposed by large company that are often installed in the proximity of important cities.
+Il est vraiment intéressant de constater que la répartition des emplois est assez hétérogène en France. La majorité des emplois sont concentrés dans quelques départements qui abritent une grande ville. Cela est attendu, car la plupart des emplois sont proposés par de grandes entreprises souvent installées à proximité des grandes villes.
 
-#### Interactive map 
+#### Carte interactive
 
-We can go further and plot an interactive map with leaflet which allows us to search dynamically for a job post: 
+On peut assii aller plus loin et tracer une carte interactive avec **leaflet**, ça nous permet de rechercher dynamiquement une offre d'emploi :
+
 
 ```{r out.width="100%"}
 # Plot leaflet map
@@ -375,15 +377,16 @@ final_df %>%
   )
 ```
 
-## Analyzing job descriptions
+## Analyser les descriptions d'emploi
 
-Nowadays most of the resumes are scanned and interpreted by an applicant tracking system (ATS). To make things simple, this system looks for key words in your resume and assess the match with the job you are applying for. It is therefore important to describe your experiences with specific key words to improve the chances of getting to the next step of the hiring process. 
+De nos jours, la plupart des CV sont scannés et interprétés par un système de suivi des candidatures (ATS). Pour faire simple, ce système recherche des mots-clés dans votre CV et évalue la correspondance avec l'offre d'emploi pour laquelle vous postulez. Il est donc important de décrire vos expériences avec des mots-clés spécifiques pour améliorer vos chances d'accéder à l'étape suivante du processus de recrutement.
 
-But what key words should I include in my resume ? Let's answer this question by analyzing the job descriptions of data scientist jobs.
+Mais quels mots-clés devrait-on inclure dans mon CV ? Répondons à cette question en analysant les descriptions des offres d'emploi de data scientist.
 
-### Downloading and cleaning each job description
+### Télécharger et nettoyer chaque description d'emploi
 
-First we download the full description of each job by navigating through all the URL listed in our table. We then clean and homogenize the description with a custom function: 
+Tout d'abord, on télécharge la description complète de chaque offre en naviguant à travers toutes les URL listées dans notre tableau. On nettoye et homogénéise la description avec une fonction personnalisée :
+
 
 ```{r, eval=F, echo=T}
 # Loop through all the URLs
@@ -410,13 +413,14 @@ final_df$Description_c <- lapply(final_df$Description, function(x){clean_job_des
 final_df$Language <- textcat::textcat(final_df$Description)
 ```
 
-### Annotation procedure with udpipe Package
+### Procédure d'annotation avec le package udpipe
 
-This part is inspired from this [post](https://www.r-bloggers.com/2018/04/an-overview-of-keyword-extraction-techniques/).
+Cette partie est inspirée de cet [article](https://www.r-bloggers.com/2018/04/an-overview-of-keyword-extraction-techniques/).
 
-Now that the descriptions of all the listed jobs are imported and pre-cleaned, we can annotate the textual data with **udpipe** package. This package contains functions and models which can perform tokenisation, lemmatisation and key word extraction. 
+Maintenant que les descriptions de tous les emplois listés sont importées et pré-nettoyées, on peut annoter les données textuelles avec le package **udpipe**. Ce package contient des fonctions et des modèles qui permettent de réaliser la tokenisation, la lemmatisation et l'extraction de mots-clés.
 
-We first restrict this analysis to data scientist job post written in french, then we annotate all the descriptions:
+On restreigne d'abord cette analyse aux offres d'emploi de data scientist rédigées en français, puis on annote toutes les descriptions :
+
 
 ```{r, eval=F, echo=T}
 # Restricting the analysis to Data scientist post written in french
@@ -432,9 +436,10 @@ x <- udpipe_annotate(ud_model, x = paste(desc_data_scientist, collapse = " "))
 x <- as.data.frame(x)
 ```
 
-### Most common nouns
+### Les noms les plus courants
 
-We can visualize the most employed word throughout the data scientist job posts written in french:
+On peut visualiser les mots les plus utilisés dans les offres d'emploi de data scientist rédigées en français :
+
 
 ```{r}
 stats <- subset(x, upos %in% "NOUN")
@@ -451,11 +456,12 @@ stats %>%
   theme_bw()
 ```
 
-Even though, it gives us an idea of words to include it is not very informative as key words are often composed by two or more words. 
+Bien que cela nous donne une idée des mots à inclure, ce n'est pas très informatif car les mots-clés sont souvent composés de deux mots ou plus.
 
-### Extracting key words for resume writing 
+### Extraction des mots-clés pour la rédaction de CV
 
-There are several methods implemented in **udpipe** to extract key words from a text. After testing several methods, I selected the Rapid Automatic Keyword Extraction (RAKE) which gives me the best results: 
+Il existe plusieurs méthodes implémentées dans **udpipe** pour extraire les mots-clés d'un texte. Après avoir testé plusieurs méthodes, j'ai sélectionné l'extraction automatique rapide des mots-clés (RAKE) qui me donne les meilleurs résultats :
+
 
 ```{r, cache=T}
 stats <- keywords_rake(x = x,
@@ -475,19 +481,19 @@ wordcloud(words = stats$keyword, freq = stats$freq, min.freq = 3,
           colors=brewer.pal(8, "Dark2"), scale = c(2.5, .5))
 ```
 
-We can see that this method has selected important french key words related to the data scientist job ! 
-In the first positions, we find the key words: "artificial intelligence", "dashboards", "higher education", "predictive model". I'd better check if these words appear on my resume ! 
+On peut voir que cette méthode a sélectionné des mots-clés importants en français liés au poste de data scientist ! 
+Dans les premières positions, on trouve les mots-clés : "intelligence artificielle", "tableaux de bord", "enseignement supérieur", "modèle prédictif". Il vaut mieux vérifier si ces mots apparaissent sur mon CV !
 
 ## Conclusion 
 
-I hope I convinced you that it is possible to optimize your job search with Data Science!
+J'espère vous avoir convaincu qu'il est possible d'optimiser votre recherche d'emploi avec la Data Science !
 
-If this post has caught your interest and you are looking for a new Data Scientist, do not hesitate to contact me on my <a href="mailto:aurelien.callens@gmail.com">mail</a> as I am currently looking for a job in France (Hybrid, Remote) or in Europe (Remote). 
+Si cet article vous a intéressé et que vous êtes à la recherche d'un nouveau Data Scientist, n'hésitez pas à me contacter par <a href="mailto:aurelien.callens@gmail.com">mail</a> car je suis actuellement en recherche d'emploi en France (hybride, remote) ou en Europe (remote). 
 
+## Fonctions personnalisées pour nettoyer les données extraites de la page web
 
-## Custom functions to clean data extracted from the webpage
+Ces fonctions utilisent plusieurs méthodes telles que les expressions régulières, les mots vides et les instructions conditionnelles pour nettoyer les données textuelles.
 
-These functions use several methods such as regular expressions, stop words and conditional statements to clean the textual data. 
 
 ```{r, eval=FALSE, echo=T}
 library(rvest)

@@ -1,0 +1,25 @@
+---
+title: "La fin de ma thèse"
+author: "Aurelien Callens"
+date: "2021-10-02"
+lang: fr
+execute:
+  eval: false
+---
+
+Il y a deux semaines, j'ai défendu ma thèse intitulée 'Apprentissage statistique pour l'évaluation des risques côtiers' devant un jury académique. La soutenance s'est très bien passée et le jury ainsi que l'auditoire étaient réellement intéressés par le travail que j'ai accompli durant ma thèse. Cette thèse a été un voyage incroyable et enrichissant tant en termes de connaissances et de recherche, que de collaboration et d'échanges. Je suis maintenant impatient de commencer un nouveau chapitre et de découvrir de nouveaux sujets de travail !
+
+Vous pouvez trouver le manuscrit de ma thèse ici :
+<a href="http://www.theses.fr/2021PAUU3016" target="_blank"> http://www.theses.fr/2021PAUU3016</a>. Si vous n'avez pas le courage de lire le manuscrit entier (je comprends :wink:), vous trouverez ci-dessous un court résumé de ma thèse ainsi que les diapositives que j'ai présentées lors de ma soutenance de doctorat.
+
+## Résumé de ma thèse
+
+Au cours des dernières décennies, la quantité de données liées aux risques côtiers a considérablement augmenté avec l'installation de nombreux réseaux de surveillance. À cette époque de big data, l'utilisation des méthodes d'apprentissage statistique (MAS) dans le développement de modèles prédictifs locaux devient de plus en plus légitime et justifiée. L'objectif de cette thèse est de démontrer comment les MAS peuvent contribuer à l'amélioration des outils d'évaluation des risques côtiers et au développement d'un système d'alerte précoce visant à réduire le risque d'inondation côtière.
+
+Trois méthodologies ont été développées et testées sur des sites d'étude réels. La première méthodologie vise à améliorer la prévision locale des vagues réalisée par un modèle de vagues spectrales avec des méthodes d'apprentissage automatique et des données provenant des réseaux de surveillance. Nous avons montré que l'assimilation de données avec des méthodes d'apprentissage automatique améliore significativement la prévision des paramètres de vagues, notamment la hauteur et la période des vagues. La deuxième méthodologie concerne la création de bases de données sur les impacts des tempêtes. Bien que ces bases de données soient essentielles pour le processus de réduction des risques de catastrophe, elles sont rares et dispersées. Nous avons donc proposé une méthodologie basée sur une méthode d'apprentissage profond (réseaux neuronaux convolutifs) pour générer automatiquement des données qualitatives sur l'impact des tempêtes à partir d'images fournies par des stations de surveillance vidéo installées sur la côte. La dernière méthodologie concerne le développement d'un modèle d'impact des tempêtes avec une méthode statistique (réseau bayésien) basé exclusivement sur les données acquises par divers réseaux de surveillance. Grâce à cette méthodologie, nous avons pu prédire qualitativement l'impact des tempêtes sur notre site d'étude, la Grande Plage de Biarritz.
+
+![Organisation du manuscrit de ma thèse](./images/thesis_organization.png)
+
+## Ma présentation pour la soutenance de thèse
+
+Vous pouvez trouver ma présentation [ici](../../doc/Presentation_thesis_Callens_Aurelien.pdf)

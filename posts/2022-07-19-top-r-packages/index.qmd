@@ -2,6 +2,7 @@
 title: "Analysis of the top R packages"
 author: "Aurelien Callens"
 date: "2022-07-19"
+lang: en
 toc: true
 execute:
   freeze: true

@@ -2,6 +2,7 @@
 title: "The Importance of Data Quality Control in Meteorology"
 author: "Aurelien Callens"
 date: "2024-07-17"
+lang: en
 toc: true
 execute:
   freeze: true

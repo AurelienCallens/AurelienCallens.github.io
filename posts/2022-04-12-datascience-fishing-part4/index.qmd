@@ -3,6 +3,7 @@ title: "Can R and Shiny make me a better fisherman? Part 4"
 subtitle: "Exploratory analysis on my fishing data (shiny and plotly)"
 author: "Aurélien Callens"
 date: "2022-04-12"
+lang: en
 toc: true
 image: images/seabass_bay.jpg
 execute:

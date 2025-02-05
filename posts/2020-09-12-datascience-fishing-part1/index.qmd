@@ -1,8 +1,10 @@
 ---
 title: "Can R and Shiny make me a better fisherman? Part 1"
 subtitle: "Building a shiny application to store my fishing data"
+lang: en
 author: "Aurélien Callens"
 date: "2020-09-12"
+modified: "2025-02-04"
 execute:
   freeze: true
 image: images/seabass_bay.jpg
@@ -13,6 +15,9 @@ categories:
   - Web scraping
 ---
 
+> **ℹ️ Note :** 
+> When I developed this application, I was a beginner in web development and data management. I chose Shiny because it was the simplest solution for me at the time.  
+> Looking back, if I had to redo this project today, I would go for a Django application with a dedicated database, which would offer more flexibility and robustness.  
 
 
 ```{r setup, include=FALSE}

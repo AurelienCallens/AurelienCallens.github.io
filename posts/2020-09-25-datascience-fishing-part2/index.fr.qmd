@@ -1,8 +1,8 @@
 ---
-title: "Can R and Shiny make me a better fisherman? Part 2"
-subtitle: "Exploratory analysis on my fishing data"
-lang: en
+title: "Est-ce que R et Shiny peuvent faire de moi un meilleur pêcheur ? Partie 2"
+subtitle: "Analyse exploratoire de mes données de pêche"
 author: "Aurélien Callens"
+lang: fr
 date: "2020-09-25"
 format: 
   html:
@@ -28,30 +28,30 @@ session_data <- read_csv("./data/session.csv")[-c(1:2),]
 catch_data <- read_csv("./data/catch.csv")
 ```
 
-In the previous blog article, I described in details how I built a shiny application that stores data about my fishing sessions. In this post, I will explore the data I have collected during the last year. 
+Dans le précédent article de blog, j'ai décrit en détail comment j'ai créé une application Shiny qui stocke les données de mes sessions de pêche. Dans cet article, je vais explorer les données que j'ai collectées au cours de l'année dernière.
 
- 
-To sum up, my application store the data in two csv files. The first one contains variables related to the fishing conditions at the beginning and at the end of the session such as : 
+Pour résumer, mon application stocke les données dans deux fichiers csv. Le premier contient des variables liées aux conditions de pêche au début et à la fin de la session, telles que :
 
-+ Time 
-+ Longitude and Latitude
-+ Meteorological conditions (9 in total : Air temperature, Atmospheric pressure, Wind speed and direction ...)
-+ Tide conditions (Current water level, Tide status and Time since the tide peak)
-+ Specific comments
++ Heure
++ Longitude et Latitude
++ Conditions météorologiques (9 au total : Température de l'air, Pression atmosphérique, Vitesse et direction du vent, etc.)
++ Conditions de marée (Niveau d'eau actuel, Statut de la marée et Heure depuis le pic de la marée)
++ Commentaires spécifiques
 
-The second one contains information about my catches : 
+Le second contient des informations sur mes prises :
 
-+ Time when caught 
-+ Time since the beginning of the session 
-+ Species 
-+ Length of the fish 
-+ Fishing lure used
-+ Color of the fishing lure 
-+ Length of the lure
++ Heure de la prise
++ Temps écoulé depuis le début de la session
++ Espèce
++ Longueur du poisson
++ Leurre utilisé
++ Couleur du leurre
++ Longueur du leurre
 
-## Importing and cleaning my fishing data 
+## Importation et nettoyage de mes données de pêche
 
-The first step of this analysis is to import both csv files and make some transformations. 
+La première étape de cette analyse consiste à importer les deux fichiers csv et à effectuer quelques transformations.
+
 
 ```{r include=TRUE}
 # Change character variables to factor
@@ -66,8 +66,7 @@ mutate_at(vars(species, lure, colour, length_lure), as.factor)
 
 &nbsp;
 
-After cleaning and rearranging the data (code hidden below), we are ready to explore 
-graphically our data! 
+Après avoir nettoyé et réarrangé les données (le code est caché ci-dessous), on peut explorer graphiquement les données !
 
 ```{r}
 
@@ -133,11 +132,11 @@ catch_cond$Tide_status_ses <- sapply(catch_cond$Tide_status_ses , function(x){sw
 ```
 
 
-## Graphical exploration
+## Exploration graphique
 
-### Where did I fish ? 
+### Mes lieux de pêche  
 
-We can visualize the locations I fished the most by using the *leaflet* package: 
+On peut visualiser les endroits où j'ai le plus pêché en utilisant le package *leaflet* :
 
 ```{r}
 # Calculate the number of fish caught by session 
@@ -162,13 +161,14 @@ with(map_data, sprintf("<b>Session %.0f : %.1f h</b> <br/> %s <br/> %.0f  fish <
 options = popupOptions(maxWidth = 100, minWidth = 50))
 ```
 
-As you see I fish mostly in the Nive river that is flowing through Bayonne city. 
+Comme vous pouvez le voir, je pêche principalement dans la  Nive, une rivière qui traverse la ville de Bayonne.
 
-### When it is best to fish ? 
+### Quel est le meilleur moment pour pêcher ? 
 
-#### Time of the year 
+#### Période de l'année  
 
-The following graph shows the number of fish caught depending on the time of the year : 
+Le graphique suivant montre le nombre de poissons capturés en fonction de la période de l'année :
+
 
 ```{r}
 catch_cond %>% 
@@ -183,11 +183,12 @@ geom_point( size = 2) +
 
 ```
 
-From this graph we see that I didn't go fishing during the autumn and winter of 2019, I don't have any data. Unfortunately for me, autumn is known to be a great period for sea bass fishing, I must go fishing this year to compensate the lack of data in this season. During winter, fishing is really complicated because the large majority of sea bass are returned to the ocean.
+Avec de ce graphique, on constate que je ne suis pas allé pêcher durant l'automne et l'hiver 2019, je n'ai donc aucune donnée pour ces saisons. Et c'est bête pour moi car l'automne est réputé être une excellente période pour la pêche au bar! Je dois aller pêcher cette année pour compenser ce manque de données. En hiver, la pêche est vraiment compliquée, car la grande majorité des bars retournent vers l'océan.
 
-#### Time of the day 
+#### Heure de la journée  
 
-This graph shows the number of fish I catch depending on the hour of the day :
+Ce graphique montre le nombre de poissons capturés en fonction de l'heure de la journée :
+
 
 ```{r}
 catch_cond %>% 
@@ -203,11 +204,11 @@ theme_minimal()
 
 ```
 
-I mostly fish after work or during evenings. To draw relevant conclusions about the influence of the fishing hour, I have to go fishing at different hours of the day (in the morning for example). 
+Je pêche principalement après le travail ou en soirée. Pour tirer des conclusions pertinentes sur l'influence de l'heure de pêche, je dois aller pêcher à différents moments de la journée (le matin, par exemple).
 
-#### The tide 
+#### La marée  
 
-The tide is an important parameter for fishing in estuaries. Let's see the effect of the tide current on my catches: 
+La marée est un paramètre important pour la pêche en estuaire. Voyons l'effet du courant de marée sur mes prises :
 
 
 ```{r}
@@ -235,11 +236,12 @@ ggarrange(gg1, gg2)
 
 ```
 
-It seems that the status of the tide current does not influence the number of my catch but influences the length of the fish. I tend to catch bigger fish when the current is going down. 
+Il semble que l'état du courant de marée n'influence pas le nombre de prises, mais qu'il affecte la taille des poissons. J'ai tendance à attraper des poissons plus gros lorsque le courant descend.
 
-### Does the moon affect my fishing results? 
+### La lune affecte-t-elle mes résultats de pêche ?  
 
-A widespread belief among fishermen is that the moon influences greatly the behavior of the fish. Data about the moon phase were available thanks to the weather API, I decided to record this variable to investigate if the belief was true. The two graphs show the number and length of fish depending on the phase of moon (0 corresponding to new moon and 1 to full moon):
+Une croyance largement répandue chez les pêcheurs est que la lune influence fortement le comportement des poissons. Les données sur la phase lunaire étaient disponibles grâce à l'API météo, j'ai donc décidé d'enregistrer cette variable pour vérifier si cette croyance était fondée.  
+Les deux graphiques ci-dessous montrent le nombre et la taille des poissons en fonction de la phase de la lune (0 correspondant à la nouvelle lune et 1 à la pleine lune) :
 
 
 ```{r}
@@ -265,12 +267,12 @@ ggarrange(gg3, gg4)
 
 ```
 
-The phase of the moon does not seem to influence the number of fish I catch during a session. However, I tend to catch bigger fish the closer we are to the full moon. To confirm this observation, I need to keep going fishing to get more data ! 
+La phase de la lune ne semble pas influencer le nombre de poissons que j'attrape lors d'une session. Cependant, j'ai tendance à attraper des poissons plus gros à mesure que l'on se rapproche de la pleine lune. Pour confirmer cette observation, je dois continuer à pêcher afin de collecter plus de données !
 
+### La météo influence-t-elle mes résultats de pêche ?  
 
-### Does the weather affect my fishing results? 
+On peut examiner le nombre de poissons capturés dans différentes conditions météorologiques :
 
-We can look at the number of fish caught during different weather conditions:
 
 ```{r}
 # precipitation probability 
@@ -332,7 +334,7 @@ ggarrange(gg5, gg6, gg7, gg8)
 
 
 
-And to their length :
+En fonction de leur taille:
 
 ```{r}
 
@@ -364,11 +366,11 @@ gg18  <- catch_cond %>%
 ggarrange(gg15, gg16, gg17, gg18)
 ```
 
-Because we have limited data and not all weather conditions are covered, it is difficult to draw any conclusions.
+Étant donné que j'ai des données limitées et que toutes les conditions météorologiques ne sont pas couvertes, il est difficile de tirer des conclusions.
 
-### What are the best lures to catch fish ?
+### Quels sont les meilleurs leurres pour attraper du poisson ?  
 
-Each time I catch a fish, I fill a form with my shiny application in order to record the characteristics of the lure used. There are different types of lures that have specific swimming patterns, different colors and size. We can represent the number of fish caught depending on the lure characteristics: 
+À chaque prise, je remplis un petit formulaire dans mon application Shiny afin d'enregistrer les caractéristiques du leurre utilisé. Il existe différents types de leurres ayant des nages spécifiques, des couleurs et des tailles variées. On peut représenter le nombre de poissons capturés en fonction des caractéristiques du leurre :
 
 
 ```{r}
@@ -405,7 +407,8 @@ annotate_figure(ggarrange(gg9, gg10, gg11, ncol = 3),
 )
 ```
 
-We can do the same for the length of fish caught:
+On peut faire de même pour la longueur des poissons capturés :
+
 
 ```{r}
 gg12 <-catch_cond %>% 
@@ -436,13 +439,13 @@ annotate_figure(ggarrange(gg12, gg13, gg14, ncol = 3),
 )
 ```
 
-With these 6 graphs, we can see that the most successful types of lures for me are the shad and slug types. An honorable mention is the jerkbait type: it only accounts for 2 fish, but 2 big fish (median around 47cm). The colors that worked best for me were clear and natural. For the size of the lure, bigger lures tend to catch bigger fish in average. These conclusions must be taken with a grain of salt because we do not know the time spent with each lure before catching a fish. In addition, I tend to use the same types and colors of lures (habits), I should vary more. 
+Avec ces 6 graphiques, on peut voir que les leurres les plus efficaces pour moi sont les types shad et slug. Mention honorable jerkbait : je n'ai attrapé que 2 poissons avec, mais 2 gros (médiane autour de 47 cm). Les couleurs qui ont le mieux fonctionné sont les couleurs claires et naturelles. Pour la taille des leurres, les plus grands ont tendance à attraper des poissons plus gros en moyenne. Ces conclusions doivent être prises avec des pincettes, car je n'ai pas enregistré le temps passé avec chaque leurre avant d’attraper un poisson. De plus, j’ai tendance à utiliser les mêmes types et couleurs de leurres (par habitude), je vais me forcer à varier davantage.
 
 ## Conclusion
 
-Analyzing my fishing data was very interesting and it brought me some insights on my fishing style! I understood that I was fishing almost the same way with the same habits. Although it seems to be working for me, I have a biased view on how to catch European sea bass. I must use bigger lures to catch bigger fish and I must vary the types of lures used. Indeed, I fish most of the times with slug or shad lures, hence the higher number of fish caught with these types of lures. 
+L’analyse de mes données de pêche a été très intéressante et m’a apporté des insights sur mon style de pêche ! J’ai compris que je pêchais presque toujours de la même manière, avec les mêmes habitudes. Bien que cela semble fonctionner pour moi, j’ai une vision biaisée de la façon d’attraper le bar européen. Je dois utiliser des leurres plus grands pour attraper de plus gros poissons et varier les types de leurres utilisés. En effet, je pêche la plupart du temps avec des leurres slug ou shad, d’où le plus grand nombre de prises avec ces types de leurres.
 
-I will keep using the application to gather more data and have a better understanding on my fishing session. I will keep you updated on the results ! :wink:
+Je vais continuer à utiliser l’application pour collecter plus de données et mieux comprendre mes sessions de pêche. Je vous tiendrai au courant des résultats ! :wink: 
 
 
 
