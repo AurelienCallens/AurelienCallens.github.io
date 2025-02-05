@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<link rel="alternate" hreflang="en" href="https://aureliencallens.github.io/posts/2024-12-17-rainfall-interpolation-deep-learning/index.html" />
+<link rel="alternate" hreflang="fr" href="https://aureliencallens.github.io/fr/posts/2024-12-17-rainfall-interpolation-deep-learning/index.fr.html" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.547">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Aurelien Callens">
 <meta name="dcterms.date" content="2024-12-17">
-
 <title>Aurelien Callens - Rainfall with a Precision of 1km²—A Myth Becoming Reality?</title>
 <style>
 code{white-space: pre-wrap;}
@@ -23,24 +23,12 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 </style>
-
-
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script><script src="../../site_libs/quarto-nav/headroom.min.js"></script><script src="../../site_libs/clipboard/clipboard.min.js"></script><script src="../../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../../site_libs/quarto-search/fuse.min.js"></script><script src="../../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../../">
 <link href="../../img/favicon.ico" rel="icon">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script><link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script><script src="../../site_libs/quarto-html/popper.min.js"></script><script src="../../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../../site_libs/quarto-html/anchor.min.js"></script><link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script><link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -68,27 +56,33 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MBB7RWKF8X"></script>
-
-<script type="text/javascript">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MBB7RWKF8X"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
-</script>
-
-
-<link rel="stylesheet" href="../../styles.css">
+</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><link rel="stylesheet" href="../../styles.css">
 </head>
-
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Aurelien Callens</span>
@@ -100,13 +94,16 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../projects/index.html"> 
-<span class="menu-text">Projects</span></a>
+<li class="nav-item"><div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://aureliencallens.github.io/fr/posts/2024-12-17-rainfall-interpolation-deep-learning/index.html" id="language-link-fr">French</a></li></ul>
+</div></li>
+<li class="nav-item">
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">My blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../myprojects.html"> 
+<span class="menu-text">My projects</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/AurelienCallens"> <i class="bi bi-github" role="img">
@@ -114,15 +111,11 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <span class="menu-text"></span></a>
   </li>  
 </ul>
-          </div> <!-- /navcollapse -->
+</div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Rainfall with a Precision of 1km²—A Myth Becoming Reality?</h1>
                                 <div class="quarto-categories">
@@ -157,28 +150,24 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    </div>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#why-does-spatial-rainfall-data-matter" id="toc-why-does-spatial-rainfall-data-matter" class="nav-link active" data-scroll-target="#why-does-spatial-rainfall-data-matter">Why does spatial rainfall data matter?</a></li>
+  <li><a href="#the-challenge-and-our-approach" id="toc-the-challenge-and-our-approach" class="nav-link" data-scroll-target="#the-challenge-and-our-approach">The challenge and our approach</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
-
-
-
-
-
-<p>Once again, I published a new article on Medium! This time I explore an exciting challenge in agriculture and meteorology: Can we achieve the accuracy of rain gauges while benefiting from the broad coverage of remote sensing? 🌧📡</p>
-<p>🌾 Why does spatial rainfall data matter?</p>
+<main class="content quarto-banner-title-block" id="quarto-document-content"><p>Once again, I published a new article on Medium! This time I explore an exciting challenge in agriculture and meteorology: Can we achieve the accuracy of rain gauges while benefiting from the broad coverage of remote sensing? 🌧📡</p>
+<section id="why-does-spatial-rainfall-data-matter" class="level3"><h3 class="anchored" data-anchor-id="why-does-spatial-rainfall-data-matter">Why does spatial rainfall data matter?</h3>
 <p>Rainfall influences everything from irrigation planning to crop health management. While traditional rain gauges provide highly accurate, localized measurements, they don’t capture rainfall patterns across larger regions—creating blind spots for decision-making. Weather radars and satellites help fill these gaps, but their estimates of ground-level rainfall lack precision.</p>
-<p>🔬 The challenge and our approach</p>
+</section><section id="the-challenge-and-our-approach" class="level3"><h3 class="anchored" data-anchor-id="the-challenge-and-our-approach">The challenge and our approach</h3>
 <p>At Sencrop, we’re tackling this challenge with deep learning. In this post, I introduce an innovative methodology called densification, which merges: - Sparse but precise rainfall observations from our weather station network - Dense but less accurate rainfall estimates from radar and satellite data</p>
 <p>The goal? Provide high-resolution (1km²) rainfall data anywhere in Europe, with accuracy equal to or better than our station network.</p>
 <p>Curious to see how we’re making this a reality? Check out the full article here: <a href="https://medium.com/science-engineering-at-sencrop/rainfall-with-a-precision-of-1km%C2%B2-a-myth-becoming-reality-ee97f440c148">Rainfall with a precision of 1km²: a myth becoming reality?</a></p>
-<p>Let me know what you think!💡</p>
 
 
-
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -566,44 +555,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/AurelienCallens">
-      <i class="bi bi-github" role="img">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="../../www.linkedin.com/in/aureliencallens">
-      <i class="bi bi-linkedin" role="img">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="mailto:aurelien.callens@gmail.com">
-      <i class="bi bi-envelope-fill" role="img">
-</i> 
-    </a>
+<li class="nav-item">
+ Aurélien Callens • © 2025
   </li>  
 </ul>
-    </div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      <ul class="footer-items list-unstyled">
-    <li class="nav-item">
- Aurélien Callens • © 2024
-  </li>  
-</ul>
+       
     </div>
   </div>
 </footer>
-
-
-
-
-</body></html>
+</body>
+</html>
