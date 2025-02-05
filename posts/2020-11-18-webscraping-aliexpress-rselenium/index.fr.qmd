@@ -1,0 +1,175 @@
+---
+title: "Webscraping sur Aliexpress avec Rselenium"
+author: "Aurelien Callens"
+date: "2020-11-18"
+lang: fr
+execute:
+  eval: false
+categories:
+  - R
+  - Web scraping
+---
+
+```{r include=FALSE}
+knitr:: opts_chunk$set(warning = FALSE, message = FALSE, include = T, eval = F)
+```
+
+  
+Aujourd'hui, je vais vous montrer comment récupérer les prix des produits sur le site Aliexpress.
+
+## Quelques mots sur le web scraping
+
+Avant de plonger dans le sujet, vous devez savoir que le web scraping n'est pas autorisé sur certains sites web. Pour savoir si cela s'applique au site que vous souhaitez scraper, je vous invite à vérifier la page *robots.txt* qui devrait se trouver à la racine de l'adresse du site. Pour Aliexpress, cette page se trouve ici : [www.aliexpress.com/robots.txt](https://www.aliexpress.com/robots.txt).
+
+Cette page indique que le web scraping et le crawling ne sont pas autorisés sur plusieurs catégories de pages telles que `/bin/*`, `/search/*`, `/wholesale*` par exemple. Heureusement pour nous, la catégorie `/item/*`, où les pages des produits sont stockées, peut être scrappée.
+
+## RSelenium
+
+### Installation pour Ubuntu 18.04 LTS
+
+L'installation de RSelenium n'a pas été aussi simple que prévu et j'ai rencontré deux erreurs.
+
+La première erreur que j'ai obtenue après avoir installé le package et essayé la fonction *Rsdriver* était :
+
+
+```
+Error in curl::curl_fetch_disk(url, x$path, handle = handle) :
+Unrecognized content encoding type. libcurl understands deflate, gzip content encodings.
+```
+
+Grâce à <a href="https://github.com/ropensci/RSelenium/issues/186" target="_blank">ce post</a>, j'ai installé le package manquant : *stringi*.
+
+Une fois cette erreur corrigée, j'en ai rencontré une autre :
+
+
+```
+Error: Invalid or corrupt jarfile /home/aurelien/.local/share/binman_seleniumserver/generic/4.0.0-alpha-2/selenium-server-standalone-4.0.0-alpha-2.jar
+```
+
+Cette fois-ci, le problème venait d'un fichier corrompu. Grâce à <a href="https://stackoverflow.com/questions/20680229/invalid-or-corrupt-jarfile-usr-local-bin-selenium-server-standalone-2-38-0-jar" target="_blank">ce post</a>, j'ai su que je devais simplement télécharger ce fichier *selenium-server-standalone-4.0.0-alpha-2.jar* depuis le site officiel <a href="https://selenium-release.storage.googleapis.com/index.html?path=4.0/" target="_blank">de Selenium</a> et remplacer le fichier corrompu par celui-ci.
+
+J'espère que cela aidera certains d'entre vous à installer RSelenium sur Ubuntu 18.04 LTS !
+
+### Ouverture d'un navigateur web
+
+Après avoir corrigé les erreurs ci-dessus, je peux maintenant ouvrir un navigateur Firefox :
+
+
+```{r}
+library(RSelenium)
+
+#Open a firefox driver
+rD <- rsDriver(browser = "firefox") 
+remDr <- rD[["client"]]
+
+```
+
+
+### Connexion à Aliexpress
+
+La première étape pour récupérer les prix des produits sur Aliexpress est de se connecter à son compte :
+ 
+```{r}
+log_id <- "Your_mail_adress"
+password <- "Your_password"
+
+# Navigate to aliexpress login page 
+remDr$navigate("https://login.aliexpress.com/")
+
+# Fill the form with mail address
+remDr$findElement(using = "id", "fm-login-id")$sendKeysToElement(list(log_id))
+
+# Fill the form with password
+remDr$findElement(using = 'id', "fm-login-password")$sendKeysToElement(list(password))
+
+#Submit the login form by clicking Submit button
+remDr$findElement("class", "fm-button")$clickElement()
+```
+
+
+### Navigating through the URLs and scraping the prices
+
+Maintenant, on doit naviguer à travers un vecteur contenant les URL des produits Aliexpress qui nous intéressent. Ensuite, on extrait le prix du produit en utilisant le xpath du prix du produit sur la page web. Le xpath de l'élément que vous voulez scraper peut être trouvé en utilisant les outils de développement de Chrome ou Firefox ([tutoriel ici !](https://www.scrapingbee.com/blog/practical-xpath-for-web-scraping/)). Une fois le prix extrait, il faut s'assurer que ce prix soit sous un format numérique en supprimant tout caractère spécial (symbole euro ou dollar) et en remplaçant la virgule par un point pour le séparateur décimal. Voici le code R :
+
+
+```{r}
+  url_list <- list("https://fr.aliexpress.com/store/product/Maxcatch-6Pcs-lot-Craws-Soft-Fishing-Lures-110mm-11-5g-Artificial-Bait-Soft-Bait-Craws-Lures/406467_32419930548.html?spm=a2g0w.12010612.0.0.5deb64f7836LnZ",
+            "https://fr.aliexpress.com/store/product/Maxcatch-Fishing-Lure-5Pcs-Lot-155mm-7-4g-3-colors-Swimbait-Artificial-Lizard-Soft-Fishing-Lures/406467_32613648610.html?spm=a2g0w.12010612.0.0.5deb64f7836LnZ",
+            "https://fr.aliexpress.com/store/product/Maxcatch-6Pcs-lot-Soft-Fishing-Lures-Minnow-Biat-95mm-6g-Jerkbait-Soft-Bait/406467_32419066106.html?spm=a2g0w.12010612.0.0.25fe5872CBqy0m") 
+
+# Allocate a vector to store the price of the products 
+currentp <- c()
+for(i in 1:length(url_list)){
+  
+  # Navigate to link [i]
+  remDr$navigate(url_list[i])
+  
+  # Find the price with an xpath selector and findElement.  
+  # Sometimes products can be removed and this could throw an error this is why we are using 'try' to handle the potential errors
+  
+  current <- try(remDr$findElement(using = "xpath",'//*[contains(concat( " ", @class, " " ), concat( " ", "product-price-value", " " ))]'), silent = T)
+  
+  #If error : current price is NA 
+  if(class(current) =='try-error'){
+    currentp[i] <- NA
+  }else{
+    # Get the price 
+    text <- unlist(current$getElementText())
+    
+    #Remove euro sign
+    text <- gsub("[^A-Za-z0-9,;._-]","",text)
+    
+    #Case when there is a range of price instead of one price + replace comma by point
+    if(grepl("-", text)) {  
+      pe <- sub("-.*","",text) %>% sub(",", ".", ., fixed = TRUE)
+      currentp[i] <-  as.numeric(pe)
+    }else{
+      currentp[i] <- as.numeric(sub(",", ".", text, fixed = TRUE))
+  }
+  }
+  
+Sys.sleep(4)
+}
+```
+
+Il est conseillé d'attendre quelques secondes entre chaque lien avec *Sys.sleep(4)* afin d'éviter d'être mis sur liste noire par le site web.
+
+### Version Phantomjs
+
+Si vous exécutez le code ci-dessus, vous devriez voir un navigateur Firefox s'ouvrir et naviguer à travers la liste que vous avez fournie. Dans le cas où vous ne souhaitez pas une fenêtre active, vous pouvez remplacer Firefox par le navigateur phantomjs, qui est un navigateur sans interface graphique (headless).
+
+Je ne sais pas pourquoi, mais l'utilisation de `rsDriver(browser = "phantomjs")` ne fonctionne pas pour moi. J'ai trouvé <a href="https://cbelanger.netlify.app/post/web-scraping-in-r-selenium-firefox-and-phantomjs/" target="_blank">cet article</a> qui propose de démarrer le navigateur phantomjs avec le package wdman :
+
+
+```{r}
+library(wdman)
+library(RSelenium)
+# start phantomjs instance
+rPJS <- wdman::phantomjs(port = 4680L)
+
+# is it alive?
+rPJS$process$is_alive()
+
+#connect selenium to it?
+remDr <-  RSelenium::remoteDriver(browserName="phantomjs", port=4680L)
+
+# open a browser
+remDr$open()
+
+remDr$navigate("http://www.google.com/")
+
+# Screenshot of the headless browser to check if everything is working
+remDr$screenshot(display = TRUE)
+
+# Don't forget to close the browser when you are finished ! 
+remDr$close()
+```
+
+
+### Conclusion
+
+Une fois que l'on comprend les bases de RSelenium et comment sélectionner des éléments dans des pages HTML, c'est assez facile d'écrire un script pour extraire des données sur le web. Cet article est un exemple simple d'extraction du prix des produits sur les pages Aliexpress, mais le script peut être étendu pour extraire plus de données sur chaque page, telles que le nom de l'article, sa note, etc. Il est même possible d'automatiser ce script pour qu'il s'exécute quotidiennement afin de suivre l'évolution des prix au fil du temps. Les possibilités sont infinies !
+
+
+
+

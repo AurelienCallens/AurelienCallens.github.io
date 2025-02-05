@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<link rel="alternate" hreflang="en" href="https://aureliencallens.github.io/posts/2020-09-12-datascience-fishing-part1/index.html" />
+<link rel="alternate" hreflang="fr" href="https://aureliencallens.github.io/fr/posts/2020-09-12-datascience-fishing-part1/index.fr.html" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.547">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Aurélien Callens">
 <meta name="dcterms.date" content="2020-09-12">
-
 <title>Aurelien Callens - Can R and Shiny make me a better fisherman? Part 1</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,24 +57,12 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script><script src="../../site_libs/quarto-nav/headroom.min.js"></script><script src="../../site_libs/clipboard/clipboard.min.js"></script><script src="../../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../../site_libs/quarto-search/fuse.min.js"></script><script src="../../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../../">
 <link href="../../img/favicon.ico" rel="icon">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script><link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script><script src="../../site_libs/quarto-html/popper.min.js"></script><script src="../../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../../site_libs/quarto-html/anchor.min.js"></script><link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script><link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -102,27 +90,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MBB7RWKF8X"></script>
-
-<script type="text/javascript">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MBB7RWKF8X"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
-</script>
-
-
-<link rel="stylesheet" href="../../styles.css">
+</script><script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script><link rel="stylesheet" href="../../styles.css">
 </head>
-
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Aurelien Callens</span>
@@ -134,13 +128,16 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../projects/index.html"> 
-<span class="menu-text">Projects</span></a>
+<li class="nav-item"><div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://aureliencallens.github.io/fr/posts/2020-09-12-datascience-fishing-part1/index.html" id="language-link-fr">French</a></li></ul>
+</div></li>
+<li class="nav-item">
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">My blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../myprojects.html"> 
+<span class="menu-text">My projects</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/AurelienCallens"> <i class="bi bi-github" role="img">
@@ -148,15 +145,11 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <span class="menu-text"></span></a>
   </li>  
 </ul>
-          </div> <!-- /navcollapse -->
+</div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Can R and Shiny make me a better fisherman? Part 1</h1>
             <p class="subtitle lead">Building a shiny application to store my fishing data</p>
@@ -193,34 +186,30 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#requirements-of-my-application" id="toc-requirements-of-my-application" class="nav-link active" data-scroll-target="#requirements-of-my-application">Requirements of my application</a></li>
-  <li><a href="#collecting-the-data" id="toc-collecting-the-data" class="nav-link" data-scroll-target="#collecting-the-data">Collecting the data</a>
+<li><a href="#requirements-of-my-application" id="toc-requirements-of-my-application" class="nav-link active" data-scroll-target="#requirements-of-my-application">Requirements of my application</a></li>
+  <li>
+<a href="#collecting-the-data" id="toc-collecting-the-data" class="nav-link" data-scroll-target="#collecting-the-data">Collecting the data</a>
   <ul class="collapse">
-  <li><a href="#getting-my-gps-location" id="toc-getting-my-gps-location" class="nav-link" data-scroll-target="#getting-my-gps-location">Getting my gps location</a></li>
+<li><a href="#getting-my-gps-location" id="toc-getting-my-gps-location" class="nav-link" data-scroll-target="#getting-my-gps-location">Getting my gps location</a></li>
   <li><a href="#weather-api" id="toc-weather-api" class="nav-link" data-scroll-target="#weather-api">Weather API</a></li>
   <li><a href="#web-scrapping-for-tide-data" id="toc-web-scrapping-for-tide-data" class="nav-link" data-scroll-target="#web-scrapping-for-tide-data">Web scrapping for Tide data</a></li>
-  </ul></li>
-  <li><a href="#the-shiny-application" id="toc-the-shiny-application" class="nav-link" data-scroll-target="#the-shiny-application">The shiny application</a>
-  <ul class="collapse">
-  <li><a href="#ui-side" id="toc-ui-side" class="nav-link" data-scroll-target="#ui-side">UI side</a></li>
-  <li><a href="#server-side" id="toc-server-side" class="nav-link" data-scroll-target="#server-side">Server side</a></li>
-  </ul></li>
-  <li><a href="#conclusion-and-future-improvments" id="toc-conclusion-and-future-improvments" class="nav-link" data-scroll-target="#conclusion-and-future-improvments">Conclusion and future improvments</a></li>
   </ul>
-</nav>
-    </div>
+</li>
+  <li>
+<a href="#the-shiny-application" id="toc-the-shiny-application" class="nav-link" data-scroll-target="#the-shiny-application">The shiny application</a>
+  <ul class="collapse">
+<li><a href="#ui-side" id="toc-ui-side" class="nav-link" data-scroll-target="#ui-side">UI side</a></li>
+  <li><a href="#server-side" id="toc-server-side" class="nav-link" data-scroll-target="#server-side">Server side</a></li>
+  </ul>
+</li>
+  <li><a href="#conclusion-and-future-improvments" id="toc-conclusion-and-future-improvments" class="nav-link" data-scroll-target="#conclusion-and-future-improvments">Conclusion and future improvments</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
-
-
-
-
-
-<p>My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I fish European sea bass (<em>Dicentrarchus labrax</em>) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artificial lures that imitate a specific prey.</p>
+<main class="content quarto-banner-title-block" id="quarto-document-content"><p>My favorite hobby, in addition to R coding of course, is fishing. Most of the time, I fish European sea bass (<em>Dicentrarchus labrax</em>) in estuaries. The sea bass is a predatory fish that has a broad range of preys: crabs, sand eels, prawns, shrimps and other fish. To catch these predators, I don’t use live baits, I prefer to use artificial lures that imitate a specific prey.</p>
 <p>In theory, it is quite easy to catch a fish:</p>
 <ol type="1">
 <li><p>Use a lure that imitate the current prey of the sea bass.</p></li>
@@ -234,8 +223,7 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <li>the current and water level associated with the tide. The water level in estuaries is constantly varying to greater or lesser degree due to the tide influence. It is also influenced by the river flow which can be higher in case of heavy rains.</li>
 </ul>
 <p>As you understand, there are many parameters potentially influencing the results of my fishing session. This is why I decided to create a shiny application to augment the number and the length of the fish caught during my sessions. To reach this objective, I need to better understand the activity, the position and the prey of the sea bass depending on the parameters described above.</p>
-<section id="requirements-of-my-application" class="level2">
-<h2 class="anchored" data-anchor-id="requirements-of-my-application">Requirements of my application</h2>
+<section id="requirements-of-my-application" class="level2"><h2 class="anchored" data-anchor-id="requirements-of-my-application">Requirements of my application</h2>
 <ul>
 <li>It must store data about my fishing session:</li>
 </ul>
@@ -245,13 +233,11 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <col style="width: 33%">
 <col style="width: 33%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th>Information needed</th>
 <th>Description of the variables</th>
 <th>Where do I get the data ?</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>Time</td>
@@ -279,13 +265,11 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <col style="width: 33%">
 <col style="width: 33%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th>Information needed</th>
 <th>Description of the variables</th>
 <th>Where do I get the data ?</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>Time</td>
@@ -307,16 +291,10 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <ul>
 <li><p>It must be adapted to small screens because I will always use the application on my phone.</p></li>
 <li><p>It must remain free.</p></li>
-</ul>
-</section>
-<section id="collecting-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="collecting-the-data">Collecting the data</h2>
-<section id="getting-my-gps-location" class="level3">
-<h3 class="anchored" data-anchor-id="getting-my-gps-location">Getting my gps location</h3>
+</ul></section><section id="collecting-the-data" class="level2"><h2 class="anchored" data-anchor-id="collecting-the-data">Collecting the data</h2>
+<section id="getting-my-gps-location" class="level3"><h3 class="anchored" data-anchor-id="getting-my-gps-location">Getting my gps location</h3>
 <p>My gps location is collected by using a bit of Javascript in the header of the shiny application. This code has been developed by AugusT and is available on his <a href="https://github.com/AugustT/shiny_geolocation" target="_blank">github repository</a>.</p>
-</section>
-<section id="weather-api" class="level3">
-<h3 class="anchored" data-anchor-id="weather-api">Weather API</h3>
+</section><section id="weather-api" class="level3"><h3 class="anchored" data-anchor-id="weather-api">Weather API</h3>
 <p>For the weather data, I found a free API called Dark Sky. I made a function that takes as input the coordinates of a place and the API user key and returns the current weather conditions in a dataframe:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
@@ -346,9 +324,7 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(current.weather.info)</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="web-scrapping-for-tide-data" class="level3">
-<h3 class="anchored" data-anchor-id="web-scrapping-for-tide-data">Web scrapping for Tide data</h3>
+</section><section id="web-scrapping-for-tide-data" class="level3"><h3 class="anchored" data-anchor-id="web-scrapping-for-tide-data">Web scrapping for Tide data</h3>
 <p>I created a function to scrap information about the tide on a french website. The following function takes no argument and return the current water level, the tide status (going up or down) and time since the tide peak for the location I fish.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tide <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
@@ -410,10 +386,7 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-</section>
-<section id="the-shiny-application" class="level2">
-<h2 class="anchored" data-anchor-id="the-shiny-application">The shiny application</h2>
+</section></section><section id="the-shiny-application" class="level2"><h2 class="anchored" data-anchor-id="the-shiny-application">The shiny application</h2>
 <p>The main problem I encountered while developing this application was data storage. Shinyapps.io host freely your shiny application but there were some problems when I used the shiny application to modify the csv files. The solution I found was to store the data in my dropbox account, you can find <a href="https://shiny.rstudio.com/articles/persistent-data-storage.html" target="_blank">here</a> more details on the subject and alternatives solutions. I used the package <em>rdrop2</em> to access and modify the data with the shiny application.</p>
 <p>Here are the main steps of this application :</p>
 <ol type="1">
@@ -424,13 +397,10 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 </ol>
 <p>A simplified graph is showed below:</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/graph.svg" class="img-fluid figure-img"></p>
-<figcaption>Simplified workflow of the application</figcaption>
-</figure>
+<figure class="figure"><p><img src="images/graph.svg" class="img-fluid figure-img"></p>
+<figcaption>Simplified workflow of the application</figcaption></figure>
 </div>
-<section id="ui-side" class="level3">
-<h3 class="anchored" data-anchor-id="ui-side">UI side</h3>
+<section id="ui-side" class="level3"><h3 class="anchored" data-anchor-id="ui-side">UI side</h3>
 <p>The user interface of the application is built using the <em>miniUI</em> package. This package allows R user to develop shiny application adapted to small screens.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries </span></span>
@@ -493,9 +463,7 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="server-side" class="level3">
-<h3 class="anchored" data-anchor-id="server-side">Server side</h3>
+</section><section id="server-side" class="level3"><h3 class="anchored" data-anchor-id="server-side">Server side</h3>
 <p>The server side is mainly composed by observeEvent functions. The utility of each observeEvent is provided in the script as commentary.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session){</span>
@@ -660,18 +628,12 @@ gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
 <span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-</section>
-<section id="conclusion-and-future-improvments" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion-and-future-improvments">Conclusion and future improvments</h2>
+</section></section><section id="conclusion-and-future-improvments" class="level2"><h2 class="anchored" data-anchor-id="conclusion-and-future-improvments">Conclusion and future improvments</h2>
 <p>You can find a dummy example of this application (not linked to the dropbox account) <a href="https://aureliencallens.shinyapps.io/Dummy_angler_app/" target="_blank">here</a>. I have been using this application for 1 year without any problems! The data I collected will be presented in the next post.</p>
 <p>In the coming months, I must find a new free API to replace the actual one. Indeed, the weather API I am using has been bought by Apple and the free requests will be stopped in the following year.</p>
 
 
-</section>
-
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1059,44 +1021,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/AurelienCallens">
-      <i class="bi bi-github" role="img">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="../../www.linkedin.com/in/aureliencallens">
-      <i class="bi bi-linkedin" role="img">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="mailto:aurelien.callens@gmail.com">
-      <i class="bi bi-envelope-fill" role="img">
-</i> 
-    </a>
+<li class="nav-item">
+ Aurélien Callens • © 2025
   </li>  
 </ul>
-    </div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      <ul class="footer-items list-unstyled">
-    <li class="nav-item">
- Aurélien Callens • © 2024
-  </li>  
-</ul>
+       
     </div>
   </div>
 </footer>
-
-
-
-
-</body></html>
+</body>
+</html>

@@ -1,0 +1,452 @@
+---
+title: "Est-ce que R et Shiny peuvent faire de moi un meilleur pêcheur ? Partie 2"
+subtitle: "Analyse exploratoire de mes données de pêche"
+author: "Aurélien Callens"
+lang: fr
+date: "2020-09-25"
+format: 
+  html:
+    code-fold: true
+    code-tools: true
+    code-summary: "Show the code"
+execute:
+  freeze: true
+toc: true
+categories:
+  - R
+  - EDA
+---
+
+
+```{r setup, include=FALSE}
+knitr:: opts_chunk$set(warning = FALSE, message = FALSE, eval=TRUE)
+
+library(tidyverse)
+library(skimr)
+library(magrittr)
+session_data <- read_csv("./data/session.csv")[-c(1:2),]
+catch_data <- read_csv("./data/catch.csv")
+```
+
+Dans le précédent article de blog, j'ai décrit en détail comment j'ai créé une application Shiny qui stocke les données de mes sessions de pêche. Dans cet article, je vais explorer les données que j'ai collectées au cours de l'année dernière.
+
+Pour résumer, mon application stocke les données dans deux fichiers csv. Le premier contient des variables liées aux conditions de pêche au début et à la fin de la session, telles que :
+
++ Heure
++ Longitude et Latitude
++ Conditions météorologiques (9 au total : Température de l'air, Pression atmosphérique, Vitesse et direction du vent, etc.)
++ Conditions de marée (Niveau d'eau actuel, Statut de la marée et Heure depuis le pic de la marée)
++ Commentaires spécifiques
+
+Le second contient des informations sur mes prises :
+
++ Heure de la prise
++ Temps écoulé depuis le début de la session
++ Espèce
++ Longueur du poisson
++ Leurre utilisé
++ Couleur du leurre
++ Longueur du leurre
+
+## Importation et nettoyage de mes données de pêche
+
+La première étape de cette analyse consiste à importer les deux fichiers csv et à effectuer quelques transformations.
+
+
+```{r include=TRUE}
+# Change character variables to factor
+session_data %<>% 
+mutate_at(vars(Weather, Tide_status), as.factor)
+
+# Change character variables to factor
+catch_data %<>% 
+mutate_at(vars(species, lure, colour, length_lure), as.factor)
+```
+
+
+&nbsp;
+
+Après avoir nettoyé et réarrangé les données (le code est caché ci-dessous), on peut explorer graphiquement les données !
+
+```{r}
+
+# Compute mean conditions (between beg and end session) 
+
+mean_weather_cond <- session_data %>% 
+group_by(Session) %>% 
+select(-c(Long, Lat, Water_level, Tide_time)) %>% 
+summarise_if(is.numeric, mean) 
+
+
+# Extract fixed conditions and comments + join with mean cond 
+
+fixed_cond_com <- session_data %>% 
+group_by(Session) %>% 
+select(Session, Comments, Long, Lat, Weather) %>% 
+mutate(Comments_parsed = paste(na.omit(Comments), collapse = "")) %>% 
+select(-Comments) %>% 
+slice(1) %>% 
+inner_join(mean_weather_cond, by = "Session")
+
+# Create end and beg variables for WL, Time , Tide_time, Tide_status
+
+beg_end_vars <- session_data %>% 
+select(Session, Status, Water_level, Time, Tide_time, Tide_status) %>% 
+pivot_wider(names_from = Status,
+values_from = c(Time, Water_level,  Tide_time, Tide_status))
+
+
+# Assemble both file and calculate duration
+
+dat_ses <-  inner_join(beg_end_vars,
+fixed_cond_com,
+by = "Session")
+
+# Calculate duration of the sessions
+
+dat_ses %<>% 
+mutate(duration = round(difftime(Time_end,  Time_beg,  units = "hours"),
+digits = 1))
+
+catch_cond <- full_join(dat_ses,
+catch_data, by = c( "Session" = "n_ses" )) %>% 
+mutate(Session = factor(Session, levels = 1:length(dat_ses$Session)))
+
+catch_cond %<>%
+mutate(Tide_status_ses = paste0(Tide_status_beg, "_", Tide_status_end))
+
+# Simplify the Tide status variable
+
+catch_cond$Tide_status_ses <- sapply(catch_cond$Tide_status_ses , function(x){switch(x, 
+"Up_Dead" = "Up",
+"Up_Up" = "Up",
+"Up_Down" = "Dead",
+"Down_Dead" = "Down",
+"Down_Up" = "Dead",
+"Down_Down"  = "Down",
+"Dead_Dead" = "Dead",
+"Dead_Up" = "Up",
+"Dead_Down" = "Down"
+)}, USE.NAMES = F)
+
+```
+
+
+## Exploration graphique
+
+### Mes lieux de pêche  
+
+On peut visualiser les endroits où j'ai le plus pêché en utilisant le package *leaflet* :
+
+```{r}
+# Calculate the number of fish caught by session 
+fish_number <-  catch_cond  %>% na.omit() %>% group_by(Session) %>%  summarise(nb = length(Session))
+
+# Dataframe with variables we want to show on the map
+map_data <- catch_cond %>% 
+group_by(Session) %>%
+select(Session, Time_beg, Time_end, Long,
+Lat, Water_level_beg, Tide_status_beg, Tide_time_beg, duration) 
+
+map_data <- full_join(map_data, fish_number)
+
+map_data$nb[is.na(map_data$nb)] <- 0
+
+# Interactive map with Popup for each session
+library(leaflet)
+
+leaflet(map_data, width = "100%") %>% addTiles() %>%
+addPopups(lng = ~Long, lat = ~Lat, 
+with(map_data, sprintf("<b>Session %.0f : %.1f h</b> <br/> %s <br/> %.0f  fish <br/> Water level: %.0f m, %s, %.0f min since last peak",                                         Session, duration,  Time_beg, nb, Water_level_beg, Tide_status_beg, Tide_time_beg)), 
+options = popupOptions(maxWidth = 100, minWidth = 50))
+```
+
+Comme vous pouvez le voir, je pêche principalement dans la  Nive, une rivière qui traverse la ville de Bayonne.
+
+### Quel est le meilleur moment pour pêcher ? 
+
+#### Période de l'année  
+
+Le graphique suivant montre le nombre de poissons capturés en fonction de la période de l'année :
+
+
+```{r}
+catch_cond %>% 
+group_by(Session, Time_beg, .drop = F) %>% 
+na.omit() %>% 
+summarise(n_catch = n()) %>% 
+right_join(unique(catch_cond[, c("Session", "Time_beg")])) %>% 
+mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>%
+ggplot(aes(y = n_catch, x =Time_beg)) +
+geom_point( size = 2) + 
+  theme_minimal() + labs(x = "Date", y = "Number of catch") + scale_x_datetime(date_labels = "%d/%m/%y", date_breaks = "3 months") 
+
+```
+
+Avec de ce graphique, on constate que je ne suis pas allé pêcher durant l'automne et l'hiver 2019, je n'ai donc aucune donnée pour ces saisons. Et c'est bête pour moi car l'automne est réputé être une excellente période pour la pêche au bar! Je dois aller pêcher cette année pour compenser ce manque de données. En hiver, la pêche est vraiment compliquée, car la grande majorité des bars retournent vers l'océan.
+
+#### Heure de la journée  
+
+Ce graphique montre le nombre de poissons capturés en fonction de l'heure de la journée :
+
+
+```{r}
+catch_cond %>% 
+group_by(Session, Time_beg, .drop = F) %>% 
+na.omit() %>% 
+summarise(n_catch = n()) %>% 
+right_join(unique(catch_cond[, c("Session", "Time_beg")])) %>% 
+mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch ), 
+hour = format(Time_beg, "%H")) %>%
+ggplot(aes(y = n_catch, x =hour)) +
+geom_point( size = 2)  + labs(x = "Hour", y = "Number of catch")+
+theme_minimal()
+
+```
+
+Je pêche principalement après le travail ou en soirée. Pour tirer des conclusions pertinentes sur l'influence de l'heure de pêche, je dois aller pêcher à différents moments de la journée (le matin, par exemple).
+
+#### La marée  
+
+La marée est un paramètre important pour la pêche en estuaire. Voyons l'effet du courant de marée sur mes prises :
+
+
+```{r}
+library(ggpubr)
+
+gg1 <- catch_cond %>% 
+  group_by(Session, Tide_status_ses, .drop = F)  %>%  
+  drop_na() %>% 
+  summarise(n_catch = n()) %>% 
+  right_join(unique(catch_cond[, c("Session", "Tide_status_ses")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>%
+  ggplot(aes(y = n_catch, x = Tide_status_ses, fill = Tide_status_ses)) +
+  geom_boxplot() +
+  labs(x = "Status of tide current", y = "Number of catch") +
+  theme_minimal()+ theme(legend.position="None")
+
+gg2 <- catch_cond %>% 
+  na.omit() %>% 
+  ggplot(aes(y = length,x = Tide_status_ses, fill = Tide_status_ses)) +
+  geom_boxplot()+
+  labs(x = "Status of tide current", y = "Length of the fish") +
+  theme_minimal()+ theme(legend.position="None")
+
+ggarrange(gg1, gg2)
+
+```
+
+Il semble que l'état du courant de marée n'influence pas le nombre de prises, mais qu'il affecte la taille des poissons. J'ai tendance à attraper des poissons plus gros lorsque le courant descend.
+
+### La lune affecte-t-elle mes résultats de pêche ?  
+
+Une croyance largement répandue chez les pêcheurs est que la lune influence fortement le comportement des poissons. Les données sur la phase lunaire étaient disponibles grâce à l'API météo, j'ai donc décidé d'enregistrer cette variable pour vérifier si cette croyance était fondée.  
+Les deux graphiques ci-dessous montrent le nombre et la taille des poissons en fonction de la phase de la lune (0 correspondant à la nouvelle lune et 1 à la pleine lune) :
+
+
+```{r}
+gg3 <- catch_cond %>% 
+  group_by(Session, Moon, .drop = F) %>%  
+  na.omit() %>% 
+  summarise(n_catch = n()) %>% 
+  right_join(unique(catch_cond[, c("Session", "Moon")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>% 
+  ggplot(aes(y = n_catch, x = Moon)) +
+  geom_point( size = 2) +
+  labs(x = "Moon phase", y = "Number of catch")+
+  theme_minimal()
+
+gg4 <- catch_cond %>% 
+  ggplot(aes(y = length, x = Moon)) +
+  geom_point( size = 2) +
+  geom_smooth(method="lm", se=T) + 
+  labs(x = "Moon phase", y = "Length of the fish")+
+  theme_minimal()
+
+ggarrange(gg3, gg4)
+
+```
+
+La phase de la lune ne semble pas influencer le nombre de poissons que j'attrape lors d'une session. Cependant, j'ai tendance à attraper des poissons plus gros à mesure que l'on se rapproche de la pleine lune. Pour confirmer cette observation, je dois continuer à pêcher afin de collecter plus de données !
+
+### La météo influence-t-elle mes résultats de pêche ?  
+
+On peut examiner le nombre de poissons capturés dans différentes conditions météorologiques :
+
+
+```{r}
+# precipitation probability 
+
+gg5 <- catch_cond %>% 
+  group_by(Session, Preci_prob, .drop = F) %>%  
+  na.omit() %>% 
+  summarise(n_catch = n()) %>% 
+  right_join(unique(catch_cond[, c("Session", "Preci_prob")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>% 
+  ggplot(aes(y = n_catch, x = Preci_prob)) +
+  geom_point()+
+  labs(x = "Precipitation prob.", y = "Number of catch")+
+  theme_minimal()
+
+# Atm pressure 
+
+gg6 <- catch_cond %>% 
+  group_by(Session, Atm_pres, .drop = F) %>%  
+  na.omit() %>% 
+  summarise(n_catch = n()) %>% 
+  right_join(unique(catch_cond[, c("Session", "Atm_pres")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>% 
+  ggplot(aes(y = n_catch, x = Atm_pres)) +
+  geom_point() +
+  labs(x = "Atm. pressure", y = "Number of catch")+
+  theme_minimal()
+
+#Air temp
+
+gg7 <- catch_cond %>% 
+  group_by(Session, Air_temp, .drop = F) %>%  
+  na.omit() %>% 
+  summarise(n_catch = n()) %>% 
+  right_join(unique(catch_cond[, c("Session", "Air_temp")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>% 
+  ggplot(aes(y = n_catch, x = Air_temp)) +
+  geom_point() +
+  labs(x = "Air temp.", y = "Number of catch")+
+  theme_minimal()
+
+
+#Cloud cover
+
+gg8 <- catch_cond %>% 
+  group_by(Session, Cloud_cover, .drop = F) %>%  
+  na.omit() %>% 
+  summarise(n_catch = n()) %>% 
+  right_join(unique(catch_cond[, c("Session", "Cloud_cover")])) %>% 
+  mutate(n_catch = ifelse(is.na(n_catch), 0, n_catch )) %>% 
+  ggplot(aes(y = n_catch, x = Cloud_cover)) +
+  geom_point() +
+  labs(x = "Cloud cover", y = "Number of catchh")+
+  theme_minimal()
+
+ggarrange(gg5, gg6, gg7, gg8)
+
+```
+
+
+
+En fonction de leur taille:
+
+```{r}
+
+gg15 <- catch_cond %>% 
+  ggplot(aes(y = length, x = Preci_prob)) +
+  geom_point( size = 2) +
+  labs( y = "Length of the fish")+
+  theme_minimal()
+
+gg16 <- catch_cond %>% 
+  ggplot(aes(y = length, x = Atm_pres)) +
+  geom_point( size = 2) +
+  labs( y = "Length of the fish")+
+  theme_minimal()
+
+gg17 <- catch_cond %>% 
+  ggplot(aes(y = length, x = Air_temp)) +
+  geom_point( size = 2) +
+  labs( y = "Length of the fish")+
+  theme_minimal()
+
+
+gg18  <- catch_cond %>% 
+  ggplot(aes(y = length, x = Cloud_cover)) +
+  geom_point( size = 2) +
+  labs( y = "Length of the fish")+
+  theme_minimal()
+
+ggarrange(gg15, gg16, gg17, gg18)
+```
+
+Étant donné que j'ai des données limitées et que toutes les conditions météorologiques ne sont pas couvertes, il est difficile de tirer des conclusions.
+
+### Quels sont les meilleurs leurres pour attraper du poisson ?  
+
+À chaque prise, je remplis un petit formulaire dans mon application Shiny afin d'enregistrer les caractéristiques du leurre utilisé. Il existe différents types de leurres ayant des nages spécifiques, des couleurs et des tailles variées. On peut représenter le nombre de poissons capturés en fonction des caractéristiques du leurre :
+
+
+```{r}
+levels(catch_cond$colour) <- c("clear", "natural", "dark")
+levels(catch_cond$length_lure) <- c("large", "medium", "small")
+
+gg9 <- catch_cond %>% 
+  na.omit() %>% 
+  ggplot( aes(x=lure, fill = lure)) +
+  geom_bar(stat="count", width=0.7)+
+  labs(x = "Type of lure", y = "")+
+  theme_minimal()+ 
+  theme(legend.position="None")
+
+gg10 <- catch_cond %>% 
+  na.omit() %>% 
+  ggplot( aes(x=colour, fill = colour)) +
+  geom_bar(stat="count", width=0.7)+
+  labs(x = "Color of the lures", y = "")+
+  theme_minimal()+
+    scale_fill_brewer(palette="BuPu")+ 
+  theme(legend.position="None")
+
+gg11 <- catch_cond %>% 
+  na.omit() %>%
+  ggplot( aes(x=length_lure, fill = length_lure)) +
+  geom_bar(stat="count", width=0.7)+
+  labs(x = "Size of the lure", y = "")+
+    scale_fill_brewer(palette="Dark2")+
+  theme_minimal()+ theme(legend.position="None")
+
+annotate_figure(ggarrange(gg9, gg10, gg11, ncol = 3),
+                left = text_grob("Number of catch", rot = 90)
+)
+```
+
+On peut faire de même pour la longueur des poissons capturés :
+
+
+```{r}
+gg12 <-catch_cond %>% 
+  na.omit() %>% 
+  ggplot(aes(y = length, x = lure, fill=lure)) +
+  geom_boxplot()+
+  labs(x = "Type of lure", y = "")+
+  theme_minimal()+ theme(legend.position="None")
+
+gg13 <-catch_cond %>% 
+  na.omit() %>%
+  ggplot(aes(y = length, x = colour, fill= colour)) +
+  geom_boxplot()+
+  labs(x = "Color of the lures", y = "")+
+  theme_minimal()+
+    scale_fill_brewer(palette="BuPu")+ theme(legend.position="None")
+
+gg14 <-catch_cond %>% 
+  na.omit() %>%
+  ggplot(aes(y = length, x = length_lure, fill=length_lure)) +
+  geom_boxplot()+
+  labs(x = "Size of the lure", y = "")+
+  theme_minimal()+
+    scale_fill_brewer(palette="Dark2")+ theme(legend.position="None")
+
+annotate_figure(ggarrange(gg12, gg13, gg14, ncol = 3),
+                left = text_grob("Length of fish", rot = 90)
+)
+```
+
+Avec ces 6 graphiques, on peut voir que les leurres les plus efficaces pour moi sont les types shad et slug. Mention honorable jerkbait : je n'ai attrapé que 2 poissons avec, mais 2 gros (médiane autour de 47 cm). Les couleurs qui ont le mieux fonctionné sont les couleurs claires et naturelles. Pour la taille des leurres, les plus grands ont tendance à attraper des poissons plus gros en moyenne. Ces conclusions doivent être prises avec des pincettes, car je n'ai pas enregistré le temps passé avec chaque leurre avant d’attraper un poisson. De plus, j’ai tendance à utiliser les mêmes types et couleurs de leurres (par habitude), je vais me forcer à varier davantage.
+
+## Conclusion
+
+L’analyse de mes données de pêche a été très intéressante et m’a apporté des insights sur mon style de pêche ! J’ai compris que je pêchais presque toujours de la même manière, avec les mêmes habitudes. Bien que cela semble fonctionner pour moi, j’ai une vision biaisée de la façon d’attraper le bar européen. Je dois utiliser des leurres plus grands pour attraper de plus gros poissons et varier les types de leurres utilisés. En effet, je pêche la plupart du temps avec des leurres slug ou shad, d’où le plus grand nombre de prises avec ces types de leurres.
+
+Je vais continuer à utiliser l’application pour collecter plus de données et mieux comprendre mes sessions de pêche. Je vous tiendrai au courant des résultats ! :wink: 
+
+
+
+
