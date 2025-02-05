@@ -23,7 +23,6 @@ In this project, I made a shiny application to record my fishing session with th
     + [Updating my application](/posts/2021-06-01-datascience-fishing-part3/)
     + [Exploratory analysis on my fishing data (shiny and plotly)](/posts/2022-04-12-datascience-fishing-part4/)
 
-
 - **Shiny applications**
     +  <a href="https://aureliencallens.shinyapps.io/Dummy_angler_app/" target="_blank">Dummy example of the fishing application I use </a>
     + <a href="https://aureliencallens.shinyapps.io/Fishing_analysis/" target="_blank">Shiny application presenting the results of my fishing season 2021</a>

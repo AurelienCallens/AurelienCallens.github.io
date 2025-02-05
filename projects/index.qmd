@@ -1,0 +1,22 @@
+---
+title: My projects
+subtitle: |
+  Some of my (fun or serious) projects I have worked on !
+listing: 
+  type: grid
+  fields: [title, categories, date, image]
+  sort: "date desc"
+  filter-ui: false
+  image-align: left
+  image-height: 100%
+  categories: true
+format: 
+  html: 
+    page-layout: full
+search: false
+title-block-banner: false
+header-includes: >
+  <link rel="stylesheet" href="../assets/listing-default.css">
+resources:
+  - ../assets/listing-default.css
+---
