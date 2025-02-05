@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-<link rel="alternate" hreflang="en" href="https://aureliencallens.github.io/posts/2022-07-19-top-r-packages/index.html" />
-<link rel="alternate" hreflang="fr" href="https://aureliencallens.github.io/fr/posts/2022-07-19-top-r-packages/index.fr.html" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.547">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Aurelien Callens">
 <meta name="dcterms.date" content="2022-07-19">
+
 <title>Aurelien Callens - Analysis of the top R packages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,12 +57,24 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script><script src="../../site_libs/quarto-nav/headroom.min.js"></script><script src="../../site_libs/clipboard/clipboard.min.js"></script><script src="../../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../../site_libs/quarto-search/fuse.min.js"></script><script src="../../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../../">
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
 <link href="../../img/favicon.ico" rel="icon">
-<script src="../../site_libs/cookie-consent/cookie-consent.js"></script><link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../../site_libs/quarto-html/quarto.js"></script><script src="../../site_libs/quarto-html/popper.min.js"></script><script src="../../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../../site_libs/quarto-html/anchor.min.js"></script><link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script><link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -90,34 +102,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MBB7RWKF8X"></script><script type="text/plain" cookie-consent="tracking">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MBB7RWKF8X"></script>
+
+<script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
-</script><script type="text/javascript" charset="UTF-8">
-document.addEventListener('DOMContentLoaded', function () {
-cookieconsent.run({
-  "notice_banner_type":"simple",
-  "consent_type":"implied",
-  "palette":"light",
-  "language":"en",
-  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
-  "notice_banner_reject_button_hide":false,
-  "preferences_center_close_button_hide":false,
-  "website_name":""
-  ,
-"language":"en"
-  });
-});
-</script><script src="../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="../../site_libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
-<script src="../../site_libs/vis-9.1.0/vis-network.min.js"></script><script src="../../site_libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link rel="stylesheet" href="../../styles.css">
+</script>
+<script src="../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="../../site_libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="../../site_libs/vis-9.1.0/vis-network.min.js"></script>
+<script src="../../site_libs/visNetwork-binding-2.1.2/visNetwork.js"></script>
+
+
+<link rel="stylesheet" href="../../styles.css">
 </head>
+
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Aurelien Callens</span>
@@ -129,16 +138,13 @@ cookieconsent.run({
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-<li class="nav-item"><div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://aureliencallens.github.io/fr/posts/2022-07-19-top-r-packages/index.html" id="language-link-fr">French</a></li></ul>
-</div></li>
-<li class="nav-item">
-    <a class="nav-link" href="../../blog.html"> 
-<span class="menu-text">My blog</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects/index.html"> 
+<span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../myprojects.html"> 
-<span class="menu-text">My projects</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/AurelienCallens"> <i class="bi bi-github" role="img">
@@ -146,11 +152,15 @@ cookieconsent.run({
 <span class="menu-text"></span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Analysis of the top R packages</h1>
                                 <div class="quarto-categories">
@@ -185,15 +195,23 @@ cookieconsent.run({
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#how-to-find-the-most-popular-r-packages" id="toc-how-to-find-the-most-popular-r-packages" class="nav-link active" data-scroll-target="#how-to-find-the-most-popular-r-packages">How to find the most popular R packages ?</a></li>
+  <li><a href="#how-to-find-the-most-popular-r-packages" id="toc-how-to-find-the-most-popular-r-packages" class="nav-link active" data-scroll-target="#how-to-find-the-most-popular-r-packages">How to find the most popular R packages ?</a></li>
   <li><a href="#visualisation-of-the-dependencies-between-packages" id="toc-visualisation-of-the-dependencies-between-packages" class="nav-link" data-scroll-target="#visualisation-of-the-dependencies-between-packages">Visualisation of the dependencies between packages</a></li>
-  </ul></nav>
-</div>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content"><p>After a little while coding in Python every day for my work, I needed to make a break and perform some R analysis! Since the beginning of my postdoc, I haven’t followed the last trends concerning R packages. In this post, I am going to analyze some data about R packages to see what are the most downloaded packages during the past weeks. I will also visualize all the relationships between the R packages by looking at their required dependencies.</p>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>After a little while coding in Python every day for my work, I needed to make a break and perform some R analysis! Since the beginning of my postdoc, I haven’t followed the last trends concerning R packages. In this post, I am going to analyze some data about R packages to see what are the most downloaded packages during the past weeks. I will also visualize all the relationships between the R packages by looking at their required dependencies.</p>
 <p>Let’s import the packages required for this analysis:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -202,7 +220,8 @@ cookieconsent.run({
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visNetwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="how-to-find-the-most-popular-r-packages" class="level1"><h1>How to find the most popular R packages ?</h1>
+<section id="how-to-find-the-most-popular-r-packages" class="level1">
+<h1>How to find the most popular R packages ?</h1>
 <p>The first thing is to gather the data about the number of downloads for each package. Luckily for us, there is a package called <em>cranlogs</em> that does just what we need ! With a simple line of command we can collect data about the 50 packages with the most downloads in the last month, we can then plot the result:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>popular_pckg <span class="ot">&lt;-</span> <span class="fu">cran_top_downloads</span>(<span class="st">"last-month"</span>, <span class="dv">50</span>)</span>
@@ -222,13 +241,16 @@ cookieconsent.run({
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>I thought this graph will be harder to make because of the availability of the data but with the right package everything can be done !</p>
-</section><section id="visualisation-of-the-dependencies-between-packages" class="level1"><h1>Visualisation of the dependencies between packages</h1>
+</section>
+<section id="visualisation-of-the-dependencies-between-packages" class="level1">
+<h1>Visualisation of the dependencies between packages</h1>
 <p>Once I saw the above graph, I was wondering about all the dependencies between these packages and I wanted to know which one was the most “connected”. To answer this question, I need more data, especially about the required dependencies of each package. After some research, I found out that data about package (including description and dependencies) can be extracted with a function in the <em>tools</em> package:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_pkg <span class="ot">&lt;-</span> tools<span class="sc">::</span><span class="fu">CRAN_package_db</span>()[, <span class="fu">c</span>(<span class="st">'Package'</span>, <span class="st">'Imports'</span>)]</span>
@@ -310,7 +332,10 @@ cookieconsent.run({
 <p>Do not hesitate to move, zoom in or select packages to see their dependencies !</p>
 
 
-</section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -698,22 +723,44 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
-       
+      &nbsp;
     </div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
-<li class="nav-item">
- Aurélien Callens • © 2025
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/AurelienCallens">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="../../www.linkedin.com/in/aureliencallens">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="mailto:aurelien.callens@gmail.com">
+      <i class="bi bi-envelope-fill" role="img">
+</i> 
+    </a>
   </li>  
 </ul>
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
-</div>
+    </div>
     <div class="nav-footer-right">
-       
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Aurélien Callens • © 2024
+  </li>  
+</ul>
     </div>
   </div>
 </footer>
-</body>
-</html>
+
+
+
+
+</body></html>

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-<link rel="alternate" hreflang="en" href="https://aureliencallens.github.io/posts/2020-11-18-webscraping-aliexpress-rselenium/index.html" />
-<link rel="alternate" hreflang="fr" href="https://aureliencallens.github.io/fr/posts/2020-11-18-webscraping-aliexpress-rselenium/index.fr.html" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.547">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Aurelien Callens">
 <meta name="dcterms.date" content="2020-11-18">
+
 <title>Aurelien Callens - Webscraping Aliexpress with Rselenium</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,12 +57,24 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script><script src="../../site_libs/quarto-nav/headroom.min.js"></script><script src="../../site_libs/clipboard/clipboard.min.js"></script><script src="../../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../../site_libs/quarto-search/fuse.min.js"></script><script src="../../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../../">
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
 <link href="../../img/favicon.ico" rel="icon">
-<script src="../../site_libs/cookie-consent/cookie-consent.js"></script><link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../../site_libs/quarto-html/quarto.js"></script><script src="../../site_libs/quarto-html/popper.min.js"></script><script src="../../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../../site_libs/quarto-html/anchor.min.js"></script><link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script><link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -90,33 +102,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MBB7RWKF8X"></script><script type="text/plain" cookie-consent="tracking">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MBB7RWKF8X"></script>
+
+<script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
-</script><script type="text/javascript" charset="UTF-8">
-document.addEventListener('DOMContentLoaded', function () {
-cookieconsent.run({
-  "notice_banner_type":"simple",
-  "consent_type":"implied",
-  "palette":"light",
-  "language":"en",
-  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
-  "notice_banner_reject_button_hide":false,
-  "preferences_center_close_button_hide":false,
-  "website_name":""
-  ,
-"language":"en"
-  });
-});
-</script><link rel="stylesheet" href="../../styles.css">
+</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
 </head>
+
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Aurelien Callens</span>
@@ -128,16 +134,13 @@ cookieconsent.run({
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-<li class="nav-item"><div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://aureliencallens.github.io/fr/posts/2020-11-18-webscraping-aliexpress-rselenium/index.html" id="language-link-fr">French</a></li></ul>
-</div></li>
-<li class="nav-item">
-    <a class="nav-link" href="../../blog.html"> 
-<span class="menu-text">My blog</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects/index.html"> 
+<span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../myprojects.html"> 
-<span class="menu-text">My projects</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/AurelienCallens"> <i class="bi bi-github" role="img">
@@ -145,11 +148,15 @@ cookieconsent.run({
 <span class="menu-text"></span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Webscraping Aliexpress with Rselenium</h1>
                                 <div class="quarto-categories">
@@ -185,12 +192,22 @@ cookieconsent.run({
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content"><p>Today, I am going to show you how to scrape product prices from Aliexpress website.</p>
-<section id="a-few-words-on-web-scraping" class="level2"><h2 class="anchored" data-anchor-id="a-few-words-on-web-scraping">A few words on web scraping</h2>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>Today, I am going to show you how to scrape product prices from Aliexpress website.</p>
+<section id="a-few-words-on-web-scraping" class="level2">
+<h2 class="anchored" data-anchor-id="a-few-words-on-web-scraping">A few words on web scraping</h2>
 <p>Before diving into the subject, you should be aware that web scraping is not allowed on certain websites. To know if it is the case for the website you want to scrape, I invit you to check the <em>robots.txt</em> page which should be located at the root of the website address. For Aliexpress this page is located here : <a href="https://www.aliexpress.com/robots.txt" target="_blank">www.aliexpress.com/robots.txt .</a></p>
 <p>This page indicates that webscrapping and crawling are not allowed on several page categories such as <code>/bin/*</code>, <code>/search/*</code>, <code>/wholesale*</code> for example. Fortunately for us, the <code>/item/*</code> category, where the product pages are stored, can be scraped.</p>
-</section><section id="rselenium" class="level2"><h2 class="anchored" data-anchor-id="rselenium">RSelenium</h2>
-<section id="installation-for-ubuntu-18.04-lts" class="level3"><h3 class="anchored" data-anchor-id="installation-for-ubuntu-18.04-lts">Installation for Ubuntu 18.04 LTS</h3>
+</section>
+<section id="rselenium" class="level2">
+<h2 class="anchored" data-anchor-id="rselenium">RSelenium</h2>
+<section id="installation-for-ubuntu-18.04-lts" class="level3">
+<h3 class="anchored" data-anchor-id="installation-for-ubuntu-18.04-lts">Installation for Ubuntu 18.04 LTS</h3>
 <p>The installation for RSelenium was not as easy as expected and I encountered two errors.</p>
 <p>The first error I got after I installed the package and tried the function <em>Rsdriver</em> was :</p>
 <pre><code>Error in curl::curl_fetch_disk(url, x$path, handle = handle) :
@@ -200,7 +217,9 @@ Unrecognized content encoding type. libcurl understands deflate, gzip content en
 <pre><code>Error: Invalid or corrupt jarfile /home/aurelien/.local/share/binman_seleniumserver/generic/4.0.0-alpha-2/selenium-server-standalone-4.0.0-alpha-2.jar</code></pre>
 <p>This time the problem came from a corrupted file. Thanks to <a href="https://stackoverflow.com/questions/20680229/invalid-or-corrupt-jarfile-usr-local-bin-selenium-server-standalone-2-38-0-jar" target="_blank">this post</a>, I knew that I just had to download this file <em>selenium-server-standalone-4.0.0-alpha-2.jar</em> from the official <a href="https://selenium-release.storage.googleapis.com/index.html?path=4.0/" target="_blank">selenium website</a> and replace the corrupted file with it.</p>
 <p>I hope this will help some of you to install RSelenium with Ubuntu 18.04 LTS !</p>
-</section><section id="opening-a-web-browser" class="level3"><h3 class="anchored" data-anchor-id="opening-a-web-browser">Opening a web browser</h3>
+</section>
+<section id="opening-a-web-browser" class="level3">
+<h3 class="anchored" data-anchor-id="opening-a-web-browser">Opening a web browser</h3>
 <p>After addressing the errors above, I can now open a firefox browser :</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSelenium)</span>
@@ -209,7 +228,9 @@ Unrecognized content encoding type. libcurl understands deflate, gzip content en
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>rD <span class="ot">&lt;-</span> <span class="fu">rsDriver</span>(<span class="at">browser =</span> <span class="st">"firefox"</span>) </span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>remDr <span class="ot">&lt;-</span> rD[[<span class="st">"client"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="logging-in-aliexpress" class="level3"><h3 class="anchored" data-anchor-id="logging-in-aliexpress">Logging in Aliexpress</h3>
+</section>
+<section id="logging-in-aliexpress" class="level3">
+<h3 class="anchored" data-anchor-id="logging-in-aliexpress">Logging in Aliexpress</h3>
 <p>The first step to scrape product prices on Aliexpress is to log in into your account:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>log_id <span class="ot">&lt;-</span> <span class="st">"Your_mail_adress"</span></span>
@@ -227,7 +248,9 @@ Unrecognized content encoding type. libcurl understands deflate, gzip content en
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Submit the login form by clicking Submit button</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">findElement</span>(<span class="st">"class"</span>, <span class="st">"fm-button"</span>)<span class="sc">$</span><span class="fu">clickElement</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="navigating-through-the-urls-and-scraping-the-prices" class="level3"><h3 class="anchored" data-anchor-id="navigating-through-the-urls-and-scraping-the-prices">Navigating through the URLs and scraping the prices</h3>
+</section>
+<section id="navigating-through-the-urls-and-scraping-the-prices" class="level3">
+<h3 class="anchored" data-anchor-id="navigating-through-the-urls-and-scraping-the-prices">Navigating through the URLs and scraping the prices</h3>
 <p>Now we have to navigate through a vector containing the URL of the aliexpress products we are interested in. Then we extract the price of the product by using the xpath of the product price of the webpage. The xpath of the element you want to scrape can be found by using the developer tool of chrome or firefox ( <a href="https://www.scrapingbee.com/blog/practical-xpath-for-web-scraping/">tutorial here !</a> ). Once the price is extracted we have to ensure this price is in numerical format by removing any special character (euro or dollar sign) and replace the comma by a point for the decimal separator. Here is the R code:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>  url_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"https://fr.aliexpress.com/store/product/Maxcatch-6Pcs-lot-Craws-Soft-Fishing-Lures-110mm-11-5g-Artificial-Bait-Soft-Bait-Craws-Lures/406467_32419930548.html?spm=a2g0w.12010612.0.0.5deb64f7836LnZ"</span>,</span>
@@ -269,7 +292,9 @@ Unrecognized content encoding type. libcurl understands deflate, gzip content en
 <span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Between each link it is advised to wait a few seconds with <em>Sys.sleep(4)</em> to avoid being black-listed by the website.</p>
-</section><section id="phantomjs-version" class="level3"><h3 class="anchored" data-anchor-id="phantomjs-version">Phantomjs version</h3>
+</section>
+<section id="phantomjs-version" class="level3">
+<h3 class="anchored" data-anchor-id="phantomjs-version">Phantomjs version</h3>
 <p>If you execute the code above, you should see a firefox browser open and navigate through the list you provided. In case you don’t want an active window, you can replace firefox by phantomjs browser which is a headless browser (without a window).</p>
 <p>I don’t know why but using <code>rsDriver(browser = "phantomjs")</code> does not work for me. I found <a href="https://cbelanger.netlify.app/post/web-scraping-in-r-selenium-firefox-and-phantomjs/" target="_blank">this post</a> which propose to start the phantomjs browser with the wdman package:</p>
 <div class="cell">
@@ -295,11 +320,17 @@ Unrecognized content encoding type. libcurl understands deflate, gzip content en
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Don't forget to close the browser when you are finished ! </span></span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>remDr<span class="sc">$</span><span class="fu">close</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="conclusion" class="level3"><h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
 <p>Once you have understand the basics of RSelenium and how to select elements inside HTML pages, it is really easy to write a script to scrape data on the web. This post was a short example to scrape the product price on Aliexpress pages but the script can be extended to scrape more data on each page such as the name of the item, its rating etc… It is even possible to automate this script to run daily in order to see price changes over time. As you see possibilities are endless!</p>
 
 
-</section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -687,22 +718,44 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
-       
+      &nbsp;
     </div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
-<li class="nav-item">
- Aurélien Callens • © 2025
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/AurelienCallens">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="../../www.linkedin.com/in/aureliencallens">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="mailto:aurelien.callens@gmail.com">
+      <i class="bi bi-envelope-fill" role="img">
+</i> 
+    </a>
   </li>  
 </ul>
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
-</div>
+    </div>
     <div class="nav-footer-right">
-       
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Aurélien Callens • © 2024
+  </li>  
+</ul>
     </div>
   </div>
 </footer>
-</body>
-</html>
+
+
+
+
+</body></html>

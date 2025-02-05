@@ -5,14 +5,28 @@ project:
 website:
   title: "Aurelien Callens"
   site-url: https://aureliencallens.github.io/
-  cookie-consent: true
   google-analytics: "G-MBB7RWKF8X"
-  favicon: img/favicon.ico
+  navbar:
+    right:
+      - text: "Projects"
+        href: projects/index.qmd
+      - text: "About"
+        file: about.qmd
+      - icon: github
+        href: https://github.com/AurelienCallens
   back-to-top-navigation: true
   page-footer:
+    right:  
+      - Aurélien Callens • © 2024 
     center:
-      - Aurélien Callens • © 2025
-
+      - icon: github
+        href: https://github.com/AurelienCallens
+      - icon: linkedin
+        href: www.linkedin.com/in/aureliencallens
+      - icon: envelope-fill
+        href: "mailto:aurelien.callens@gmail.com"
+      
+  favicon: img/favicon.ico
 format:
   html:
     theme: 
@@ -21,16 +35,5 @@ format:
     css: styles.css
 
 
-babelquarto:
-  languagelinks: navbar
-  languagecodes:
-  - name: fr
-    text: "French"
-  - name: en
-    text: "Anglais"
-  mainlanguage: 'en'
-  languages: ['fr']
-title-fr: Aurélien Callens
-description-fr: 
-author-fr: Aurélien Callens
-lang: en
+
+

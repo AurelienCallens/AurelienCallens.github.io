@@ -1,6 +1,15 @@
 [
   {
-    "listing": "/blog.html",
+    "listing": "/projects/index.html",
+    "items": [
+      "/projects/2022-04-01-my-fishing-application/index.html",
+      "/projects/2021-10-01-statistical-learning-coastal-risks/index.html",
+      "/projects/2018-09-01-robust-regression-time-series/index.html",
+      "/projects/2017-07-01-analyzing-environmental-data-micropollutants/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
     "items": [
       "/posts/2024-12-17-rainfall-interpolation-deep-learning/index.html",
       "/posts/2024-09-19-exploring-value-remote-sensing-agriculture/index.html",
@@ -10,18 +19,10 @@
       "/posts/2022-04-12-datascience-fishing-part4/index.html",
       "/posts/2021-10-02-the-end-of-a-journey/index.html",
       "/posts/2021-06-01-datascience-fishing-part3/index.html",
+      "/posts/2021-03-03-coastal-risks-google-trends-r/index.html",
       "/posts/2020-11-18-webscraping-aliexpress-rselenium/index.html",
       "/posts/2020-09-25-datascience-fishing-part2/index.html",
       "/posts/2020-09-12-datascience-fishing-part1/index.html"
-    ]
-  },
-  {
-    "listing": "/myprojects.html",
-    "items": [
-      "/projects/2022-04-01-my-fishing-application/index.html",
-      "/projects/2021-10-01-statistical-learning-coastal-risks/index.html",
-      "/projects/2018-09-01-robust-regression-time-series/index.html",
-      "/projects/2017-07-01-analyzing-environmental-data-micropollutants/index.html"
     ]
   }
 ]

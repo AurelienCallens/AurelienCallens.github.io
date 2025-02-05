@@ -2,7 +2,6 @@
 title: "Exploring the Value of Remote Sensing in Agriculture"
 author: "Aurelien Callens"
 date: "2024-09-19"
-lang: en
 toc: true
 execute:
   freeze: true
@@ -32,3 +31,5 @@ Enter remote sensing—weather radars and satellites provide spatially continuou
 In this post, I compare radar data with traditional weather station measurements to see how well it aligns with agricultural needs.
 
 Curious about how radar can enhance weather-based decision-making in farming? Read the full article here: [Exploring the Value of Remote Sensing in Agriculture: Making Sense of Radar Data](https://medium.com/science-engineering-at-sencrop/exploring-the-value-of-remote-sensing-in-agriculture-making-sense-of-radar-data-63a46fa97901)
+
+See you !
