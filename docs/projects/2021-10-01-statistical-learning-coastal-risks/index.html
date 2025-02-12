@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-<link rel="alternate" hreflang="en" href="https://aureliencallens.github.io/projects/2021-10-01-statistical-learning-coastal-risks/index.html" />
-<link rel="alternate" hreflang="fr" href="https://aureliencallens.github.io/fr/projects/2021-10-01-statistical-learning-coastal-risks/index.fr.html" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.547">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Aurélien Callens">
 <meta name="dcterms.date" content="2021-10-01">
+
 <title>Aurelien Callens - Statistical learning for coastal risks assessment</title>
 <style>
 code{white-space: pre-wrap;}
@@ -23,12 +23,26 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 </style>
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script><script src="../../site_libs/quarto-nav/headroom.min.js"></script><script src="../../site_libs/clipboard/clipboard.min.js"></script><script src="../../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../../site_libs/quarto-search/fuse.min.js"></script><script src="../../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../../">
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
 <link href="../../img/favicon.ico" rel="icon">
-<script src="../../site_libs/cookie-consent/cookie-consent.js"></script><link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../../site_libs/quarto-html/quarto.js"></script><script src="../../site_libs/quarto-html/popper.min.js"></script><script src="../../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../../site_libs/quarto-html/anchor.min.js"></script><link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script><link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -56,13 +70,18 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MBB7RWKF8X"></script><script type="text/plain" cookie-consent="tracking">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MBB7RWKF8X"></script>
+
+<script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
-</script><script type="text/javascript" charset="UTF-8">
+</script>
+
+<script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -77,12 +96,19 @@ cookieconsent.run({
 "language":"en"
   });
 });
-</script><link rel="stylesheet" href="../../styles.css">
+</script> 
+  
+
+
+<link rel="stylesheet" href="../../styles.css">
 </head>
+
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Aurelien Callens</span>
@@ -94,16 +120,30 @@ cookieconsent.run({
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-<li class="nav-item"><div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://aureliencallens.github.io/fr/projects/2021-10-01-statistical-learning-coastal-risks/index.html" id="language-link-fr">French</a></li></ul>
-</div></li>
-<li class="nav-item">
-    <a class="nav-link" href="../../blog.html"> 
-<span class="menu-text">My blog</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-globe" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-globe" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-globe">    
+        <li>
+    <a class="dropdown-item" href="../../../en/index.html">
+ <span class="dropdown-text">English</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../index.html">
+ <span class="dropdown-text">French</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.fr.html"> 
+<span class="menu-text">Mon blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../myprojects.html"> 
-<span class="menu-text">My projects</span></a>
+    <a class="nav-link" href="../../myprojects.fr.html"> 
+<span class="menu-text">Mes projets</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/AurelienCallens"> <i class="bi bi-github" role="img">
@@ -111,11 +151,15 @@ cookieconsent.run({
 <span class="menu-text"></span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default page-columns"><div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);">
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns">
+<div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);">
 <h1 class="title">Statistical learning for coastal risks assessment</h1>
 <p class="subtitle lead">PhD Thesis</p>
     <div class="quarto-categories">
@@ -157,44 +201,55 @@ cookieconsent.run({
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content"><!-- source: https://github.com/gadenbuie/garrickadenbuie-com/blob/main/_partials/title-block-link-buttons/title-block.html --><!-- 
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+<!-- source: https://github.com/gadenbuie/garrickadenbuie-com/blob/main/_partials/title-block-link-buttons/title-block.html -->
+<!-- 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title"> 
---><!-- <header id="title-block-header" class="quarto-title-block default page-columns"> --><!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> --><section id="summary" class="level2"><h2 class="anchored" data-anchor-id="summary">Summary</h2>
+-->
+<!-- <header id="title-block-header" class="quarto-title-block default page-columns"> -->
+<!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> -->
+
+
+
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <p>The objective of my work was to demonstrate how statistical learning methods can contribute to the improvement of coastal risk assessment tools and to the development of an early warning system which aims to reduce coastal flooding risk. I worked on 4 subjects:</p>
 <ul>
 <li>Clustering on weather patterns</li>
 <li>Machine learning method to correct wave forecast</li>
 <li>Deep learning to make a wave impact database from wave monitoring images</li>
 <li>Bayesian network to improve decision making for coastal risks</li>
-</ul></section><section id="productions" class="level2"><h2 class="anchored" data-anchor-id="productions">Productions</h2>
+</ul>
+</section>
+<section id="productions" class="level2">
+<h2 class="anchored" data-anchor-id="productions">Productions</h2>
 <ul>
-<li>
-<strong>My PhD thesis</strong>:
+<li><strong>My PhD thesis</strong>:
 <ul>
 <li><a href="http://www.theses.fr/2021PAUU3016" target="_blank"> Statistical learning for coastal risks assessment</a></li>
-</ul>
-</li>
-<li>
-<strong>Presentation</strong>:
+</ul></li>
+<li><strong>Presentation</strong>:
 <ul>
 <li><a href="../../doc/Presentation_thesis_Callens_Aurelien.pdf">Presentation for my thesis defense</a></li>
-</ul>
-</li>
-<li>
-<strong>Two published papers in reviewed journals</strong>:
+</ul></li>
+<li><strong>Two published papers in reviewed journals</strong>:
 <ul>
 <li>Callens, A., Morichon, D., Liria, P., Epelde, I., &amp; Liquet, B. (2021). Automatic Creation of Storm Impact Database Based on Video Monitoring and Convolutional Neural Networks. Remote Sensing, 13(10), 1933, (<a href="https://doi.org/10.3390/rs13101933" target="_blank">10.3390/rs13101933</a>).</li>
 <li>Callens, A., Morichon, D., Abadie, S., Delpey, M., Liquet, B. (2020). Using Random forest and Gradient boosting trees to improve wave forecast at a specific location. Applied Ocean Research, 104, (<a href="https://doi.org/10.1016/j.apor.2020.102339" target="_blank">10.1016/j.apor.2020.102339</a>).</li>
-</ul>
-</li>
-<li>
-<strong>Blog post</strong>:
+</ul></li>
+<li><strong>Blog post</strong>:
 <ul>
 <li><a href="../../posts/2021-10-02-the-end-of-a-journey/">The end of my PhD journey</a></li>
+</ul></li>
 </ul>
-</li>
-</ul></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -582,22 +637,25 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
-       
+      &nbsp;
     </div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
-<li class="nav-item">
+    <li class="nav-item">
  Aurélien Callens • © 2025
   </li>  
 </ul>
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
-</div>
+    <div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
-       
+      &nbsp;
     </div>
   </div>
 </footer>
-</body>
-</html>
+
+
+
+
+</body></html>

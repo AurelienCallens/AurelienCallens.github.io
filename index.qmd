@@ -1,5 +1,6 @@
 ---
 title: "Aurélien Callens"
+subtitle: "Geospatial & Environmental Data Scientist"
 image: img/profile.jpg
 about:
   template: jolla
@@ -16,8 +17,49 @@ about:
       href: "mailto:aurelien.callens@gmail.com"
 ---
 
+::: {.content-visible when-profile="en"}
 
-My name is Aurélien Callens, and I'm passionate about data science, coding… and fishing! After completing a PhD in applied mathematics focused on coastal risk modeling, I continued my journey in an AgTech startup, leading R&D projects in geospatial data fusion and deep learning for meteorology.
+::: { style="text-align: justify"}
 
-As a freelance Data Scientist, I leverage my expertise in data analysis, Machine Learning, and Deep Learning to help businesses unlock the full potential of their data. Whether working with environmental, geospatial, or industrial data, I support my clients from research to industrialization, transforming data into impactful and innovative solutions.
+Welcome! I’m **Aurélien Callens**, a Data Scientist specialized in environmental and geospatial data. Passionate about data science, development, and nature, I enjoy exploring new fields and combining different approaches to solve complex problems using data.
+
+After completing a PhD in applied mathematics on coastal risk modeling, I led several R&D projects, ranging from computer vision for depth prediction on beaches to the fusion of multi-source precipitation data in the meteorology and AgTech sectors. Today, as a freelancer, I assist my clients in solving their data-related challenges.
+
+**My services:**
+
+- Analysis and modeling of environmental & geospatial data  
+- Development of machine learning & deep learning algorithms  
+- Fusion and enhancement of multi-source data  
+- Industrialization and deployment of models  
+
+**My goal?** To transform your data into **concrete and impactful solutions** for your business!
+
+Do you have a project related to **geospatial or environmental data**? [✉️ Contact me!](mailto:aurelien.callens@gmail.com)
+
+:::
+:::
+
+
+::: {.content-visible when-profile="fr"}
+
+::: { style="text-align: justify"}
+
+Bienvenue ! Je suis **Aurélien Callens**, Data Scientist spécialisé en données environnementales et géospatiales. Passionné par la data science, le développement et la nature, j’aime explorer de nouveaux domaines et croiser différentes approches pour résoudre des problèmes complexes grâce aux données.
+
+Après avoir soutenu une thèse en mathématiques appliquées sur la modélisation des risques côtiers, j’ai dirigé plusieurs projets de R&D, allant de la vision par ordinateur pour la prédiction de profondeur sur les plages à la fusion de données de précipitations multi-sources dans les secteurs de la météorologie et de l'AgTech. Aujourd'hui, en tant que freelance, j'accompagne mes clients dans la résolution de leurs défis liés aux données.
+
+**Mes services :**
+
+- Analyse et modélisation de données environnementales & géospatiales  
+- Développement d’algorithmes de machine learning & deep learning  
+- Fusion et valorisation de données multi-sources  
+- Industrialisation et mise en production de modèles  
+
+**Mon objectif ?** Transformer vos données en **solutions concrètes et impactantes** pour votre activité!  
+
+Vous avez un projet autour des **données géospatiales ou environnementales** ?  [✉️ Contactez moi ! ](mailto:aurelien.callens@gmail.com)
+
+:::
+:::
+
 

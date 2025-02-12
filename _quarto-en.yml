@@ -1,8 +1,16 @@
+project:
+  output-dir: docs/en
 website:
     navbar:
       background: primary
       right:
-        - href: blog.qmd 
+        - icon: globe 
+          menu:
+            - text: "English"
+              href: ../en/index.html
+            - text: "French"
+              href: ../index.html
+        - href: blog.qmd
         - href: myprojects.qmd
         - icon: github
           href: https://github.com/AurelienCallens

@@ -16,19 +16,19 @@ categories:
   - Deep learning
 ---
 
-Encore une fois, j'ai publié un nouvel article sur Medium ! Cette fois, j'explore un défi passionnant en agriculture et en météorologie : Pouvons-nous atteindre la précision des pluviomètres tout en bénéficiant de la large couverture du télédétection ? 🌧📡
+Une fois de plus, j'ai publié un nouvel article sur Medium ! Dans cet article, j'explore un défi passionnant en agriculture et en météorologie : Peut-on atteindre la précision des pluviomètres tout en bénéficiant de la large couverture du télédétection ? 🌧📡
 
 ### Pourquoi les données spatiales sur les précipitations sont-elles importantes ?
 
-Les précipitations influencent tout, de la planification de l'irrigation à la gestion de la santé des cultures. Alors que les pluviomètres traditionnels fournissent des mesures locales très précises, ils ne captent pas les modèles de précipitations sur de plus grandes régions, créant ainsi des zones aveugles pour la prise de décision. Les radars météorologiques et les satellites aident à combler ces lacunes, mais leurs estimations des précipitations au niveau du sol manquent de précision.
+Sans surprise, les précipitations influencent tout dans l'agriculture, de la planification de l'irrigation à la gestion de la santé des cultures. Alors que les pluviomètres traditionnels fournissent des mesures locales très précises, ils ne captent pas les "schémas" (pattern) de précipitations sur de plus grandes régions. Cela crée des zones aveugles pour la prise de décision. Les méthodes de télédetection comme le radar météorologique et les satellites aident à combler ces lacunes, mais leurs estimations des précipitations au niveau du sol sont beaucoup moins précise qu'une mesure directe.
 
 ### Le défi et l'approche
 
-Chez Sencrop, nous relevons ce défi avec l'apprentissage profond. Dans cet article, je présente une méthodologie innovante appelée densification, qui fusionne :
-- Des observations de précipitations rares mais précises provenant de notre réseau de stations météorologiques
-- Des estimations de précipitations denses mais moins précises provenant des radars et des satellites
+Chez Sencrop, on a relevé ce défi en développant une méthode basée sur l'apprentissage profond. Dans cet article, je présente une méthodologie innovante appelée densification, qui fusionne :
+- Des observations de précipitations (précises mais localisées) provenant de notre réseau de stations météorologiques
+- Des estimations de précipitations (large couverture spatiale mais moins précises) provenant des radars et des satellites
 
 L'objectif ? Fournir des données de précipitations à haute résolution (1 km²) partout en Europe, avec une précision égale ou supérieure à celle de notre réseau de stations.
 
-Curieux de voir comment nous rendons cela possible ? Découvrez l'article complet ici : [Rainfall with a Precision of 1km²—A Myth Becoming Reality?](https://medium.com/science-engineering-at-sencrop/rainfall-with-a-precision-of-1km%C2%B2-a-myth-becoming-reality-ee97f440c148)
+Curieux de voir comment on a rendu ça possible ? Découvre l'article complet ici : [Rainfall with a Precision of 1km²—A Myth Becoming Reality?](https://medium.com/science-engineering-at-sencrop/rainfall-with-a-precision-of-1km%C2%B2-a-myth-becoming-reality-ee97f440c148)
 

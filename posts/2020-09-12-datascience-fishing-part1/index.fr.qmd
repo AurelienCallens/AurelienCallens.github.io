@@ -25,7 +25,7 @@ knitr:: opts_knit$set(root.dir = normalizePath(".."))
 knitr:: opts_chunk$set(warning = FALSE, message = FALSE, include = T, eval = F)
 ```
 
-Mon passe-temps favori, en plus de R bien sûr, est la pêche. La plupart du temps, je pêche le bar (*Dicentrarchus labrax*) dans les estuaires. Le bar est un poisson prédateur qui a un large éventail de proies : crabes, lançons, crevettes, gambas et autres poissons. Pour capturer ces prédateurs, je n'utilise pas d'appâts vivants, je préfère utiliser des leurres artificiels qui imitent une proie spécifique.  
+Mon passe-temps favori, en plus de R bien sûr, est la pêche. La plupart du temps, je pêche le bar (*Dicentrarchus labrax*) dans les estuaires. Le bar est un prédateur qui a un large éventail de proies : crabes, lançons, crevettes, gambas et autres poissons. Pour pêcher le bar, je n'utilise pas d'appâts vivants, je préfère utiliser des leurres artificiels qui imitent une proie spécifique.  
 
 En théorie, attraper un poisson est assez simple :  
 
@@ -35,7 +35,7 @@ En théorie, attraper un poisson est assez simple :
 
   3. Attraper un très gros poisson !  
 
-En pratique, c'est une autre histoire ! En effet, l'activité alimentaire, la position du bar européen dans l'estuaire et ses proies varient en fonction de plusieurs paramètres :  
+En pratique, c'est une autre histoire ! En effet, l'activité alimentaire, la position du bar dans l'estuaire et ses proies varient en fonction de plusieurs paramètres :  
 
   * Les caractéristiques du fond du fleuve, qui dépendent de l'endroit où je pêche.  
   * L'heure de la journée : le bar est plus actif à l'aube et au crépuscule.  

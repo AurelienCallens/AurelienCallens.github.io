@@ -4,6 +4,7 @@ subtitle: "Stage de Master"
 author: "Aurélien Callens"
 date: "2017-07-01"
 image: featured.png
+lang: fr
 categories:
   - Research
   - R

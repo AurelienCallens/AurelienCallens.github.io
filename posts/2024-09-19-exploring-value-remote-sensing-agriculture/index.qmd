@@ -19,11 +19,11 @@ categories:
   - EDA
 ---
 
-I just published a new article on Medium exploring the role of remote sensing in agriculture, specifically how radar data can help estimate precipitation more effectively ! 📡🌾🌧
+I just published a new article on Medium exploring the role of remote sensing in agriculture, specifically how radar data can help estimate precipitation more effectively ! 📡
 
 Knowing exactly how much rain has fallen on a field is critical for farmers. It impacts decisions on irrigation, disease prevention, and overall crop health. Traditionally, rain gauges have been the gold standard for measuring precipitation, but their reach is limited to where they are physically installed.
 
-Enter remote sensing—weather radars and satellites provide spatially continuous precipitation estimates, offering a broader perspective that ground stations alone cannot match. But how reliable are they for agriculture-specific applications? At Sencrop, we’re investigating whether radar data can:
+With remote sensing methods such weather radars and satellites, we can have spatially continuous precipitation estimates, offering a broader perspective that ground stations alone cannot match. But how reliable are they for agriculture-specific applications? At Sencrop, we’re investigating whether radar data can:
 
 - Complement our network of weather stations, especially in less dense areas
 - Improve the quality of precipitation data through gap filling and anomaly detection

@@ -1,6 +1,5 @@
 project:
   type: website
-  output-dir: docs
 
 website:
   title: "Aurelien Callens"
@@ -20,17 +19,7 @@ format:
     - assets/theme.scss
     css: styles.css
 
-
-babelquarto:
-  languagelinks: navbar
-  languagecodes:
-  - name: fr
-    text: "French"
-  - name: en
-    text: "Anglais"
-  mainlanguage: 'en'
-  languages: ['fr']
-title-fr: Aurélien Callens
-description-fr: 
-author-fr: Aurélien Callens
-lang: en
+profile:
+  default: fr
+  group: 
+    - [en, fr]

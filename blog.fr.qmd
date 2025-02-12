@@ -10,9 +10,6 @@ listing:
   categories: true
   sort-ui: true
   filter-ui: true
-  feed: 
-    categories: 
-        - R
 page-layout: full
 title-block-banner: false
 ---
