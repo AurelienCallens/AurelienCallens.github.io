@@ -4,6 +4,7 @@ subtitle: "PhD Thesis"
 author: "Aurélien Callens"
 date: "2021-10-01"
 image: featured.png
+lang : en
 categories:
   - Research
   - R

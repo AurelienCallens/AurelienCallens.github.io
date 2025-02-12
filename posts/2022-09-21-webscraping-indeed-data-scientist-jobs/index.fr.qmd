@@ -17,7 +17,7 @@ categories:
   - NLP
 ---
 
-Il y a quelques semaines, j'ai commencé à chercher un poste de data scientist dans l'industrie. Mes premiers gestes ont été :
+Il y a quelques semaines, j'ai commencé à chercher un poste de data scientist dans l'industrie. Mes premières actions ont été de :
 
 +  Regarder les offres d'emploi sur des sites comme Indeed
 +  Mettre à jour mon CV
@@ -83,7 +83,7 @@ source('scraping_functions.R')
 
 Au début de ce projet, j'utilisais `read_html()` de **rvest** pour accéder et télécharger la page web d'Indeed. Cependant, les pages Indeed sont protégées par un logiciel anti-scraping qui bloquait toutes mes demandes, même si le scraping n'est pas interdit sur les pages qui m'intéressent (j'ai vérifié la page *robots.txt*).
 
-C'est pourquoi j'ai décidé d'accéder aux pages avec **Rselenium** qui permet d'exécuter un navigateur sans tête. On commence par naviguer vers la page correspondant aux résultats de recherche des offres de Data Scientist en France :
+C'est pourquoi j'ai décidé d'accéder aux pages avec **Rselenium** qui permet d'exécuter un navigateur sans tête ("headless"). On commence par naviguer vers la page correspondant aux résultats de recherche des offres de Data Scientist en France :
 
 
 ```{r, eval=F, echo=T}

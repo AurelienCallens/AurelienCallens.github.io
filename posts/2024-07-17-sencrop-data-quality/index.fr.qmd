@@ -16,9 +16,9 @@ categories:
   - Anomaly detection
 ---
 
-Ça fait longtemps qu'on ne s'est pas vus ! J'ai été assez occupé sur mon nouveau poste, mais je reviens avec un nouvel article sur Medium. 🚀
+Ça fait longtemps qu'on ne s'était pas vus. J'ai été assez occupé sur mon nouveau poste, mais je reviens avec un nouvel article sur Medium! 🚀
 
-Lorsque l'on travaille avec des données météorologiques, assurer la qualité des données n'est pas juste un "plus" — c'est une nécessité. Les prévisions météorologiques, les outils d'aide à la décision et les analyses climatiques reposent sur des mesures précises. Mais que se passe-t-il lorsqu'un capteur tombe en panne, qu'une station est installée de manière incorrecte, ou — croyez-le ou non — qu'un oiseau décide de nidifier dans un collecteur de pluie ? 🐦
+Lorsque l'on travaille avec des données météorologiques, s'assurer  dela qualité des données n'est pas juste un "plus" — c'est une nécessité. Les prévisions météorologiques, les outils d'aide à la décision et les analyses climatiques reposent sur des mesures précises. Mais que se passe-t-il lorsqu'un capteur tombe en panne, qu'une station est installée de manière incorrecte, ou qu'un oiseau décide de nidifier dans un collecteur de pluie ? 🐦
 
 Chez Sencrop, le réseau de stations météorologiques alimente une variété de processus en aval, des agrégations simples aux outils complexes d'aide à la décision en agriculture. Sans une détection robuste des anomalies, ces processus pourraient être perturbés par des mesures erronées, entraînant des insights inexactes.
 
@@ -26,7 +26,7 @@ Dans cet article, j'explore :
 
 - Pourquoi le contrôle de la qualité des données est crucial en météorologie
 - Les méthodes classiques de contrôle de la qualité des données et pourquoi elles ne sont pas adaptées à notre cas
-- Comment nous mettons en œuvre une détection des anomalies innovante pour maintenir la fiabilité de nos données
+- Comment on a mis en œuvre une détection des anomalies innovante pour maintenir la fiabilité de nos données
 
-Si vous êtes curieux de savoir comment garder vos données propres et significatives, lisez l'article complet ici : 
+L'article complet est ici : 
 [Sencrop’s data quality control: Beyond the Z-score](https://medium.com/science-engineering-at-sencrop/sencrops-data-quality-control-beyond-the-z-score-67f59397a359)

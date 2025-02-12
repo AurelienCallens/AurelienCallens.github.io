@@ -4,6 +4,7 @@ subtitle: "Comment utiliser R pour attraper plus de poissons (ou pas)"
 author: "Aurélien Callens"
 date: "2022-04-01"
 image: featured.jpg
+lang: fr
 categories:
   - R
   - Shiny

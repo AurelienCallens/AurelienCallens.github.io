@@ -19,16 +19,16 @@ categories:
   - EDA
 ---
 
-Je viens de publier un nouvel article sur Medium explorant le rôle du télédétection en agriculture, spécifiquement comment les données radar peuvent aider à estimer les précipitations plus efficacement ! 📡🌾🌧
+Je viens de publier un nouvel article sur Medium ! Cette fois j'explore le rôle du télédétection en agriculture et plus spécifiquement comment les données radar peuvent aider à estimer les précipitations plus efficacement ! 📡
 
-Savoir exactement combien de pluie est tombée sur un champ est crucial pour les agriculteurs. Cela influence les décisions d'irrigation, de prévention des maladies et de gestion de la santé des cultures. Traditionnellement, les pluviomètres ont été la référence pour mesurer les précipitations, mais leur portée est limitée à l'endroit où ils sont physiquement installés.
+Savoir exactement combien de pluie est tombée sur un champ est crucial pour les agriculteurs. Cela influence les décisions concernant l'irrigation, les actions de prévention des maladies et de gestion de la santé des cultures. Traditionnellement, les pluviomètres ont été la référence pour mesurer les précipitations, mais leur portée est limitée à l'endroit où ils sont physiquement installés.
 
-Voici le télédétection — les radars météorologiques et les satellites fournissent des estimations de précipitations continuellement dans l'espace, offrant une perspective plus large que ce que les stations au sol seules peuvent offrir. Mais dans quelle mesure sont-elles fiables pour les applications agricoles spécifiques ? Chez Sencrop, nous étudions si les données radar peuvent :
+Grâce aux méthodes de télédétection, telles que le radar météo ou les satellites, on peut obtenir des estimations de précipitations sur de vastes étendu, offrant une perspective plus large que ce que les pluviomètres peuvent fournir. Mais quelle est leur fiabilité pour les applications agricoles ? Chez Sencrop, on a enquêté pour savoir si les données radar peuvent :
 
 - Compléter notre réseau de stations météorologiques, surtout dans les zones moins denses
-- Améliorer la qualité des données de précipitations par remplissage des lacunes et détection d'anomalies
-- Répondre à la précision requise pour les estimations horaires des précipitations, essentielles pour l'irrigation et la prévision des maladies
+- Améliorer la qualité des données de précipitations par remplissage des trous de données et détection d'anomalies
+- Être utilisable pour l'irrigation et la prévision des maladies
 
-Dans cet article, je compare les données radar avec les mesures traditionnelles des stations météorologiques pour voir dans quelle mesure elles répondent aux besoins agricoles.
+Dans cet article, je compare les données radar avec les observations des pluviomètres pour voir dans quelle mesure elles répondent aux besoins agricoles.
 
-Curieux de savoir comment le radar peut améliorer la prise de décision basée sur la météo en agriculture ? Lisez l'article complet ici : [Exploring the Value of Remote Sensing in Agriculture: Making Sense of Radar Data](https://medium.com/science-engineering-at-sencrop/exploring-the-value-of-remote-sensing-in-agriculture-making-sense-of-radar-data-63a46fa97901)
+L'article complet est ici : [Exploring the Value of Remote Sensing in Agriculture: Making Sense of Radar Data](https://medium.com/science-engineering-at-sencrop/exploring-the-value-of-remote-sensing-in-agriculture-making-sense-of-radar-data-63a46fa97901)

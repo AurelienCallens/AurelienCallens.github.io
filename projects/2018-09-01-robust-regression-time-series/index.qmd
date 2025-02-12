@@ -4,6 +4,7 @@ subtitle: "Final year master's degree Internship"
 author: "Aurélien Callens"
 date: "2018-09-01"
 image: featured.png
+lang : en
 categories:
   - Research
   - R
