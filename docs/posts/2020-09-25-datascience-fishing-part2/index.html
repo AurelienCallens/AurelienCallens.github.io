@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-<link rel="alternate" hreflang="en" href="https://aureliencallens.github.io/posts/2020-09-25-datascience-fishing-part2/index.html" />
-<link rel="alternate" hreflang="fr" href="https://aureliencallens.github.io/fr/posts/2020-09-25-datascience-fishing-part2/index.fr.html" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.547">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Aurélien Callens">
 <meta name="dcterms.date" content="2020-09-25">
+
 <title>Aurelien Callens - Can R and Shiny make me a better fisherman? Part 2</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,12 +57,26 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script><script src="../../site_libs/quarto-nav/headroom.min.js"></script><script src="../../site_libs/clipboard/clipboard.min.js"></script><script src="../../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../../site_libs/quarto-search/fuse.min.js"></script><script src="../../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../../">
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
 <link href="../../img/favicon.ico" rel="icon">
-<script src="../../site_libs/cookie-consent/cookie-consent.js"></script><link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../../site_libs/quarto-html/quarto.js"></script><script src="../../site_libs/quarto-html/popper.min.js"></script><script src="../../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../../site_libs/quarto-html/anchor.min.js"></script><link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script><link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -90,13 +104,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MBB7RWKF8X"></script><script type="text/plain" cookie-consent="tracking">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MBB7RWKF8X"></script>
+
+<script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-MBB7RWKF8X', { 'anonymize_ip': true});
-</script><script type="text/javascript" charset="UTF-8">
+</script>
+
+<script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -111,15 +130,28 @@ cookieconsent.run({
 "language":"en"
   });
 });
-</script><script src="../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../../site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
-<script src="../../site_libs/leaflet-1.3.1/leaflet.js"></script><link href="../../site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
-<script src="../../site_libs/proj4-2.6.2/proj4.min.js"></script><script src="../../site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="../../site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="../../site_libs/leaflet-binding-2.2.1/leaflet.js"></script><link rel="stylesheet" href="../../styles.css">
+</script> 
+  
+<script src="../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../../site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="../../site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="../../site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="../../site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="../../site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="../../site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="../../site_libs/leaflet-binding-2.2.1/leaflet.js"></script>
+
+
+<link rel="stylesheet" href="../../styles.css">
 </head>
+
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Aurelien Callens</span>
@@ -131,16 +163,30 @@ cookieconsent.run({
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-<li class="nav-item"><div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://aureliencallens.github.io/fr/posts/2020-09-25-datascience-fishing-part2/index.html" id="language-link-fr">French</a></li></ul>
-</div></li>
-<li class="nav-item">
-    <a class="nav-link" href="../../blog.html"> 
-<span class="menu-text">My blog</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-globe" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-globe" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-globe">    
+        <li>
+    <a class="dropdown-item" href="../../../en/index.html">
+ <span class="dropdown-text">English</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../index.html">
+ <span class="dropdown-text">French</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.fr.html"> 
+<span class="menu-text">Mon blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../myprojects.html"> 
-<span class="menu-text">My projects</span></a>
+    <a class="nav-link" href="../../myprojects.fr.html"> 
+<span class="menu-text">Mes projets</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/AurelienCallens"> <i class="bi bi-github" role="img">
@@ -148,21 +194,17 @@ cookieconsent.run({
 <span class="menu-text"></span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <div class="quarto-title-block"><div>
-<h1 class="title">Can R and Shiny make me a better fisherman? Part 2</h1>
-<button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu">
-<li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li>
-<li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li>
-<li><hr class="dropdown-divider"></li>
-<li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li>
-</ul>
-</div></div>
+      <div class="quarto-title-block"><div><h1 class="title">Can R and Shiny make me a better fisherman? Part 2</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
             <p class="subtitle lead">Exploratory analysis on my fishing data</p>
                                 <div class="quarto-categories">
                 <div class="quarto-category">R</div>
@@ -196,25 +238,31 @@ cookieconsent.run({
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#importing-and-cleaning-my-fishing-data" id="toc-importing-and-cleaning-my-fishing-data" class="nav-link active" data-scroll-target="#importing-and-cleaning-my-fishing-data">Importing and cleaning my fishing data</a></li>
-  <li>
-<a href="#graphical-exploration" id="toc-graphical-exploration" class="nav-link" data-scroll-target="#graphical-exploration">Graphical exploration</a>
+  <li><a href="#importing-and-cleaning-my-fishing-data" id="toc-importing-and-cleaning-my-fishing-data" class="nav-link active" data-scroll-target="#importing-and-cleaning-my-fishing-data">Importing and cleaning my fishing data</a></li>
+  <li><a href="#graphical-exploration" id="toc-graphical-exploration" class="nav-link" data-scroll-target="#graphical-exploration">Graphical exploration</a>
   <ul class="collapse">
-<li><a href="#where-did-i-fish" id="toc-where-did-i-fish" class="nav-link" data-scroll-target="#where-did-i-fish">Where did I fish ?</a></li>
+  <li><a href="#where-did-i-fish" id="toc-where-did-i-fish" class="nav-link" data-scroll-target="#where-did-i-fish">Where did I fish ?</a></li>
   <li><a href="#when-it-is-best-to-fish" id="toc-when-it-is-best-to-fish" class="nav-link" data-scroll-target="#when-it-is-best-to-fish">When it is best to fish ?</a></li>
   <li><a href="#does-the-moon-affect-my-fishing-results" id="toc-does-the-moon-affect-my-fishing-results" class="nav-link" data-scroll-target="#does-the-moon-affect-my-fishing-results">Does the moon affect my fishing results?</a></li>
   <li><a href="#does-the-weather-affect-my-fishing-results" id="toc-does-the-weather-affect-my-fishing-results" class="nav-link" data-scroll-target="#does-the-weather-affect-my-fishing-results">Does the weather affect my fishing results?</a></li>
   <li><a href="#what-are-the-best-lures-to-catch-fish" id="toc-what-are-the-best-lures-to-catch-fish" class="nav-link" data-scroll-target="#what-are-the-best-lures-to-catch-fish">What are the best lures to catch fish ?</a></li>
-  </ul>
-</li>
+  </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  </ul></nav>
-</div>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content"><p>In the previous blog article, I described in details how I built a shiny application that stores data about my fishing sessions. In this post, I will explore the data I have collected during the last year.</p>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>In the previous blog article, I described in details how I built a shiny application that stores data about my fishing sessions. In this post, I will explore the data I have collected during the last year.</p>
 <p>To sum up, my application store the data in two csv files. The first one contains variables related to the fishing conditions at the beginning and at the end of the session such as :</p>
 <ul>
 <li>Time</li>
@@ -233,10 +281,13 @@ cookieconsent.run({
 <li>Color of the fishing lure</li>
 <li>Length of the lure</li>
 </ul>
-<section id="importing-and-cleaning-my-fishing-data" class="level2"><h2 class="anchored" data-anchor-id="importing-and-cleaning-my-fishing-data">Importing and cleaning my fishing data</h2>
+<section id="importing-and-cleaning-my-fishing-data" class="level2">
+<h2 class="anchored" data-anchor-id="importing-and-cleaning-my-fishing-data">Importing and cleaning my fishing data</h2>
 <p>The first step of this analysis is to import both csv files and make some transformations.</p>
 <div class="cell">
-<details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change character variables to factor</span></span>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change character variables to factor</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>session_data <span class="sc">%&lt;&gt;%</span> </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate_at</span>(<span class="fu">vars</span>(Weather, Tide_status), as.factor)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -245,10 +296,12 @@ cookieconsent.run({
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate_at</span>(<span class="fu">vars</span>(species, lure, colour, length_lure), as.factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p> </p>
+<p>&nbsp;</p>
 <p>After cleaning and rearranging the data (code hidden below), we are ready to explore graphically our data!</p>
 <div class="cell">
-<details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute mean conditions (between beg and end session) </span></span>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute mean conditions (between beg and end session) </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mean_weather_cond <span class="ot">&lt;-</span> session_data <span class="sc">%&gt;%</span> </span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(Session) <span class="sc">%&gt;%</span> </span>
@@ -308,11 +361,16 @@ cookieconsent.run({
 <span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>)}, <span class="at">USE.NAMES =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="graphical-exploration" class="level2"><h2 class="anchored" data-anchor-id="graphical-exploration">Graphical exploration</h2>
-<section id="where-did-i-fish" class="level3"><h3 class="anchored" data-anchor-id="where-did-i-fish">Where did I fish ?</h3>
+</section>
+<section id="graphical-exploration" class="level2">
+<h2 class="anchored" data-anchor-id="graphical-exploration">Graphical exploration</h2>
+<section id="where-did-i-fish" class="level3">
+<h3 class="anchored" data-anchor-id="where-did-i-fish">Where did I fish ?</h3>
 <p>We can visualize the locations I fished the most by using the <em>leaflet</em> package:</p>
 <div class="cell">
-<details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the number of fish caught by session </span></span>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the number of fish caught by session </span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>fish_number <span class="ot">&lt;-</span>  catch_cond  <span class="sc">%&gt;%</span> <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Session) <span class="sc">%&gt;%</span>  <span class="fu">summarise</span>(<span class="at">nb =</span> <span class="fu">length</span>(Session))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Dataframe with variables we want to show on the map</span></span>
@@ -332,17 +390,23 @@ cookieconsent.run({
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">addPopups</span>(<span class="at">lng =</span> <span class="sc">~</span>Long, <span class="at">lat =</span> <span class="sc">~</span>Lat, </span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(map_data, <span class="fu">sprintf</span>(<span class="st">"&lt;b&gt;Session %.0f : %.1f h&lt;/b&gt; &lt;br/&gt; %s &lt;br/&gt; %.0f  fish &lt;br/&gt; Water level: %.0f m, %s, %.0f min since last peak"</span>,                                         Session, duration,  Time_beg, nb, Water_level_beg, Tide_status_beg, Tide_time_beg)), </span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="at">options =</span> <span class="fu">popupOptions</span>(<span class="at">maxWidth =</span> <span class="dv">100</span>, <span class="at">minWidth =</span> <span class="dv">50</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+</details>
+<div class="cell-output-display">
 <div id="htmlwidget-12a4ef9bdc585990d0ef" style="width:100%;height:480px;" class="leaflet html-widget"></div>
 <script type="application/json" data-for="htmlwidget-12a4ef9bdc585990d0ef">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addPopups","args":[[43.4903501,43.4903501,43.4903501,43.4948349,43.4948349,43.4948349,43.4948349,43.4948349,43.4929536,43.4929536,43.4717306,43.4856133,43.4856133,43.4898314,43.4879548,43.4891374,43.4888454,43.4903375,43.4907003,43.4883211,43.4870525,43.4882129,43.4902466,43.4879819,43.4879819,43.489656,43.4667765,43.4854263,43.4888221,43.4884741,43.4854276,43.4854276,43.4854276,43.490646,43.490646,43.490646,43.4884784,43.4891888,43.4885291,43.4885291,43.4849954,43.4849954,43.4849954,43.4853693,43.4865331,43.4853571,43.4881548,43.4865984,43.4895741,43.4831239,43.4831239,43.4831239,43.4831239,43.4831239,43.4831239,43.4831239,43.484568,43.484568,43.484568,43.484568,43.484568,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4893757,43.4850086,43.4850086,43.4850086,43.488591,43.488659,43.4833471],[-1.474845,-1.474845,-1.474845,-1.4702738,-1.4702738,-1.4702738,-1.4702738,-1.4702738,-1.4727054,-1.4727054,-1.4726262,-1.4762295,-1.4762295,-1.4645089,-1.4741375,-1.4619148,-1.4750443,-1.4523802,-1.471115,-1.4737693,-1.4741375,-1.4648611,-1.4522513,-1.4720217,-1.4720217,-1.4784552,-1.4835086,-1.4752964,-1.4768579,-1.4752235,-1.4752846,-1.4752846,-1.4752846,-1.4753465,-1.4753465,-1.4753465,-1.4801831,-1.4717195,-1.4740189,-1.4740189,-1.5000672,-1.5000672,-1.5000672,-1.4762834,-1.4757226,-1.4762743,-1.4748271,-1.4754897,-1.4745318,-1.4726297,-1.4726297,-1.4726297,-1.4726297,-1.4726297,-1.4726297,-1.4726297,-1.4745762,-1.4745762,-1.4745762,-1.4745762,-1.4745762,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.474431,-1.4765871,-1.4765871,-1.4765871,-1.4750231,-1.4743773,-1.4702696],["<b>Session 1 : 0.9 h<\/b> <br/> 2019-04-09 19:23:09 <br/> 3  fish <br/> Water level: 4 m, Up, 340 min since last peak","<b>Session 1 : 0.9 h<\/b> <br/> 2019-04-09 19:23:09 <br/> 3  fish <br/> Water level: 4 m, Up, 340 min since last peak","<b>Session 1 : 0.9 h<\/b> <br/> 2019-04-09 19:23:09 <br/> 3  fish <br/> Water level: 4 m, Up, 340 min since last peak","<b>Session 2 : 2.1 h<\/b> <br/> 2019-04-10 18:23:40 <br/> 5  fish <br/> Water level: 3 m, Up, 240 min since last peak","<b>Session 2 : 2.1 h<\/b> <br/> 2019-04-10 18:23:40 <br/> 5  fish <br/> Water level: 3 m, Up, 240 min since last peak","<b>Session 2 : 2.1 h<\/b> <br/> 2019-04-10 18:23:40 <br/> 5  fish <br/> Water level: 3 m, Up, 240 min since last peak","<b>Session 2 : 2.1 h<\/b> <br/> 2019-04-10 18:23:40 <br/> 5  fish <br/> Water level: 3 m, Up, 240 min since last peak","<b>Session 2 : 2.1 h<\/b> <br/> 2019-04-10 18:23:40 <br/> 5  fish <br/> Water level: 3 m, Up, 240 min since last peak","<b>Session 3 : 2.3 h<\/b> <br/> 2019-04-17 20:45:27 <br/> 2  fish <br/> Water level: 1 m, Down, 305 min since last peak","<b>Session 3 : 2.3 h<\/b> <br/> 2019-04-17 20:45:27 <br/> 2  fish <br/> Water level: 1 m, Down, 305 min since last peak","<b>Session 4 : 0.8 h<\/b> <br/> 2019-04-21 17:58:26 <br/> 0  fish <br/> Water level: 4 m, Up, 320 min since last peak","<b>Session 5 : 2.0 h<\/b> <br/> 2019-04-22 18:18:23 <br/> 2  fish <br/> Water level: 4 m, Up, 305 min since last peak","<b>Session 5 : 2.0 h<\/b> <br/> 2019-04-22 18:18:23 <br/> 2  fish <br/> Water level: 4 m, Up, 305 min since last peak","<b>Session 6 : 1.0 h<\/b> <br/> 2019-04-26 18:30:25 <br/> 0  fish <br/> Water level: 2 m, Up, 110 min since last peak","<b>Session 7 : 0.6 h<\/b> <br/> 2019-05-06 18:38:02 <br/> 0  fish <br/> Water level: 4 m, Dead, 15 min since last peak","<b>Session 8 : 0.8 h<\/b> <br/> 2019-05-10 19:37:30 <br/> 0  fish <br/> Water level: 3 m, Up, 265 min since last peak","<b>Session 9 : 1.6 h<\/b> <br/> 2019-05-10 20:23:30 <br/> 1  fish <br/> Water level: 4 m, Up, 315 min since last peak","<b>Session 10 : 1.0 h<\/b> <br/> 2019-05-16 16:08:35 <br/> 0  fish <br/> Water level: 4 m, Dead, 30 min since last peak","<b>Session 11 : 0.9 h<\/b> <br/> 2019-05-21 19:18:50 <br/> 0  fish <br/> Water level: 4 m, Dead, 15 min since last peak","<b>Session 12 : 0.6 h<\/b> <br/> 2019-05-23 19:45:32 <br/> 0  fish <br/> Water level: 4 m, Up, 330 min since last peak","<b>Session 13 : 2.2 h<\/b> <br/> 2019-05-29 18:50:42 <br/> 1  fish <br/> Water level: 2 m, Down, 290 min since last peak","<b>Session 14 : 1.6 h<\/b> <br/> 2019-05-30 13:27:48 <br/> 0  fish <br/> Water level: 3 m, Up, 295 min since last peak","<b>Session 15 : 0.9 h<\/b> <br/> 2019-06-01 15:28:24 <br/> 0  fish <br/> Water level: 4 m, Up, 335 min since last peak","<b>Session 16 : 0.8 h<\/b> <br/> 2019-06-01 21:28:06 <br/> 2  fish <br/> Water level: 1 m, Down, 325 min since last peak","<b>Session 16 : 0.8 h<\/b> <br/> 2019-06-01 21:28:06 <br/> 2  fish <br/> Water level: 1 m, Down, 325 min since last peak","<b>Session 17 : 1.2 h<\/b> <br/> 2019-06-02 14:26:22 <br/> 0  fish <br/> Water level: 3 m, Up, 235 min since last peak","<b>Session 18 : 1.0 h<\/b> <br/> 2019-06-07 19:20:32 <br/> 0  fish <br/> Water level: 4 m, Up, 315 min since last peak","<b>Session 19 : 1.6 h<\/b> <br/> 2019-06-19 18:13:14 <br/> 0  fish <br/> Water level: 4 m, Up, 340 min since last peak","<b>Session 20 : 1.1 h<\/b> <br/> 2019-06-22 20:38:02 <br/> 0  fish <br/> Water level: 4 m, Dead, 370 min since last peak","<b>Session 21 : 0.8 h<\/b> <br/> 2019-06-26 20:13:34 <br/> 1  fish <br/> Water level: 2 m, Up, 115 min since last peak","<b>Session 22 : 0.2 h<\/b> <br/> 2019-06-27 20:05:43 <br/> 3  fish <br/> Water level: 2 m, Up, 45 min since last peak","<b>Session 22 : 0.2 h<\/b> <br/> 2019-06-27 20:05:43 <br/> 3  fish <br/> Water level: 2 m, Up, 45 min since last peak","<b>Session 22 : 0.2 h<\/b> <br/> 2019-06-27 20:05:43 <br/> 3  fish <br/> Water level: 2 m, Up, 45 min since last peak","<b>Session 23 : 3.3 h<\/b> <br/> 2019-06-28 18:55:31 <br/> 3  fish <br/> Water level: 2 m, Down, 295 min since last peak","<b>Session 23 : 3.3 h<\/b> <br/> 2019-06-28 18:55:31 <br/> 3  fish <br/> Water level: 2 m, Down, 295 min since last peak","<b>Session 23 : 3.3 h<\/b> <br/> 2019-06-28 18:55:31 <br/> 3  fish <br/> Water level: 2 m, Down, 295 min since last peak","<b>Session 24 : 1.4 h<\/b> <br/> 2019-07-13 19:06:20 <br/> 0  fish <br/> Water level: 2 m, Down, 250 min since last peak","<b>Session 25 : 0.2 h<\/b> <br/> 2019-08-13 21:35:09 <br/> 0  fish <br/> Water level: 1 m, Down, 310 min since last peak","<b>Session 26 : 1.3 h<\/b> <br/> 2020-05-20 20:47:38 <br/> 2  fish <br/> Water level: 2 m, Down, 270 min since last peak","<b>Session 26 : 1.3 h<\/b> <br/> 2020-05-20 20:47:38 <br/> 2  fish <br/> Water level: 2 m, Down, 270 min since last peak","<b>Session 27 : 0.0 h<\/b> <br/> 2020-05-22 22:51:04 <br/> 3  fish <br/> Water level: 1 m, Down, 325 min since last peak","<b>Session 27 : 0.0 h<\/b> <br/> 2020-05-22 22:51:04 <br/> 3  fish <br/> Water level: 1 m, Down, 325 min since last peak","<b>Session 27 : 0.0 h<\/b> <br/> 2020-05-22 22:51:04 <br/> 3  fish <br/> Water level: 1 m, Down, 325 min since last peak","<b>Session 28 : 1.4 h<\/b> <br/> 2020-05-25 20:44:09 <br/> 1  fish <br/> Water level: 4 m, Down, 110 min since last peak","<b>Session 29 : 1.2 h<\/b> <br/> 2020-05-26 21:22:28 <br/> 0  fish <br/> Water level: 4 m, Down, 95 min since last peak","<b>Session 30 : 1.3 h<\/b> <br/> 2020-06-01 20:55:54 <br/> 1  fish <br/> Water level: 2 m, Up, 70 min since last peak","<b>Session 31 : 2.3 h<\/b> <br/> 2020-06-08 19:56:35 <br/> 0  fish <br/> Water level: 4 m, Down, 40 min since last peak","<b>Session 32 : 2.0 h<\/b> <br/> 2020-06-15 20:30:55 <br/> 0  fish <br/> Water level: 2 m, Up, 50 min since last peak","<b>Session 33 : 1.1 h<\/b> <br/> 2020-06-30 20:59:48 <br/> 0  fish <br/> Water level: 2 m, Up, 105 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 34 : 2.5 h<\/b> <br/> 2020-07-16 21:58:40 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 35 : 2.6 h<\/b> <br/> 2020-07-17 21:51:40 <br/> 0  fish <br/> Water level: 2 m, Up, 20 min since last peak","<b>Session 35 : 2.6 h<\/b> <br/> 2020-07-17 21:51:40 <br/> 0  fish <br/> Water level: 2 m, Up, 20 min since last peak","<b>Session 35 : 2.6 h<\/b> <br/> 2020-07-17 21:51:40 <br/> 0  fish <br/> Water level: 2 m, Up, 20 min since last peak","<b>Session 35 : 2.6 h<\/b> <br/> 2020-07-17 21:51:40 <br/> 0  fish <br/> Water level: 2 m, Up, 20 min since last peak","<b>Session 35 : 2.6 h<\/b> <br/> 2020-07-17 21:51:40 <br/> 0  fish <br/> Water level: 2 m, Up, 20 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 36 : 1.5 h<\/b> <br/> 2020-07-18 23:25:07 <br/> 0  fish <br/> Water level: 2 m, Up, 80 min since last peak","<b>Session 37 : 1.6 h<\/b> <br/> 2020-09-04 20:50:17 <br/> 3  fish <br/> Water level: 3 m, Down, 125 min since last peak","<b>Session 37 : 1.6 h<\/b> <br/> 2020-09-04 20:50:17 <br/> 3  fish <br/> Water level: 3 m, Down, 125 min since last peak","<b>Session 37 : 1.6 h<\/b> <br/> 2020-09-04 20:50:17 <br/> 3  fish <br/> Water level: 3 m, Down, 125 min since last peak","<b>Session 38 : 0.6 h<\/b> <br/> 2020-09-13 21:33:41 <br/> 0  fish <br/> Water level: 2 m, Up, 50 min since last peak","<b>Session 39 : 0.2 h<\/b> <br/> 2020-09-23 19:35:26 <br/> 1  fish <br/> Water level: 3 m, Up, 230 min since last peak","<b>Session 40 : 0.6 h<\/b> <br/> 2020-10-09 21:17:36 <br/> 0  fish <br/> Water level: 3 m, Up, 315 min since last peak"],null,null,{"maxWidth":100,"minWidth":50,"autoPan":true,"keepInView":false,"closeButton":true,"className":""}]}],"limits":{"lat":[43.4667765,43.4948349],"lng":[-1.5000672,-1.4522513]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>As you see I fish mostly in the Nive river that is flowing through Bayonne city.</p>
-</section><section id="when-it-is-best-to-fish" class="level3"><h3 class="anchored" data-anchor-id="when-it-is-best-to-fish">When it is best to fish ?</h3>
-<section id="time-of-the-year" class="level4"><h4 class="anchored" data-anchor-id="time-of-the-year">Time of the year</h4>
+</section>
+<section id="when-it-is-best-to-fish" class="level3">
+<h3 class="anchored" data-anchor-id="when-it-is-best-to-fish">When it is best to fish ?</h3>
+<section id="time-of-the-year" class="level4">
+<h4 class="anchored" data-anchor-id="time-of-the-year">Time of the year</h4>
 <p>The following graph shows the number of fish caught depending on the time of the year :</p>
 <div class="cell">
-<details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>catch_cond <span class="sc">%&gt;%</span> </span>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>catch_cond <span class="sc">%&gt;%</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(Session, Time_beg, <span class="at">.drop =</span> F) <span class="sc">%&gt;%</span> </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">na.omit</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">n_catch =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
@@ -351,18 +415,24 @@ cookieconsent.run({
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> n_catch, <span class="at">x =</span>Time_beg)) <span class="sc">+</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>( <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Number of catch"</span>) <span class="sc">+</span> <span class="fu">scale_x_datetime</span>(<span class="at">date_labels =</span> <span class="st">"%d/%m/%y"</span>, <span class="at">date_breaks =</span> <span class="st">"3 months"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+</details>
+<div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>From this graph we see that I didn’t go fishing during the autumn and winter of 2019, I don’t have any data. Unfortunately for me, autumn is known to be a great period for sea bass fishing, I must go fishing this year to compensate the lack of data in this season. During winter, fishing is really complicated because the large majority of sea bass are returned to the ocean.</p>
-</section><section id="time-of-the-day" class="level4"><h4 class="anchored" data-anchor-id="time-of-the-day">Time of the day</h4>
+</section>
+<section id="time-of-the-day" class="level4">
+<h4 class="anchored" data-anchor-id="time-of-the-day">Time of the day</h4>
 <p>This graph shows the number of fish I catch depending on the hour of the day :</p>
 <div class="cell">
-<details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>catch_cond <span class="sc">%&gt;%</span> </span>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>catch_cond <span class="sc">%&gt;%</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(Session, Time_beg, <span class="at">.drop =</span> F) <span class="sc">%&gt;%</span> </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">na.omit</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">n_catch =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
@@ -372,18 +442,24 @@ cookieconsent.run({
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> n_catch, <span class="at">x =</span>hour)) <span class="sc">+</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>( <span class="at">size =</span> <span class="dv">2</span>)  <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Hour"</span>, <span class="at">y =</span> <span class="st">"Number of catch"</span>)<span class="sc">+</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+</details>
+<div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>I mostly fish after work or during evenings. To draw relevant conclusions about the influence of the fishing hour, I have to go fishing at different hours of the day (in the morning for example).</p>
-</section><section id="the-tide" class="level4"><h4 class="anchored" data-anchor-id="the-tide">The tide</h4>
+</section>
+<section id="the-tide" class="level4">
+<h4 class="anchored" data-anchor-id="the-tide">The tide</h4>
 <p>The tide is an important parameter for fishing in estuaries. Let’s see the effect of the tide current on my catches:</p>
 <div class="cell">
-<details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> catch_cond <span class="sc">%&gt;%</span> </span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Session, Tide_status_ses, <span class="at">.drop =</span> F)  <span class="sc">%&gt;%</span>  </span>
@@ -404,18 +480,25 @@ cookieconsent.run({
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"None"</span>)</span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(gg1, gg2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+</details>
+<div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>It seems that the status of the tide current does not influence the number of my catch but influences the length of the fish. I tend to catch bigger fish when the current is going down.</p>
-</section></section><section id="does-the-moon-affect-my-fishing-results" class="level3"><h3 class="anchored" data-anchor-id="does-the-moon-affect-my-fishing-results">Does the moon affect my fishing results?</h3>
+</section>
+</section>
+<section id="does-the-moon-affect-my-fishing-results" class="level3">
+<h3 class="anchored" data-anchor-id="does-the-moon-affect-my-fishing-results">Does the moon affect my fishing results?</h3>
 <p>A widespread belief among fishermen is that the moon influences greatly the behavior of the fish. Data about the moon phase were available thanks to the weather API, I decided to record this variable to investigate if the belief was true. The two graphs show the number and length of fish depending on the phase of moon (0 corresponding to new moon and 1 to full moon):</p>
 <div class="cell">
-<details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gg3 <span class="ot">&lt;-</span> catch_cond <span class="sc">%&gt;%</span> </span>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gg3 <span class="ot">&lt;-</span> catch_cond <span class="sc">%&gt;%</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Session, Moon, <span class="at">.drop =</span> F) <span class="sc">%&gt;%</span>  </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_catch =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
@@ -434,18 +517,24 @@ cookieconsent.run({
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(gg3, gg4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+</details>
+<div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The phase of the moon does not seem to influence the number of fish I catch during a session. However, I tend to catch bigger fish the closer we are to the full moon. To confirm this observation, I need to keep going fishing to get more data !</p>
-</section><section id="does-the-weather-affect-my-fishing-results" class="level3"><h3 class="anchored" data-anchor-id="does-the-weather-affect-my-fishing-results">Does the weather affect my fishing results?</h3>
+</section>
+<section id="does-the-weather-affect-my-fishing-results" class="level3">
+<h3 class="anchored" data-anchor-id="does-the-weather-affect-my-fishing-results">Does the weather affect my fishing results?</h3>
 <p>We can look at the number of fish caught during different weather conditions:</p>
 <div class="cell">
-<details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># precipitation probability </span></span>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># precipitation probability </span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>gg5 <span class="ot">&lt;-</span> catch_cond <span class="sc">%&gt;%</span> </span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Session, Preci_prob, <span class="at">.drop =</span> F) <span class="sc">%&gt;%</span>  </span>
@@ -499,16 +588,20 @@ cookieconsent.run({
 <span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
 <span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(gg5, gg6, gg7, gg8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+</details>
+<div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>And to their length :</p>
 <div class="cell">
-<details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gg15 <span class="ot">&lt;-</span> catch_cond <span class="sc">%&gt;%</span> </span>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gg15 <span class="ot">&lt;-</span> catch_cond <span class="sc">%&gt;%</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> length, <span class="at">x =</span> Preci_prob)) <span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>( <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">y =</span> <span class="st">"Length of the fish"</span>)<span class="sc">+</span></span>
@@ -534,18 +627,24 @@ cookieconsent.run({
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
 <span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(gg15, gg16, gg17, gg18)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+</details>
+<div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Because we have limited data and not all weather conditions are covered, it is difficult to draw any conclusions.</p>
-</section><section id="what-are-the-best-lures-to-catch-fish" class="level3"><h3 class="anchored" data-anchor-id="what-are-the-best-lures-to-catch-fish">What are the best lures to catch fish ?</h3>
+</section>
+<section id="what-are-the-best-lures-to-catch-fish" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-the-best-lures-to-catch-fish">What are the best lures to catch fish ?</h3>
 <p>Each time I catch a fish, I fill a form with my shiny application in order to record the characteristics of the lure used. There are different types of lures that have specific swimming patterns, different colors and size. We can represent the number of fish caught depending on the lure characteristics:</p>
 <div class="cell">
-<details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(catch_cond<span class="sc">$</span>colour) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"clear"</span>, <span class="st">"natural"</span>, <span class="st">"dark"</span>)</span>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(catch_cond<span class="sc">$</span>colour) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"clear"</span>, <span class="st">"natural"</span>, <span class="st">"dark"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(catch_cond<span class="sc">$</span>length_lure) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"large"</span>, <span class="st">"medium"</span>, <span class="st">"small"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>gg9 <span class="ot">&lt;-</span> catch_cond <span class="sc">%&gt;%</span> </span>
@@ -576,16 +675,20 @@ cookieconsent.run({
 <span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="fu">annotate_figure</span>(<span class="fu">ggarrange</span>(gg9, gg10, gg11, <span class="at">ncol =</span> <span class="dv">3</span>),</span>
 <span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>                <span class="at">left =</span> <span class="fu">text_grob</span>(<span class="st">"Number of catch"</span>, <span class="at">rot =</span> <span class="dv">90</span>)</span>
 <span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+</details>
+<div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>We can do the same for the length of fish caught:</p>
 <div class="cell">
-<details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gg12 <span class="ot">&lt;-</span>catch_cond <span class="sc">%&gt;%</span> </span>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gg12 <span class="ot">&lt;-</span>catch_cond <span class="sc">%&gt;%</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> length, <span class="at">x =</span> lure, <span class="at">fill=</span>lure)) <span class="sc">+</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
@@ -611,22 +714,30 @@ cookieconsent.run({
 <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="fu">annotate_figure</span>(<span class="fu">ggarrange</span>(gg12, gg13, gg14, <span class="at">ncol =</span> <span class="dv">3</span>),</span>
 <span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">left =</span> <span class="fu">text_grob</span>(<span class="st">"Length of fish"</span>, <span class="at">rot =</span> <span class="dv">90</span>)</span>
 <span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+</details>
+<div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>With these 6 graphs, we can see that the most successful types of lures for me are the shad and slug types. An honorable mention is the jerkbait type: it only accounts for 2 fish, but 2 big fish (median around 47cm). The colors that worked best for me were clear and natural. For the size of the lure, bigger lures tend to catch bigger fish in average. These conclusions must be taken with a grain of salt because we do not know the time spent with each lure before catching a fish. In addition, I tend to use the same types and colors of lures (habits), I should vary more.</p>
-</section></section><section id="conclusion" class="level2"><h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>Analyzing my fishing data was very interesting and it brought me some insights on my fishing style! I understood that I was fishing almost the same way with the same habits. Although it seems to be working for me, I have a biased view on how to catch European sea bass. I must use bigger lures to catch bigger fish and I must vary the types of lures used. Indeed, I fish most of the times with slug or shad lures, hence the higher number of fish caught with these types of lures.</p>
 <p>I will keep using the application to gather more data and have a better understanding on my fishing session. I will keep you updated on the results ! :wink:</p>
 
 
 <!-- -->
 
-</section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1063,12 +1174,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content">
-<div class="modal-header">
-<h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5>
-<button class="btn-close" data-bs-dismiss="modal"></button>
-</div>
-<div class="modal-body"><div class="">
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Can R and Shiny make me a better fisherman? Part 2"</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Exploratory analysis on my fishing data"</span></span>
@@ -1516,25 +1622,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-465"><a href="#cb12-465" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-466"><a href="#cb12-466" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div>
-</div></div></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
-       
+      &nbsp;
     </div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
-<li class="nav-item">
+    <li class="nav-item">
  Aurélien Callens • © 2025
   </li>  
 </ul>
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
-</div>
+    <div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
-       
+      &nbsp;
     </div>
   </div>
 </footer>
-</body>
-</html>
+
+
+
+
+</body></html>
